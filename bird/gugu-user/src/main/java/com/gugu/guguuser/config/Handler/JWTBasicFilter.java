@@ -49,7 +49,7 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
             Claims claims = Jwts.parser().setSigningKey("MyJwtSecret")
                     .parseClaimsJws(token).getBody();
             //校验是否过期
-            if(System.currentTimeMillis()>Long.parseLong((String)claims.get("time")))
+            if(System.currentTimeMillis()>Long.parseLong((String)claims.get("exp")))
                 return null;
             Map<String,Object> objectMap= (Map<String, Object>) claims.get("role");
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());

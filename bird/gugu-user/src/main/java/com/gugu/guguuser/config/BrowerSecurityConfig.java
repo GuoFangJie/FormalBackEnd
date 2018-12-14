@@ -27,7 +27,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                //.loginPage("/toLoginPage")
-               // .loginProcessingUrl("/security/login")
+                .loginProcessingUrl("/user/login")
                 .successHandler(successHandler).failureHandler(failureHandler)
                 //.loginPage("http://localhost:8080/user/login")
                 .and()
@@ -37,7 +37,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                // .antMatchers("/test/nice").hasRole("Teacher")
-                .antMatchers("/student/**").hasRole("Teacher")
+               // .antMatchers("/student/**").hasRole("Teacher")
                 .antMatchers("/**/**","/user/{account}/login","/toLoginPage").permitAll()
                 .anyRequest()
                 .authenticated()
