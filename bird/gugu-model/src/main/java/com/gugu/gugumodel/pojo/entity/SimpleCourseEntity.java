@@ -1,5 +1,9 @@
 package com.gugu.gugumodel.pojo.entity;
 
+/**
+ * 用于根据用户id获取相关课程基本信息
+ * @author ren
+ */
 public class SimpleCourseEntity {
     Integer id;
     Integer teacher_id;

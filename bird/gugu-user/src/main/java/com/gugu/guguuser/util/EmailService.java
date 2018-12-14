@@ -1,4 +1,4 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguuser.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

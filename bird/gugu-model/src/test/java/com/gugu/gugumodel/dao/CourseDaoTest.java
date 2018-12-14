@@ -1,6 +1,5 @@
-package com.gugu.gugumodel.Mapper;
+package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.mapper.CourseMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CourseMapperTest {
+public class CourseDaoTest {
     @Autowired
-    CourseMapper courseMapper;
+    CourseDaoImpl courseDao;
     @Test
-    public void findSimpleCourseEntityByStudenIdTest(){
-        courseMapper.findSimpleCourseEntityByStudenId(123);
+    public void getCourse(){
+        courseDao.findSimpleCourseEntityByStudentId(1L);
     }
 }

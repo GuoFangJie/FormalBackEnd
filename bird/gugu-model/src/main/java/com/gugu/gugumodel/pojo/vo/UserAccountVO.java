@@ -5,13 +5,13 @@ package com.gugu.gugumodel.pojo.vo;
  * 用来接收找回密码时用户输入的教工号或学号
  */
 public class UserAccountVO {
-    String userAccount;
+    Long userAccount;
 
-    public String getUserAccount() {
-        return userAccount;
+    public void setUserAccount(Long userAccount) {
+        this.userAccount = userAccount;
     }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+    public Long getUserAccount() {
+        return userAccount;
     }
 }
