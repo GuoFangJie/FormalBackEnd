@@ -2,10 +2,12 @@ package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ljy
@@ -14,5 +16,7 @@ import java.util.ArrayList;
 @Repository
 public interface StudentMapper {
 
-     public void deleteStudentById(long id);
+     void deleteStudentById(long id);
+
+     List<StudentBasicInforVO> studentInfor();
 }
