@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 /**
  * 用于储存比较完善的课程信息
- *目前用于新建课程
+ * 目前用于新建课程
  * @author ren
  */
 public class CourseEntity {

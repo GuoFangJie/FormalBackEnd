@@ -1,8 +1,7 @@
 package com.gugu.guguadmin.controller;
 
+import com.gugu.guguadmin.service.AdminService;
 import com.gugu.gugumodel.pojo.entity.AdminEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
-import com.gugu.guguadmin.service.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 @RequestMapping("admin")
 public class AdminController {
     @Autowired
-    AdminServiceImpl adminService;
+    AdminService adminService;
 
     /**
      * 管理员登录
