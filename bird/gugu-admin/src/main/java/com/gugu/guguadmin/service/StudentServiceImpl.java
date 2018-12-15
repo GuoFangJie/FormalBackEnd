@@ -1,7 +1,6 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.dao.StudentDao;
-import com.gugu.gugumodel.dao.TeacherDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
