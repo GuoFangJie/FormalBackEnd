@@ -1,17 +1,12 @@
-package com.gugu.guguadmin.service;
+package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.pojo.entity.AdminEntity;
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 /**
  * @author TYJ
  */
-@Component
-public interface AdminService {
+public interface AdminDao {
 
     /**
      * 管理员登录
@@ -19,5 +14,4 @@ public interface AdminService {
      * @return AdminEntity
      */
     AdminEntity adminLogin(AdminEntity adminEntity);
-
 }
