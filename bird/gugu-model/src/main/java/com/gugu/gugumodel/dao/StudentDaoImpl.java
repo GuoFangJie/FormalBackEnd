@@ -1,20 +1,14 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.StudentMapper;
-<<<<<<< HEAD
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
-=======
-import com.gugu.gugumodel.mapper.TeacherMapper;
 import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
->>>>>>> master
+
 
 /**
  * @author ljy
@@ -30,14 +24,12 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-<<<<<<< HEAD
     public ArrayList<StudentEntity> searchStudent(String identity){
         return studentMapper.searchStudent(identity);
     }
 
-=======
+    @Override
     public List<StudentBasicInforVO> studentInfor(){
        return studentMapper.studentInfor();
     }
->>>>>>> master
 }

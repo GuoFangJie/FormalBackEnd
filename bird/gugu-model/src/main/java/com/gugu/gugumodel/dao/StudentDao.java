@@ -1,7 +1,9 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,4 +24,6 @@ public interface StudentDao {
      * @return
      */
     List<StudentBasicInforVO> studentInfor();
+
+    ArrayList<StudentEntity> searchStudent(String identity);
 }
