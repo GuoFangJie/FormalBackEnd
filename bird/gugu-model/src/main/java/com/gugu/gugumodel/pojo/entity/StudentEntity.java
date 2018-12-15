@@ -4,12 +4,22 @@ package com.gugu.gugumodel.pojo.entity;
  * 储存学生信息的entity，感觉老师和学生的表一样
  * 不存放账号密码
  * @author ren
+ * @
  */
 public class StudentEntity {
     Long id;
+    String account;
     Integer is_active;
     String student_name;
     String email;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public Long getId() {
         return id;

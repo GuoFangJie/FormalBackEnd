@@ -1,5 +1,9 @@
 package com.gugu.guguadmin.service;
 
+import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
+
+import java.util.List;
+
 /**
  * @author ljy
  */
@@ -12,4 +16,10 @@ public interface StudentService {
      */
     public void deleteStudentById(long id);
 
+    /**
+     * 管理员获取所有学生信息并展示
+     * @param
+     * @return
+     */
+    List<StudentBasicInforVO> studentInfor();
 }

@@ -1,8 +1,8 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ljy
@@ -17,10 +17,9 @@ public interface StudentDao {
     void deleteStudentById(long id);
 
     /**
-     * 管理员根据学生或姓名查找学生账号
-     * @param identity
-     * @return ArrayList<StudentEntity>
+     * 管理员获取所有学生账号信息
+     * @param
+     * @return
      */
-    ArrayList<StudentEntity> searchStudent(String identity);
-
+    List<StudentBasicInforVO> studentInfor();
 }
