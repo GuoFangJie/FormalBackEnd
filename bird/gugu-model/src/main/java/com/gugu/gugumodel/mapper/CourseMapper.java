@@ -17,4 +17,7 @@ public interface CourseMapper {
 
      Long newCourse(CourseEntity courseEntity);
 
+     CourseEntity getCourseById(Long id);
+
+     void deleteCourseById(Long id);
 }

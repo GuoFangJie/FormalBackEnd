@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.gugu.gugumodel.mapper.TeamMapper">
+    <select id="findTeamById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.TeamEntity">
+        select id,klass_id,course_id,leader_id,team_name,team_name,team_serial,
+               status from team where id=#{arg0}
+    </select>
+</mapper>

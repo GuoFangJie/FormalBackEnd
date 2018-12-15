@@ -4,18 +4,27 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.CourseMapper">
     <select id="findSimpleCourseEntityByStudenId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.SimpleCourseEntity">
-        select course.id,course.teacher_id,course.course_name,
-               course.introduction from course,klass_student_table
-        where klass_student_table.student_id=#{arg0} and klass_student_table.course_id=course.id
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction from course,klass_student
+        where klass_student.student_id=#{arg0} and klass_student.course_id=course.id
     </select>
 
     <insert id="newCourse" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.CourseEntity">
         insert course(id,teacher_id,course_name,introduction,presentation_percentage,
         question_percentage,report_percentage,team_start_time,team_end_time)
-        values (#{id},#{teacher_id},#{course_name},#{introduction},#{presentation_percentage},
-        #{question_percentage},#{report_percentage},#{team_start_time},#{team_end_time})
+        values (#{id},#{teacherId},#{coursenName},#{introduction},#{presentationPercentage},
+        #{questionPercentage},#{reportPercentage},#{teamStartTime},#{teamEndTime})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             select  last_insert_id()
         </selectKey>
     </insert>
+
+    <select id="getCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.CourseEntity">
+        select id id,teacher_id teacherId,course_name courseName,introduction introduction,presentation_percentage presentationPercentage,question_percentage questionPercentage,report_percentage reportPercentage,
+               team_start_time teamStartTime,team_end_time teamEndTime from course where id=#{arg0}
+    </select>
+    
+    <delete id="deleteCourseById" parameterType="java.lang.Long">
+        delete from course where id=#{arg0}
+    </delete>
 </mapper>

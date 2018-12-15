@@ -23,4 +23,13 @@ public class CourseMapperTest {
         System.out.println(courseMapper.newCourse(courseEntity));
         System.out.println(courseEntity.getId());
     }
+    @Test
+    public void getCourseByIdTest(){
+        System.out.println(courseMapper.getCourseById(1L).getCourseName());
+    }
+
+    @Test
+    public void deleteCourseByIdTest(){
+        courseMapper.deleteCourseById(18L);
+    }
 }
