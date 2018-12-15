@@ -7,13 +7,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CourseServiceTest {
-//    @Autowired
-//    CourseServiceImpl courseService;
+    @Autowired
+    CourseServiceImpl courseServiceImpl;
     @Autowired
     CourseDaoImpl courseDaoImpl;
 
@@ -25,5 +26,9 @@ public class CourseServiceTest {
     public void newCourseTest(){
         CourseEntity courseEntity=new CourseEntity();
         System.out.println(courseDaoImpl.newCourse(courseEntity));
+    }
+    @Test
+    public void getCourseById(){
+        courseServiceImpl.getCourseById(18L);
     }
 }

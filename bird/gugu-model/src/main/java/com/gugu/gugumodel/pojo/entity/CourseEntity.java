@@ -1,5 +1,7 @@
 package com.gugu.gugumodel.pojo.entity;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.sql.Timestamp;
 
 /**
@@ -9,14 +11,14 @@ import java.sql.Timestamp;
  */
 public class CourseEntity {
     Long id;
-    Long teacher_id;
-    String course_name;
+    Long teacherId;
+    String courseName;
     String introduction;
-    int presentation_percentage;
-    int question_percentage;
-    int report_percentage;
-    Timestamp  team_start_time;
-    Timestamp team_end_time;
+    int presentationPercentage;
+    int questionPercentage;
+    int reportPercentage;
+    Timestamp  teamStartTime;
+    Timestamp teamEndTime;
 
     public Long getId() {
         return id;
@@ -26,20 +28,20 @@ public class CourseEntity {
         this.id = id;
     }
 
-    public Long getTeacher_id() {
-        return teacher_id;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher_id(Long teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getIntroduction() {
@@ -50,43 +52,43 @@ public class CourseEntity {
         this.introduction = introduction;
     }
 
-    public int getPresentation_percentage() {
-        return presentation_percentage;
+    public int getPresentationPercentage() {
+        return presentationPercentage;
     }
 
-    public void setPresentation_percentage(int presentation_percentage) {
-        this.presentation_percentage = presentation_percentage;
+    public void setPresentationPercentage(int presentationPercentage) {
+        this.presentationPercentage = presentationPercentage;
     }
 
-    public int getQuestion_percentage() {
-        return question_percentage;
+    public int getQuestionPercentage() {
+        return questionPercentage;
     }
 
-    public void setQuestion_percentage(int question_percentage) {
-        this.question_percentage = question_percentage;
+    public void setQuestionPercentage(int questionPercentage) {
+        this.questionPercentage = questionPercentage;
     }
 
-    public int getReport_percentage() {
-        return report_percentage;
+    public int getReportPercentage() {
+        return reportPercentage;
     }
 
-    public void setReport_percentage(int report_percentage) {
-        this.report_percentage = report_percentage;
+    public void setReportPercentage(int reportPercentage) {
+        this.reportPercentage = reportPercentage;
     }
 
-    public Timestamp getTeam_start_time() {
-        return team_start_time;
+    public Timestamp getTeamStartTime() {
+        return teamStartTime;
     }
 
-    public void setTeam_start_time(Timestamp team_start_time) {
-        this.team_start_time = team_start_time;
+    public void setTeamStartTime(Timestamp teamStartTime) {
+        this.teamStartTime = teamStartTime;
     }
 
-    public Timestamp getTeam_end_time() {
-        return team_end_time;
+    public Timestamp getTeamEndTime() {
+        return teamEndTime;
     }
 
-    public void setTeam_end_time(Timestamp team_end_time) {
-        this.team_end_time = team_end_time;
+    public void setTeamEndTime(Timestamp teamEndTime) {
+        this.teamEndTime = teamEndTime;
     }
 }

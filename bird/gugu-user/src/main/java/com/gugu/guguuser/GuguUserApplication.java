@@ -6,8 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 
-@SpringBootApplication(scanBasePackages = {"com.gugu.gugumodel","com.gugu.guguuser"})
-@ComponentScan("com.gugu.gugumodel")
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.gugu.gugumodel",
+        "com.gugu.guguuser"})
 public class GuguUserApplication {
 
     public static void main(String[] args) {

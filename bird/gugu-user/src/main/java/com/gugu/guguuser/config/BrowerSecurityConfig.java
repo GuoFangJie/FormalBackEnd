@@ -56,6 +56,8 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(authUserService)
 //                .passwordEncoder(new MyPasswordEncoder());
+
+
         auth.authenticationProvider(myAuthenticationProvider());
     }
 
