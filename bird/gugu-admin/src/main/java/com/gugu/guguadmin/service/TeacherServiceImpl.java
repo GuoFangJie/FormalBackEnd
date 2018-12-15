@@ -1,4 +1,4 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.dao.TeacherDao;
 import org.springframework.beans.factory.annotation.Autowired;

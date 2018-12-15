@@ -1,4 +1,4 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguadmin.service;
 
 /**
  * @author ljy

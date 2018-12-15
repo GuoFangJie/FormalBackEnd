@@ -1,4 +1,4 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
