@@ -74,4 +74,6 @@ public class CourseController {
         Long student_id=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
         return courseService.getTeamAllScore(student_id,courseId);
     }
+
+    @GetMapping("/{courseId}")
 }

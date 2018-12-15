@@ -1,5 +1,9 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
+
+import java.util.ArrayList;
+
 /**
  * @author ljy
  */
@@ -12,4 +16,7 @@ public interface StudentDao {
      */
     public void deleteStudentById(long id);
 
+    ArrayList<StudentEntity> getMembersExceptLeader(Long teamId);
+
+    StudentEntity getLeader(Long teamId);
 }

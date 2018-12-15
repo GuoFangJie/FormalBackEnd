@@ -3,8 +3,17 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeamMapper">
-    <select id="findTeamById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.TeamEntity">
-        select id,klass_id,course_id,leader_id,team_name,team_name,team_serial,
+    <resultMap id="TeamEntity" type="com.gugu.gugumodel.pojo.entity.TeamEntity">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="klass_id" jdbcType="BIGINT" property="klassId"/>
+        <result column="course_id" jdbcType="BIGINT" property="courseId"/>
+        <result column="leader_id" jdbcType="BIGINT" property="leaderId"/>
+        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="team_serial" jdbcType="TINYINT" property="teamSerial"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
+    <select id="findTeamById" parameterType="java.lang.Long" resultMap="TeamEntity">
+        select id,klass_id,course_id,leader_id,team_name,team_serial,
                status from team where id=#{arg0}
     </select>
 </mapper>

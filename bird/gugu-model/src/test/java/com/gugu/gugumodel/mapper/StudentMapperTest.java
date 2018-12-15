@@ -6,13 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * @author ren
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TeamMapperTest {
+public class StudentMapperTest {
     @Autowired
-    TeamMapper teamMapper;
+    StudentMapper studentMapper;
     @Test
-    public void getTeamById(){
-        System.out.println(teamMapper.findTeamById(1L).getTeamName());
+    public void getMembers(){
+        System.out.println(studentMapper.getMembers(1L).size());
+    }
+
+    @Test
+    public void getLeader(){
+        System.out.println(studentMapper.getLeader(1L).getStudentName());
     }
 }

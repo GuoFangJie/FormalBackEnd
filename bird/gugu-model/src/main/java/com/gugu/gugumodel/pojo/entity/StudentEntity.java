@@ -7,8 +7,8 @@ package com.gugu.gugumodel.pojo.entity;
  */
 public class StudentEntity {
     Long id;
-    Integer is_active;
-    String student_name;
+    Byte isActive;
+    String studentName;
     String email;
 
     public Long getId() {
@@ -19,20 +19,20 @@ public class StudentEntity {
         this.id = id;
     }
 
-    public Integer getIs_active() {
-        return is_active;
+    public Byte getIsActive() {
+        return isActive;
     }
 
-    public void setIs_active(Integer is_active) {
-        this.is_active = is_active;
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
     }
 
-    public String getStudent_name() {
-        return student_name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setStudent_name(String student_name) {
-        this.student_name = student_name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public String getEmail() {

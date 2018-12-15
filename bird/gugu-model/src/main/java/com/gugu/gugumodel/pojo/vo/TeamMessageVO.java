@@ -16,9 +16,9 @@ public class TeamMessageVO {
     StudentEntity leader;
     ArrayList<StudentEntity> members;
     public TeamMessageVO(TeamEntity teamEntity,StudentEntity leader,ArrayList<StudentEntity> members){
-        team_name=teamEntity.getTeam_name();
-        course_id=teamEntity.getCourse_id();
-        klass_id=teamEntity.getKlass_id();
+        team_name=teamEntity.getTeamName();
+        course_id=teamEntity.getCourseId();
+        klass_id=teamEntity.getKlassId();
         this.leader=leader;
         this.members=members;
     }

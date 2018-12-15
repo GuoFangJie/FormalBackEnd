@@ -5,58 +5,58 @@ package com.gugu.gugumodel.pojo.entity;
  * @author ren
  */
 public class SeminarScoreEntity {
-    Long klass_seminar_id;
-    Long team_id;
-    float total_score;
-    float presentation_score;
-    float question_score;
-    float report_score;
+    Long klassSeminarId;
+    Long teamId;
+    float totalScore;
+    float presentationScore;
+    float questionScore;
+    float reportScore;
 
-    public Long getKlass_seminar_id() {
-        return klass_seminar_id;
+    public Long getKlassSeminarId() {
+        return klassSeminarId;
     }
 
-    public void setKlass_seminar_id(Long klass_seminar_id) {
-        this.klass_seminar_id = klass_seminar_id;
+    public void setKlassSeminarId(Long klassSeminarId) {
+        this.klassSeminarId = klassSeminarId;
     }
 
-    public Long getTeam_id() {
-        return team_id;
+    public Long getTeamId() {
+        return teamId;
     }
 
-    public void setTeam_id(Long team_id) {
-        this.team_id = team_id;
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
-    public float getTotal_score() {
-        return total_score;
+    public float getTotalScore() {
+        return totalScore;
     }
 
-    public void setTotal_score(float total_score) {
-        this.total_score = total_score;
+    public void setTotalScore(float totalScore) {
+        this.totalScore = totalScore;
     }
 
-    public float getPresentation_score() {
-        return presentation_score;
+    public float getPresentationScore() {
+        return presentationScore;
     }
 
-    public void setPresentation_score(float presentation_score) {
-        this.presentation_score = presentation_score;
+    public void setPresentationScore(float presentationScore) {
+        this.presentationScore = presentationScore;
     }
 
-    public float getQuestion_score() {
-        return question_score;
+    public float getQuestionScore() {
+        return questionScore;
     }
 
-    public void setQuestion_score(float question_score) {
-        this.question_score = question_score;
+    public void setQuestionScore(float questionScore) {
+        this.questionScore = questionScore;
     }
 
-    public float getReport_score() {
-        return report_score;
+    public float getReportScore() {
+        return reportScore;
     }
 
-    public void setReport_score(float report_score) {
-        this.report_score = report_score;
+    public void setReportScore(float reportScore) {
+        this.reportScore = reportScore;
     }
 }

@@ -6,8 +6,8 @@ package com.gugu.gugumodel.pojo.entity;
  */
 public class SimpleCourseEntity {
     Integer id;
-    Integer teacher_id;
-    String course_name;
+    Integer teacherId;
+    String courseName;
     String introduction;
 
     public Integer getId() {
@@ -18,20 +18,20 @@ public class SimpleCourseEntity {
         this.id = id;
     }
 
-    public Integer getTeacher_id() {
-        return teacher_id;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher_id(Integer teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getIntroduction() {

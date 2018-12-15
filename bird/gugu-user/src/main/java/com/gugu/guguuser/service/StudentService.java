@@ -1,5 +1,9 @@
 package com.gugu.guguuser.service;
 
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
+
+import java.util.ArrayList;
+
 /**
  * @author ljy
  */
@@ -11,5 +15,9 @@ public interface StudentService {
      * @return
      */
     public void deleteStudentById(long id);
+
+    ArrayList<StudentEntity> getMembers(Long teamId);
+
+    StudentEntity getLeader(Long teamId);
 
 }
