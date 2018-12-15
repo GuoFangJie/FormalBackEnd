@@ -10,6 +10,12 @@ public interface StudentDao {
      * @param id
      * @return
      */
-    public void deleteStudentById(long id);
+    void deleteStudentById(long id);
+
+    /**
+     * 管理员根据学生或姓名查找学生账号
+     * @param identity
+     * @return
+     */
 
 }
