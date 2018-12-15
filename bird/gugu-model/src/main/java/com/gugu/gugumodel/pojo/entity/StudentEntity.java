@@ -1,5 +1,7 @@
 package com.gugu.gugumodel.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 储存学生信息的entity，感觉老师和学生的表一样
  * 不存放账号密码
@@ -9,7 +11,26 @@ public class StudentEntity {
     Long id;
     Byte isActive;
     String studentName;
+    String account;
     String email;
+    @JsonIgnore
+    String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public Long getId() {
         return id;

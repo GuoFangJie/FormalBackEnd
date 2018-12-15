@@ -8,12 +8,31 @@
     </delete>
 
     <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
-        select student.id id,student.is_active isActive,student.student_name studentName,student.email email
+        select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
+               student.password password
         from student,klass_student where klass_student.team_id=#{arg0} and klass_student.student_id=student.id
     </select>
 
     <select id="getLeader" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
-        select student.id id,student.is_active isActive,student.student_name studentName,student.email email
+        select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
+               student.password password
         from student,team where team.id=#{arg0} and student.id=team.leader_id
+    </select>
+    
+    <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
+               student.password password
+        from student,klass_student where klass_student.team_id is null
+        and klass_student.student_id=student.id and klass_student.course_id=#{arg0}
+    </select>
+
+    <select id="getStudentById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
+               student.password password
+        from student where student.id=#{arg0}
+    </select>
+
+    <select id="searchStudent">
+
     </select>
 </mapper>

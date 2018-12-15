@@ -1,8 +1,6 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,4 +18,8 @@ public interface CourseService {
     void deleteCourseById(Long id) throws Exception;
 
     ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id,Long course_id);
+
+    TeamEntity getTeamById(Long studentId, Long courseId);
+
+    ArrayList<KlassEntity> getKlassByCourseId(Long courseId);
 }

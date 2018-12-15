@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.gugu.gugumodel",
-        "com.gugu.guguuser"})
+@ComponentScan(basePackages = {"com.gugu.gugumodel", "com.gugu.guguuser"})
 public class GuguUserApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(GuguUserApplication.class, args);
     }

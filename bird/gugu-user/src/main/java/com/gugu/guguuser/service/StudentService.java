@@ -9,15 +9,11 @@ import java.util.ArrayList;
  */
 public interface StudentService {
 
-    /**
-     * 管理员根据学生ID删除学生账号
-     * @param id
-     * @return
-     */
-    public void deleteStudentById(long id);
 
-    ArrayList<StudentEntity> getMembers(Long teamId);
+    ArrayList<StudentEntity> getMembers(Long courseId,Long studentId);
 
-    StudentEntity getLeader(Long teamId);
+    StudentEntity getLeader(Long courseId,Long studentId);
+
+    ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId);
 
 }

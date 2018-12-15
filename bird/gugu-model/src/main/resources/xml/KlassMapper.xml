@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.gugu.gugumodel.mapper.KlassMapper">
+    <select id="getKlassByCourseId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.KlassEntity">
+        select id id,course_id courseId,grade grade,
+               klass_serial klassSerial,klass_time klassTime,klass_location klassLocation
+         from klass where course_id=#{arg0}
+    </select>
+    <insert id="newKlass" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.KlassEntity">
+        insert klass(course_id,grade,klass_serial,klass_time,klass_location)
+        values (#{courseId},#{grade},#{klassSerial},#{klassTime},#{klassLocation})
+    </insert>
+</mapper>

@@ -1,11 +1,7 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.CourseDaoImpl;
-import com.gugu.gugumodel.dao.KlassStudentDaoImpl;
-import com.gugu.gugumodel.dao.SeminarScoreDaoImpl;
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.dao.*;
+import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -18,6 +14,10 @@ public class CourseServiceImpl implements CourseService {
     KlassStudentDaoImpl klassStudentDao;
     @Autowired
     SeminarScoreDaoImpl seminarScoreDao;
+    @Autowired
+    TeamDaoImpl teamDao;
+    @Autowired
+    KlassDaoImpl klassDao;
     @Override
     public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
         return courseDao.findSimpleCourseEntityByStudentId(studentId);
@@ -42,5 +42,15 @@ public class CourseServiceImpl implements CourseService {
     public ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id,Long course_id) {
         Long team_id=klassStudentDao.getTeamId(student_id,course_id);
         return seminarScoreDao.getTeamAllScore(team_id);
+    }
+    @Override
+    public TeamEntity getTeamById(Long studentId, Long courseId) {
+        Long teamId=klassStudentDao.getTeamId(studentId,courseId);
+        return teamDao.getTeamById(teamId);
+    }
+
+    @Override
+    public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
+        return klassDao.getKlassByCourseId(courseId);
     }
 }

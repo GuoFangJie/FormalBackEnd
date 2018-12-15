@@ -1,10 +1,11 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import com.gugu.gugumodel.pojo.vo.UserAccountVO;
 import com.gugu.guguuser.service.CourseServiceImpl;
+import com.gugu.guguuser.service.KlassServiceImpl;
+import com.gugu.guguuser.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,10 @@ import java.util.ArrayList;
 public class CourseController {
     @Autowired
     CourseServiceImpl courseService;
-
+    @Autowired
+    StudentServiceImpl studentService;
+    @Autowired
+    KlassServiceImpl klassService;
     /**
      * 获取与用户相关的课程
      * @param userAccountVO
@@ -75,5 +79,48 @@ public class CourseController {
         return courseService.getTeamAllScore(student_id,courseId);
     }
 
-    @GetMapping("/{courseId}")
+    /**
+     * 获取小组的详细信息
+     * @param courseId
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/{courseId}/team")
+    public TeamMessageVO getTeamMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
+        Long studentId=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
+        return new TeamMessageVO(courseService.getTeamById(studentId,courseId),studentService.getLeader(courseId,studentId),studentService.getMembers(courseId,studentId));
+    }
+
+    /**
+     * 获取同一个课程下面未组队的同学，不包括自己
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/noTeam")
+    public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
+        Long studentId=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
+        return studentService.getStudentWithoutTeamInCourse(courseId,studentId);
+    }
+
+    /**
+     * 获取课程下的班级信息
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/class")
+    public ArrayList<KlassEntity> getKlassByCourseId(@PathVariable("courseId") Long courseId){
+        return courseService.getKlassByCourseId(courseId);
+    }
+
+    /**
+     * 在课程下新建班级并可以导入学生名单（后半部分还没完成）
+     * @param courseId
+     * @param klassEntity
+     * @return
+     */
+    @PostMapping("/{courseId}/class")
+    public Long newKlass(@PathVariable("courseId") Long courseId,@RequestBody KlassEntity klassEntity){
+        klassEntity.setCourseId(courseId);
+        return klassService.newKlass(klassEntity);
+    }
 }

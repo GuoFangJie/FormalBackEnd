@@ -23,4 +23,9 @@ public class StudentMapperTest {
     public void getLeader(){
         System.out.println(studentMapper.getLeader(1L).getStudentName());
     }
+
+    @Test
+    public void getStudentWithoutTeamTest(){
+        System.out.println(studentMapper.getStudentWithoutTeam(1L).size());
+    }
 }
