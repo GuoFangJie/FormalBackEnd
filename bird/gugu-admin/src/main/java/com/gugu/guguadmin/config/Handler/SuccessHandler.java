@@ -27,7 +27,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 //        User user=(User)authentication.getPrincipal();
 //        claim.put("userId",user.getUsername());
         claim.put("role",objects[0]);
-        claim.put("time",Long.toString(System.currentTimeMillis()+1000*60*10));
+        claim.put("time",Long.toString(System.currentTimeMillis()+1000*60*60*2));
         String token = Jwts.builder()
                 .setHeader(head)
                 .setClaims(claim)
