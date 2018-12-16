@@ -16,6 +16,6 @@ public interface TeacherService {
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id);
+    void deleteTeacherById(long id);
 
 }

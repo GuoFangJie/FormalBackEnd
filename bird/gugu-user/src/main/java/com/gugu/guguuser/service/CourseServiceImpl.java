@@ -4,20 +4,21 @@ import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
 @Service
 public class CourseServiceImpl implements CourseService {
     @Autowired
-    CourseDaoImpl courseDao;
+    CourseDao courseDao;
     @Autowired
-    KlassStudentDaoImpl klassStudentDao;
+    KlassStudentDao klassStudentDao;
     @Autowired
-    SeminarScoreDaoImpl seminarScoreDao;
+    SeminarScoreDao seminarScoreDao;
     @Autowired
-    TeamDaoImpl teamDao;
+    TeamDao teamDao;
     @Autowired
-    KlassDaoImpl klassDao;
+    KlassDao klassDao;
     @Override
     public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
         return courseDao.findSimpleCourseEntityByStudentId(studentId);
@@ -52,5 +53,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassDao.getKlassByCourseId(courseId);
+    }
+
+    @Override
+    public ArrayList<ShareMessageEntity> getAllShare(Long courseId) {
+        ArrayList<ShareMessageEntity> shareMessageEntities=courseDao.getSeminarShareMessage(courseId);
+        shareMessageEntities.addAll(courseDao.getTeamShareMessage(courseId));
+        return shareMessageEntities;
     }
 }

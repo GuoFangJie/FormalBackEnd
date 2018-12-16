@@ -32,4 +32,9 @@ public class CourseMapperTest {
     public void deleteCourseByIdTest(){
         courseMapper.deleteCourseById(18L);
     }
+
+    @Test
+    public void getTeamRecieveCoursesTest(){
+        System.out.println(courseMapper.getSeminarRecieveCourses(1L).size());
+    }
 }

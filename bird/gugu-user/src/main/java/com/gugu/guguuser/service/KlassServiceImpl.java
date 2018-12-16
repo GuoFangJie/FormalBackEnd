@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KlassServiceImpl implements KlassService {
     @Autowired
-    KlassDaoImpl klassDao;
+    KlassDao klassDao;
     @Override
     public Long newKlass(KlassEntity klassEntity) {
         return klassDao.newKlass(klassEntity);

@@ -27,4 +27,39 @@
     <delete id="deleteCourseById" parameterType="java.lang.Long">
         delete from course where id=#{arg0}
     </delete>
+    <select id="getTeamMainCourseId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select team_main_course_id from course where id=#{arg0}
+    </select>
+
+    <select id="getSeminarMainCourseId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select seminar_main_course_id from course where id=#{arg0}
+    </select>
+
+    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction,share_team_application.id shareId from course,share_team_application
+        where share_team_application.main_course_id=#{arg0} and share_team_application.status=1
+        and course.id=share_team_application.sub_course_id
+    </select>
+
+    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction,share_seminar_application.id shareId from course,share_seminar_application
+        where share_seminar_application.main_course_id=#{arg0} and share_seminar_application.status=1
+          and course.id=share_seminar_application.sub_course_id
+    </select>
+
+    <select id="getSimpleCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.SimpleCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction from course where course.id=#{arg0}
+    </select>
+
+    <select id="getShareSeminarIdByCourse" resultType="java.lang.Long">
+        select id from share_seminar_application where share_seminar_application.main_course_id=#{arg0}
+        and share_seminar_application.sub_course_id=#{arg1}
+    </select>
+    <select id="getShareTeamIdByCourse" resultType="java.lang.Long">
+        select id from share_team_application where share_team_application.main_course_id=#{arg0}
+        and share_team_application.sub_course_id=#{arg1}
+    </select>
 </mapper>

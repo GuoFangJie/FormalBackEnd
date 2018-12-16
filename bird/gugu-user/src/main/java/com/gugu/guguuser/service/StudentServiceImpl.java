@@ -1,7 +1,7 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.KlassStudentDaoImpl;
-import com.gugu.gugumodel.dao.StudentDaoImpl;
+import com.gugu.gugumodel.dao.KlassStudentDao;
+import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
-    StudentDaoImpl studentDao;
+    StudentDao studentDao;
     @Autowired
-    KlassStudentDaoImpl klassStudentDao;
+    KlassStudentDao klassStudentDao;
 
     @Override
     public ArrayList<StudentEntity> getMembers(Long courseId, Long studentId) {

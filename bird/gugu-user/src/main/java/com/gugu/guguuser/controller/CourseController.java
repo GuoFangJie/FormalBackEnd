@@ -3,9 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.pojo.entity.*;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import com.gugu.gugumodel.pojo.vo.UserAccountVO;
-import com.gugu.guguuser.service.CourseServiceImpl;
-import com.gugu.guguuser.service.KlassServiceImpl;
-import com.gugu.guguuser.service.StudentServiceImpl;
+import com.gugu.guguuser.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +15,11 @@ import java.util.ArrayList;
 @RequestMapping("course")
 public class CourseController {
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
     @Autowired
-    StudentServiceImpl studentService;
+    StudentService studentService;
     @Autowired
-    KlassServiceImpl klassService;
+    KlassService klassService;
     /**
      * 获取与用户相关的课程
      * @param userAccountVO
@@ -122,5 +120,15 @@ public class CourseController {
     public Long newKlass(@PathVariable("courseId") Long courseId,@RequestBody KlassEntity klassEntity){
         klassEntity.setCourseId(courseId);
         return klassService.newKlass(klassEntity);
+    }
+
+    /**
+     * 获取该课程所有相关的共享信息
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/share")
+    public ArrayList<ShareMessageEntity> getAllShareMessage(@PathVariable("courseId") Long courseId){
+        return courseService.getAllShare(courseId);
     }
 }
