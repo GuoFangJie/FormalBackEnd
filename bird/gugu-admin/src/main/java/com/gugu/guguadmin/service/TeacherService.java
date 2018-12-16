@@ -1,8 +1,6 @@
 package com.gugu.guguadmin.service;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
 
 import java.util.ArrayList;
 
@@ -16,6 +14,12 @@ public interface TeacherService {
      * @param id
      * @return
      */
-    void deleteTeacherById(long id);
+    void deleteTeacherById(long id)throws Exception;
+
+    /**
+     * 管理员获取所有教师信息
+     * @return ArrayList
+     */
+    ArrayList<TeacherEntity> getTeachers();
 
 }

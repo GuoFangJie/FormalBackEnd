@@ -3,10 +3,13 @@ package com.gugu.guguadmin.controller;
 
 import com.gugu.guguadmin.service.TeacherService;
 import com.gugu.guguadmin.service.TeacherService;
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/teacher")
@@ -26,6 +29,15 @@ public class TeacherController {
         }catch (Exception e){
             httpServletResponse.setStatus(404);
         }
+    }
+
+    /**
+     * 管理员获取所有教师信息
+     * @return ArrayList
+     */
+    @GetMapping("/")
+    public ArrayList<TeacherEntity> getTeachers(){
+        return teacherService.getTeachers();
     }
 
 }

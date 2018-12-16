@@ -20,4 +20,6 @@ public interface CourseMapper {
      CourseEntity getCourseById(Long id);
 
      void deleteCourseById(Long id);
+
+     ArrayList<Long> getCourseIdByTeacherId(long id);
 }

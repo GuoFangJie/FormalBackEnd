@@ -16,4 +16,12 @@ public interface CourseDao {
     CourseEntity getCourseById(Long id);
 
     void deleteCourseById(Long id) throws Exception;
+
+
+    /**根据教师id获取教师的所有课程
+     * @author ljy
+     * @param id
+     * @return
+     */
+    ArrayList<Long> getCourseIdByTeacherId(long id);
 }

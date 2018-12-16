@@ -23,7 +23,7 @@ public class StudentDaoImpl implements StudentDao {
     StudentMapper studentMapper;
 
     @Override
-    public void deleteStudentById(long id){
+    public void deleteStudentById(Long id){
         studentMapper.deleteStudentById(id);
     }
 
@@ -55,7 +55,17 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<StudentBasicInforVO> studentInfor(){
-       return studentMapper.studentInfor();
+    public ArrayList<StudentEntity> getStudents(){
+       return studentMapper.getStudents();
+    }
+
+    @Override
+    public void resetStudentPassword(Long studentId){
+        studentMapper.resetStudentPassword(studentId);
+    }
+
+    @Override
+    public void changeStudentInformation(StudentEntity studentEntity){
+        studentMapper.changeStudentInformation(studentEntity);
     }
 }

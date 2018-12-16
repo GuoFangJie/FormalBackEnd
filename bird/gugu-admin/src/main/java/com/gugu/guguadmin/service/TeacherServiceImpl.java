@@ -1,8 +1,13 @@
 package com.gugu.guguadmin.service;
 
+import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.TeacherDao;
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 /**
  * @author ljy
@@ -12,9 +17,19 @@ import org.springframework.stereotype.Service;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     TeacherDao teacherDao;
+    CourseDao courseDao;
 
     @Override
-    public void deleteTeacherById(long id){
+    public void deleteTeacherById(long id)throws Exception{
         teacherDao.deleteTeacherById(id);
+        ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
+        for(int i=0;i<list.size();i++){
+            courseDao.deleteCourseById(list.get(i));
+        }
+    }
+
+    @Override
+    public ArrayList<TeacherEntity> getTeachers(){
+        return teacherDao.getTeachers();
     }
 }
