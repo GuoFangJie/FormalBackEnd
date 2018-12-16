@@ -22,4 +22,23 @@ public interface TeacherService {
      */
     ArrayList<TeacherEntity> getTeachers();
 
+
+    /**@author ljy
+     * 管理员重置教师密码
+     * @param teacherId
+     */
+    void resetTeacherPassword(Long teacherId);
+
+    /**@author ljy
+     * 管理员修改教师信息，包括账号，姓名，邮箱
+     * @param teacherEntity
+     */
+    void changeTeacherInformation(TeacherEntity teacherEntity);
+
+    /**@author ljy
+     * 管理员新建教师账号
+     * @param teacherEntity
+     * @return
+     */
+    void newTeacher(TeacherEntity teacherEntity);
 }
