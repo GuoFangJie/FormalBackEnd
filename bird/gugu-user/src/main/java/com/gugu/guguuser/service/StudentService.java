@@ -5,7 +5,7 @@ import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import java.util.ArrayList;
 
 /**
- * @author ljy
+ * @author
  */
 public interface StudentService {
 

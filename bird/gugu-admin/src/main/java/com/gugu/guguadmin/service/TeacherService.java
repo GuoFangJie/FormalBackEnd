@@ -1,4 +1,4 @@
-package com.gugu.guguuser.service;
+package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
@@ -16,6 +16,6 @@ public interface TeacherService {
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id);
+    void deleteTeacherById(long id);
 
 }

@@ -27,9 +27,5 @@ public class AdminController {
         return adminService.adminLogin(adminEntity);
     }
 
-    /**删除教师账号
-     * @param
-     * @return
-     */
 
 }

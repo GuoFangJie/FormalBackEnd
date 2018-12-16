@@ -1,7 +1,8 @@
-package com.gugu.guguuser.controller;
+package com.gugu.guguadmin.controller;
 
 
-import com.gugu.guguuser.service.TeacherService;
+import com.gugu.guguadmin.service.TeacherService;
+import com.gugu.guguadmin.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
