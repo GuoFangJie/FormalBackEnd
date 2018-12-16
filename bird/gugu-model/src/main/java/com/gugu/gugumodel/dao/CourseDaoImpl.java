@@ -84,4 +84,14 @@ public class CourseDaoImpl implements CourseDao {
         return shareMessageEntities;
     }
 
+    /**
+     * @author ljy
+     * @param id
+     * @return
+     */
+    @Override
+    public ArrayList<Long> getCourseIdByTeacherId(long id){
+        return courseMapper.getCourseIdByTeacherId(id);
+    }
+
 }

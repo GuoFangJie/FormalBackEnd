@@ -36,4 +36,6 @@ public interface CourseMapper {
      Long getShareSeminarIdByCourse(Long mainCourseId,Long subCourseId);
 
      Long getShareTeamIdByCourse(Long mainCourseId,Long subCourseId);
+
+     ArrayList<Long> getCourseIdByTeacherId(long id);
 }

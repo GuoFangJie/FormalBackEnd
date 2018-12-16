@@ -3,18 +3,18 @@ package com.gugu.gugumodel.pojo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * 储存学生信息的entity，感觉老师和学生的表一样
+ * 储存教师信息的entity
  * 不存放账号密码
- * @author ren
+ * @author ljy
  */
-public class StudentEntity {
-    private Long id;
-    private Byte isActive;
-    private String studentName;
-    private String account;
-    private String email;
+public class TeacherEntity {
+    Long id;
+    Byte isActive;
+    String teacherName;
+    String account;
+    String email;
     @JsonIgnore
-    private String password;
+    String password;
 
     public String getPassword() {
         return password;
@@ -48,12 +48,12 @@ public class StudentEntity {
         this.isActive = isActive;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setTeacherName(String studentName) {
+        this.teacherName = studentName;
     }
 
     public String getEmail() {

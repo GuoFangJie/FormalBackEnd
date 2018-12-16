@@ -21,4 +21,12 @@ public interface CourseDao {
     ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId);
 
     ArrayList<ShareMessageEntity> getTeamShareMessage(Long courseId);
+
+
+    /**根据教师id获取教师的所有课程
+     * @author ljy
+     * @param id
+     * @return
+     */
+    ArrayList<Long> getCourseIdByTeacherId(long id);
 }

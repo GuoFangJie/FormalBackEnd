@@ -5,12 +5,12 @@ package com.gugu.gugumodel.pojo.entity;
  * @author ren
  */
 public class SeminarScoreEntity {
-    Long klassSeminarId;
-    Long teamId;
-    float totalScore;
-    float presentationScore;
-    float questionScore;
-    float reportScore;
+    private Long klassSeminarId;
+    private Long teamId;
+    private float totalScore;
+    private float presentationScore;
+    private float questionScore;
+    private float reportScore;
 
     public Long getKlassSeminarId() {
         return klassSeminarId;

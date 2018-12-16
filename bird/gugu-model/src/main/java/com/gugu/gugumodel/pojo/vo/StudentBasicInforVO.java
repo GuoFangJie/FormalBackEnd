@@ -2,21 +2,12 @@ package com.gugu.gugumodel.pojo.vo;
 
 /**
  * @author ljy
- * 管理员端展示学生信息
+ * 管理员修改学生信息，传给后端的学生信息
  */
 public class StudentBasicInforVO {
-   Long studentId;
    String studentAccount;
    String studentName;
    String studentEmail;
-
-   public Long getStudentId() {
-      return studentId;
-   }
-
-   public void setStudentId(Long studentId) {
-      this.studentId = studentId;
-   }
 
    public String getStudentAccount() {
       return studentAccount;

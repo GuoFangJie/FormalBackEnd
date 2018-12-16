@@ -4,12 +4,12 @@ package com.gugu.gugumodel.pojo.entity;
  * @author ren
  */
 public class KlassEntity {
-    Long id;
-    Long courseId;
-    Integer grade;
-    Byte klassSerial;
-    String klassTime;
-    String klassLocation;
+    private Long id;
+    private Long courseId;
+    private Integer grade;
+    private Byte klassSerial;
+    private String klassTime;
+    private String klassLocation;
 
     public Long getId() {
         return id;

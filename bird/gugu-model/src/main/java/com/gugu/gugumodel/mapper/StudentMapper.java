@@ -20,8 +20,6 @@ public interface StudentMapper {
 
      void deleteStudentById(long id);
 
-     List<StudentBasicInforVO> studentInfor();
-
      ArrayList<StudentEntity> searchStudent(String identity);
 
 
@@ -33,5 +31,9 @@ public interface StudentMapper {
 
      StudentEntity getStudentById(Long studentId);
 
+     ArrayList<StudentEntity> getStudents();
 
+     void resetStudentPassword(Long studentId);
+
+     void changeStudentInformation(StudentEntity studentEntity);
 }
