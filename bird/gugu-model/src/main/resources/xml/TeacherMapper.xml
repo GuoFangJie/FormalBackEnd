@@ -6,4 +6,9 @@
     <delete id="deleteTeacherById" parameterType="java.lang.Long">
         delete from teacher where id=#{arg0}
     </delete>
+
+    <select id="getTeachers" resultType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+        select teacher.id id,teacher.account account,teacher.teacher_name teacherName,teacher.email email
+        from teacher
+    </select>
 </mapper>

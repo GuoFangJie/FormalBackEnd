@@ -35,4 +35,16 @@
     <select id="searchStudent">
 
     </select>
+
+    <select id="getStudents" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        select student.id id,student.account account,student.student_name studentName,student.email email from student
+    </select>
+
+    <update id="resetStudentPassword" parameterType="java.lang.Long">
+        update student set password=123456 where id=#{arg0}
+    </update>
+
+    <update id="changeStudentInformation" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        update student set account=#{account},student_name=#{studentName},email=#{email} where id=#{id}
+    </update>
 </mapper>

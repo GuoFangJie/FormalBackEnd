@@ -27,4 +27,8 @@
     <delete id="deleteCourseById" parameterType="java.lang.Long">
         delete from course where id=#{arg0}
     </delete>
+
+    <select id="getCourseIdByTeacherId" parameterType="java.lang.Long">
+        select id from course where teacher_id=#{arg0}
+    </select>
 </mapper>

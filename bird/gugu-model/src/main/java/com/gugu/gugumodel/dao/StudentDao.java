@@ -20,14 +20,14 @@ public interface StudentDao {
      * @param id
      * @return
      */
-    public void deleteStudentById(long id);
+    public void deleteStudentById(Long id);
 
-    /**
+    /**@author ljy
      * 管理员获取所有学生账号信息
      * @param
      * @return
      */
-    List<StudentBasicInforVO> studentInfor();
+    ArrayList<StudentEntity> getStudents();
 
     ArrayList<StudentEntity> searchStudent(String identity);
 
@@ -47,4 +47,17 @@ public interface StudentDao {
 
     ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId);
 
+
+    /**@author ljy
+     * 管理员重置学生密码
+     * @param studentId
+     */
+    void resetStudentPassword(Long studentId);
+
+    /**
+     * @author ljy
+     * 管理员修改学生信息，包括账号，姓名，邮箱
+     * @param studentEntity
+     */
+    void changeStudentInformation(StudentEntity studentEntity);
 }

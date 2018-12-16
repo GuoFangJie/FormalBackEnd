@@ -1,7 +1,6 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
 
 import java.util.ArrayList;
 
@@ -17,4 +16,9 @@ public interface TeacherDao {
      */
     void deleteTeacherById(long id);
 
+    /**
+     * 管理员获取所有教师信息
+     * @return ArrayList
+     */
+    ArrayList<TeacherEntity> getTeachers();
 }
