@@ -18,7 +18,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 //        String role=authentication.get
-
+        System.out.println("成功");
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
         Map<String,Object> head=new HashMap<>();
         head.put("alg","HS512");

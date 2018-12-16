@@ -16,7 +16,7 @@ public class AdminDaoImpl implements AdminDao {
     AdminMapper adminMapper;
 
     @Override
-    public AdminEntity adminLogin(AdminEntity adminEntity){
-        return adminMapper.adminLogin(adminEntity);
+    public AdminEntity adminLogin(String account){
+        return adminMapper.adminLogin(account);
     }
 }

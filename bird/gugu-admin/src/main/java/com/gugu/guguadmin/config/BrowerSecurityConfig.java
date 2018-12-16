@@ -4,6 +4,7 @@ import com.gugu.guguadmin.config.Handler.FailureHandler;
 import com.gugu.guguadmin.config.Handler.JWTBasicFilter;
 import com.gugu.guguadmin.config.Handler.MyAuthenticationProvider;
 import com.gugu.guguadmin.config.Handler.SuccessHandler;
+import com.gugu.guguadmin.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,12 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     SuccessHandler successHandler;
     @Autowired
     FailureHandler failureHandler;
+    @Autowired
+    SecurityService securityService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-               //.loginPage("/toLoginPage")
+               //.loginPage("http://localhost:8080/#/")
                // .loginProcessingUrl("/security/login")
                 .successHandler(successHandler).failureHandler(failureHandler)
                 //.loginPage("http://localhost:8080/user/login")
@@ -36,7 +39,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-               // .antMatchers("/test/nice").hasRole("Teacher")
+               //.antMatchers("/test/nice").hasRole("Admin")
                 .antMatchers("/**/**").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -53,9 +56,9 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(authUserService)
-//                .passwordEncoder(new MyPasswordEncoder());
-        auth.authenticationProvider(myAuthenticationProvider());
+        auth.userDetailsService(securityService)
+                .passwordEncoder(new MyPasswordEncoder());
+       // auth.authenticationProvider(myAuthenticationProvider());
     }
 
 

@@ -10,8 +10,8 @@ public interface AdminDao {
 
     /**
      * 管理员登录
-     * @param adminEntity
+     * @param account
      * @return AdminEntity
      */
-    AdminEntity adminLogin(AdminEntity adminEntity);
+    AdminEntity adminLogin(String account);
 }
