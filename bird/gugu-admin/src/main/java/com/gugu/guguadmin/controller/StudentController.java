@@ -1,15 +1,14 @@
-package com.gugu.guguuser.controller;
+package com.gugu.guguadmin.controller;
 
 
-import com.gugu.guguuser.service.StudentService;
-import com.gugu.guguuser.service.TeacherService;
+import com.gugu.guguadmin.service.StudentService;
+import com.gugu.guguadmin.service.TeacherService;
+import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -30,5 +29,15 @@ public class StudentController {
             httpServletResponse.setStatus(404);
         }
     }
+
+    /**
+     * 管理员获取所有学生账号信息
+     * @param
+     * @return
+     */
+    public List<StudentBasicInforVO> studentInfor(){
+        return studentService.studentInfor();
+    }
+
 
 }
