@@ -5,13 +5,13 @@ package com.gugu.gugumodel.pojo.entity;
  * @author ren
  */
 public class TeamEntity {
-    Long id;
-    Long klassId;
-    Long courseId;
-    Long leaderId;
-    String teamName;
-    Integer teamSerial;
-    Integer status;
+    private Long id;
+    private Long klassId;
+    private Long courseId;
+    private Long leaderId;
+    private String teamName;
+    private Integer teamSerial;
+    private Integer status;
 
     public Long getId() {
         return id;

@@ -8,13 +8,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author ren
  */
 public class StudentEntity {
-    Long id;
-    Byte isActive;
-    String studentName;
-    String account;
-    String email;
+    private Long id;
+    private Byte isActive;
+    private String studentName;
+    private String account;
+    private String email;
     @JsonIgnore
-    String password;
+    private String password;
 
     public String getPassword() {
         return password;

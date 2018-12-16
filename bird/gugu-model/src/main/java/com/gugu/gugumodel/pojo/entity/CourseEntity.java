@@ -10,15 +10,15 @@ import java.sql.Timestamp;
  * @author ren
  */
 public class CourseEntity {
-    Long id;
-    Long teacherId;
-    String courseName;
-    String introduction;
-    int presentationPercentage;
-    int questionPercentage;
-    int reportPercentage;
-    Timestamp  teamStartTime;
-    Timestamp teamEndTime;
+    private Long id;
+    private Long teacherId;
+    private String courseName;
+    private String introduction;
+    private int presentationPercentage;
+    private int questionPercentage;
+    private int reportPercentage;
+    private Timestamp  teamStartTime;
+    private Timestamp teamEndTime;
 
     public Long getId() {
         return id;

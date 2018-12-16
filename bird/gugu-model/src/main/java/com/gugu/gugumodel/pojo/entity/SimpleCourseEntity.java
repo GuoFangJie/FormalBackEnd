@@ -5,10 +5,10 @@ package com.gugu.gugumodel.pojo.entity;
  * @author ren
  */
 public class SimpleCourseEntity {
-    Integer id;
-    Integer teacherId;
-    String courseName;
-    String introduction;
+    private Integer id;
+    private Integer teacherId;
+    private String courseName;
+    private String introduction;
 
     public Integer getId() {
         return id;
