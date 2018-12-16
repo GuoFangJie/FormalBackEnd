@@ -3,7 +3,6 @@ package com.gugu.guguadmin.controller;
 
 import com.gugu.guguadmin.service.StudentService;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 public class StudentController {
     @Autowired
     StudentService studentService;
+
 
     /**
      * 管理员根据学生ID删除学生账号
@@ -58,12 +58,8 @@ public class StudentController {
      * @param studentId
      */
     @PutMapping("/{studentId}/information")
-    public void changeStudentInformation(@PathVariable Long studentId, @RequestBody StudentBasicInforVO studentBasicInforVO,HttpServletResponse httpServletResponse){
-        StudentEntity studentEntity=new StudentEntity();
+    public void changeStudentInformation(@PathVariable Long studentId, @RequestBody StudentEntity studentEntity,HttpServletResponse httpServletResponse){
         studentEntity.setId(studentId);
-        studentEntity.setAccount(studentBasicInforVO.getStudentAccount());
-        studentEntity.setStudentName(studentBasicInforVO.getStudentName());
-        studentEntity.setEmail(studentBasicInforVO.getStudentEmail());
         try {
             studentService.changeStudentInformation(studentEntity);
         }

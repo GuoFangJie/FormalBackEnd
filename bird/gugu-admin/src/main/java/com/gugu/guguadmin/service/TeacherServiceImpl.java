@@ -32,4 +32,20 @@ public class TeacherServiceImpl implements TeacherService {
     public ArrayList<TeacherEntity> getTeachers(){
         return teacherDao.getTeachers();
     }
+
+    @Override
+    public void resetTeacherPassword(Long teacherId){
+        teacherDao.resetTeacherPassword(teacherId);
+
+    }
+
+    @Override
+    public void changeTeacherInformation(TeacherEntity teacherEntity){
+        teacherDao.changeTeacherInformation(teacherEntity);
+    }
+
+    @Override
+    public void newTeacher(TeacherEntity teacherEntity){
+        teacherDao.newTeacher(teacherEntity);
+    }
 }

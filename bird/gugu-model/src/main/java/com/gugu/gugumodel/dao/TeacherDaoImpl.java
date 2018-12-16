@@ -27,4 +27,19 @@ public class TeacherDaoImpl implements TeacherDao {
     public ArrayList<TeacherEntity> getTeachers(){
         return teacherMapper.getTeachers();
     }
+
+    @Override
+    public void resetTeacherPassword(Long teacherId){
+        teacherMapper.resetTeacherPassword(teacherId);
+    }
+
+    @Override
+    public void changeTeacherInformation(TeacherEntity teacherEntity){
+        teacherMapper.changeTeacherInformation(teacherEntity);
+    }
+
+    @Override
+    public void newTeacher(TeacherEntity teacherEntity){
+        teacherMapper.newTeacher(teacherEntity);
+    }
 }

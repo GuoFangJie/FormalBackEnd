@@ -19,4 +19,9 @@ public interface TeacherMapper{
 
         ArrayList<TeacherEntity> getTeachers();
 
+        void resetTeacherPassword(Long teacherId);
+
+        void changeTeacherInformation(TeacherEntity teacherEntity);
+
+        void newTeacher(TeacherEntity teacherEntity);
 }

@@ -11,4 +11,17 @@
         select teacher.id id,teacher.account account,teacher.teacher_name teacherName,teacher.email email
         from teacher
     </select>
+
+    <update id="resetTeacherPassword" parameterType="java.lang.Long">
+        update teacher set password=123456 where id=#{arg0}
+    </update>
+
+    <update id="changeTeacherInformation" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+        update teacher set account=#{account},teacher_name=#{teacherName},email=#{email} where id=#{id}
+    </update>
+
+    <insert id="newTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+        insert teacher(account,password,teacher_name,is_active,email)
+        values (#{account},#{password},#{teacherName},#{isActive},#{email})
+    </insert>
 </mapper>
