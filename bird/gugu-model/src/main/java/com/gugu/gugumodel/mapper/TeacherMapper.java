@@ -24,4 +24,11 @@ public interface TeacherMapper{
         void changeTeacherInformation(TeacherEntity teacherEntity);
 
         void newTeacher(TeacherEntity teacherEntity);
+
+        /**
+         * 管理员重置教师密码
+         * @param identity
+         * @return ArrayList
+         */
+        ArrayList<TeacherEntity> searchTeacher(String identity);
 }
