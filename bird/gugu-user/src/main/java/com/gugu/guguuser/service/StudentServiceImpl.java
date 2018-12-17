@@ -19,7 +19,7 @@ public class StudentServiceImpl {
     @Autowired
     KlassStudentDaoImpl klassStudentDao;
     @Autowired
-    TeacherDaoImpl teacherDao;
+    TeacherDao teacherDao;
     @Autowired
     EmailUtil emailUtil;
 

@@ -1,7 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.StudentDaoImpl;
-import com.gugu.gugumodel.dao.TeacherDaoImpl;
+import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import com.gugu.guguuser.util.EmailUtil;
@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     StudentDaoImpl studentDao;
     @Autowired
-    TeacherDaoImpl teacherDao;
+    TeacherDao teacherDao;
     @Autowired
     EmailUtil emailUtil;
     public boolean sendPasswordToUser(Long userId,String role){

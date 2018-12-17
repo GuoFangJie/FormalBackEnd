@@ -71,4 +71,16 @@ public class TeacherDao {
     public ArrayList<TeacherEntity> searchTeacher(String identity){
         return teacherMapper.searchTeacher(identity);
     }
+
+
+    public TeacherEntity getTeacherById(Long teacherId){
+        return teacherMapper.getTeacherById(teacherId);
+    }
+
+    public void changePassword(String password,Long teacherId){
+        teacherMapper.changePassword(password,teacherId);
+    }
+    public void changeEmail(String email,Long teacherId){
+        teacherMapper.changeEmail(email,teacherId);
+    }
 }
