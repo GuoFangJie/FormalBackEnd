@@ -3,6 +3,14 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeacherMapper">
+    <resultMap id="teacherResultList" type="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+        <id column="id" property="id"/>
+        <result column="is_active" property="isActive"/>
+        <result column="teacher_name" property="teacherName"/>
+        <result column="account" property="account"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
     <delete id="deleteTeacherById" parameterType="java.lang.Long">
         delete from teacher where id=#{arg0}
     </delete>
@@ -24,4 +32,10 @@
         insert teacher(account,password,teacher_name,is_active,email)
         values (#{account},#{password},#{teacherName},#{isActive},#{email})
     </insert>
+
+    <select id="searchTeacher" resultMap="teacherResultList" parameterType="java.lang.String">
+        select id,account,teacher_name,email
+        from teacher
+        where account=#{arg0} or teacher_name=#{arg0}
+    </select>
 </mapper>

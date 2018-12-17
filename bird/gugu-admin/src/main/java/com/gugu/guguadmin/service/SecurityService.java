@@ -1,8 +1,6 @@
 package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.dao.AdminDao;
-import com.gugu.gugumodel.dao.AdminDaoImpl;
-import com.gugu.gugumodel.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

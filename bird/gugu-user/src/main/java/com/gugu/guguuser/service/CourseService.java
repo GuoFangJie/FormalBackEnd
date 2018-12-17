@@ -22,4 +22,6 @@ public interface CourseService {
     TeamEntity getTeamById(Long studentId, Long courseId);
 
     ArrayList<KlassEntity> getKlassByCourseId(Long courseId);
+
+    ArrayList<ShareMessageEntity> getAllShare(Long courseId);
 }

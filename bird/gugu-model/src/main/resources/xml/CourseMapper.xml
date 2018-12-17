@@ -27,8 +27,79 @@
     <delete id="deleteCourseById" parameterType="java.lang.Long">
         delete from course where id=#{arg0}
     </delete>
+    <select id="getTeamMainCourseId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select team_main_course_id from course where id=#{arg0}
+    </select>
+
+    <select id="getSeminarMainCourseId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select seminar_main_course_id from course where id=#{arg0}
+    </select>
+
+    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction,share_team_application.id shareId from course,share_team_application
+        where share_team_application.main_course_id=#{arg0} and share_team_application.status=1
+        and course.id=share_team_application.sub_course_id
+    </select>
+
+    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction,share_seminar_application.id shareId from course,share_seminar_application
+        where share_seminar_application.main_course_id=#{arg0} and share_seminar_application.status=1
+          and course.id=share_seminar_application.sub_course_id
+    </select>
+
+    <select id="getSimpleCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.SimpleCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction from course where course.id=#{arg0}
+    </select>
+
+    <select id="getShareSeminarIdByCourse" resultType="java.lang.Long">
+        select id from share_seminar_application where share_seminar_application.main_course_id=#{arg0}
+        and share_seminar_application.sub_course_id=#{arg1}
+    </select>
+    <select id="getShareTeamIdByCourse" resultType="java.lang.Long">
+        select id from share_team_application where share_team_application.main_course_id=#{arg0}
+        and share_team_application.sub_course_id=#{arg1}
+    </select>
 
     <select id="getCourseIdByTeacherId" parameterType="java.lang.Long">
         select id from course where teacher_id=#{arg0}
     </select>
+
+    <delete id="deleteSeminarShare" parameterType="java.lang.Long">
+    delete from  share_seminar_application where id=#{arg1}
+    </delete>
+
+    <delete id="deleteTeamShare" parameterType="java.lang.Long">
+        delete from  share_team_application where id=#{arg1}
+    </delete>
+
+    <update id="deleteCourseTeamMain" parameterType="java.lang.Long">
+        update course set team_main_course_id=null where id=#{arg0}
+    </update>
+
+    <update id="deleteCourseSeminarMain" parameterType="java.lang.Long">
+        update course set seminar_main_course_id=null where id=#{arg0}
+    </update>
+
+    <select id="getSeminarShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+        select id,main_course_id mainCourseId,sub_course_id subCourseId,
+               sub_course_teacher_id subCourseTeacherId,status from share_seminar_application
+        where id=#{arg0}
+    </select>
+
+    <select id="getTeamShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+        select id,main_course_id mainCourseId,sub_course_id subCourseId,
+               sub_course_teacher_id subCourseTeacherId,status from share_team_application
+        where id=#{arg0}
+    </select>
+    <update id="deleteAllTeamByCourseId" parameterType="java.lang.Long">
+        update klass_student set team_id=null where course_id=#{arg0}
+    </update>
+
+    <delete id="deleteAllSeminarByCourseId" parameterType="java.lang.Long">
+        delete seminar,klass_seminar from seminar left join klass_seminar on klass_seminar.seminar_id=seminar.id
+        and seminar.course_id=#{arg0}
+    </delete>
 </mapper>

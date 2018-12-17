@@ -1,8 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.CourseMapper;
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -37,6 +36,47 @@ public class CourseDaoImpl implements CourseDao {
         }
     }
 
+
+    @Override
+    public ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId) {
+        Long mainCourseId=courseMapper.getSeminarMainCourseId(courseId);
+        SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
+        ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
+        if(mainCourseId.equals(courseId)){
+            ArrayList<ShareRecieveCourseEntity> shareRecieveCourseEntities=courseMapper.getSeminarRecieveCourses(courseId);
+            for(int i=0;i<shareRecieveCourseEntities.size();i++){
+                ShareMessageEntity shareMessageEntity=new ShareMessageEntity(mainCourse,shareRecieveCourseEntities.get(i),2);
+                shareMessageEntities.add(shareMessageEntity);
+            }
+        }else{
+            ShareRecieveCourseEntity shareRecieveCourseEntity=(ShareRecieveCourseEntity)courseMapper.getSimpleCourseById(courseId);
+            shareRecieveCourseEntity.setShareId(courseMapper.getShareSeminarIdByCourse(mainCourseId,courseId));
+            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId),shareRecieveCourseEntity,2);
+            shareMessageEntities.add(shareMessageEntity);
+        }
+        return shareMessageEntities;
+    }
+
+    @Override
+    public ArrayList<ShareMessageEntity> getTeamShareMessage(Long courseId) {
+        Long mainCourseId=courseMapper.getTeamMainCourseId(courseId);
+        SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
+        ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
+        if(mainCourseId.equals(courseId)){
+            ArrayList<ShareRecieveCourseEntity> shareRecieveCourseEntities=courseMapper.getTeamRecieveCourses(courseId);
+            for(int i=0;i<shareRecieveCourseEntities.size();i++){
+                ShareMessageEntity shareMessageEntity=new ShareMessageEntity(mainCourse,shareRecieveCourseEntities.get(i),1);
+                shareMessageEntities.add(shareMessageEntity);
+            }
+        }else{
+            ShareRecieveCourseEntity shareRecieveCourseEntity=(ShareRecieveCourseEntity)courseMapper.getSimpleCourseById(courseId);
+            shareRecieveCourseEntity.setShareId(courseMapper.getShareTeamIdByCourse(mainCourseId,courseId));
+            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId),shareRecieveCourseEntity,1);
+            shareMessageEntities.add(shareMessageEntity);
+        }
+        return shareMessageEntities;
+    }
+
     /**
      * @author ljy
      * @param id
@@ -47,4 +87,31 @@ public class CourseDaoImpl implements CourseDao {
         return courseMapper.getCourseIdByTeacherId(id);
     }
 
+    public boolean deleteSeminarShare(Long shareId){
+        ShareApplicationEntity shareApplicationEntity=courseMapper.getSeminarShareApplicationById(shareId);
+        if(shareApplicationEntity==null){
+            return false;
+        }
+        if(courseMapper.getSeminarRecieveCourses(shareApplicationEntity.getMainCourseId()).size()==0) {
+            courseMapper.deleteCourseSeminarMain(shareApplicationEntity.getMainCourseId());
+        }
+        courseMapper.deleteCourseSeminarMain(shareApplicationEntity.getSubCourseId());
+        courseMapper.deleteSeminarShare(shareId);
+        courseMapper.deleteAllSeminarByCourseId(shareApplicationEntity.getSubCourseId());
+        return true;
+    }
+
+    public boolean deleteTeamShare(Long shareId){
+        ShareApplicationEntity shareApplicationEntity=courseMapper.getTeamShareApplicationById(shareId);
+        if(shareApplicationEntity==null){
+            return false;
+        }
+        if(courseMapper.getTeamRecieveCourses(shareApplicationEntity.getMainCourseId()).size()==0) {
+            courseMapper.deleteCourseTeamMain(shareApplicationEntity.getMainCourseId());
+        }
+        courseMapper.deleteCourseTeamMain(shareApplicationEntity.getSubCourseId());
+        courseMapper.deleteTeamShare(shareId);
+        courseMapper.deleteAllTeamByCourseId(shareApplicationEntity.getSubCourseId());
+        return true;
+    }
 }
