@@ -1,8 +1,9 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.KlassStudentDao;
-import com.gugu.gugumodel.dao.StudentDao;
+import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.pojo.entity.TeacherEntity;
+import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +13,32 @@ import java.util.ArrayList;
  * @author ren
  */
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl {
     @Autowired
-    StudentDao studentDao;
+    StudentDaoImpl studentDao;
     @Autowired
-    KlassStudentDao klassStudentDao;
+    KlassStudentDaoImpl klassStudentDao;
+    @Autowired
+    TeacherDaoImpl teacherDao;
+    @Autowired
+    EmailUtil emailUtil;
 
-    @Override
-    public ArrayList<StudentEntity> getMembers(Long courseId, Long studentId) {
-        Long teamId=klassStudentDao.getTeamId(studentId,courseId);
+    public ArrayList<StudentEntity> getMembers(Long teamId) {
         return studentDao.getMembersExceptLeader(teamId);
     }
 
-    @Override
-    public StudentEntity getLeader(Long courseId, Long studentId) {
-        Long teamId=klassStudentDao.getTeamId(studentId,courseId);
+
+    public StudentEntity getLeader(Long teamId) {
         return studentDao.getLeader(teamId);
     }
 
-    @Override
+
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId) {
         return studentDao.getStudentWithoutTeamInCourse(courseId,studentId);
     }
+
+    public Long getTeamId(Long courseId,Long studentId){
+        return klassStudentDao.getTeamId(studentId,courseId);
+    }
+
 }

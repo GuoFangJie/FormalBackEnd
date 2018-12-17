@@ -18,17 +18,18 @@ public class CourseController {
     @Autowired
     CourseServiceImpl courseService;
     @Autowired
-    StudentService studentService;
+    StudentServiceImpl studentService;
     @Autowired
     KlassService klassService;
     /**
      * 获取与用户相关的课程
-     * @param userAccountVO
+     * @param
      * @return
      */
     @GetMapping("/")
-    public ArrayList<SimpleCourseEntity> getCourseByUser(@RequestBody UserAccountVO userAccountVO){
-        return courseService.findSimpleCourseEntityByStudentId(userAccountVO.getUserAccount());
+    public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
+        String userId=httpServletRequest.getAttribute("userId").toString();
+        return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId));
     }
 
     /**
@@ -74,7 +75,7 @@ public class CourseController {
      */
     @GetMapping("/{courseId}/score")
     public ArrayList<SeminarScoreEntity> getTeamScoreAll(@PathVariable("courseId") Long courseId, HttpServletRequest httpServletRequest){
-        Long student_id=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
+        Long student_id=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return courseService.getTeamAllScore(student_id,courseId);
     }
 
@@ -86,8 +87,9 @@ public class CourseController {
      */
     @GetMapping("/{courseId}/team")
     public TeamMessageVO getTeamMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
-        Long studentId=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
-        return new TeamMessageVO(courseService.getTeamById(studentId,courseId),studentService.getLeader(courseId,studentId),studentService.getMembers(courseId,studentId));
+        Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        Long teamId=studentService.getTeamId(courseId,studentId);
+        return new TeamMessageVO(courseService.getTeamById(teamId),studentService.getLeader(teamId),studentService.getMembers(teamId));
     }
 
     /**
@@ -97,7 +99,7 @@ public class CourseController {
      */
     @GetMapping("/{courseId}/noTeam")
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
-        Long studentId=Long.parseLong(httpServletRequest.getAttribute("student_id").toString());
+        Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return studentService.getStudentWithoutTeamInCourse(courseId,studentId);
     }
 

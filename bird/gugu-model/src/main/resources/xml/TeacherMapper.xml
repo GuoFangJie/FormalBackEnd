@@ -24,4 +24,18 @@
         insert teacher(account,password,teacher_name,is_active,email)
         values (#{account},#{password},#{teacherName},#{isActive},#{email})
     </insert>
+
+
+    <select id="getTeacherById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+        select id,is_active isActive, teacher_name teacherName,account,email,password
+        from teacher where id=#{arg0}
+    </select>
+
+    <update id="changePassword">
+        update teacher set password=#{arg0} where id=#{arg1}
+    </update>
+
+    <update id="changeEmail">
+        update teacher set email=#{arg0} where id=#{arg1}
+    </update>
 </mapper>

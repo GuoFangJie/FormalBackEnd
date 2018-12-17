@@ -36,4 +36,8 @@ public interface StudentMapper {
      void resetStudentPassword(Long studentId);
 
      void changeStudentInformation(StudentEntity studentEntity);
+
+     void changePassword(String password,Long studentId);
+
+     void changeEmail(String email,Long studentId);
 }

@@ -44,9 +44,8 @@ public class CourseServiceImpl implements CourseService {
         Long team_id=klassStudentDao.getTeamId(student_id,course_id);
         return seminarScoreDao.getTeamAllScore(team_id);
     }
-    @Override
-    public TeamEntity getTeamById(Long studentId, Long courseId) {
-        Long teamId=klassStudentDao.getTeamId(studentId,courseId);
+
+    public TeamEntity getTeamById(Long teamId) {
         return teamDao.getTeamById(teamId);
     }
 

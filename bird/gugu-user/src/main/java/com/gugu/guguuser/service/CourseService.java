@@ -19,7 +19,6 @@ public interface CourseService {
 
     ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id,Long course_id);
 
-    TeamEntity getTeamById(Long studentId, Long courseId);
 
     ArrayList<KlassEntity> getKlassByCourseId(Long courseId);
 

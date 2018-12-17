@@ -24,4 +24,10 @@ public interface TeacherMapper{
         void changeTeacherInformation(TeacherEntity teacherEntity);
 
         void newTeacher(TeacherEntity teacherEntity);
+
+        TeacherEntity getTeacherById(Long teacherId);
+
+        void changePassword(String password,Long teacherId);
+
+        void changeEmail(String email,Long teacherId);
 }

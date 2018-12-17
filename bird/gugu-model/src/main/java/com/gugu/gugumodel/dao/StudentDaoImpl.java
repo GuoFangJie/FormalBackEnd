@@ -68,4 +68,15 @@ public class StudentDaoImpl implements StudentDao {
     public void changeStudentInformation(StudentEntity studentEntity){
         studentMapper.changeStudentInformation(studentEntity);
     }
+
+    public StudentEntity getStudentById(Long studentId){
+        return studentMapper.getStudentById(studentId);
+    }
+
+    public void changePassword(String password,Long studentId){
+        studentMapper.changePassword(password,studentId);
+    }
+    public void changeEmail(String email,Long studentId){
+        studentMapper.changeEmail(email,studentId);
+    }
 }

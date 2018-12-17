@@ -47,4 +47,12 @@
     <update id="changeStudentInformation" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
         update student set account=#{account},student_name=#{studentName},email=#{email} where id=#{id}
     </update>
+
+    <update id="changePassword">
+        update student set password=#{arg0} where id=#{arg1}
+    </update>
+
+    <update id="changeEmail">
+        update student set email=#{arg0} where id=#{arg1}
+    </update>
 </mapper>

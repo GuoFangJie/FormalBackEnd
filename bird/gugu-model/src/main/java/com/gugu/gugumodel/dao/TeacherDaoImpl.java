@@ -42,4 +42,15 @@ public class TeacherDaoImpl implements TeacherDao {
     public void newTeacher(TeacherEntity teacherEntity){
         teacherMapper.newTeacher(teacherEntity);
     }
+
+    public TeacherEntity getTeacherById(Long teacherId){
+        return teacherMapper.getTeacherById(teacherId);
+    }
+
+    public void changePassword(String password,Long teacherId){
+        teacherMapper.changePassword(password,teacherId);
+    }
+    public void changeEmail(String email,Long teacherId){
+        teacherMapper.changeEmail(email,teacherId);
+    }
 }
