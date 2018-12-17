@@ -1,44 +1,83 @@
 package com.gugu.guguadmin.service;
 
-import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.dao.CourseDao;
+import com.gugu.gugumodel.dao.TeacherDao;
+import com.gugu.gugumodel.pojo.entity.TeacherEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 /**
  * @author ljy
  */
-public interface TeacherService {
+
+@Service
+public class TeacherService{
+    @Autowired
+    private TeacherDao teacherDao;
+    private CourseDao courseDao;
 
     /**
      * 管理员根据教师ID删除教师账号
      * @param id
      * @return
      */
-    void deleteTeacherById(long id)throws Exception;
+    public void deleteTeacherById(long id)throws Exception{
+        teacherDao.deleteTeacherById(id);
+        ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
+        for(int i=0;i<list.size();i++){
+            courseDao.deleteCourseById(list.get(i));
+        }
+    }
 
     /**
      * 管理员获取所有教师信息
      * @return ArrayList
      */
-    ArrayList<TeacherEntity> getTeachers();
+    public ArrayList<TeacherEntity> getTeachers(){
+        return teacherDao.getTeachers();
+    }
 
 
-    /**@author ljy
+    /**
+     * @author ljy
      * 管理员重置教师密码
      * @param teacherId
      */
-    void resetTeacherPassword(Long teacherId);
+    public void resetTeacherPassword(Long teacherId){
+        teacherDao.resetTeacherPassword(teacherId);
+    }
 
-    /**@author ljy
+
+    /**
+     * @author ljy
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    void changeTeacherInformation(TeacherEntity teacherEntity);
+    public void changeTeacherInformation(TeacherEntity teacherEntity){
+        teacherDao.changeTeacherInformation(teacherEntity);
+    }
 
-    /**@author ljy
+
+    /**
+     * @author ljy
      * 管理员新建教师账号
      * @param teacherEntity
-     * @return
+     * @return TeacherEntity
      */
-    void newTeacher(TeacherEntity teacherEntity);
+    public void newTeacher(TeacherEntity teacherEntity){
+        teacherDao.newTeacher(teacherEntity);
+    }
+
+
+    /**
+     * @author TYJ
+     * 管理员根据教工号或名字搜索教师
+     * @param identity
+     * @return TeacherEntity
+     */
+    public ArrayList<TeacherEntity> searchTeacher(String identity){
+        return teacherDao.searchTeacher(identity);
+    }
 }

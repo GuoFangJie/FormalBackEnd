@@ -30,4 +30,11 @@ public interface TeacherMapper{
         void changePassword(String password,Long teacherId);
 
         void changeEmail(String email,Long teacherId);
+
+        /**
+         * 管理员重置教师密码
+         * @param identity
+         * @return ArrayList
+         */
+        ArrayList<TeacherEntity> searchTeacher(String identity);
 }

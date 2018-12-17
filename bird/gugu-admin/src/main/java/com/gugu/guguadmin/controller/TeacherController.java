@@ -79,6 +79,20 @@ public class TeacherController {
         catch (Exception e){
             httpServletResponse.setStatus(404);
         }
-
     }
+
+    /**
+     * 管理员根据教师教工号或姓名查找教师
+     * @param identity
+     */
+    @GetMapping("?identity={identity}")
+    public void searchTeacher(@PathVariable String identity,HttpServletResponse httpServletResponse){
+        try {
+            teacherService.searchTeacher(identity);
+        }
+        catch (Exception e){
+            httpServletResponse.setStatus(404);
+        }
+    }
+
 }

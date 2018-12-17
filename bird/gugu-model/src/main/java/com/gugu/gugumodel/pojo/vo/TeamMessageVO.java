@@ -12,7 +12,10 @@ import java.util.ArrayList;
 public class TeamMessageVO {
     String team_name;
     Long course_id;
+    String course_name;  //ljy
     Long klass_id;
+    String klass_name;  //ljy
+    int status; //ljy
     StudentEntity leader;
     ArrayList<StudentEntity> members;
     public TeamMessageVO(TeamEntity teamEntity,StudentEntity leader,ArrayList<StudentEntity> members){
@@ -21,6 +24,30 @@ public class TeamMessageVO {
         klass_id=teamEntity.getKlassId();
         this.leader=leader;
         this.members=members;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getCourse_name() {
+        return course_name;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
+
+    public String getKlass_name() {
+        return klass_name;
+    }
+
+    public void setKlass_name(String klass_name) {
+        this.klass_name = klass_name;
     }
 
     public String getTeam_name() {
