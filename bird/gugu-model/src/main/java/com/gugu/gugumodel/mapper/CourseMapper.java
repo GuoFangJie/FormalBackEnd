@@ -1,9 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.ShareMessageEntity;
-import com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.pojo.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -38,4 +35,20 @@ public interface CourseMapper {
      Long getShareTeamIdByCourse(Long mainCourseId,Long subCourseId);
 
      ArrayList<Long> getCourseIdByTeacherId(long id);
+
+     void deleteSeminarShare(Long id);
+
+     void deleteTeamShare(Long id);
+
+     void deleteCourseTeamMain(Long id);
+
+     void deleteCourseSeminarMain(Long id);
+
+     ShareApplicationEntity getSeminarShareApplicationById(Long shareId);
+
+     ShareApplicationEntity getTeamShareApplicationById(Long shareId);
+
+     void deleteAllTeamByCourseId(Long courseId);
+
+     void deleteAllSeminarByCourseId(Long seminarId);
 }

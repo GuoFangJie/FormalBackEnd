@@ -4,6 +4,7 @@ import com.gugu.gugumodel.pojo.entity.*;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import com.gugu.gugumodel.pojo.vo.UserAccountVO;
 import com.gugu.guguuser.service.*;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 @RequestMapping("course")
 public class CourseController {
     @Autowired
-    CourseService courseService;
+    CourseServiceImpl courseService;
     @Autowired
     StudentService studentService;
     @Autowired
@@ -131,4 +132,17 @@ public class CourseController {
     public ArrayList<ShareMessageEntity> getAllShareMessage(@PathVariable("courseId") Long courseId){
         return courseService.getAllShare(courseId);
     }
+
+    /**
+     * 删除共享关系
+     * 1 为讨论课 2 为小组
+     * @param shareId
+     * @param type
+     * @return
+     */
+    @DeleteMapping("/{courseId}/share/{shareId}")
+    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
+        return courseService.deleteCourseShare(shareId,type);
+    }
+
 }

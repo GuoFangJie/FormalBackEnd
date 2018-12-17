@@ -66,4 +66,40 @@
     <select id="getCourseIdByTeacherId" parameterType="java.lang.Long">
         select id from course where teacher_id=#{arg0}
     </select>
+
+    <delete id="deleteSeminarShare" parameterType="java.lang.Long">
+    delete from  share_seminar_application where id=#{arg1}
+    </delete>
+
+    <delete id="deleteTeamShare" parameterType="java.lang.Long">
+        delete from  share_team_application where id=#{arg1}
+    </delete>
+
+    <update id="deleteCourseTeamMain" parameterType="java.lang.Long">
+        update course set team_main_course_id=null where id=#{arg0}
+    </update>
+
+    <update id="deleteCourseSeminarMain" parameterType="java.lang.Long">
+        update course set seminar_main_course_id=null where id=#{arg0}
+    </update>
+
+    <select id="getSeminarShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+        select id,main_course_id mainCourseId,sub_course_id subCourseId,
+               sub_course_teacher_id subCourseTeacherId,status from share_seminar_application
+        where id=#{arg0}
+    </select>
+
+    <select id="getTeamShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+        select id,main_course_id mainCourseId,sub_course_id subCourseId,
+               sub_course_teacher_id subCourseTeacherId,status from share_team_application
+        where id=#{arg0}
+    </select>
+    <update id="deleteAllTeamByCourseId" parameterType="java.lang.Long">
+        update klass_student set team_id=null where course_id=#{arg0}
+    </update>
+
+    <delete id="deleteAllSeminarByCourseId" parameterType="java.lang.Long">
+        delete seminar,klass_seminar from seminar left join klass_seminar on klass_seminar.seminar_id=seminar.id
+        and seminar.course_id=#{arg0}
+    </delete>
 </mapper>

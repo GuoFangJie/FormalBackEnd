@@ -37,4 +37,21 @@ public class CourseMapperTest {
     public void getTeamRecieveCoursesTest(){
         System.out.println(courseMapper.getSeminarRecieveCourses(1L).size());
     }
+
+    @Test
+    public void deleteShareTest(){
+        courseMapper.deleteSeminarShare(1L);
+    }
+    @Test
+    public void deleteCourseTeamMain(){
+        courseMapper.deleteCourseTeamMain(1L);
+    }
+    @Test
+    public void getShareApplicationTest(){
+        System.out.println(courseMapper.getSeminarShareApplicationById(1L));
+    }
+    @Test
+    public void deleteSeminarTest(){
+        courseMapper.deleteAllSeminarByCourseId(1L);
+    }
 }

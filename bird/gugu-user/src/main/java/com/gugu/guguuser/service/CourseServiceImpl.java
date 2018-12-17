@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Service
 public class CourseServiceImpl implements CourseService {
     @Autowired
-    CourseDao courseDao;
+    CourseDaoImpl courseDao;
     @Autowired
     KlassStudentDao klassStudentDao;
     @Autowired
@@ -60,5 +60,13 @@ public class CourseServiceImpl implements CourseService {
         ArrayList<ShareMessageEntity> shareMessageEntities=courseDao.getSeminarShareMessage(courseId);
         shareMessageEntities.addAll(courseDao.getTeamShareMessage(courseId));
         return shareMessageEntities;
+    }
+
+    public boolean deleteCourseShare(Long shareId,Integer type){
+        if(type.equals(1)){
+            return courseDao.deleteSeminarShare(shareId);
+        }else{
+            return courseDao.deleteTeamShare(shareId);
+        }
     }
 }
