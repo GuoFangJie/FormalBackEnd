@@ -16,4 +16,8 @@
         select id,klass_id,course_id,leader_id,team_name,team_serial,
                status from team where id=#{arg0}
     </select>
+
+    <select id="getLeaderId" parameterType="java.lang.Long">
+          select leader_id from team where id=#{arg0}
+    </select>
 </mapper>

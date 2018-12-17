@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -8,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeamMapper {
     TeamEntity findTeamById(Long team_id);
+
+    Long getLeaderId(Long teamId);
 }
