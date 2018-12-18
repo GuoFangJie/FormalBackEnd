@@ -5,7 +5,7 @@ import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import com.gugu.guguuser.service.TeamService;
-import com.gugu.guguuser.service.TeamServiceImpl;
+import com.gugu.guguuser.service.TeamService;
 import org.apache.ibatis.annotations.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @RequestMapping("/team")
 public class TeamController {
     @Autowired
-    TeamServiceImpl teamService;
+    TeamService teamService;
     /**@author ljy
      * 新建队伍(还没有写完呢,队伍是否合法是前端还是后端判断)
      * @param teamMessageVO
