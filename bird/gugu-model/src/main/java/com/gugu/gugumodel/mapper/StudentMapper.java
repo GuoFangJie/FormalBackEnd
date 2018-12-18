@@ -1,15 +1,11 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.CourseEntity;
-import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
+import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ljy
@@ -18,7 +14,19 @@ import java.util.List;
 @Repository
 public interface StudentMapper {
 
+     /**
+      * 管理员根据学生ID删除学生账号
+      * @param id
+      * @return
+      */
      void deleteStudentById(long id);
+
+     /**
+      * @author TYJ
+      * 删除学生账号要删除学生的组队情况
+      * @param studentId
+      */
+     void existAllTeam(Long studentId);
 
      ArrayList<StudentEntity> searchStudent(String identity);
 
@@ -40,4 +48,15 @@ public interface StudentMapper {
      void changePassword(String password,Long studentId);
 
      void changeEmail(String email,Long studentId);
+
+     void activeStudent(ActiveUserVO activeUserVO);
+
+     void newStudent(StudentEntity studentEntity);
+
+     /**
+      * 根据账号获取学生id，在导入名单的时候查重
+      * @param account
+      * @return
+      */
+     Long getStudentByAccount(String account);
 }

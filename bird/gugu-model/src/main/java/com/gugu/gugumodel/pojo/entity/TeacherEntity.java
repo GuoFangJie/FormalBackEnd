@@ -13,7 +13,6 @@ public class TeacherEntity {
     private String teacherName;
     private String account;
     private String email;
-    @JsonIgnore
     private String password;
 
     public String getPassword() {

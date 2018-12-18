@@ -26,6 +26,7 @@ public class StudentEntity {
         this.account=teacherEntity.getAccount();
         this.email=teacherEntity.getEmail();
     }
+
     public String getPassword() {
         return password;
     }

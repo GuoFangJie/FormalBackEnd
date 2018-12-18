@@ -3,6 +3,7 @@ package com.gugu.gugumodel.mapper;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public interface TeacherMapper{
 
         void changeTeacherInformation(TeacherEntity teacherEntity);
 
-        void newTeacher(TeacherEntity teacherEntity);
+        Long newTeacher(TeacherEntity teacherEntity);
 
         TeacherEntity getTeacherById(Long teacherId);
 
@@ -37,4 +38,9 @@ public interface TeacherMapper{
          * @return ArrayList
          */
         ArrayList<TeacherEntity> searchTeacher(String identity);
+
+        /**
+         * 激活老师账号
+         */
+        void activeTeacher(ActiveUserVO activeUserVO);
 }

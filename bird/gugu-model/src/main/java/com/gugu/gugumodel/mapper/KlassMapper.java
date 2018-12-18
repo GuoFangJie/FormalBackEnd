@@ -15,4 +15,6 @@ public interface KlassMapper {
     ArrayList<KlassEntity> getKlassByCourseId(Long courseId);
 
     void newKlass(KlassEntity klassEntity);
+
+    Long getCourseIdByKlass(Long klassId);
 }
