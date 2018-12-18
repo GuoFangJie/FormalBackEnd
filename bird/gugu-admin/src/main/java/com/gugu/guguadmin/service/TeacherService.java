@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class TeacherService{
     @Autowired
     private TeacherDao teacherDao;
+
+    @Autowired
     private CourseDao courseDao;
 
     /**
