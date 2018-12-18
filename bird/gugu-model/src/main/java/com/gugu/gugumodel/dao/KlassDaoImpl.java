@@ -24,4 +24,11 @@ public class KlassDaoImpl implements KlassDao {
         klassMapper.newKlass(klassEntity);
         return klassEntity.getId();
     }
+
+    /**
+     * 根据班级获取课程id
+     */
+    public Long getCourseIdByKlass(Long klassId){
+        return klassMapper.getCourseIdByKlass(klassId);
+    }
 }

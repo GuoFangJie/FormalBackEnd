@@ -1,36 +1,46 @@
 package com.gugu.guguuser.service;
 
+import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.pojo.entity.*;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-/**
- * @author ljy
- */
-public interface TeamService {
-    /**
-     * 新建队伍
-     * @param teamMessageVO
-     */
-   // void newTeam(TeamMessageVO teamMessageVO);
+@Service
+public class TeamService {
+    @Autowired
+    TeamDao teamDao;
+
+    @Autowired
+    StudentDao studentDao;
 
 
     /**
-     * 获取team信息
+     * 获取小组信息
      * @param teamId
+     * @return
      */
-    TeamEntity getTeamMessageByTeamId(Long teamId);
+    public TeamEntity getTeamMessageByTeamId(Long teamId){
+        return teamDao.getTeamById(teamId);
+    }
 
     /**
-     * 获取小组组长信息
+     * 获取小组队长
      * @param teamId
+     * @return
      */
-    StudentEntity getLeaderByTeamId(Long teamId);
+    public StudentEntity getLeaderByTeamId(Long teamId){
+        return studentDao.getLeader(teamId);
+    }
 
     /**
-     * 获取小组组长信息
+     * 获取小组成员
      * @param teamId
+     * @return
      */
-    ArrayList<StudentEntity> getMemberById(Long teamId);
+    public ArrayList<StudentEntity> getMemberById(Long teamId){
+        return studentDao.getMembersExceptLeader(teamId);
+    }
 }

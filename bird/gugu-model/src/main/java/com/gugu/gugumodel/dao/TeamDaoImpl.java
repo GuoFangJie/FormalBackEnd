@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public class TeamDaoImpl implements TeamDao {
     @Autowired
     TeamMapper teamMapper;
+    @Autowired
     StudentMapper studentMapper;
     @Override
     public TeamEntity getTeamById(Long team_id) {

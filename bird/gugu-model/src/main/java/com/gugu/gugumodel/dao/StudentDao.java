@@ -4,6 +4,7 @@ import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.mapper.TeacherMapper;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class StudentDao {
      * 管理员重置学生密码
      * @param studentId
      */
-    public void resetStudentPassword(Long studentId) throws Exception{
+    public void resetStudentPassword(Long studentId){
         studentMapper.resetStudentPassword(studentId);
     }
 
@@ -104,20 +105,60 @@ public class StudentDao {
      * 管理员修改学生信息，包括账号，姓名，邮箱
      * @param studentEntity
      */
-    public void changeStudentInformation(StudentEntity studentEntity) throws Exception{
+    public void changeStudentInformation(StudentEntity studentEntity){
         studentMapper.changeStudentInformation(studentEntity);
     }
 
+    /**
+     * 根据id获取学生信息
+     * @param studentId
+     * @return
+     */
     public StudentEntity getStudentById(Long studentId){
         return studentMapper.getStudentById(studentId);
     }
 
+    /**
+     * 修改密码
+     * @param password
+     * @param studentId
+     */
     public void changePassword(String password,Long studentId){
         studentMapper.changePassword(password,studentId);
     }
 
+    /**
+     * 修改邮箱
+     * @param email
+     * @param studentId
+     */
     public void changeEmail(String email,Long studentId){
         studentMapper.changeEmail(email,studentId);
+    }
+
+    /**
+     * 激活学生账号
+     * @param activeUserVO
+     * @return
+     */
+    public boolean activeStudent(ActiveUserVO activeUserVO){
+        if(studentMapper.getStudentById(activeUserVO.getUserId())==null){
+            return false;
+        }
+        studentMapper.activeStudent(activeUserVO);
+        return true;
+    }
+
+    /**
+     * 新建学生
+     */
+    public Long newStudent(StudentEntity studentEntity){
+        studentMapper.newStudent(studentEntity);
+        return studentEntity.getId();
+    }
+
+    public Long getStudentByAccount(String account){
+        return studentMapper.getStudentByAccount(account);
     }
 
 

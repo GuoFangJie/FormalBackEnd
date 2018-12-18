@@ -12,4 +12,8 @@ public class KlassStudentDaoImpl implements KlassStudentDao{
     public Long getTeamId(Long student_id, Long course_id) {
         return klassStudentMapper.findTeamIdByStudentIdAndCourseId(student_id,course_id);
     }
+
+    public void newStudentToClass(Long klassId,Long studentId,Long courseId){
+        klassStudentMapper.newStudentToClass(klassId,studentId,courseId);
+    }
 }

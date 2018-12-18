@@ -12,7 +12,7 @@
     </resultMap>
 
     <delete id="deleteStudentById" parameterType="java.lang.Long">
-        delete from student where id=#{arg0}
+        delete from student where id=#{param1}
     </delete>
 
     <delete id="existAllTeam" parameterType="java.lang.Long">
@@ -22,13 +22,13 @@
     <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
-        from student,klass_student where klass_student.team_id=#{arg0} and klass_student.student_id=student.id
+        from student,klass_student where klass_student.team_id=#{param1} and klass_student.student_id=student.id
     </select>
 
     <select id="getLeader" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
-        from student,team where team.id=#{arg0} and student.id=team.leader_id
+        from student,team where team.id=#{param1} and student.id=team.leader_id
     </select>
     
     <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
@@ -55,7 +55,7 @@
     </select>
 
     <update id="resetStudentPassword" parameterType="java.lang.Long">
-        update student set password=123456 where id=#{arg0}
+        update student set password=123456 where id=#{param1}
     </update>
 
     <update id="changeStudentInformation" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
@@ -63,10 +63,22 @@
     </update>
 
     <update id="changePassword">
-        update student set password=#{arg0} where id=#{arg1}
+        update student set password=#{param1} where id=#{param2}
     </update>
 
     <update id="changeEmail">
-        update student set email=#{arg0} where id=#{arg1}
+        update student set email=#{param1} where id=#{param2}
     </update>
+
+    <update id="activeStudent" parameterType="com.gugu.gugumodel.pojo.vo.ActiveUserVO">
+        update student set password=#{password},email=#{email},is_active=1 where id=#{userId}
+    </update>
+
+    <insert id="newStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        insert into student(is_active,student_name,account,password) values (0,#{studentName},#{account},'123456')
+    </insert>
+
+    <select id="getStudentByAccount" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from student where account=#{param1}
+    </select>
 </mapper>
