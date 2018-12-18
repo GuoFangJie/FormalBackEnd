@@ -10,44 +10,42 @@ import java.util.ArrayList;
  * @author ren
  */
 public class TeamMessageVO {
+    Long teamId;
     String team_name;
     Long course_id;
-    String course_name;  //ljy
     Long klass_id;
-    String klass_name;  //ljy
-    int status; //ljy
     StudentEntity leader;
     ArrayList<StudentEntity> members;
+    int status;
+
+    public TeamMessageVO(){
+
+    }
+
     public TeamMessageVO(TeamEntity teamEntity,StudentEntity leader,ArrayList<StudentEntity> members){
         team_name=teamEntity.getTeamName();
         course_id=teamEntity.getCourseId();
         klass_id=teamEntity.getKlassId();
         this.leader=leader;
         this.members=members;
+        this.status=teamEntity.getStatus();
+        this.teamId=teamEntity.getId();
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public int getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getCourse_name() {
-        return course_name;
-    }
-
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
-    }
-
-    public String getKlass_name() {
-        return klass_name;
-    }
-
-    public void setKlass_name(String klass_name) {
-        this.klass_name = klass_name;
+    public void setStatus(int valid) {
+        this.status = valid;
     }
 
     public String getTeam_name() {

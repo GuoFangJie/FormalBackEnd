@@ -20,4 +20,33 @@
     <select id="getLeaderId" parameterType="java.lang.Long">
           select leader_id from team where id=#{arg0}
     </select>
+
+    <update id="updateTeam" parameterType="com.gugu.gugumodel.pojo.entity.TeamEntity">
+        update team set klass_id=#{klassId},course_id=#{courseId},leader_id=#{leaderId},team_name=#{teamName},status=#{status}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteStudentFromTeam" parameterType="java.lang.Long">
+        delete from klass_student where team_id=#{arg0}
+    </delete>
+
+    <insert id="buildRelationStuAndTeam" >
+        insert into klass_student(klass_id,student_id,course_id,team_id) values (#{teamEntity.klassId},#{studentId},#{teamEntity.courseId},#{teamEntity.id});
+    </insert>
+
+    <delete id="deleteTeam" parameterType="java.lang.Long">
+        delete from team where id=#{arg0}
+    </delete>
+
+    <delete id="deleteStudentTeamRelation" parameterType="java.lang.Long">
+        delete from klass_student where team_id=#{arg0}
+    </delete>
+
+    <insert id="addMember" >
+        insert into klass_student values (#{team.klassId},#{studentId},#{team.courseId},#{team.id})
+    </insert>
+
+    <update id="removeMember" >
+        update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}
+    </update>
 </mapper>

@@ -16,6 +16,9 @@ public class StudentEntity {
     @JsonIgnore
     private String password;
 
+    public StudentEntity(){
+
+    }
     public StudentEntity(TeacherEntity teacherEntity){
         this.id=teacherEntity.getId();
         this.isActive=teacherEntity.getIsActive();

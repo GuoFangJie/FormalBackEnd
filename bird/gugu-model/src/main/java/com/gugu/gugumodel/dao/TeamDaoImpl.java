@@ -17,4 +17,39 @@ public class TeamDaoImpl implements TeamDao {
         return teamMapper.findTeamById(team_id);
     }
 
+    @Override
+    public void updateTeam(TeamEntity teamEntity){
+        teamMapper.updateTeam(teamEntity);
+    }
+
+    @Override
+    public void deleteStudentFromTeam(Long teamId){
+        teamMapper.deleteStudentFromTeam(teamId);
+    }
+
+    @Override
+    public void buildRelationStuAndTeam(Long studentId,TeamEntity teamEntity){
+        teamMapper.buildRelationStuAndTeam(studentId,teamEntity);
+    }
+
+    @Override
+    public void deleteTeam(Long teamId){
+        teamMapper.deleteTeam(teamId);
+    }
+
+    @Override
+    public void deleteStudentTeamRelation(Long teamId){
+        teamMapper.deleteStudentTeamRelation(teamId);
+    }
+
+    @Override
+    public void addMember(Long teamId,Long studentId){
+        TeamEntity teamEntity= teamMapper.findTeamById(teamId);
+        teamMapper.addMember(teamEntity,studentId);
+    }
+
+    @Override
+    public void removeMember(Long teamId,Long studentId){
+        teamMapper.removeMember(teamId,studentId);
+    }
 }
