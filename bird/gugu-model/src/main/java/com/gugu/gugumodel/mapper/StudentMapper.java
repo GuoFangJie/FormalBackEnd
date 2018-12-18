@@ -18,7 +18,19 @@ import java.util.List;
 @Repository
 public interface StudentMapper {
 
+     /**
+      * 管理员根据学生ID删除学生账号
+      * @param id
+      * @return
+      */
      void deleteStudentById(long id);
+
+     /**
+      * @author TYJ
+      * 删除学生账号要删除学生的组队情况
+      * @param studentId
+      */
+     void existAllTeam(Long studentId);
 
      ArrayList<StudentEntity> searchStudent(String identity);
 

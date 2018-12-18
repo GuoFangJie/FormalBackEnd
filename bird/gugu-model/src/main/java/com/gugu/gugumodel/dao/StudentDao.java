@@ -31,6 +31,14 @@ public class StudentDao {
         studentMapper.deleteStudentById(id);
     }
 
+    /**
+     * @author TYJ
+     * 删除学生账号要删除学生的组队情况
+     * @param studentId
+     */
+    public void existAllTeam(Long studentId){
+        studentMapper.existAllTeam(studentId);
+    }
 
     /**
      * 获取除了队长以外其他成员的信息
@@ -87,7 +95,7 @@ public class StudentDao {
      * 管理员重置学生密码
      * @param studentId
      */
-    public void resetStudentPassword(Long studentId){
+    public void resetStudentPassword(Long studentId) throws Exception{
         studentMapper.resetStudentPassword(studentId);
     }
 
@@ -96,7 +104,7 @@ public class StudentDao {
      * 管理员修改学生信息，包括账号，姓名，邮箱
      * @param studentEntity
      */
-    public void changeStudentInformation(StudentEntity studentEntity){
+    public void changeStudentInformation(StudentEntity studentEntity) throws Exception{
         studentMapper.changeStudentInformation(studentEntity);
     }
 
@@ -111,4 +119,6 @@ public class StudentDao {
     public void changeEmail(String email,Long studentId){
         studentMapper.changeEmail(email,studentId);
     }
+
+
 }

@@ -34,7 +34,7 @@ public class StudentController {
      * 管理员获取所有学生信息
      * @return ArrayList
      */
-    @GetMapping("/")
+    @GetMapping("")
     public ArrayList<StudentEntity> getStudents(){
         return studentService.getStudents();
     }
@@ -66,7 +66,15 @@ public class StudentController {
         catch (Exception e){
             httpServletResponse.setStatus(404);
         }
+    }
 
+    /**
+     * 管理员根据教师教工号或姓名查找教师
+     * @param identity
+     */
+    @GetMapping("/searchstudent")
+    public ArrayList<StudentEntity> searchStudent(String identity){
+        return studentService.searchStudent(identity);
     }
 
 

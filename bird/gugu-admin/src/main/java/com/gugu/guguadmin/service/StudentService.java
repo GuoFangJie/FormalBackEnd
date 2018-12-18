@@ -22,6 +22,7 @@ public class StudentService {
      * @param id
      */
     public void deleteStudentById(Long id){
+        studentDao.existAllTeam(id);
         studentDao.deleteStudentById(id);
     }
 
@@ -38,7 +39,7 @@ public class StudentService {
      * 管理员重置学生密码
      * @param studentId
      */
-    public void resetStudentPassword(Long studentId){
+    public void resetStudentPassword(Long studentId) throws Exception{
         studentDao.resetStudentPassword(studentId);
     }
 
@@ -47,8 +48,23 @@ public class StudentService {
      * 管理员修改学生信息，包括账号，姓名，邮箱
      * @param studentEntity
      */
-    public void changeStudentInformation(StudentEntity studentEntity){
+    public void changeStudentInformation(StudentEntity studentEntity) throws Exception{
         studentDao.changeStudentInformation(studentEntity);
+    }
+
+    /**
+     * @author TYJ
+     * 管理员根据学生号或名字搜索学生
+     * @param identity
+     * @return Arraylist
+     */
+    public ArrayList<StudentEntity> searchStudent(String identity){
+        if("".equals(identity)){
+            return studentDao.getStudents();
+        }
+        else{
+            return studentDao.searchStudent(identity);
+        }
     }
 
 }
