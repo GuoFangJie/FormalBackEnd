@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl{
     @Autowired
     CourseDaoImpl courseDao;
     @Autowired
@@ -19,48 +19,89 @@ public class CourseServiceImpl implements CourseService {
     TeamDao teamDao;
     @Autowired
     KlassDao klassDao;
-    @Override
+
+    /**
+     * 获取与学生相关的基本课程信息
+     * @param studentId
+     * @return
+     */
     public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
         return courseDao.findSimpleCourseEntityByStudentId(studentId);
     }
 
-    @Override
+    /**
+     * 新建课程
+     * @param courseEntity
+     * @return
+     */
     public Long newCourse(CourseEntity courseEntity){
         return courseDao.newCourse(courseEntity);
     }
 
-    @Override
+    /**
+     * 根据courseId获取课程详细信息
+     * @param id
+     * @return
+     */
     public CourseEntity getCourseById(Long id) {
         return courseDao.getCourseById(id);
     }
 
-    @Override
+    /**
+     * 根据courseId删除课程
+     * @param id
+     * @throws Exception
+     */
     public void deleteCourseById(Long id) throws Exception {
         courseDao.deleteCourseById(id);
     }
 
-    @Override
+    /**
+     * 获取小组的所有成绩记录
+     * @param student_id
+     * @param course_id
+     * @return
+     */
     public ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id,Long course_id) {
         Long team_id=klassStudentDao.getTeamId(student_id,course_id);
         return seminarScoreDao.getTeamAllScore(team_id);
     }
 
+    /**
+     * 通过teamid获取小组信息
+     * @param teamId
+     * @return
+     */
     public TeamEntity getTeamById(Long teamId) {
         return teamDao.getTeamById(teamId);
     }
 
-    @Override
+    /**
+     * 获取课程下的班级信息
+     * @param courseId
+     * @return
+     */
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassDao.getKlassByCourseId(courseId);
     }
 
-    @Override
+    /**
+     * 获取课程相关的所有共享关系
+     * @param courseId
+     * @return
+     */
     public ArrayList<ShareMessageEntity> getAllShare(Long courseId) {
         ArrayList<ShareMessageEntity> shareMessageEntities=courseDao.getSeminarShareMessage(courseId);
         shareMessageEntities.addAll(courseDao.getTeamShareMessage(courseId));
         return shareMessageEntities;
     }
 
+    /**
+     * 删除分享关系，并删除从课程的部分数据
+     * @param shareId
+     * @param type
+     * @return
+     */
     public boolean deleteCourseShare(Long shareId,Integer type){
         if(type.equals(1)){
             return courseDao.deleteSeminarShare(shareId);

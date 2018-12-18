@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
  * @author ren
  */
 @Service
-public class KlassServiceImpl implements KlassService {
+public class KlassServiceImpl{
     @Autowired
     KlassDao klassDao;
-    @Override
+
+    /**
+     * 新建班级
+     * @param klassEntity
+     * @return
+     */
     public Long newKlass(KlassEntity klassEntity) {
         return klassDao.newKlass(klassEntity);
     }

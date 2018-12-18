@@ -4,14 +4,9 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
-import com.gugu.guguuser.service.TeamService;
-import org.apache.ibatis.annotations.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController

@@ -23,11 +23,20 @@ public class StudentServiceImpl {
     @Autowired
     EmailUtil emailUtil;
 
+    /**
+     * 获取小组成员除了组长
+     * @param teamId
+     * @return
+     */
     public ArrayList<StudentEntity> getMembers(Long teamId) {
         return studentDao.getMembersExceptLeader(teamId);
     }
 
-
+    /**
+     * 获取组长的数据
+     * @param teamId
+     * @return
+     */
     public StudentEntity getLeader(Long teamId) {
         return studentDao.getLeader(teamId);
     }
