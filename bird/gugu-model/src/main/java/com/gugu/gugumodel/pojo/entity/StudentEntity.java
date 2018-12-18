@@ -16,6 +16,7 @@ public class StudentEntity {
     @JsonIgnore
     private String password;
 
+
     public String getPassword() {
         return password;
     }

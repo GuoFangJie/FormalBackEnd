@@ -24,7 +24,7 @@ public interface TeacherMapper{
 
         void changeTeacherInformation(TeacherEntity teacherEntity);
 
-        void newTeacher(TeacherEntity teacherEntity);
+        Long newTeacher(TeacherEntity teacherEntity);
 
         TeacherEntity getTeacherById(Long teacherId);
 

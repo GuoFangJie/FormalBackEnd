@@ -3,8 +3,20 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.StudentMapper">
+    <resultMap id="studentResultList" type="com.gugu.gugumodel.pojo.entity.StudentEntity">
+        <id column="id" property="id"/>
+        <result column="is_active" property="isActive"/>
+        <result column="student_name" property="studentName"/>
+        <result column="account" property="account"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
     <delete id="deleteStudentById" parameterType="java.lang.Long">
         delete from student where id=#{param1}
+    </delete>
+
+    <delete id="existAllTeam" parameterType="java.lang.Long">
+        delete from klass_student where student_id=#{arg0}
     </delete>
 
     <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
@@ -32,12 +44,14 @@
         from student where student.id=#{arg0}
     </select>
 
-    <select id="searchStudent">
-
+    <select id="searchStudent" resultMap="studentResultList" parameterType="java.lang.String">
+        select id,account,student_name,email
+        from student
+        where account=#{arg0} or student_name=#{arg0}
     </select>
 
-    <select id="getStudents" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
-        select student.id id,student.account account,student.student_name studentName,student.email email from student
+    <select id="getStudents" resultMap="studentResultList">
+        select id,account,student_name,email from student
     </select>
 
     <update id="resetStudentPassword" parameterType="java.lang.Long">

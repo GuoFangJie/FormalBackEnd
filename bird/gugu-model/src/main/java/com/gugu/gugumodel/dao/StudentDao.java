@@ -1,10 +1,18 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.StudentMapper;
+import com.gugu.gugumodel.mapper.TeacherMapper;
+import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
+
+import java.util.List;
+
+
 import java.util.ArrayList;
 
 /**
@@ -24,6 +32,14 @@ public class StudentDao {
         studentMapper.deleteStudentById(id);
     }
 
+    /**
+     * @author TYJ
+     * 删除学生账号要删除学生的组队情况
+     * @param studentId
+     */
+    public void existAllTeam(Long studentId){
+        studentMapper.existAllTeam(studentId);
+    }
 
     /**
      * 获取除了队长以外其他成员的信息
@@ -144,4 +160,6 @@ public class StudentDao {
     public Long getStudentByAccount(String account){
         return studentMapper.getStudentByAccount(account);
     }
+
+
 }

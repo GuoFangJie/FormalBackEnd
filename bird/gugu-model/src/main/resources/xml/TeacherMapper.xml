@@ -15,8 +15,8 @@
         delete from teacher where id=#{arg0}
     </delete>
 
-    <select id="getTeachers" resultType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
-        select teacher.id id,teacher.account account,teacher.teacher_name teacherName,teacher.email email
+    <select id="getTeachers" resultMap="teacherResultList">
+        select id,account,teacher_name,email
         from teacher
     </select>
 
@@ -28,9 +28,12 @@
         update teacher set account=#{account},teacher_name=#{teacherName},email=#{email} where id=#{id}
     </update>
 
-    <insert id="newTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+    <insert id="newTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity" >
         insert teacher(account,password,teacher_name,is_active,email)
         values (#{account},#{password},#{teacherName},#{isActive},#{email})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            select  last_insert_id()
+        </selectKey>
     </insert>
 
 
