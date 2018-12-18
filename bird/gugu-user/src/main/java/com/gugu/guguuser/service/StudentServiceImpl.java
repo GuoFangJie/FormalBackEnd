@@ -2,7 +2,6 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 @Service
 public class StudentServiceImpl {
     @Autowired
-    StudentDaoImpl studentDao;
+    StudentDao studentDao;
     @Autowired
     KlassStudentDaoImpl klassStudentDao;
     @Autowired
