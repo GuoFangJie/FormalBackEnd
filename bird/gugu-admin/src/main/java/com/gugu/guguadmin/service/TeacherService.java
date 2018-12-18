@@ -77,9 +77,14 @@ public class TeacherService{
      * @author TYJ
      * 管理员根据教工号或名字搜索教师
      * @param identity
-     * @return TeacherEntity
+     * @return Arraylist
      */
     public ArrayList<TeacherEntity> searchTeacher(String identity){
-        return teacherDao.searchTeacher(identity);
+        if("".equals(identity)){
+            return teacherDao.getTeachers();
+        }
+        else{
+            return teacherDao.searchTeacher(identity);
+        }
     }
 }

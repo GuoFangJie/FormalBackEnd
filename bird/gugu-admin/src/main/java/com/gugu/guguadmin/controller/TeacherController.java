@@ -20,7 +20,7 @@ public class TeacherController {
      * @param
      * @return
      */
-    @PostMapping("/")
+    @PostMapping("")
     public void newTeacher(@RequestBody TeacherEntity teacherEntity){
         Byte a=0;
         teacherEntity.setIsActive(a);
@@ -85,14 +85,9 @@ public class TeacherController {
      * 管理员根据教师教工号或姓名查找教师
      * @param identity
      */
-    @GetMapping("?identity={identity}")
-    public void searchTeacher(@PathVariable String identity,HttpServletResponse httpServletResponse){
-        try {
-            teacherService.searchTeacher(identity);
-        }
-        catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+    @GetMapping("")
+    public ArrayList<TeacherEntity> searchTeacher(String identity){
+        return teacherService.searchTeacher(identity);
     }
 
 }
