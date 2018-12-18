@@ -28,6 +28,7 @@ public class TeacherService{
     public void deleteTeacherById(long id)throws Exception{
         teacherDao.deleteTeacherById(id);
         ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
+        System.out.println(list);
         for(int i=0;i<list.size();i++){
             courseDao.deleteCourseById(list.get(i));
         }
@@ -57,7 +58,7 @@ public class TeacherService{
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation(TeacherEntity teacherEntity){
+    public void changeTeacherInformation (TeacherEntity teacherEntity) throws Exception{
         teacherDao.changeTeacherInformation(teacherEntity);
     }
 
@@ -68,8 +69,8 @@ public class TeacherService{
      * @param teacherEntity
      * @return TeacherEntity
      */
-    public void newTeacher(TeacherEntity teacherEntity){
-        teacherDao.newTeacher(teacherEntity);
+    public Long newTeacher (TeacherEntity teacherEntity) throws Exception{
+        return teacherDao.newTeacher(teacherEntity);
     }
 
 

@@ -50,7 +50,7 @@ public class TeacherDao {
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation(TeacherEntity teacherEntity){
+    public void changeTeacherInformation(TeacherEntity teacherEntity) throws Exception{
         teacherMapper.changeTeacherInformation(teacherEntity);
     }
 
@@ -59,8 +59,8 @@ public class TeacherDao {
      * 管理员新建教师账号
      * @param teacherEntity
      */
-    public void newTeacher(TeacherEntity teacherEntity){
-        teacherMapper.newTeacher(teacherEntity);
+    public Long newTeacher(TeacherEntity teacherEntity) throws Exception{
+        return teacherMapper.newTeacher(teacherEntity);
     }
 
     /**

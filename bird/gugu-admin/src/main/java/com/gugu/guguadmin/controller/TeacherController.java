@@ -21,10 +21,16 @@ public class TeacherController {
      * @return
      */
     @PostMapping("")
-    public void newTeacher(@RequestBody TeacherEntity teacherEntity){
+    public Long newTeacher(@RequestBody TeacherEntity teacherEntity,HttpServletResponse httpServletResponse){
         Byte a=0;
         teacherEntity.setIsActive(a);
-        teacherService.newTeacher(teacherEntity);
+        Long id = null;
+        try {
+            id = teacherService.newTeacher(teacherEntity);
+        } catch (Exception e) {
+            httpServletResponse.setStatus(400);
+        }
+        return id;
     }
 
 
@@ -46,7 +52,7 @@ public class TeacherController {
      * 管理员获取所有教师信息
      * @return ArrayList
      */
-    @GetMapping("/")
+    @GetMapping("")
     public ArrayList<TeacherEntity> getTeachers(){
         return teacherService.getTeachers();
     }
@@ -85,7 +91,7 @@ public class TeacherController {
      * 管理员根据教师教工号或姓名查找教师
      * @param identity
      */
-    @GetMapping("")
+    @GetMapping("/searchteacher")
     public ArrayList<TeacherEntity> searchTeacher(String identity){
         return teacherService.searchTeacher(identity);
     }
