@@ -1,5 +1,7 @@
 package com.gugu.gugumodel.pojo.entity;
 
+import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
+
 /**
  * 储存队伍信息的entity，与表对应
  * @author ren
@@ -12,6 +14,20 @@ public class TeamEntity {
     private String teamName;
     private Integer teamSerial;
     private Integer status;
+
+    public TeamEntity(){
+
+    }
+
+    public TeamEntity(TeamMessageVO teamMessageVO){
+        this.klassId=teamMessageVO.getKlass_id();
+        this.courseId=teamMessageVO.getCourse_id();
+        this.teamName=teamMessageVO.getTeam_name();
+        this.leaderId=teamMessageVO.getLeader().getId();
+        this.status=teamMessageVO.getStatus();
+        this.id=teamMessageVO.getTeamId();
+    }
+
 
     public Long getId() {
         return id;

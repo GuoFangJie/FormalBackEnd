@@ -16,6 +16,16 @@ public class StudentEntity {
     @JsonIgnore
     private String password;
 
+    public StudentEntity(){
+
+    }
+    public StudentEntity(TeacherEntity teacherEntity){
+        this.id=teacherEntity.getId();
+        this.isActive=teacherEntity.getIsActive();
+        this.studentName=teacherEntity.getTeacherName();
+        this.account=teacherEntity.getAccount();
+        this.email=teacherEntity.getEmail();
+    }
 
     public String getPassword() {
         return password;
