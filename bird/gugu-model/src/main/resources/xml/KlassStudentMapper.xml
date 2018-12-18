@@ -6,4 +6,8 @@
     <select id="findTeamIdByStudentIdAndCourseId" resultType="java.lang.Long">
         select team_id from klass_student where student_id=#{student_id} and course_id=#{course_id}
     </select>
+
+    <insert id="newStudentToClass">
+        insert klass_student(klass_id,student_id,course_id) values (#{param1},#{param2},#{param3})
+    </insert>
 </mapper>

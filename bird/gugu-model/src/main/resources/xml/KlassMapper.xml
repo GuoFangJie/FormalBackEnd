@@ -12,4 +12,8 @@
         insert klass(course_id,grade,klass_serial,klass_time,klass_location)
         values (#{courseId},#{grade},#{klassSerial},#{klassTime},#{klassLocation})
     </insert>
+
+    <select id="getCourseIdByKlass" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select course_id from klass where id=#{param1}
+    </select>
 </mapper>

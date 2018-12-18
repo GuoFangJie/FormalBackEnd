@@ -52,4 +52,8 @@
         from teacher
         where account=#{arg0} or teacher_name=#{arg0}
     </select>
+
+    <update id="activeTeacher" parameterType="com.gugu.gugumodel.pojo.vo.ActiveUserVO">
+        update teacher set password=#{password},email=#{email},is_active= where id=#{userId}
+    </update>
 </mapper>

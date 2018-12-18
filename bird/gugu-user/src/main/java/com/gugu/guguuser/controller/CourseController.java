@@ -2,9 +2,7 @@ package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.pojo.entity.*;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
-import com.gugu.gugumodel.pojo.vo.UserAccountVO;
 import com.gugu.guguuser.service.*;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +14,9 @@ import java.util.ArrayList;
 @RequestMapping("course")
 public class CourseController {
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
     @Autowired
-    StudentServiceImpl studentService;
+    StudentService studentService;
     @Autowired
     KlassService klassService;
     /**

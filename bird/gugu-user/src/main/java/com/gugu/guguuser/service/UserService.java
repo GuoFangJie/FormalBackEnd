@@ -1,9 +1,10 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.StudentDaoImpl;
+import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
+import com.gugu.gugumodel.pojo.vo.UserInfoVO;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    StudentDaoImpl studentDao;
+    StudentDao studentDao;
     @Autowired
     TeacherDao teacherDao;
     @Autowired
     EmailUtil emailUtil;
+
+    /**
+     * 发送密码到邮箱
+     * @param userId
+     * @param role
+     * @return
+     */
     public boolean sendPasswordToUser(Long userId,String role){
         if(role.equals("Teacher")){
             TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
@@ -31,6 +39,13 @@ public class UserService {
         }
     }
 
+    /**
+     * 修改密码
+     * @param role
+     * @param password
+     * @param userId
+     * @return
+     */
     public boolean changePassword(String role,String password,Long userId){
         if(role.equals("Teacher")){
             teacherDao.changePassword(password,userId);
@@ -40,14 +55,27 @@ public class UserService {
         return true;
     }
 
-    public StudentEntity getUserInfo(String role,Long userId){
+    /**
+     * 获取个人信息
+     * @param role
+     * @param userId
+     * @return
+     */
+    public UserInfoVO getUserInfo(String role,Long userId){
         if(role.equals("Teacher")){
-            return new StudentEntity(teacherDao.getTeacherById(userId));
+            return new UserInfoVO(teacherDao.getTeacherById(userId));
         }else{
-            return studentDao.getStudentById(userId);
+            return new UserInfoVO(studentDao.getStudentById(userId));
         }
     }
 
+    /**
+     * 修改邮箱
+     * @param role
+     * @param email
+     * @param userId
+     * @return
+     */
     public boolean changeEmail(String role,String email,Long userId){
         if(role.equals("Teacher")){
             teacherDao.changeEmail(email,userId);

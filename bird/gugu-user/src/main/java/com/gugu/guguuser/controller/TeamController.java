@@ -4,6 +4,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
+import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

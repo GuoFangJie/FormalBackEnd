@@ -9,24 +9,37 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class TeamServiceImpl implements TeamService {
+public class TeamService {
     @Autowired
     TeamDao teamDao;
 
     @Autowired
     StudentDao studentDao;
 
-    @Override
+
+    /**
+     * 获取小组信息
+     * @param teamId
+     * @return
+     */
     public TeamEntity getTeamMessageByTeamId(Long teamId){
         return teamDao.getTeamById(teamId);
     }
 
-    @Override
+    /**
+     * 获取小组队长
+     * @param teamId
+     * @return
+     */
     public StudentEntity getLeaderByTeamId(Long teamId){
         return studentDao.getLeader(teamId);
     }
 
-    @Override
+    /**
+     * 获取小组成员
+     * @param teamId
+     * @return
+     */
     public ArrayList<StudentEntity> getMemberById(Long teamId){
         return studentDao.getMembersExceptLeader(teamId);
     }

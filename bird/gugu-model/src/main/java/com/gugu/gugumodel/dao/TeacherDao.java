@@ -5,6 +5,7 @@ import com.gugu.gugumodel.mapper.TeamMapper;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,15 +73,40 @@ public class TeacherDao {
         return teacherMapper.searchTeacher(identity);
     }
 
-
+    /**
+     * 根据id获取老师信息
+     * @param teacherId
+     * @return
+     */
     public TeacherEntity getTeacherById(Long teacherId){
         return teacherMapper.getTeacherById(teacherId);
     }
 
+    /**
+     * 修改老师密码
+     * @param password
+     * @param teacherId
+     */
     public void changePassword(String password,Long teacherId){
         teacherMapper.changePassword(password,teacherId);
     }
+
+    /**
+     * 修改邮箱
+     * @param email
+     * @param teacherId
+     */
     public void changeEmail(String email,Long teacherId){
         teacherMapper.changeEmail(email,teacherId);
+    }
+    /**
+     * 激活账号
+     */
+    public boolean activeTeacher(ActiveUserVO activeUserVO){
+        if(teacherMapper.getTeacherById(activeUserVO.getUserId())==null){
+            return false;
+        }
+        teacherMapper.activeTeacher(activeUserVO);
+        return true;
     }
 }

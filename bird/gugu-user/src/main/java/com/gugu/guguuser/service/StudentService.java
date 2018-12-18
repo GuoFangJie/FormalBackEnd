@@ -2,10 +2,11 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
+import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ import java.util.ArrayList;
  * @author ren
  */
 @Service
-public class StudentServiceImpl {
+public class StudentService {
     @Autowired
-    StudentDaoImpl studentDao;
+    StudentDao studentDao;
     @Autowired
     KlassStudentDaoImpl klassStudentDao;
     @Autowired
@@ -41,13 +42,31 @@ public class StudentServiceImpl {
         return studentDao.getLeader(teamId);
     }
 
-
+    /**
+     * 获取除了自己之外的未组队同学
+     * @param courseId
+     * @param studentId
+     * @return
+     */
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId) {
         return studentDao.getStudentWithoutTeamInCourse(courseId,studentId);
     }
 
+    /**
+     * 获取自己在当前课程下的小组id
+     * @param courseId
+     * @param studentId
+     * @return
+     */
     public Long getTeamId(Long courseId,Long studentId){
         return klassStudentDao.getTeamId(studentId,courseId);
+    }
+
+    /**
+     * 激活学生账号
+     */
+    public boolean activeStudent(ActiveUserVO activeUserVO){
+        return studentDao.activeStudent(activeUserVO);
     }
 
 }

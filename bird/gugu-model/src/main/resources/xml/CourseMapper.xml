@@ -102,4 +102,5 @@
         delete seminar,klass_seminar from seminar left join klass_seminar on klass_seminar.seminar_id=seminar.id
         and seminar.course_id=#{arg0}
     </delete>
+
 </mapper>

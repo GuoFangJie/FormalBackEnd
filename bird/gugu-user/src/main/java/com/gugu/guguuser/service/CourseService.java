@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CourseServiceImpl{
+public class CourseService {
     @Autowired
     CourseDaoImpl courseDao;
     @Autowired
