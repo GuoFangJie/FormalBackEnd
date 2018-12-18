@@ -16,4 +16,8 @@
     <select id="getCourseIdByKlass" parameterType="java.lang.Long" resultType="java.lang.Long">
         select course_id from klass where id=#{param1}
     </select>
+
+    <delete id="deleteKlassById" parameterType="java.lang.Long">
+        delete from klass where id=#{param1}
+    </delete>
 </mapper>

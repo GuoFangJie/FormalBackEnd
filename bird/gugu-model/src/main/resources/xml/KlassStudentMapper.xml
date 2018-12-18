@@ -10,4 +10,6 @@
     <insert id="newStudentToClass">
         insert klass_student(klass_id,student_id,course_id) values (#{param1},#{param2},#{param3})
     </insert>
+
+
 </mapper>
