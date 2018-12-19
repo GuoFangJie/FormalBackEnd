@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
@@ -21,16 +22,10 @@ public class TeacherController {
      * @return
      */
     @PostMapping("")
-    public Long newTeacher(@RequestBody TeacherEntity teacherEntity,HttpServletResponse httpServletResponse){
+    public Long newTeacher(@RequestBody TeacherEntity teacherEntity,HttpServletResponse httpServletResponse) throws Exception{
         Byte a=0;
         teacherEntity.setIsActive(a);
-        Long id = null;
-        try {
-            id = teacherService.newTeacher(teacherEntity);
-        } catch (Exception e) {
-            httpServletResponse.setStatus(400);
-        }
-        return id;
+        return teacherService.newTeacher(teacherEntity);
     }
 
 
@@ -40,12 +35,8 @@ public class TeacherController {
      * @return
      */
     @DeleteMapping("/{teacherId}")
-    public void deleteTeacherById(@PathVariable long teacherId, HttpServletResponse httpServletResponse){
-        try {
-            teacherService.deleteTeacherById(teacherId);
-        }catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+    public void deleteTeacherById(@PathVariable long teacherId, HttpServletResponse httpServletResponse) throws SQLException {
+        teacherService.deleteTeacherById(teacherId);
     }
 
     /**
@@ -64,12 +55,7 @@ public class TeacherController {
      */
     @PutMapping("/{teacherId}/password")
     public void resetTeacherPassword(@PathVariable Long teacherId,HttpServletResponse httpServletResponse){
-        try{
-            teacherService.resetTeacherPassword(teacherId);
-        }
-        catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+        teacherService.resetTeacherPassword(teacherId);
     }
 
     /**
@@ -77,14 +63,9 @@ public class TeacherController {
      * @param teacherId
      */
     @PutMapping("/{teacherId}/information")
-    public void changeTeacherInformation(@PathVariable Long teacherId, @RequestBody TeacherEntity teacherEntity,HttpServletResponse httpServletResponse){
+    public void changeTeacherInformation(@PathVariable Long teacherId, @RequestBody TeacherEntity teacherEntity,HttpServletResponse httpServletResponse) throws SQLException{
         teacherEntity.setId(teacherId);
-        try {
-            teacherService.changeTeacherInformation(teacherEntity);
-        }
-        catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+        teacherService.changeTeacherInformation(teacherEntity);
     }
 
     /**
