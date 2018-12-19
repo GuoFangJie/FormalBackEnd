@@ -26,7 +26,7 @@ public class TeacherDao {
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id) throws SQLException {
+    public void deleteTeacherById(long id) {
             teacherMapper.deleteTeacherById(id);
     }
 
@@ -52,7 +52,7 @@ public class TeacherDao {
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation(TeacherEntity teacherEntity) throws SQLException{
+    public void changeTeacherInformation(TeacherEntity teacherEntity){
         teacherMapper.changeTeacherInformation(teacherEntity);
     }
 
@@ -61,7 +61,7 @@ public class TeacherDao {
      * 管理员新建教师账号
      * @param teacherEntity
      */
-    public Long newTeacher(TeacherEntity teacherEntity) throws Exception{
+    public Long newTeacher(TeacherEntity teacherEntity){
         return teacherMapper.newTeacher(teacherEntity);
     }
 

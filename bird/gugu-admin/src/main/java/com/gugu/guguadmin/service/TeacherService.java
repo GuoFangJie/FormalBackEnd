@@ -2,6 +2,7 @@ package com.gugu.guguadmin.service;
 
 import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.TeacherDao;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class TeacherService{
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id)throws SQLException {
+    public void deleteTeacherById(long id) throws NotFoundException {
         teacherDao.deleteTeacherById(id);
         ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
         for(int i=0;i<list.size();i++){
@@ -58,7 +59,7 @@ public class TeacherService{
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation (TeacherEntity teacherEntity) throws SQLException{
+    public void changeTeacherInformation (TeacherEntity teacherEntity){
         teacherDao.changeTeacherInformation(teacherEntity);
     }
 
@@ -69,7 +70,7 @@ public class TeacherService{
      * @param teacherEntity
      * @return TeacherEntity
      */
-    public Long newTeacher (TeacherEntity teacherEntity) throws Exception{
+    public Long newTeacher (TeacherEntity teacherEntity){
         return teacherDao.newTeacher(teacherEntity);
     }
 

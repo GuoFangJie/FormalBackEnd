@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import com.gugu.gugumodel.pojo.entity.ShareMessageEntity;
 import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
@@ -17,7 +18,7 @@ public interface CourseDao {
 
     CourseEntity getCourseById(Long id);
 
-    void deleteCourseById(Long id) throws SQLException;
+    void deleteCourseById (Long id) throws NotFoundException;
 
     ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId);
 

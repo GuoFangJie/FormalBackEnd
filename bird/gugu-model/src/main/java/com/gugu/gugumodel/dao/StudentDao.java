@@ -7,6 +7,8 @@ import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
 
