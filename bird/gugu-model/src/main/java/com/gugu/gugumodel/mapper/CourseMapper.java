@@ -52,5 +52,6 @@ public interface CourseMapper {
 
      void deleteAllSeminarByCourseId(Long seminarId);
 
+     Long getTeacherIdByCourse(Long courseId);
 
 }

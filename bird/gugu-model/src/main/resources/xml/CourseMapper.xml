@@ -103,4 +103,8 @@
         and seminar.course_id=#{arg0}
     </delete>
 
+    <select id="getTeacherIdByCourse" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select teacher_id from course where id=#{arg0}
+    </select>
+
 </mapper>

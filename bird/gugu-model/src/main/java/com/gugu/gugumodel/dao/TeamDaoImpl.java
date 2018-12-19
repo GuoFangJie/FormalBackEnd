@@ -1,10 +1,14 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.mapper.CourseMapper;
 import com.gugu.gugumodel.mapper.SeminarScoreMapper;
 import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.mapper.TeamMapper;
+import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
+import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +18,11 @@ public class TeamDaoImpl implements TeamDao {
     TeamMapper teamMapper;
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    CourseMapper courseMapper;
+
+    @Autowired
+    TeamValidRequestMapper teamValidRequestMapper;
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
     @Override
@@ -55,6 +64,21 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public void removeMember(Long teamId,Long studentId){
         teamMapper.removeMember(teamId,studentId);
+    }
+
+    @Override
+    public Long getTeacherIdByCourse(Long courseId){
+       return courseMapper.getTeacherIdByCourse(courseId);
+    }
+
+    @Override
+    public void teamValidRequest(TeamValidEntity teamValidEntity){
+            teamValidRequestMapper.teamValidRequest(teamValidEntity);
+    }
+
+    @Override
+    public Long getTeamValidStatus(Long teamId){
+        return teamValidRequestMapper.getTeamValidStatus(teamId);
     }
 
     /**

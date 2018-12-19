@@ -50,6 +50,8 @@
         update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}
     </update>
 
+
+
     <select id="getTeamIdByKlassId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select team_id from team where klass_id=#{param1}
     </select>

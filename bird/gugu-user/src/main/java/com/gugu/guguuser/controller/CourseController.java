@@ -142,9 +142,9 @@ public class CourseController {
      * @param type
      * @return
      */
-    @DeleteMapping("/{courseId}/share/{shareId}")
-    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
-        return courseService.deleteCourseShare(shareId,type);
-    }
+//    @DeleteMapping("/{courseId}/share/{shareId}")
+//    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
+//        return courseService.deleteCourseShare(shareId,type);
+//    }
 
 }

@@ -6,6 +6,7 @@ import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 @Service
@@ -45,11 +46,28 @@ public class TeamService {
         teamDao.deleteStudentTeamRelation(teamId);
     }
 
-    public void addMember(Long teamId,Long studentId){
-        teamDao.addMember(teamId,studentId);
+    public void addMember(Long teamId, Long studentId,HttpServletResponse httpServletResponse){
+//        Long status= teamDao.getTeamValidStatus(teamId);
+//        System.out.println(status);
+//        if(status==1||status==null){
+            httpServletResponse.setStatus(200);
+            teamDao.addMember(teamId,studentId);
+//        }
+//        else{
+//            httpServletResponse.setStatus(405);
+//        }
+
+
+
     }
 
     public void removeMember(Long teamId,Long studentId){
         teamDao.removeMember(teamId,studentId);
+    }
+
+
+    public void teamValidRequest(TeamValidEntity teamValidEntity){
+            teamValidEntity.setTeacherId(teamDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
+            teamDao.teamValidRequest(teamValidEntity);
     }
 }
