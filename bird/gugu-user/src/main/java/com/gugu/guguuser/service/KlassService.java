@@ -19,11 +19,11 @@ import java.io.IOException;
 @Service
 public class KlassService {
     @Autowired
-    KlassDaoImpl klassDao;
+    KlassDao klassDao;
     @Autowired
     StudentDao studentDao;
     @Autowired
-    KlassStudentDaoImpl klassStudentDao;
+    KlassStudentDao klassStudentDao;
     /**
      * 新建班级
      * @param klassEntity
