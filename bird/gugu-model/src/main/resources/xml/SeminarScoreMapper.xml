@@ -7,4 +7,9 @@
         select klass_seminar_id klassSeminarId,team_id teamId ,total_score totalScore,presentaton_score presentationScore,question_score questionScore,
                report_score reportScore from seminar_score where team_id=#{arg0}
     </select>
+    
+    <delete id="deleteByKlassSeminarId" parameterType="java.lang.Long">
+        delete from seminar_score where klass_seminar_id=#{param1}
+    </delete>
+
 </mapper>

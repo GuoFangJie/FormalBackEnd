@@ -3,7 +3,6 @@ package com.gugu.gugumodel.dao;
 import com.gugu.gugumodel.mapper.CourseMapper;
 import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -43,15 +42,15 @@ public class CourseDaoImpl implements CourseDao {
         SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
         ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
         if(mainCourseId.equals(courseId)){
-            ArrayList<ShareRecieveCourseEntity> shareRecieveCourseEntities=courseMapper.getSeminarRecieveCourses(courseId);
+            ArrayList<ShareReceiveCourseEntity> shareRecieveCourseEntities=courseMapper.getSeminarRecieveCourses(courseId);
             for(int i=0;i<shareRecieveCourseEntities.size();i++){
                 ShareMessageEntity shareMessageEntity=new ShareMessageEntity(mainCourse,shareRecieveCourseEntities.get(i),2);
                 shareMessageEntities.add(shareMessageEntity);
             }
         }else{
-            ShareRecieveCourseEntity shareRecieveCourseEntity=(ShareRecieveCourseEntity)courseMapper.getSimpleCourseById(courseId);
-            shareRecieveCourseEntity.setShareId(courseMapper.getShareSeminarIdByCourse(mainCourseId,courseId));
-            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId),shareRecieveCourseEntity,2);
+            ShareReceiveCourseEntity shareReceiveCourseEntity =(ShareReceiveCourseEntity)courseMapper.getSimpleCourseById(courseId);
+            shareReceiveCourseEntity.setShareId(courseMapper.getShareSeminarIdByCourse(mainCourseId,courseId));
+            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId), shareReceiveCourseEntity,2);
             shareMessageEntities.add(shareMessageEntity);
         }
         return shareMessageEntities;
@@ -63,15 +62,15 @@ public class CourseDaoImpl implements CourseDao {
         SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
         ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
         if(mainCourseId.equals(courseId)){
-            ArrayList<ShareRecieveCourseEntity> shareRecieveCourseEntities=courseMapper.getTeamRecieveCourses(courseId);
+            ArrayList<ShareReceiveCourseEntity> shareRecieveCourseEntities=courseMapper.getTeamRecieveCourses(courseId);
             for(int i=0;i<shareRecieveCourseEntities.size();i++){
                 ShareMessageEntity shareMessageEntity=new ShareMessageEntity(mainCourse,shareRecieveCourseEntities.get(i),1);
                 shareMessageEntities.add(shareMessageEntity);
             }
         }else{
-            ShareRecieveCourseEntity shareRecieveCourseEntity=(ShareRecieveCourseEntity)courseMapper.getSimpleCourseById(courseId);
-            shareRecieveCourseEntity.setShareId(courseMapper.getShareTeamIdByCourse(mainCourseId,courseId));
-            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId),shareRecieveCourseEntity,1);
+            ShareReceiveCourseEntity shareReceiveCourseEntity =(ShareReceiveCourseEntity)courseMapper.getSimpleCourseById(courseId);
+            shareReceiveCourseEntity.setShareId(courseMapper.getShareTeamIdByCourse(mainCourseId,courseId));
+            ShareMessageEntity shareMessageEntity=new ShareMessageEntity(courseMapper.getSimpleCourseById(mainCourseId), shareReceiveCourseEntity,1);
             shareMessageEntities.add(shareMessageEntity);
         }
         return shareMessageEntities;

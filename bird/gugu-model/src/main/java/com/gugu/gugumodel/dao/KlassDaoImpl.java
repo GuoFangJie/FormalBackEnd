@@ -14,6 +14,12 @@ import java.util.ArrayList;
 public class KlassDaoImpl implements KlassDao {
     @Autowired
     KlassMapper klassMapper;
+    @Autowired
+    KlassRoundDao klassRoundDao;
+    @Autowired
+    KlassSeminarDao klassSeminarDao;
+    @Autowired
+    KlassStudentDaoImpl klassStudentDao;
     @Override
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassMapper.getKlassByCourseId(courseId);
@@ -30,5 +36,20 @@ public class KlassDaoImpl implements KlassDao {
      */
     public Long getCourseIdByKlass(Long klassId){
         return klassMapper.getCourseIdByKlass(klassId);
+    }
+
+    /**
+     * 根据班级id删除班级
+     */
+    public boolean deleteKlassById(Long klassId){
+       if(klassMapper.getKlassById(klassId)==null){
+           return false;
+       }else{
+           klassMapper.deleteKlassById(klassId);
+           klassRoundDao.deleteKlassRoundByKlassId(klassId);
+           klassSeminarDao.deleteKlassSeminar(klassId);
+           klassStudentDao.deleteByKlassId(klassId);
+       }
+        return true;
     }
 }

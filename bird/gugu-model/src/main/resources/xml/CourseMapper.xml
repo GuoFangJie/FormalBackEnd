@@ -35,14 +35,14 @@
         select seminar_main_course_id from course where id=#{arg0}
     </select>
 
-    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareReceiveCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction,share_team_application.id shareId from course,share_team_application
         where share_team_application.main_course_id=#{arg0} and share_team_application.status=1
         and course.id=share_team_application.sub_course_id
     </select>
 
-    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareRecieveCourseEntity">
+    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareReceiveCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction,share_seminar_application.id shareId from course,share_seminar_application
         where share_seminar_application.main_course_id=#{arg0} and share_seminar_application.status=1

@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class KlassController {
     @Autowired
-    KlassService classService;
+    KlassService klassService;
 
     /**
      * 导入学生名单
@@ -22,6 +22,11 @@ public class KlassController {
     @PostMapping("/{classId}")
     public void importStudentList(@RequestParam("fileUpload") MultipartFile multipartFile, @PathVariable("classId") Long classId){
         System.out.println(multipartFile.getOriginalFilename());
-        classService.importStudentList(multipartFile,classId);
+        klassService.importStudentList(multipartFile,classId);
+    }
+
+    @DeleteMapping("{classId}")
+    public boolean deleteKlass(@PathVariable("classId") Long klassId){
+        return klassService.deleteClass(klassId);
     }
 }

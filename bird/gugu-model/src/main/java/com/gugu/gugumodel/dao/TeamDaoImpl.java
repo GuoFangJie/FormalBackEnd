@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.CourseMapper;
+import com.gugu.gugumodel.mapper.SeminarScoreMapper;
 import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.mapper.TeamMapper;
 import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
@@ -22,6 +23,8 @@ public class TeamDaoImpl implements TeamDao {
 
     @Autowired
     TeamValidRequestMapper teamValidRequestMapper;
+    @Autowired
+    SeminarScoreMapper seminarScoreMapper;
     @Override
     public TeamEntity getTeamById(Long team_id) {
         return teamMapper.findTeamById(team_id);
@@ -76,5 +79,13 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Long getTeamValidStatus(Long teamId){
         return teamValidRequestMapper.getTeamValidStatus(teamId);
+    }
+
+    /**
+     * 删除班级下的小组
+     */
+    public boolean deleteByKlassId(Long klassId){
+        teamMapper.deleteByKlassId(klassId);
+        return true;
     }
 }

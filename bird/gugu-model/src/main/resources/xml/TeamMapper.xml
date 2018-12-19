@@ -51,4 +51,12 @@
     </update>
 
 
+
+    <select id="getTeamIdByKlassId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select team_id from team where klass_id=#{param1}
+    </select>
+
+    <delete id="deleteByKlassId" parameterType="java.lang.Long">
+        delete from team where klass_id=#{param1}
+    </delete>
 </mapper>

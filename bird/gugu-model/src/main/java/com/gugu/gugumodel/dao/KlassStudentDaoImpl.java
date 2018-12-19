@@ -16,4 +16,11 @@ public class KlassStudentDaoImpl implements KlassStudentDao{
     public void newStudentToClass(Long klassId,Long studentId,Long courseId){
         klassStudentMapper.newStudentToClass(klassId,studentId,courseId);
     }
+    /**
+     * 根据班级删除记录
+     */
+    public boolean deleteByKlassId(Long klassId){
+        klassStudentMapper.deleteByKlass(klassId);
+        return true;
+    }
 }
