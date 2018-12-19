@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Service
 public class CourseService {
     @Autowired
-    CourseDaoImpl courseDao;
+    CourseDao courseDao;
     @Autowired
     KlassStudentDao klassStudentDao;
     @Autowired
@@ -18,7 +18,7 @@ public class CourseService {
     @Autowired
     TeamDao teamDao;
     @Autowired
-    KlassDaoImpl klassDao;
+    KlassDao klassDao;
 
     /**
      * 获取与学生相关的基本课程信息
