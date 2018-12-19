@@ -11,5 +11,7 @@
         insert klass_student(klass_id,student_id,course_id) values (#{param1},#{param2},#{param3})
     </insert>
 
-
+    <delete id="deleteByKlass" parameterType="java.lang.Long">
+        delete from klass_student where klass_id=#{param1}
+    </delete>
 </mapper>

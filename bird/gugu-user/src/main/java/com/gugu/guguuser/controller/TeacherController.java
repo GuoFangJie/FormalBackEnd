@@ -25,7 +25,7 @@ public class TeacherController {
      * @param httpServletRequest
      * @return
      */
-    @PutMapping("acitve")
+    @PutMapping("active")
     public boolean activeTeacher(@RequestBody ActiveUserVO activeUserVO, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         activeUserVO.setUserId(userId);

@@ -24,9 +24,9 @@ public interface CourseMapper {
 
      Long getSeminarMainCourseId(Long courseId);
 
-     ArrayList<ShareRecieveCourseEntity> getTeamRecieveCourses(Long teamMainCourseId);
+     ArrayList<ShareReceiveCourseEntity> getTeamRecieveCourses(Long teamMainCourseId);
 
-     ArrayList<ShareRecieveCourseEntity> getSeminarRecieveCourses(Long seminarMainCourseId);
+     ArrayList<ShareReceiveCourseEntity> getSeminarRecieveCourses(Long seminarMainCourseId);
 
      SimpleCourseEntity getSimpleCourseById(Long courseId);
 

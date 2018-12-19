@@ -33,6 +33,12 @@ public class KlassService {
         return klassDao.newKlass(klassEntity);
     }
 
+    /**
+     * 导入学生名单
+     * @param multipartFile
+     * @param klassId
+     * @return
+     */
     public boolean importStudentList(MultipartFile multipartFile, Long klassId){
         Workbook workbook=null;
         try {
@@ -55,5 +61,14 @@ public class KlassService {
             klassStudentDao.newStudentToClass(klassId,studentId,klassDao.getCourseIdByKlass(klassId));
         }
         return true;
+    }
+
+    /**
+     * 删除班级及相关的数据
+     * @param klassId
+     * @return
+     */
+    public boolean deleteClass(Long klassId){
+        return klassDao.deleteKlassById(klassId);
     }
 }

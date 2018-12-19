@@ -45,7 +45,7 @@ public class ShareMessageEntity {
         this.recieveCourse = recieveCourse;
     }
 
-    public ShareMessageEntity(SimpleCourseEntity mainCourse,ShareRecieveCourseEntity recieveCourse,Integer shareType){
+    public ShareMessageEntity(SimpleCourseEntity mainCourse, ShareReceiveCourseEntity recieveCourse, Integer shareType){
         this.masterCourse=mainCourse;
         this.recieveCourse=(SimpleCourseEntity)recieveCourse;
         this.shareType=shareType;
