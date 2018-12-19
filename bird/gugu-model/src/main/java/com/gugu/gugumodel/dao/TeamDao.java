@@ -3,6 +3,7 @@ package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
 
 public interface TeamDao {
     TeamEntity getTeamById(Long team_id);
@@ -19,4 +20,9 @@ public interface TeamDao {
     void addMember(Long teamId,Long studentId);
 
     void removeMember(Long teamId,Long studentId);
+    void teamValidRequest(TeamValidEntity teamValidEntity);
+
+    Long getTeacherIdByCourse(Long courseId);
+
+    Long getTeamValidStatus(Long teamId);
 }

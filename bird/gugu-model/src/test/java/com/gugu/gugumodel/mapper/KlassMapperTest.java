@@ -25,4 +25,8 @@ public class KlassMapperTest {
         KlassEntity klassEntity=new KlassEntity();
         klassMapper.newKlass(klassEntity);
     }
+    @Test
+    public void getClassTest(){
+        klassMapper.getKlassById(1L);
+    }
 }

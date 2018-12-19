@@ -10,7 +10,16 @@ public class TeamValidEntity{
    Long classId;
    Long teamId;
    Long leaderId;
-   String reson;
+   String reason;
+   Long teacherId;
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
 
     public String getRequestType() {
         return requestType;
@@ -52,11 +61,11 @@ public class TeamValidEntity{
         this.leaderId = leaderId;
     }
 
-    public String getReson() {
-        return reson;
+    public String getReason() {
+        return reason;
     }
 
-    public void setReson(String reson) {
-        this.reson = reson;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

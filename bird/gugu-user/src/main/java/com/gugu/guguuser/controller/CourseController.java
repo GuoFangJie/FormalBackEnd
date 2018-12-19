@@ -57,12 +57,14 @@ public class CourseController {
      * @param httpServletResponse
      */
     @DeleteMapping("/{courseId}")
-    public void deleteCourseById(@PathVariable("courseId") Long id, HttpServletResponse httpServletResponse){
+    public boolean deleteCourseById(@PathVariable("courseId") Long id, HttpServletResponse httpServletResponse){
         try {
             courseService.deleteCourseById(id);
         }catch (Exception e){
             httpServletResponse.setStatus(404,e.getMessage());
+            return false;
         }
+        return true;
     }
 
     /**
@@ -140,9 +142,9 @@ public class CourseController {
      * @param type
      * @return
      */
-    @DeleteMapping("/{courseId}/share/{shareId}")
-    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
-        return courseService.deleteCourseShare(shareId,type);
-    }
+//    @DeleteMapping("/{courseId}/share/{shareId}")
+//    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
+//        return courseService.deleteCourseShare(shareId,type);
+//    }
 
 }

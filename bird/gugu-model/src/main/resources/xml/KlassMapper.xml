@@ -3,6 +3,14 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.KlassMapper">
+    <resultMap id="KlassEntity" type="com.gugu.gugumodel.pojo.entity.KlassEntity">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="course_id" jdbcType="BIGINT" property="courseId"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
+        <result column="klass_serial" jdbcType="TINYINT" property="klassSerial"/>
+        <result column="klass_time" jdbcType="VARCHAR" property="klassTime"/>
+        <result column="klass_location" jdbcType="VARCHAR" property="klassLocation"/>
+    </resultMap>
     <select id="getKlassByCourseId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.KlassEntity">
         select id id,course_id courseId,grade grade,
                klass_serial klassSerial,klass_time klassTime,klass_location klassLocation
@@ -15,5 +23,13 @@
 
     <select id="getCourseIdByKlass" parameterType="java.lang.Long" resultType="java.lang.Long">
         select course_id from klass where id=#{param1}
+    </select>
+
+    <delete id="deleteKlassById" parameterType="java.lang.Long">
+        delete from klass where id=#{param1}
+    </delete>
+
+    <select id="getKlassById" parameterType="java.lang.Long" resultMap="KlassEntity">
+        select id,course_id,grade,klass_serial,klass_time,klass_location from klass where id=#{param1}
     </select>
 </mapper>

@@ -18,7 +18,7 @@ public class CourseService {
     @Autowired
     TeamDao teamDao;
     @Autowired
-    KlassDao klassDao;
+    KlassDaoImpl klassDao;
 
     /**
      * 获取与学生相关的基本课程信息
@@ -54,6 +54,10 @@ public class CourseService {
      */
     public void deleteCourseById(Long id) throws Exception {
         courseDao.deleteCourseById(id);
+        ArrayList<KlassEntity> klassEntities=klassDao.getKlassByCourseId(id);
+        for(int i=0;i<klassEntities.size();i++){
+            klassDao.deleteKlassById(klassEntities.get(i).getId());
+        }
     }
 
     /**
