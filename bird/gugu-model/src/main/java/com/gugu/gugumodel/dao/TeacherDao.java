@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +26,7 @@ public class TeacherDao {
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id){
+    public void deleteTeacherById(long id) throws SQLException {
             teacherMapper.deleteTeacherById(id);
     }
 
@@ -51,7 +52,7 @@ public class TeacherDao {
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation(TeacherEntity teacherEntity) throws Exception{
+    public void changeTeacherInformation(TeacherEntity teacherEntity) throws SQLException{
         teacherMapper.changeTeacherInformation(teacherEntity);
     }
 

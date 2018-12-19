@@ -5,9 +5,9 @@ package com.gugu.gugumodel.pojo.entity;
  */
 public class ShareApplicationEntity {
     private Long id;
-    private CourseEntity mainCourseId;
-    private CourseEntity subCourse;
-    private TeacherEntity subCourseTeacher;
+    private Long mainCourseId;
+    private Long subCourseId;
+    private Long subCourseTeacherId;
     private Byte status;
     private Byte type;
 
@@ -19,28 +19,28 @@ public class ShareApplicationEntity {
         this.id = id;
     }
 
-    public CourseEntity getMainCourseId() {
+    public Long getMainCourseId() {
         return mainCourseId;
     }
 
-    public void setMainCourseId(CourseEntity mainCourseId) {
+    public void setMainCourseId(Long mainCourseId) {
         this.mainCourseId = mainCourseId;
     }
 
-    public CourseEntity getSubCourse() {
-        return subCourse;
+    public Long getSubCourseId() {
+        return subCourseId;
     }
 
-    public void setSubCourse(CourseEntity subCourse) {
-        this.subCourse = subCourse;
+    public void setSubCourseId(Long subCourseId) {
+        this.subCourseId = subCourseId;
     }
 
-    public TeacherEntity getSubCourseTeacher() {
-        return subCourseTeacher;
+    public Long getSubCourseTeacherId() {
+        return subCourseTeacherId;
     }
 
-    public void setSubCourseTeacher(TeacherEntity subCourseTeacher) {
-        this.subCourseTeacher = subCourseTeacher;
+    public void setSubCourseTeacherId(Long subCourseTeacherId) {
+        this.subCourseTeacherId = subCourseTeacherId;
     }
 
     public Byte getStatus() {

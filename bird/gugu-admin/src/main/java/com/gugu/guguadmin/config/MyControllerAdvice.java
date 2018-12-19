@@ -1,10 +1,9 @@
-package com.gugu.guguuser.config;
+package com.gugu.guguadmin.config;
 
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.exception.ParamErrorException;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class MyControllerAdvice {
     /**
      * 全局异常捕捉处理
      * @param e
-     * @return Map
+     * @return
      */
     @ExceptionHandler(value = Exception.class)
     public Map errorHandler(Exception e, HttpServletResponse httpServletResponse) {
@@ -77,4 +76,5 @@ public class MyControllerAdvice {
         map.put("message", message);
         return map;
     }
+
 }

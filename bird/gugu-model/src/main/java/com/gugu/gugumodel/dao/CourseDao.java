@@ -4,6 +4,7 @@ import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import com.gugu.gugumodel.pojo.entity.ShareMessageEntity;
 import com.gugu.gugumodel.pojo.entity.SimpleCourseEntity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ public interface CourseDao {
 
     CourseEntity getCourseById(Long id);
 
-    void deleteCourseById(Long id) throws Exception;
+    void deleteCourseById(Long id) throws SQLException;
 
     ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId);
 

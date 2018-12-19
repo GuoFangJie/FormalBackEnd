@@ -6,6 +6,7 @@ import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +26,7 @@ public class TeacherService{
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id)throws Exception{
+    public void deleteTeacherById(long id)throws SQLException {
         teacherDao.deleteTeacherById(id);
         ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
         for(int i=0;i<list.size();i++){
@@ -57,7 +58,7 @@ public class TeacherService{
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation (TeacherEntity teacherEntity) throws Exception{
+    public void changeTeacherInformation (TeacherEntity teacherEntity) throws SQLException{
         teacherDao.changeTeacherInformation(teacherEntity);
     }
 
