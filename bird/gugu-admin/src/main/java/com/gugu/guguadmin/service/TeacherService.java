@@ -28,7 +28,6 @@ public class TeacherService{
     public void deleteTeacherById(long id)throws Exception{
         teacherDao.deleteTeacherById(id);
         ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
-        System.out.println(list);
         for(int i=0;i<list.size();i++){
             courseDao.deleteCourseById(list.get(i));
         }
