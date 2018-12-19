@@ -3,13 +3,13 @@ package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.pojo.entity.StudentEntity;
 import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
 import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
 import com.gugu.guguuser.service.TeamService;
-import com.gugu.guguuser.service.TeamService;
-import org.apache.ibatis.annotations.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 @RestController
@@ -78,9 +78,9 @@ public class TeamController {
      * @param studentEntity
      */
     @PutMapping("/{teamId}/add")
-    public void addMember(@PathVariable Long teamId,@RequestBody StudentEntity studentEntity){
+    public void addMember(@PathVariable Long teamId, @RequestBody StudentEntity studentEntity, HttpServletResponse httpServletResponse){
         Long studentId=studentEntity.getId();
-        teamService.addMember(teamId,studentId);
+        teamService.addMember(teamId,studentId,httpServletResponse);
     }
 
     /**@author ljy
@@ -97,8 +97,12 @@ public class TeamController {
     /**@author ljy
      * 发起队伍状态申请
      * @param teamId
-     * @param studentEntity
+     * @param teamValidEntity
      */
-//    @PostMapping("/{teamId}/teamvaildrequest")
-//    public
+    @PostMapping("/{teamId}/teamvalidrequest")
+    public void teamValidRequest(@PathVariable Long teamId, @RequestBody TeamValidEntity teamValidEntity){
+        teamValidEntity.setTeamId(teamId);
+        teamService.teamValidRequest(teamValidEntity);
+    }
+
 }

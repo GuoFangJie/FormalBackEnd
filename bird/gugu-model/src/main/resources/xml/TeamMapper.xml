@@ -49,4 +49,6 @@
     <update id="removeMember" >
         update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}
     </update>
+
+
 </mapper>
