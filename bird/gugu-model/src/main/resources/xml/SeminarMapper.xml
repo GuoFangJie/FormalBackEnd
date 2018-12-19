@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.gugu.gugumodel.mapper.SeminarMapper">
+    <resultMap id="SeminarEntity" type="com.gugu.gugumodel.pojo.entity.SeminarEntity">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="course_id" jdbcType="BIGINT" property="courseId"/>
+        <result column="round_id" jdbcType="BIGINT" property="roundId"/>
+        <result column="seminar_name" jdbcType="VARCHAR" property="seminarName"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="max_team" jdbcType="TINYINT" property="maxTeam"/>
+        <result column="is_visible" jdbcType="TINYINT" property="isVisible"/>
+        <result column="seminar_serial" jdbcType="TINYINT" property="seminarSerial"/>
+        <result column="enroll_start_time" jdbcType="TIMESTAMP" property="enrollStartTime"/>
+        <result column="enroll_end_time" jdbcType="TIMESTAMP" property="enrollEndTime"/>
+    </resultMap>
+    <select id="getSeminarsByRound" parameterType="java.lang.Long" resultMap="SeminarEntity">
+        select id,course_id,round_id,seminar_name,introduction,max_team,is_visible,
+               seminar_serial,enroll_start_time,enroll_end_time from seminar where round_id=#{param1}
+    </select>
+</mapper>

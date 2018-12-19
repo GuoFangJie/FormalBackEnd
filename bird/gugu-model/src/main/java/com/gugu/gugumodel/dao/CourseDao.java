@@ -17,7 +17,7 @@ public interface CourseDao {
 
     CourseEntity getCourseById(Long id);
 
-    void deleteCourseById(Long id) throws SQLException;
+    void deleteCourseById(Long id) throws Exception;
 
     ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId);
 
