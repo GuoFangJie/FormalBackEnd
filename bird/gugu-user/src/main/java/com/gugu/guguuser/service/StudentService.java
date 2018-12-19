@@ -6,7 +6,6 @@ import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class StudentService {
     @Autowired
     StudentDao studentDao;
     @Autowired
-    KlassStudentDaoImpl klassStudentDao;
+    KlassStudentDao klassStudentDao;
     @Autowired
     TeacherDao teacherDao;
     @Autowired

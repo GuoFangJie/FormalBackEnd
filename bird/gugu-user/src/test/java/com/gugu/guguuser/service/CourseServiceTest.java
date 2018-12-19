@@ -1,6 +1,6 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.CourseDaoImpl;
+import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.pojo.entity.CourseEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +14,16 @@ public class CourseServiceTest {
     @Autowired
     CourseService courseService;
     @Autowired
-    CourseDaoImpl courseDaoImpl;
+    CourseDao courseDao;
 
     @Test
     public void findSimpleCourseTest(){
-        courseDaoImpl.findSimpleCourseEntityByStudentId(1L);
+        courseDao.findSimpleCourseEntityByStudentId(1L);
     }
     @Test
     public void newCourseTest(){
         CourseEntity courseEntity=new CourseEntity();
-        System.out.println(courseDaoImpl.newCourse(courseEntity));
+        System.out.println(courseDao.newCourse(courseEntity));
     }
     @Test
     public void getCourseById(){
