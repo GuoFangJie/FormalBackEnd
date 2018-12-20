@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author ren
@@ -16,6 +17,26 @@ public class SeminarEntity {
     Byte seminarSerial;
     Timestamp enrollStartTime;
     Timestamp enrollEndTime;
+    Date enrollSTime;
+    Date enrollETime;
+
+
+
+    public Date getEnrollSTime() {
+        return enrollSTime;
+    }
+
+    public void setEnrollSTime(Date enrollSTime) {
+        this.enrollSTime = enrollSTime;
+    }
+
+    public Date getEnrollETime() {
+        return enrollETime;
+    }
+
+    public void setEnrollETime(Date enrollETime) {
+        this.enrollETime = enrollETime;
+    }
 
     public Long getId() {
         return id;

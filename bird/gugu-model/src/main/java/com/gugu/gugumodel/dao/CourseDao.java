@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class CourseDao{
     @Autowired
     CourseMapper courseMapper;
+
+
     public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
         return courseMapper.findSimpleCourseEntityByStudenId(studentId);
     }
@@ -111,5 +113,9 @@ public class CourseDao{
         courseMapper.deleteTeamShare(shareId);
         courseMapper.deleteAllTeamByCourseId(shareApplicationEntity.getSubCourseId());
         return true;
+    }
+
+    public Long getTeacherIdByCourse(Long courseId){
+        return courseMapper.getTeacherIdByCourse(courseId);
     }
 }

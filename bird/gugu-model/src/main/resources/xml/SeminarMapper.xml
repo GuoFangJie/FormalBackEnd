@@ -19,4 +19,25 @@
         select id,course_id,round_id,seminar_name,introduction,max_team,is_visible,
                seminar_serial,enroll_start_time,enroll_end_time from seminar where round_id=#{param1}
     </select>
+
+    <insert id="newSeminar" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.SeminarEntity">
+        insert into seminar(course_id,round_id,seminar_name,introduction,max_team,is_visible,seminar_serial,enroll_start_time,enroll_end_time) values (#{courseId},#{roundId},#{seminarName},#{introduction},#{maxTeam},#{isVisible},#{seminarSerial},#{enrollSTime},#{enrollETime})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            select  last_insert_id()
+        </selectKey>
+    </insert>
+
+    <select id="getKlassIdBySeminerId" parameterType="java.lang.Long" resultType="java.lang.Long">
+          select klass_id from klass_seminar where seminar_id=#{arg0}
+    </select>
+
+    <update id="updateSeminar" parameterType="com.gugu.gugumodel.pojo.entity.SeminarEntity">
+        update seminar set seminar_name=#{seminarName},introduction=#{introduction},max_team=#{maxTeam},
+        is_visible=#{isVisible},seminar_serial=#{seminarSerial},enroll_start_time=#{enrollSTime},enroll_end_time=#{enrollETime}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteSeminar" parameterType="java.lang.Long">
+        delete from seminar where id=#{arg0}
+    </delete>
 </mapper>

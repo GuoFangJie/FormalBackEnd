@@ -2,6 +2,8 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.gugumodel.pojo.entity.KlassEntity;
+import com.gugu.gugumodel.pojo.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,41 @@ public class SeminarService {
      */
     public ArrayList<SeminarEntity> getSeminarByRound(Long roundId){
         return seminarDao.getSeminarByRound(roundId);
+    }
+
+
+    /**
+     * 新建讨论课,创建成功后返回seminarId
+     * @return Long
+     */
+    public Long newSeminar(SeminarEntity seminarEntity){
+        return seminarDao.newSeminar(seminarEntity);
+    }
+
+    /**@author ljy
+     * 获取讨论课所属的班级
+     * @param seminarId
+     * @return KlassEntiry
+     */
+    public KlassEntity getKlassSeminatIn(Long seminarId){
+        return seminarDao.getKlassSeminatIn(seminarId);
+    }
+
+    /**@author ljy
+     * 按照id修改讨论课
+     * @param seminarEntity
+     * @return
+     */
+    public boolean updateSeminar(SeminarEntity seminarEntity){
+        return seminarDao.updateSeminar(seminarEntity);
+    }
+
+    /**@author ljy
+     * 按照id删除讨论课
+     * @param
+     * @return
+     */
+    public boolean deleteSeminar(Long seminarId){
+        return seminarDao.deleteSeminar(seminarId);
     }
 }

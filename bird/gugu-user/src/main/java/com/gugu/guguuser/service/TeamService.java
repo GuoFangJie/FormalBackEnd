@@ -19,6 +19,9 @@ public class TeamService {
     @Autowired
     StudentDao studentDao;
 
+    @Autowired
+    CourseDao courseDao;
+
     public TeamEntity getTeamMessageByTeamId(Long teamId){
         return teamDao.getTeamById(teamId);
     }
@@ -69,7 +72,7 @@ public class TeamService {
 
 
     public void teamValidRequest(TeamValidEntity teamValidEntity){
-            teamValidEntity.setTeacherId(teamDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
+            teamValidEntity.setTeacherId(courseDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
             teamDao.teamValidRequest(teamValidEntity);
     }
 }
