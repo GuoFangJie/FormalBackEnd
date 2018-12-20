@@ -12,6 +12,5 @@ public class GuguUserApplication {
     public static void main(String[] args) {
         SpringApplication.run(GuguUserApplication.class, args);
     }
-
 }
 

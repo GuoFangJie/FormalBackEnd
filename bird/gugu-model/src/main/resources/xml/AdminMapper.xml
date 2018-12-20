@@ -9,7 +9,7 @@
     </resultMap>
 
     <select id="adminLogin" resultMap="adminResultList" parameterType="java.lang.String">
-        SELECT * FROM admin WHERE account=#{arg0}
+        SELECT id,account,password FROM admin WHERE account=#{param1}
     </select>
 
 </mapper>

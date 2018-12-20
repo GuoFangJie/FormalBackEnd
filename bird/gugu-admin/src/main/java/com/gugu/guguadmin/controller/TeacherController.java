@@ -3,6 +3,7 @@ package com.gugu.guguadmin.controller;
 
 import com.gugu.guguadmin.service.TeacherService;
 import com.gugu.gugumodel.entity.TeacherEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class TeacherController {
      * @return
      */
     @DeleteMapping("/{teacherId}")
-    public void deleteTeacherById(@PathVariable long teacherId, HttpServletResponse httpServletResponse) throws SQLException {
+    public void deleteTeacherById(@PathVariable long teacherId, HttpServletResponse httpServletResponse) throws NotFoundException {
         teacherService.deleteTeacherById(teacherId);
     }
 

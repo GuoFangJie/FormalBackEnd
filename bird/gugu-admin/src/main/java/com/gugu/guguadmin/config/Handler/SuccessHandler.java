@@ -1,7 +1,10 @@
 package com.gugu.guguadmin.config.Handler;
 
+import com.gugu.gugumodel.entity.AdminEntity;
+import com.gugu.gugumodel.mapper.AdminMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -15,6 +18,8 @@ import java.util.Map;
 
 @Component
 public class SuccessHandler implements AuthenticationSuccessHandler {
+    @Autowired
+    AdminMapper adminMapper;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 //        String role=authentication.get
@@ -24,8 +29,8 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         head.put("alg","HS512");
         Map<String,Object> claim=new HashMap<>();
         Object[] objects=authentication.getAuthorities().toArray();
-//        User user=(User)authentication.getPrincipal();
-//        claim.put("userId",user.getUsername());
+        AdminEntity user=(AdminEntity) authentication.getPrincipal();
+        claim.put("userId",adminMapper.adminLogin(user.getAccount()).getId());
         claim.put("role",objects[0]);
         claim.put("time",Long.toString(System.currentTimeMillis()+1000*60*60*2));
         String token = Jwts.builder()

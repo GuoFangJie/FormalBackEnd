@@ -25,6 +25,11 @@ public class KlassController {
         klassService.importStudentList(multipartFile,classId);
     }
 
+    /**
+     * 删除班级
+     * @param klassId
+     * @return
+     */
     @DeleteMapping("{classId}")
     public boolean deleteKlass(@PathVariable("classId") Long klassId){
         return klassService.deleteClass(klassId);

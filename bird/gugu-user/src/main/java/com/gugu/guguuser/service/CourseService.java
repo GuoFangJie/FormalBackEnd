@@ -2,6 +2,8 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +54,7 @@ public class CourseService {
      * @param id
      * @throws Exception
      */
-    public void deleteCourseById(Long id) throws Exception {
+    public void deleteCourseById(Long id) throws NotFoundException {
         courseDao.deleteCourseById(id);
         ArrayList<KlassEntity> klassEntities=klassDao.getKlassByCourseId(id);
         for(int i=0;i<klassEntities.size();i++){

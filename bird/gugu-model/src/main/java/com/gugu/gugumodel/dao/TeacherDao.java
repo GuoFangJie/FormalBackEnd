@@ -21,7 +21,7 @@ public class TeacherDao {
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id) throws SQLException {
+    public void deleteTeacherById(long id){
             teacherMapper.deleteTeacherById(id);
     }
 

@@ -3,6 +3,7 @@ package com.gugu.guguadmin.service;
 import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.entity.TeacherEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class TeacherService{
      * @param id
      * @return
      */
-    public void deleteTeacherById(long id)throws SQLException {
+    public void deleteTeacherById(long id)throws NotFoundException {
         teacherDao.deleteTeacherById(id);
         ArrayList<Long> list=courseDao.getCourseIdByTeacherId(id);
         for(int i=0;i<list.size();i++){

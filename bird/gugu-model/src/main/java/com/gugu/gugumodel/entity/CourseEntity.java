@@ -20,6 +20,8 @@ public class CourseEntity {
     private Timestamp  teamStartTime;
     private Timestamp teamEndTime;
 
+
+
     public Long getId() {
         return id;
     }

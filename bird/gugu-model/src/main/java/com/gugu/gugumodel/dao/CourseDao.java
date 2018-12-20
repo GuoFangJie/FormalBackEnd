@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,11 +25,11 @@ public class CourseDao{
         return courseMapper.getCourseById(id);
     }
 
-    public void deleteCourseById(Long id) throws SQLException {
+    public void deleteCourseById(Long id) throws NotFoundException {
         if(getCourseById(id)!=null) {
             courseMapper.deleteCourseById(id);
         }else{
-            throw new SQLException("找不到该记录");
+            throw new NotFoundException("找不到该记录");
         }
     }
 
