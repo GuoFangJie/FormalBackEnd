@@ -1,8 +1,10 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.*;
-import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
-import com.gugu.guguuser.service.*;
+import com.gugu.gugumodel.entity.*;
+import com.gugu.guguuser.controller.vo.TeamMessageVO;
+import com.gugu.guguuser.service.CourseService;
+import com.gugu.guguuser.service.KlassService;
+import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,7 @@ public class CourseController {
      * @param
      * @return
      */
-    @GetMapping("/")
+    @GetMapping("")
     public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId));
@@ -35,7 +37,7 @@ public class CourseController {
      * @param courseEntity
      * @return
      */
-    @PostMapping("/")
+    @PostMapping("")
     public Long newCourse(CourseEntity courseEntity){
         courseService.newCourse(courseEntity);
         return courseEntity.getId();
@@ -98,7 +100,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/noTeam")
-    public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
+    public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(@PathVariable("courseId") Long courseId, HttpServletRequest httpServletRequest){
         Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return studentService.getStudentWithoutTeamInCourse(courseId,studentId);
     }

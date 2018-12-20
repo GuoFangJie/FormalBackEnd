@@ -1,9 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
-import com.gugu.gugumodel.pojo.entity.TeamEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -42,7 +39,7 @@ public interface TeacherMapper{
         /**
          * 激活老师账号
          */
-        void activeTeacher(ActiveUserVO activeUserVO);
+        void activeTeacher(TeacherEntity teacherEntity);
 
         /**
          * 根据账号获取老师id

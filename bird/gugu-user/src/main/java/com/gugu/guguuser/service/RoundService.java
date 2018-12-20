@@ -1,7 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.RoundDao;
-import com.gugu.gugumodel.pojo.entity.RoundEntity;
+import com.gugu.gugumodel.entity.RoundEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

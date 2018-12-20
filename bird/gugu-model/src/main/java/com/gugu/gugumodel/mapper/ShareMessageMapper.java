@@ -1,6 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.KlassEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

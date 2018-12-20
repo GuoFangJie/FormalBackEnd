@@ -2,9 +2,8 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
-import com.gugu.gugumodel.pojo.vo.UserInfoVO;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,11 +60,11 @@ public class UserService {
      * @param userId
      * @return
      */
-    public UserInfoVO getUserInfo(String role,Long userId){
+    public Object getUserInfo(String role,Long userId){
         if(role.equals("Teacher")){
-            return new UserInfoVO(teacherDao.getTeacherById(userId));
+            return teacherDao.getTeacherById(userId);
         }else{
-            return new UserInfoVO(studentDao.getStudentById(userId));
+            return studentDao.getStudentById(userId);
         }
     }
 

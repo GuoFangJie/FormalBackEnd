@@ -1,4 +1,4 @@
-package com.gugu.gugumodel.pojo.vo;
+package com.gugu.guguuser.controller.vo;
 
 /**
  * @author ren

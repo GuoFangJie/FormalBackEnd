@@ -4,7 +4,7 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeamValidRequestMapper">
 
-    <insert id="teamValidRequest" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.TeamValidEntity">
+    <insert id="teamValidRequest" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.TeamValidEntity">
         insert into team_valid_application(team_id,teacher_id,reason,status) values (#{teamId},#{teacherId},#{reason},0)
     </insert>
 

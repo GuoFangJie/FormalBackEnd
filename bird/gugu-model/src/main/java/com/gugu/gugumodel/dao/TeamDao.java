@@ -5,10 +5,8 @@ import com.gugu.gugumodel.mapper.SeminarScoreMapper;
 import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.mapper.TeamMapper;
 import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
-import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeamEntity;
-import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
+import com.gugu.gugumodel.entity.TeamEntity;
+import com.gugu.gugumodel.entity.TeamValidEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

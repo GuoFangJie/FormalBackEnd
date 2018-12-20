@@ -1,7 +1,7 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.mapper.CourseMapper;
-import com.gugu.gugumodel.pojo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

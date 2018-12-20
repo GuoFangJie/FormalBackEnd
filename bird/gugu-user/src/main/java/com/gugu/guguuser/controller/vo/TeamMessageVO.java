@@ -1,7 +1,7 @@
-package com.gugu.gugumodel.pojo.vo;
+package com.gugu.guguuser.controller.vo;
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeamEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeamEntity;
 
 import java.util.ArrayList;
 

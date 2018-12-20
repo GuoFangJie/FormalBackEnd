@@ -3,13 +3,13 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.CourseMapper">
-    <select id="findSimpleCourseEntityByStudenId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.SimpleCourseEntity">
+    <select id="findSimpleCourseEntityByStudenId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SimpleCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction from course,klass_student
         where klass_student.student_id=#{arg0} and klass_student.course_id=course.id
     </select>
 
-    <insert id="newCourse" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.CourseEntity">
+    <insert id="newCourse" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.CourseEntity">
         insert course(id,teacher_id,course_name,introduction,presentation_percentage,
         question_percentage,report_percentage,team_start_time,team_end_time)
         values (#{id},#{teacherId},#{coursenName},#{introduction},#{presentationPercentage},
@@ -19,7 +19,7 @@
         </selectKey>
     </insert>
 
-    <select id="getCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.CourseEntity">
+    <select id="getCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.CourseEntity">
         select id id,teacher_id teacherId,course_name courseName,introduction introduction,presentation_percentage presentationPercentage,question_percentage questionPercentage,report_percentage reportPercentage,
                team_start_time teamStartTime,team_end_time teamEndTime from course where id=#{arg0}
     </select>
@@ -35,21 +35,21 @@
         select seminar_main_course_id from course where id=#{arg0}
     </select>
 
-    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareReceiveCourseEntity">
+    <select id="getTeamRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.ShareReceiveCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction,share_team_application.id shareId from course,share_team_application
         where share_team_application.main_course_id=#{arg0} and share_team_application.status=1
         and course.id=share_team_application.sub_course_id
     </select>
 
-    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareReceiveCourseEntity">
+    <select id="getSeminarRecieveCourses" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.ShareReceiveCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction,share_seminar_application.id shareId from course,share_seminar_application
         where share_seminar_application.main_course_id=#{arg0} and share_seminar_application.status=1
           and course.id=share_seminar_application.sub_course_id
     </select>
 
-    <select id="getSimpleCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.SimpleCourseEntity">
+    <select id="getSimpleCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SimpleCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
                course.introduction introduction from course where course.id=#{arg0}
     </select>
@@ -83,13 +83,13 @@
         update course set seminar_main_course_id=null where id=#{arg0}
     </update>
 
-    <select id="getSeminarShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+    <select id="getSeminarShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.ShareApplicationEntity">
         select id,main_course_id mainCourseId,sub_course_id subCourseId,
                sub_course_teacher_id subCourseTeacherId,status from share_seminar_application
         where id=#{arg0}
     </select>
 
-    <select id="getTeamShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.ShareApplicationEntity">
+    <select id="getTeamShareApplicationById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.ShareApplicationEntity">
         select id,main_course_id mainCourseId,sub_course_id subCourseId,
                sub_course_teacher_id subCourseTeacherId,status from share_team_application
         where id=#{arg0}

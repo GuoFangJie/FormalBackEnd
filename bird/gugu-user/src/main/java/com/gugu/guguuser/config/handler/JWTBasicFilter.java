@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,24 +23,25 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader("Authorization");
-
-        if (header == null || !header.startsWith("GuGuBird")) {
-            System.out.println("没找到JWT");
-            chain.doFilter(request, response);
-            return;
+        Cookie []cookies=request.getCookies();
+        for(int i=0;i<cookies.length;i++) {
+            System.out.println(cookies[i].getName());
+            if (cookies[i].getName().equals("Authorization")) {
+                String token=cookies[i].getValue();
+                UsernamePasswordAuthenticationToken authentication = getAuthentication(request,token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                onSuccessfulAuthentication(request, response, authentication);
+                chain.doFilter(request, response);
+                return;
+            }
         }
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //super.rememberMeServices.loginSuccess(request, response, authResult);
-
-        onSuccessfulAuthentication(request, response,authentication);
+        System.out.println("没找到JWT");
         chain.doFilter(request, response);
+        return;
 
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request,String token) {
         System.out.println("开始解析");
         if (token != null) {
             // parse the token.
@@ -51,9 +53,9 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
                     .parseClaimsJws(token)
                     .getBody();
             //校验是否过期
-            if(System.currentTimeMillis()>Long.parseLong((String)claims.get("exp"))) {
-                return null;
-            }
+//            if(System.currentTimeMillis()>Long.parseLong((String)claims.get("exp"))) {
+//                return null;
+//            }
             Map<String,Object> objectMap= (Map<String, Object>) claims.get("role");
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());
             simpleGrantedAuthorities.add(simpleGrantedAuthority);

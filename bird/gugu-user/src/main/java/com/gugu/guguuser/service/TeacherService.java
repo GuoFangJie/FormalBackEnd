@@ -1,7 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.TeacherDao;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,10 @@ public class TeacherService {
 
     /**
      * 激活老师账号
-     * @param activeUserVO
+     * @param
      * @return
      */
-    public boolean activeTeacher(ActiveUserVO activeUserVO){
-        return teacherDao.activeTeacher(activeUserVO);
+    public boolean activeTeacher(TeacherEntity teacherEntity){
+        return teacherDao.activeTeacher(teacherEntity);
     }
 }

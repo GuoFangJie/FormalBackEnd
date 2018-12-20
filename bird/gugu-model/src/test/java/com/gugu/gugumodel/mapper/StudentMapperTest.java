@@ -1,7 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.StudentEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +30,7 @@ public class StudentMapperTest {
         System.out.println(studentMapper.getStudentWithoutTeam(1L).size());
     }
 
-    @Test
-    public void activeStudent(){
-        ActiveUserVO activeUserVO =new ActiveUserVO();
-        activeUserVO.setEmail("123");
-        activeUserVO.setPassword("123");
-        activeUserVO.setUserId(2L);
-        studentMapper.activeStudent(activeUserVO);
-//        studentMapper.changeEmail("123",2L);
-    }
+
 
     @Test
     public void newStudentTest(){

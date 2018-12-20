@@ -1,7 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.ShareMessageMapper;
-import com.gugu.gugumodel.pojo.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

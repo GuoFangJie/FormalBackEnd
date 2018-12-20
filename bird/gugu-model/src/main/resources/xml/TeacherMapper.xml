@@ -3,7 +3,7 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeacherMapper">
-    <resultMap id="teacherResultList" type="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+    <resultMap id="teacherResultList" type="com.gugu.gugumodel.entity.TeacherEntity">
         <id column="id" property="id"/>
         <result column="is_active" property="isActive"/>
         <result column="teacher_name" property="teacherName"/>
@@ -24,11 +24,11 @@
         update teacher set password=123456 where id=#{arg0}
     </update>
 
-    <update id="changeTeacherInformation" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+    <update id="changeTeacherInformation" parameterType="com.gugu.gugumodel.entity.TeacherEntity">
         update teacher set account=#{account},teacher_name=#{teacherName},email=#{email} where id=#{id}
     </update>
 
-    <insert id="newTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.TeacherEntity" >
+    <insert id="newTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.TeacherEntity" >
         insert teacher(account,password,teacher_name,is_active,email)
         values (#{account},#{password},#{teacherName},#{isActive},#{email})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -37,7 +37,7 @@
     </insert>
 
 
-    <select id="getTeacherById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.TeacherEntity">
+    <select id="getTeacherById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeacherEntity">
         select id,is_active isActive, teacher_name teacherName,account,email,password
         from teacher where id=#{arg0}
     </select>
@@ -56,8 +56,10 @@
         where account=#{arg0} or teacher_name=#{arg0}
     </select>
 
-    <update id="activeTeacher" parameterType="com.gugu.gugumodel.pojo.vo.ActiveUserVO">
-        update teacher set password=#{password},email=#{email},is_active= where id=#{userId}
+    <update id="activeTeacher" parameterType="com.gugu.gugumodel.entity.TeacherEntity">
+        update teacher
+        set  email=#{email},password=#{password}
+        where id=#{id};
     </update>
 
     <select id="getTeacherByAccount" parameterType="java.lang.String" resultType="java.lang.Long">

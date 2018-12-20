@@ -1,7 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.RoundMapper;
-import com.gugu.gugumodel.pojo.entity.RoundEntity;
+import com.gugu.gugumodel.entity.RoundEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
