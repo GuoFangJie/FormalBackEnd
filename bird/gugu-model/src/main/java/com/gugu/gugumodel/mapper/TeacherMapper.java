@@ -43,4 +43,11 @@ public interface TeacherMapper{
          * 激活老师账号
          */
         void activeTeacher(ActiveUserVO activeUserVO);
+
+        /**
+         * 根据账号获取老师id
+         * @param account
+         * @return
+         */
+        Long getTeacherByAccount(String account);
 }

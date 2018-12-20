@@ -1,9 +1,10 @@
 package com.gugu.guguuser.config;
 
-import com.gugu.guguuser.config.Handler.FailureHandler;
-import com.gugu.guguuser.config.Handler.JWTBasicFilter;
-import com.gugu.guguuser.config.Handler.MyAuthenticationProvider;
-import com.gugu.guguuser.config.Handler.SuccessHandler;
+import com.gugu.guguuser.config.handler.FailureHandler;
+import com.gugu.guguuser.config.handler.JWTBasicFilter;
+import com.gugu.guguuser.config.handler.MyAuthenticationProvider;
+import com.gugu.guguuser.config.handler.SuccessHandler;
+import com.gugu.guguuser.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,8 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     SuccessHandler successHandler;
     @Autowired
     FailureHandler failureHandler;
+    @Autowired
+    SecurityService securityService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
@@ -54,11 +57,11 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(authUserService)
-//                .passwordEncoder(new MyPasswordEncoder());
+        auth.userDetailsService(securityService)
+                .passwordEncoder(new MyPasswordEncoder());
 
-
-        auth.authenticationProvider(myAuthenticationProvider());
+//
+//        auth.authenticationProvider(myAuthenticationProvider());
     }
 
 

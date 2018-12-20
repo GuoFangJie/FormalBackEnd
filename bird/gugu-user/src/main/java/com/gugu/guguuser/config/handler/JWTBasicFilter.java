@@ -1,4 +1,4 @@
-package com.gugu.guguuser.config.Handler;
+package com.gugu.guguuser.config.handler;
 
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -58,6 +58,8 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());
             simpleGrantedAuthorities.add(simpleGrantedAuthority);
             System.out.println(objectMap.get("authority"));
+            request.setAttribute("userId",claims.get("userId"));
+            request.setAttribute("role",objectMap.get("role"));
             return new UsernamePasswordAuthenticationToken("", "", simpleGrantedAuthorities);
         }
         return null;
