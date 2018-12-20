@@ -4,7 +4,7 @@ import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
