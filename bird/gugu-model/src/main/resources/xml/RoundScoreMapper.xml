@@ -6,4 +6,9 @@
     <delete id="deleteByTeamId" parameterType="java.lang.Long">
         delete from round_score where team_id=#{param1}
     </delete>
+
+    <select id="getByRoundId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        select round_id roundId,team_id teamId,total_score totalScore,presentation_score presentationScore,question_score questionScore,
+               report_score reportScore from round_score where round_id=#{param1}
+    </select>
 </mapper>

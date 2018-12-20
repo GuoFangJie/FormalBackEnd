@@ -60,9 +60,17 @@ public class UserService {
      * @param userId
      * @return
      */
-    public Object getUserInfo(String role,Long userId){
+    public StudentEntity getUserInfo(String role,Long userId){
         if(role.equals("Teacher")){
-            return teacherDao.getTeacherById(userId);
+            TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
+            StudentEntity studentEntity=new StudentEntity();
+            studentEntity.setAccount(teacherEntity.getAccount());
+            studentEntity.setIsActive(teacherEntity.getIsActive());
+            studentEntity.setPassword(teacherEntity.getPassword());
+            studentEntity.setEmail(teacherEntity.getEmail());
+            studentEntity.setStudentName(teacherEntity.getTeacherName());
+            studentEntity.setId(teacherEntity.getId());
+            return studentEntity;
         }else{
             return studentDao.getStudentById(userId);
         }

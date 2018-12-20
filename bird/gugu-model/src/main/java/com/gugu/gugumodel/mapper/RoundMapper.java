@@ -1,8 +1,11 @@
 package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.entity.RoundEntity;
+import com.gugu.gugumodel.entity.RoundScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -16,4 +19,18 @@ public interface RoundMapper {
      * @return
      */
     RoundEntity getRoundMessageById(Long roundId);
+
+    /**
+     * 修改round信息，主要是三部分计分的方式
+     * @param roundEntity
+     */
+    void editRoundMessage(RoundEntity roundEntity);
+    /**
+     * 新建round
+     */
+    void newRound(RoundEntity roundEntity);
+    /**
+     * 获取一个轮次下所有小组的得分
+     */
+    ArrayList<RoundScoreEntity> getAllTeamScore(Long roundId);
 }

@@ -17,7 +17,6 @@ public class StudentEntity {
     private String password;
 
     public StudentEntity(){
-
     }
     public StudentEntity(TeacherEntity teacherEntity){
         this.id=teacherEntity.getId();
