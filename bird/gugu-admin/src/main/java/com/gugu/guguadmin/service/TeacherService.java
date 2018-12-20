@@ -4,6 +4,8 @@ import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +61,7 @@ public class TeacherService{
      * 管理员修改教师信息，包括账号，姓名，邮箱
      * @param teacherEntity
      */
-    public void changeTeacherInformation (TeacherEntity teacherEntity) throws SQLException{
+    public void changeTeacherInformation (TeacherEntity teacherEntity){
         teacherDao.changeTeacherInformation(teacherEntity);
     }
 
@@ -70,7 +72,7 @@ public class TeacherService{
      * @param teacherEntity
      * @return TeacherEntity
      */
-    public Long newTeacher (TeacherEntity teacherEntity) throws Exception{
+    public Long newTeacher (TeacherEntity teacherEntity){
         return teacherDao.newTeacher(teacherEntity);
     }
 

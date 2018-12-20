@@ -5,6 +5,8 @@ import com.gugu.gugumodel.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ArrayList;
 
 /**
@@ -130,7 +132,7 @@ public class StudentDao {
 
     /**
      * 激活学生账号
-     * @param activeUserVO
+     * @param
      * @return
      */
     public boolean activeStudent(StudentEntity studentEntity){

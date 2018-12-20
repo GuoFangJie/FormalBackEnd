@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
@@ -22,12 +23,8 @@ public class StudentController {
      * @return
      */
     @DeleteMapping("/{studentId}")
-    public void deleteStudentById(@PathVariable long studentId, HttpServletResponse httpServletResponse){
-        try {
-            studentService.deleteStudentById(studentId);
-        }catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+    public void deleteStudentById(@PathVariable long studentId, HttpServletResponse httpServletResponse) throws SQLException{
+        studentService.deleteStudentById(studentId);
     }
 
     /**
@@ -58,14 +55,9 @@ public class StudentController {
      * @param studentId
      */
     @PutMapping("/{studentId}/information")
-    public void changeStudentInformation(@PathVariable Long studentId, @RequestBody StudentEntity studentEntity,HttpServletResponse httpServletResponse){
+    public void changeStudentInformation(@PathVariable Long studentId, @RequestBody StudentEntity studentEntity,HttpServletResponse httpServletResponse) throws SQLException {
         studentEntity.setId(studentId);
-        try {
-            studentService.changeStudentInformation(studentEntity);
-        }
-        catch (Exception e){
-            httpServletResponse.setStatus(404);
-        }
+        studentService.changeStudentInformation(studentEntity);
     }
 
     /**

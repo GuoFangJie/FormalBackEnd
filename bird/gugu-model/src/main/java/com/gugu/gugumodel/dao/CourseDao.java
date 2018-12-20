@@ -2,6 +2,10 @@ package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.entity.CourseEntity;
+import com.gugu.gugumodel.entity.ShareMessageEntity;
+import com.gugu.gugumodel.entity.SimpleCourseEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
