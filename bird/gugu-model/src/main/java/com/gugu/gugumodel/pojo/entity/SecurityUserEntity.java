@@ -1,6 +1,5 @@
 package com.gugu.gugumodel.pojo.entity;
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,36 +8,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * 用于储存管理员信息
- * @author TYJ
+ * @author ren
  */
-public class AdminEntity implements UserDetails {
-    private Long id;
-    private String account;
-    private String password;
-
-    public Long getId() {
-        return id;
+public class SecurityUserEntity implements UserDetails {
+    String account;
+    String password;
+    String role;
+    public SecurityUserEntity(String account,String password,String role){
+        this.account=account;
+        this.password=password;
+        this.role=role;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority("ROLE_Admin");
-        ArrayList<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
-        simpleGrantedAuthorities.add(simpleGrantedAuthority);
-        return simpleGrantedAuthorities;
+        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority(role);
+        ArrayList<GrantedAuthority> grantedAuthorities=new ArrayList<>();
+        grantedAuthorities.add(simpleGrantedAuthority);
+        return grantedAuthorities;
     }
 
     @Override
@@ -69,9 +55,5 @@ public class AdminEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

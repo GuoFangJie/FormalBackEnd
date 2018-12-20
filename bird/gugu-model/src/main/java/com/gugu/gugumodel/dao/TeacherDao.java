@@ -110,4 +110,13 @@ public class TeacherDao {
         teacherMapper.activeTeacher(activeUserVO);
         return true;
     }
+
+    /**
+     * 根据账号获取老师id
+     * @param account
+     * @return
+     */
+    public Long getTeacherByAccount(String account){
+        return teacherMapper.getTeacherByAccount(account);
+    }
 }

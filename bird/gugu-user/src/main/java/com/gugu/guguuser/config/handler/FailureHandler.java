@@ -1,4 +1,4 @@
-package com.gugu.guguuser.config.Handler;
+package com.gugu.guguuser.config.handler;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;

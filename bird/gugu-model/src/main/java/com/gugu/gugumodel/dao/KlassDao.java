@@ -14,12 +14,6 @@ import java.util.ArrayList;
 public class KlassDao{
     @Autowired
     KlassMapper klassMapper;
-    @Autowired
-    KlassRoundDao klassRoundDao;
-    @Autowired
-    KlassSeminarDao klassSeminarDao;
-    @Autowired
-    KlassStudentDao klassStudentDao;
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassMapper.getKlassByCourseId(courseId);
     }
@@ -44,9 +38,6 @@ public class KlassDao{
            return false;
        }else{
            klassMapper.deleteKlassById(klassId);
-           klassRoundDao.deleteKlassRoundByKlassId(klassId);
-           klassSeminarDao.deleteKlassSeminar(klassId);
-           klassStudentDao.deleteByKlassId(klassId);
        }
         return true;
     }

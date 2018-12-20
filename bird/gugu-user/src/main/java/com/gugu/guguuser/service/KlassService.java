@@ -24,6 +24,10 @@ public class KlassService {
     StudentDao studentDao;
     @Autowired
     KlassStudentDao klassStudentDao;
+    @Autowired
+    KlassRoundDao klassRoundDao;
+    @Autowired
+    KlassSeminarDao klassSeminarDao;
     /**
      * 新建班级
      * @param klassEntity
@@ -64,11 +68,15 @@ public class KlassService {
     }
 
     /**
-     * 删除班级及相关的数据
+     * 删除班级及其子数据
      * @param klassId
      * @return
      */
     public boolean deleteClass(Long klassId){
-        return klassDao.deleteKlassById(klassId);
+        klassStudentDao.deleteByKlassId(klassId);
+        klassRoundDao.deleteKlassRoundByKlassId(klassId);
+        klassSeminarDao.deleteKlassSeminar(klassId);
+        klassDao.deleteKlassById(klassId);
+        return true;
     }
 }
