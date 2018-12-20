@@ -1,7 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.SeminarScoreMapper;
-import com.gugu.gugumodel.pojo.entity.SeminarScoreEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

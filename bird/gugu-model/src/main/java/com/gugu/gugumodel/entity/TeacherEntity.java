@@ -1,4 +1,4 @@
-package com.gugu.gugumodel.pojo.entity;
+package com.gugu.gugumodel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

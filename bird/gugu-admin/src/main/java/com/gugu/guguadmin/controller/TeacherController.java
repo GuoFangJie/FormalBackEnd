@@ -2,6 +2,7 @@ package com.gugu.guguadmin.controller;
 
 
 import com.gugu.guguadmin.service.TeacherService;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.pojo.entity.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;

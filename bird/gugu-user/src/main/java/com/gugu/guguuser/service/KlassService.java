@@ -1,8 +1,8 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.pojo.entity.KlassEntity;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;

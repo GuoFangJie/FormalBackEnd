@@ -1,6 +1,6 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import com.gugu.guguuser.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

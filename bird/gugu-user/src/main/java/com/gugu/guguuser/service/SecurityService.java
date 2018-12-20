@@ -2,7 +2,7 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
-import com.gugu.gugumodel.pojo.entity.SecurityUserEntity;
+import com.gugu.gugumodel.entity.SecurityUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +21,7 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Long studentId=studentDao.getStudentByAccount(s);
-        if(!studentId.equals(null)){
+        if(studentId!=null){
             return new SecurityUserEntity(s,studentDao.getStudentById(studentId).getPassword(),"ROLE_Student");
         }else if(teacherDao.getTeacherByAccount(s)!=null){
             Long teacherId=teacherDao.getTeacherByAccount(s);

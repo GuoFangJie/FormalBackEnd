@@ -1,4 +1,4 @@
-package com.gugu.gugumodel.pojo.entity;
+package com.gugu.gugumodel.entity;
 
 /**
  * 讨论课成绩的实体类

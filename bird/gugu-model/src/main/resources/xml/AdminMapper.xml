@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gugu.gugumodel.mapper.AdminMapper">
-    <resultMap id="adminResultList" type="com.gugu.gugumodel.pojo.entity.AdminEntity">
+    <resultMap id="adminResultList" type="com.gugu.gugumodel.entity.AdminEntity">
         <id column="id" property="id"/>
         <result column="account" property="account"/>
         <result column="password" property="password"/>

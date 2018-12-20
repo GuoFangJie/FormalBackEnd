@@ -1,15 +1,8 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.StudentDao;
-import com.gugu.gugumodel.dao.TeacherDao;
-import com.gugu.gugumodel.pojo.entity.ShareApplicationEntity;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
-import com.gugu.guguuser.util.EmailUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**

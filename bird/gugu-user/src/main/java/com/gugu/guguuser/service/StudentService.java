@@ -1,8 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,8 +63,8 @@ public class StudentService {
     /**
      * 激活学生账号
      */
-    public boolean activeStudent(ActiveUserVO activeUserVO){
-        return studentDao.activeStudent(activeUserVO);
+    public boolean activeStudent(StudentEntity studentEntity){
+        return studentDao.activeStudent(studentEntity);
     }
 
 }

@@ -1,15 +1,10 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.gugumodel.mapper.TeacherMapper;
-import com.gugu.gugumodel.mapper.TeamMapper;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeacherEntity;
-import com.gugu.gugumodel.pojo.entity.TeamEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -103,11 +98,11 @@ public class TeacherDao {
     /**
      * 激活账号
      */
-    public boolean activeTeacher(ActiveUserVO activeUserVO){
-        if(teacherMapper.getTeacherById(activeUserVO.getUserId())==null){
+    public boolean activeTeacher(TeacherEntity teacherEntity){
+        if(teacherMapper.getTeacherById(teacherEntity.getId())==null){
             return false;
         }
-        teacherMapper.activeTeacher(activeUserVO);
+        teacherMapper.activeTeacher(teacherEntity);
         return true;
     }
 

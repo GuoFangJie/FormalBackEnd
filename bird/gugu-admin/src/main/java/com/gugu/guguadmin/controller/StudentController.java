@@ -2,7 +2,7 @@ package com.gugu.guguadmin.controller;
 
 
 import com.gugu.guguadmin.service.StudentService;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

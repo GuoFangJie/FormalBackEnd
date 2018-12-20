@@ -1,8 +1,10 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.pojo.entity.*;
-import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
+import com.gugu.gugumodel.dao.StudentDao;
+import com.gugu.gugumodel.dao.TeamDao;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeamEntity;
+import com.gugu.gugumodel.entity.TeamValidEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

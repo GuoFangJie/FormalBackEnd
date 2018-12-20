@@ -1,10 +1,10 @@
 package com.gugu.guguuser.controller;
 
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.TeamEntity;
-import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
-import com.gugu.gugumodel.pojo.vo.TeamMessageVO;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeamEntity;
+import com.gugu.gugumodel.entity.TeamValidEntity;
+import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +58,13 @@ public class TeamController {
     @PutMapping("/{teamId}")
     public void updateTeam(@PathVariable Long teamId,@RequestBody TeamMessageVO teamMessageVO){
         teamMessageVO.setTeamId(teamId);
-        TeamEntity teamEntity=new TeamEntity(teamMessageVO);
+        TeamEntity teamEntity=new TeamEntity();
+        teamEntity.setKlassId(teamMessageVO.getKlass_id());
+        teamEntity.setCourseId(teamMessageVO.getCourse_id());
+        teamEntity.setTeamName(teamMessageVO.getTeam_name());
+        teamEntity.setLeaderId(teamMessageVO.getLeader().getId());
+        teamEntity.setStatus(teamMessageVO.getStatus());
+        teamEntity.setId(teamMessageVO.getTeamId());
         ArrayList<StudentEntity> memberStudents=teamMessageVO.getMembers();
         teamService.updateTeam(teamEntity,memberStudents);
     }

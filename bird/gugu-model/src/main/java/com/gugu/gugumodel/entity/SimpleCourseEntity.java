@@ -1,4 +1,4 @@
-package com.gugu.gugumodel.pojo.entity;
+package com.gugu.gugumodel.entity;
 
 /**
  * 用于根据用户id获取相关课程基本信息

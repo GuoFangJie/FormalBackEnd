@@ -3,7 +3,7 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.StudentMapper">
-    <resultMap id="studentResultList" type="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <resultMap id="studentResultList" type="com.gugu.gugumodel.entity.StudentEntity">
         <id column="id" property="id"/>
         <result column="is_active" property="isActive"/>
         <result column="student_name" property="studentName"/>
@@ -19,26 +19,26 @@
         delete from klass_student where student_id=#{arg0}
     </delete>
 
-    <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
         from student,klass_student where klass_student.team_id=#{param1} and klass_student.student_id=student.id
     </select>
 
-    <select id="getLeader" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <select id="getLeader" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
         from student,team where team.id=#{param1} and student.id=team.leader_id
     </select>
     
-    <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
         from student,klass_student where klass_student.team_id is null
         and klass_student.student_id=student.id and klass_student.course_id=#{arg0}
     </select>
 
-    <select id="getStudentById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <select id="getStudentById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
         from student where student.id=#{arg0}
@@ -58,7 +58,7 @@
         update student set password=123456 where id=#{param1}
     </update>
 
-    <update id="changeStudentInformation" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <update id="changeStudentInformation" parameterType="com.gugu.gugumodel.entity.StudentEntity">
         update student set account=#{account},student_name=#{studentName},email=#{email} where id=#{id}
     </update>
 
@@ -70,11 +70,11 @@
         update student set email=#{param1} where id=#{param2}
     </update>
 
-    <update id="activeStudent" parameterType="com.gugu.gugumodel.pojo.vo.ActiveUserVO">
-        update student set password=#{password},email=#{email},is_active=1 where id=#{userId}
+    <update id="activeStudent" parameterType="com.gugu.gugumodel.entity.StudentEntity">
+        update student set password=#{password},email=#{email} where id=#{id}
     </update>
 
-    <insert id="newStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.pojo.entity.StudentEntity">
+    <insert id="newStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.StudentEntity">
         insert into student(is_active,student_name,account,password) values (0,#{studentName},#{account},'123456')
     </insert>
 

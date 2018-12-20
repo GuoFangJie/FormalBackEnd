@@ -1,7 +1,7 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.RoundEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.RoundEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;

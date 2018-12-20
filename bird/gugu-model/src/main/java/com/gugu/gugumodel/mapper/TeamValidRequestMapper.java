@@ -1,7 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.AdminEntity;
-import com.gugu.gugumodel.pojo.entity.TeamValidEntity;
+import com.gugu.gugumodel.entity.TeamValidEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

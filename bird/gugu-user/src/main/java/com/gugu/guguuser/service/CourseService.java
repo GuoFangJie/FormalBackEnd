@@ -1,7 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +66,7 @@ public class CourseService {
      * @param course_id
      * @return
      */
-    public ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id,Long course_id) {
+    public ArrayList<SeminarScoreEntity> getTeamAllScore(Long student_id, Long course_id) {
         Long team_id=klassStudentDao.getTeamId(student_id,course_id);
         return seminarScoreDao.getTeamAllScore(team_id);
     }

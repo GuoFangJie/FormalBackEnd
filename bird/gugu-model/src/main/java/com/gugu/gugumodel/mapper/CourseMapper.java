@@ -1,6 +1,9 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.entity.CourseEntity;
+import com.gugu.gugumodel.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.ShareReceiveCourseEntity;
+import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

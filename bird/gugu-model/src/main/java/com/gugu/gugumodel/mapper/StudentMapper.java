@@ -1,7 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.StudentEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -49,7 +48,7 @@ public interface StudentMapper {
 
      void changeEmail(String email,Long studentId);
 
-     void activeStudent(ActiveUserVO activeUserVO);
+     void activeStudent(StudentEntity studentEntity);
 
      void newStudent(StudentEntity studentEntity);
 

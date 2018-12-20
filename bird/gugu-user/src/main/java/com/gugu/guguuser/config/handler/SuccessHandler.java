@@ -2,7 +2,7 @@ package com.gugu.guguuser.config.handler;
 
 import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
-import com.gugu.gugumodel.pojo.entity.SecurityUserEntity;
+import com.gugu.gugumodel.entity.SecurityUserEntity;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -46,8 +47,11 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 .setClaims(claim)
                 .signWith(SignatureAlgorithm.HS256,"MyJwtSecret")
                 .compact();
-        httpServletResponse.setHeader("Authorization", "GuGuBird" + token);
+        Cookie cookie=new Cookie("Authorization","GuGuBird"+token);
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+        httpServletResponse.addCookie(cookie);
         System.out.println("JWT安装完成");
-        httpServletResponse.sendRedirect("http://47.94.174.82/#/TeacherMainPage");
+        httpServletResponse.sendRedirect("http://localhost:8081/#/TeacherMainPage");
     }
 }

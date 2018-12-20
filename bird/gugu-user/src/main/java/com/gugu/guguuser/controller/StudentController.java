@@ -1,6 +1,7 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.guguuser.controller.vo.ActiveUserVO;
 import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,7 +29,10 @@ public class StudentController {
     @PutMapping("active")
     public boolean activeStudent(@RequestBody ActiveUserVO activeUserVO, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        activeUserVO.setUserId(userId);
-        return studentService.activeStudent(activeUserVO);
+        StudentEntity studentEntity=new StudentEntity();
+        studentEntity.setEmail(activeUserVO.getEmail());
+        studentEntity.setPassword(activeUserVO.getPassword());
+        studentEntity.setId(userId);
+        return studentService.activeStudent(studentEntity);
     }
 }

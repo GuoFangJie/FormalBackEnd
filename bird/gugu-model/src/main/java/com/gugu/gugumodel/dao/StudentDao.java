@@ -1,19 +1,13 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.StudentMapper;
-import com.gugu.gugumodel.mapper.TeacherMapper;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.entity.StudentEntity;
-import com.gugu.gugumodel.pojo.vo.ActiveUserVO;
+import com.gugu.gugumodel.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.gugu.gugumodel.pojo.vo.StudentBasicInforVO;
-
-import java.util.List;
-
 
 import java.util.ArrayList;
 
@@ -143,11 +137,11 @@ public class StudentDao {
      * @param activeUserVO
      * @return
      */
-    public boolean activeStudent(ActiveUserVO activeUserVO){
-        if(studentMapper.getStudentById(activeUserVO.getUserId())==null){
+    public boolean activeStudent(StudentEntity studentEntity){
+        if(studentMapper.getStudentById(studentEntity.getId())==null){
             return false;
         }
-        studentMapper.activeStudent(activeUserVO);
+        studentMapper.activeStudent(studentEntity);
         return true;
     }
 
