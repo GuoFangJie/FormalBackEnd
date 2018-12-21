@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.entity.KlassSeminarEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -43,4 +44,25 @@ public interface KlassSeminarMapper {
      * @return
      */
     public boolean setReportDDLInClass(@Param("seminarId") Long seminarId, @Param("klassId") Long klassId, @Param("date") Date date);
+
+    /**@author ljy
+     * 按照id获取班级下讨论课
+     * @param seminarId
+     * @return
+     */
+    public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId);
+
+    /**@author ljy
+     * 设置讨论课状态
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarStatus(@Param("seminarId") Long seminarId,@Param("classId") Long classId,@Param("status")Byte status);
+
+    /**@author ljy
+     * 设置班级下讨论课书面报告截止时间
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarReportddl(@Param("seminarId")Long seminarId,@Param("classId")Long classId,@Param("date")Date date);
 }

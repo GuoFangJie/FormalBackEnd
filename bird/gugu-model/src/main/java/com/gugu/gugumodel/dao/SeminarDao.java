@@ -1,12 +1,8 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.entity.KlassSeminarEntity;
-import com.gugu.gugumodel.mapper.KlassMapper;
-import com.gugu.gugumodel.mapper.KlassSeminarMapper;
-import com.gugu.gugumodel.mapper.SeminarMapper;
-import com.gugu.gugumodel.entity.SeminarEntity;
-import com.gugu.gugumodel.mapper.SeminarScoreMapper;
-import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -21,6 +17,8 @@ public class SeminarDao {
     SeminarMapper seminarMapper;
     @Autowired
     KlassMapper klassMapper;
+    @Autowired
+    RoundMapper roundMapper;
 
     @Autowired
     KlassSeminarMapper klassSeminarMapper;
@@ -126,8 +124,52 @@ public class SeminarDao {
      */
     public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId){
         SeminarEntity seminarEntity=seminarMapper.getSeminarById(seminarId);
-        seminarEntity.set
-        return seminarDao.getSeminarInClass(seminarId,klassId);
+        KlassSeminarEntity klassSeminarEntity=new KlassSeminarEntity();
+        klassSeminarEntity.setSeminarEntity(seminarEntity);
+        KlassSeminarEntity klassSeminarEntity1=klassSeminarMapper.getSeminarInClass(seminarId,klassId);
+        klassSeminarEntity.setReportDDL(klassSeminarEntity1.getReportDDL());
+        klassSeminarEntity.setStatus(klassSeminarEntity1.getStatus());
+        return klassSeminarEntity;
+    }
 
+
+    /**@author ljy
+     * 设置讨论课轮次
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarRound(Long seminarId,RoundEntity roundEntity){
+        Long roundId=seminarMapper.getRoundId(seminarId);
+        roundMapper.setSeminarRound(roundId,roundEntity);
+        return true;
+    }
+
+
+    /**@author ljy
+     * 设置讨论课状态
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarStatus(Long seminarId,Long classId,Byte status){
+        return klassSeminarMapper.setSeminarStatus(seminarId,classId,status);
+    }
+
+    /**@author ljy
+     * 设置班级下讨论课书面报告截止时间
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarReportddl(Long seminarId,Long classId,Date date){
+        return klassSeminarMapper.setSeminarReportddl(seminarId,classId,date);
+    }
+
+    /**@author ljy
+     * 获取班级下小组在一次讨论课下的成绩
+     * @param seminarId
+     * @return
+     */
+    public SeminarScoreEntity getSeminarScore(Long seminarId, Long teamId){
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
+        return seminarScoreMapper.getSeminarScore(klassSeminarId);
     }
 }

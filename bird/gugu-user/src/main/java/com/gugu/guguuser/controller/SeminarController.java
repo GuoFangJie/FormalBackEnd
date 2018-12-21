@@ -112,4 +112,47 @@ public class SeminarController {
         //获取seminar中的信息和klass_seminar中的讨论课状态
         return seminarService.getSeminarInClass(seminarId,classId);
     }
+
+    /**@author ljy
+     * 设置讨论课轮次
+     * @param seminarId
+     * @return
+     */
+    @PutMapping("/{seminarId}/round")
+    public boolean setSeminarRound(@PathVariable Long seminarId, @RequestBody RoundEntity roundEntity){
+        return seminarService.setSeminarRound(seminarId,roundEntity);
+    }
+
+    /**@author ljy
+     * 设置讨论课状态
+     * @param seminarId
+     * @return
+     */
+    @PutMapping("/{seminarId}/class/{classId}/status")
+    public boolean setSeminarStatus(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody KlassSeminarEntity klassSeminarEntity){
+        Byte status=klassSeminarEntity.getStatus();
+        return seminarService.setSeminarStatus(seminarId,classId,status);
+    }
+
+    /**@author ljy
+     * 设置班级下讨论课书面报告截止时间
+     * @param seminarId
+     * @return
+     */
+    @PutMapping("/{seminarId}/class/{classId}/reportddl")
+    public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody String d)throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse(d);
+        return seminarService.setSeminarReportddl(seminarId,classId,date);
+    }
+
+    /**@author ljy
+     * 获取班级下小组在一次讨论课下的成绩
+     * @param seminarId
+     * @return
+     */
+    @GetMapping("/{seminarId}/team/{teamId}/senimarscore")
+    public SeminarScoreEntity getSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId){
+        return seminarService.getSeminarScore(seminarId,teamId);
+    }
 }

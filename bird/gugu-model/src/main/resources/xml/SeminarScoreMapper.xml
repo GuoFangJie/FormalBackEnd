@@ -3,6 +3,15 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.SeminarScoreMapper">
+    <resultMap id="SeminarScoreMap" type="com.gugu.gugumodel.entity.SeminarScoreEntity">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="klass_id" jdbcType="BIGINT" property="klassId"/>
+        <result column="course_id" jdbcType="BIGINT" property="courseId"/>
+        <result column="leader_id" jdbcType="BIGINT" property="leaderId"/>
+        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="team_serial" jdbcType="TINYINT" property="teamSerial"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
     <select id="getTeamAllScore" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SeminarScoreEntity">
         select klass_seminar_id klassSeminarId,team_id teamId ,total_score totalScore,presentaton_score presentationScore,question_score questionScore,
                report_score reportScore from seminar_score where team_id=#{arg0}
@@ -11,5 +20,9 @@
     <delete id="deleteByKlassSeminarId" parameterType="java.lang.Long">
         delete from seminar_score where klass_seminar_id=#{param1}
     </delete>
+
+    <select id="getSeminarScore" >
+
+    </select>
 
 </mapper>

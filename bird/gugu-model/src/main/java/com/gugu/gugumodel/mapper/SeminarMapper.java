@@ -60,5 +60,12 @@ public interface SeminarMapper {
      */
     public SeminarEntity getSeminarById(Long seminarId);
 
+    /**@author ljy
+     * 按照id获取所在roundId
+     * @param
+     * @return
+     */
+    public Long getRoundId(Long seminarId);
+
 
 }
