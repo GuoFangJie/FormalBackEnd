@@ -65,8 +65,8 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());
             simpleGrantedAuthorities.add(simpleGrantedAuthority);
             System.out.println(objectMap.get("authority"));
-            request.setAttribute("userId",claims.get("userId"));
-            request.setAttribute("role",objectMap.get("role"));
+            request.setAttribute("userId",claims.get("userId").toString());
+            request.setAttribute("role",objectMap.get("authority"));
             return new UsernamePasswordAuthenticationToken("", "", simpleGrantedAuthorities);
         }
         return null;

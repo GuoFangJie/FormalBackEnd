@@ -1,34 +1,19 @@
-package com.gugu.gugumodel.entity;
-
-import org.apache.ibatis.annotations.Param;
+package com.gugu.guguuser.controller.vo;
 
 import java.sql.Timestamp;
 
 /**
- * 用于储存比较完善的课程信息
- * 目前用于新建课程
  * @author ren
  */
-public class CourseEntity {
-    private Long id;
+public class NewCourseVO {
     private Long teacherId;
     private String courseName;
     private String introduction;
     private Integer presentationPercentage;
     private Integer questionPercentage;
     private Integer reportPercentage;
-    private Timestamp  teamStartTime;
-    private Timestamp teamEndTime;
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String teamStartTime;
+    private String teamEndTime;
 
     public Long getTeacherId() {
         return teacherId;
@@ -78,19 +63,19 @@ public class CourseEntity {
         this.reportPercentage = reportPercentage;
     }
 
-    public Timestamp getTeamStartTime() {
+    public String getTeamStartTime() {
         return teamStartTime;
     }
 
-    public void setTeamStartTime(Timestamp teamStartTime) {
+    public void setTeamStartTime(String teamStartTime) {
         this.teamStartTime = teamStartTime;
     }
 
-    public Timestamp getTeamEndTime() {
+    public String getTeamEndTime() {
         return teamEndTime;
     }
 
-    public void setTeamEndTime(Timestamp teamEndTime) {
+    public void setTeamEndTime(String teamEndTime) {
         this.teamEndTime = teamEndTime;
     }
 }

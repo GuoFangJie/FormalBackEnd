@@ -1,6 +1,6 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

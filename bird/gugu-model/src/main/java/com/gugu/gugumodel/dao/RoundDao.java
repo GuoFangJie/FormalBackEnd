@@ -70,4 +70,7 @@ public class RoundDao {
         }
     }
 
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
+        return roundMapper.getRoundMessageByCourseId(courseId);
+    }
 }

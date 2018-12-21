@@ -2,6 +2,8 @@ package com.gugu.guguuser.controller;
 
 
 import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.guguuser.controller.vo.EmailVO;
+import com.gugu.guguuser.controller.vo.PasswordVO;
 import com.gugu.guguuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +35,10 @@ public class UserController {
      * @return
      */
     @PutMapping("password")
-    public boolean changePassword(HttpServletRequest httpServletRequest,@RequestBody String password){
+    public boolean changePassword(HttpServletRequest httpServletRequest, @RequestBody PasswordVO password){
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        return userService.changePassword(role,password,userId);
+        return userService.changePassword(role,password.getPassword(),userId);
     }
 
     /**
@@ -48,6 +50,7 @@ public class UserController {
     public StudentEntity getUserInfo(HttpServletRequest httpServletRequest){
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        System.out.println(userId);
         return userService.getUserInfo(role,userId);
     }
 
@@ -58,9 +61,9 @@ public class UserController {
      * @return
      */
     @PutMapping("email")
-    public boolean changeEmail(HttpServletRequest httpServletRequest,@RequestBody String email){
+    public boolean changeEmail(HttpServletRequest httpServletRequest, @RequestBody EmailVO email){
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        return userService.changePassword(role,email,userId);
+        return userService.changeEmail(role,email.getEmail(),userId);
     }
 }

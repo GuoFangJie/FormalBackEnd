@@ -1,9 +1,11 @@
 package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.entity.*;
+import com.gugu.guguuser.controller.vo.ShareMessageVO;
 import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.CourseService;
 import com.gugu.guguuser.service.KlassService;
+import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
@@ -22,6 +24,8 @@ public class CourseController {
     StudentService studentService;
     @Autowired
     KlassService klassService;
+    @Autowired
+    RoundService roundService;
     /**
      * 获取与用户相关的课程
      * @param
@@ -39,7 +43,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("")
-    public Long newCourse(CourseEntity courseEntity){
+    public Long newCourse(@RequestBody CourseEntity courseEntity){
         courseService.newCourse(courseEntity);
         return courseEntity.getId();
     }
@@ -133,21 +137,38 @@ public class CourseController {
      * @param courseId
      * @return
      */
-    @GetMapping("/{courseId}/share")
-    public ArrayList<ShareMessageEntity> getAllShareMessage(@PathVariable("courseId") Long courseId){
-        return courseService.getAllShare(courseId);
-    }
+//    @GetMapping("/{courseId}/share")
+//    public ArrayList<ShareMessageEntity> getAllShareMessage(@PathVariable("courseId") Long courseId){
+//        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
+//        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
+//        if(shareMessageEntities.size()>0) {
+//            ShareMessageVO shareSeminar=new ShareMessageVO();
+//            shareSeminar.setMasterCourse();
+//            for (int i = 0; i < shareMessageEntities.size(); i++) {
+//            }
+//        }
+//    }
 
     /**
      * 删除共享关系
      * 1 为讨论课 2 为小组
-     * @param shareId
-     * @param type
+     * @param
+     * @param
      * @return
      */
 //    @DeleteMapping("/{courseId}/share/{shareId}")
 //    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
 //        return courseService.deleteCourseShare(shareId,type);
 //    }
+
+    /**
+     * 获取一个课程下的所有轮次
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/round")
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId){
+        return roundService.getRoundMessageByCourseId(courseId);
+    }
 
 }

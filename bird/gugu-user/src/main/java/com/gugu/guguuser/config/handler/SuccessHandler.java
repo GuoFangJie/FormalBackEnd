@@ -3,9 +3,12 @@ package com.gugu.guguuser.config.handler;
 import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.entity.SecurityUserEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,14 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     StudentDao studentDao;
     @Autowired
     TeacherDao teacherDao;
+    @Value("${student-active}")
+    String studentActive;
+    @Value("${student-main}")
+    String studentMain;
+    @Value("${teacher-active}")
+    String teacherActive;
+    @Value("${teacher-main}")
+    String teacherMain;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
@@ -52,6 +63,20 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         cookie.setMaxAge(3600);
         httpServletResponse.addCookie(cookie);
         System.out.println("JWT安装完成");
-        httpServletResponse.sendRedirect("http://localhost:8081/#/TeacherMainPage");
+        if(objects[0].toString().equals("ROLE_Teacher")){
+            TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
+            if(teacherEntity.getIsActive()==0){
+                httpServletResponse.sendRedirect(teacherActive);
+            }else{
+                httpServletResponse.sendRedirect(teacherMain);
+            }
+        }else {
+            StudentEntity studentEntity=studentDao.getStudentById(userId);
+            if(studentEntity.getIsActive()==0){
+                httpServletResponse.sendRedirect(studentActive);
+            }else{
+                httpServletResponse.sendRedirect(studentMain);
+            }
+        }
     }
 }

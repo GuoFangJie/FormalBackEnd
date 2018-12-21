@@ -61,4 +61,11 @@ public class RoundService {
         roundScoreEntity.setTotalScore((roundScoreEntity.getPresentationScore()+roundScoreEntity.getQuestionScore()+roundScoreEntity.getReportScore())/3);
         roundDao.editRoundScore(roundScoreEntity);
     }
+
+    /**
+     * 获取一个课程下所有的round
+     */
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
+        return roundDao.getRoundMessageByCourseId(courseId);
+    }
 }
