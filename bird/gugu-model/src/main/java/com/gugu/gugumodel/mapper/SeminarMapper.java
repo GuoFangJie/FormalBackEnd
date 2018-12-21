@@ -4,6 +4,7 @@ import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -50,4 +51,14 @@ public interface SeminarMapper {
      * @return
      */
     public boolean deleteSeminar(Long seminarId);
+
+
+    /**@author ljy
+     * 按照id获取讨论课
+     * @param
+     * @return
+     */
+    public SeminarEntity getSeminarById(Long seminarId);
+
+
 }

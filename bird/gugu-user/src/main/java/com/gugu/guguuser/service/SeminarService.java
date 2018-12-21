@@ -2,11 +2,15 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.KlassSeminarEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author ren
@@ -59,5 +63,42 @@ public class SeminarService {
      */
     public boolean deleteSeminar(Long seminarId){
         return seminarDao.deleteSeminar(seminarId);
+    }
+
+
+    /**@author ljy
+     * 按照id获取讨论课
+     * @param
+     * @return
+     */
+    public SeminarEntity getSeminarById(Long seminarId){
+        return seminarDao.getSeminarById(seminarId);
+    }
+
+    /**@author ljy
+     * 按照id修改班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean setReportDDLInClass(Long seminarId,Long klassId,Date date){
+        return seminarDao.setReportDDLInClass(seminarId,klassId,date);
+    }
+
+    /**@author ljy
+     * 按照id删除班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean deleteSeminarInClass(Long seminarId,Long classId){
+        return seminarDao.deleteSeminarInClass(seminarId,classId);
+    }
+
+    /**@author ljy
+     * 按照id获取班级下讨论课
+     * @param seminarId
+     * @return
+     */
+    public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId){
+        return seminarDao.getSeminarInClass(seminarId,klassId);
     }
 }

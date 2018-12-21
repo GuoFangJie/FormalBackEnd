@@ -42,15 +42,9 @@
         delete from klass_student where team_id=#{arg0}
     </delete>
 
-    <insert id="addMember" >
-        insert into klass_student values (#{team.klassId},#{studentId},#{team.courseId},#{team.id})
-    </insert>
-
     <update id="removeMember" >
         update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}
     </update>
-
-
 
     <select id="getTeamIdByKlassId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select id from team where klass_id=#{param1}
@@ -59,4 +53,9 @@
     <delete id="deleteByKlassId" parameterType="java.lang.Long">
         delete from team where klass_id=#{param1}
     </delete>
+
+    <insert id="newTeam" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.TeamEntity">
+        insert into team (klass_id,course_id,leader_id,team_name,team_serial,status)
+        values (#{klassId},#{courseId},#{leaderId},#{teamName},#{teamSerial},#{status})
+    </insert>
 </mapper>

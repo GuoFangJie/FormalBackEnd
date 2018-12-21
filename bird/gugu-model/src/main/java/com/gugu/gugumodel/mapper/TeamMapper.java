@@ -28,8 +28,6 @@ public interface TeamMapper {
 
     void deleteStudentTeamRelation(Long teamId);
 
-    void addMember(@Param("team") TeamEntity teamEntity,@Param("studentId") Long studentId);
-
     void removeMember(@Param("teamId") Long teamId,@Param("studentId") Long studentId);
 
 
@@ -44,4 +42,11 @@ public interface TeamMapper {
      * 删除班级下的小组
      */
     void deleteByKlassId(Long klassId);
+
+    /**@author ljy
+     * 新建队伍
+     * @param
+     * @return
+     */
+    Long newTeam(TeamEntity teamEntity);
 }

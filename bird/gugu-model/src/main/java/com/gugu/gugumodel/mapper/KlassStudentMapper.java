@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.entity.TeamEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,12 @@ public interface KlassStudentMapper {
      * 根据班级删除klassStudent的记录
      */
     void deleteByKlass(Long klassId);
+
+
+    /**@author ljy
+     * 添加成员
+     * @param teamEntity
+     * @param studentId
+     */
+    void addMember(@Param("team") TeamEntity teamEntity, @Param("studentId") Long studentId);
 }

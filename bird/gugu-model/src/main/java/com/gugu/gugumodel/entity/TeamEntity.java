@@ -13,10 +13,6 @@ public class TeamEntity {
     private Integer teamSerial;
     private Integer status;
 
-    public TeamEntity(){
-
-    }
-
 
     public Long getId() {
         return id;
