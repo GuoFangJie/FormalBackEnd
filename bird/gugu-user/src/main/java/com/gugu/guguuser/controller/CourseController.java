@@ -1,6 +1,7 @@
 package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.entity.*;
+import com.gugu.guguuser.controller.vo.NewCourseVO;
 import com.gugu.guguuser.controller.vo.ShareMessageVO;
 import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.CourseService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @RestController
@@ -34,16 +37,27 @@ public class CourseController {
     @GetMapping("")
     public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
-        return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId));
+        String role=httpServletRequest.getAttribute("role").toString();
+        return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
     }
 
     /**
      * 新建课程，返回课程id
-     * @param courseEntity
+     * @param
      * @return
      */
     @PostMapping("")
-    public Long newCourse(@RequestBody CourseEntity courseEntity){
+    public Long newCourse(@RequestBody NewCourseVO newCourseVO,HttpServletRequest httpServletRequest){
+        Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        CourseEntity courseEntity=new CourseEntity();
+        courseEntity.setTeacherId(userId);
+        courseEntity.setCourseName(newCourseVO.getCourseName());
+        courseEntity.setIntroduction(newCourseVO.getIntroduction());
+        courseEntity.setPresentationPercentage(newCourseVO.getPresentationPercentage());
+        courseEntity.setQuestionPercentage(newCourseVO.getQuestionPercentage());
+        courseEntity.setReportPercentage(newCourseVO.getReportPercentage());
+        courseEntity.setTeamStartTime(Timestamp.valueOf(newCourseVO.getTeamStartTime()));
+        courseEntity.setTeamEndTime(Timestamp.valueOf(newCourseVO.getTeamEndTime()));
         courseService.newCourse(courseEntity);
         return courseEntity.getId();
     }
@@ -137,17 +151,31 @@ public class CourseController {
      * @param courseId
      * @return
      */
-//    @GetMapping("/{courseId}/share")
-//    public ArrayList<ShareMessageEntity> getAllShareMessage(@PathVariable("courseId") Long courseId){
-//        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
-//        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
-//        if(shareMessageEntities.size()>0) {
-//            ShareMessageVO shareSeminar=new ShareMessageVO();
-//            shareSeminar.setMasterCourse();
-//            for (int i = 0; i < shareMessageEntities.size(); i++) {
-//            }
-//        }
-//    }
+    @GetMapping("/{courseId}/share")
+    public ArrayList<ShareMessageVO> getAllShareMessage(@PathVariable("courseId") Long courseId){
+        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
+        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
+        if(shareMessageEntities.size()>0) {
+            ShareMessageVO shareSeminar=new ShareMessageVO();
+            shareSeminar.setShareType(2);
+            shareSeminar.setMasterCourse(shareMessageEntities.get(0).getMasterCourse());
+            for (int i = 0; i < shareMessageEntities.size(); i++) {
+                shareSeminar.addRecieveCourse(shareMessageEntities.get(i).getRecieveCourse());
+            }
+            shareMessageVOS.add(shareSeminar);
+        }
+        ArrayList<ShareMessageEntity> shareTeams=courseService.getAllShareTeam(courseId);
+        if(shareTeams.size()>0){
+            ShareMessageVO shareTeam=new ShareMessageVO();
+            shareTeam.setShareType(1);
+            shareTeam.setMasterCourse(shareTeams.get(0).getMasterCourse());
+            for (int i = 0; i < shareTeams.size(); i++) {
+                shareTeam.addRecieveCourse(shareTeams.get(i).getRecieveCourse());
+            }
+            shareMessageVOS.add(shareTeam);
+        }
+        return shareMessageVOS;
+    }
 
     /**
      * 删除共享关系

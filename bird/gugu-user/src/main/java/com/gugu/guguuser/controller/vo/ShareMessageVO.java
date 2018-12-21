@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @author ren
  */
 public class ShareMessageVO {
-    Long shareId;
     /**
      * 1 为共享分组 2为共享讨论课
      */
@@ -20,13 +19,6 @@ public class ShareMessageVO {
         recieveCourse.add(simpleCourseEntity);
     }
 
-    public Long getShareId() {
-        return shareId;
-    }
-
-    public void setShareId(Long shareId) {
-        this.shareId = shareId;
-    }
 
     public Integer getShareType() {
         return shareType;

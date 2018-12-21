@@ -18,7 +18,7 @@ public class CourseServiceTest {
 
     @Test
     public void findSimpleCourseTest(){
-        courseDao.findSimpleCourseEntityByStudentId(1L);
+        courseDao.findSimpleCourseEntityByUserId(1L,"ROLE_Teacher");
     }
     @Test
     public void newCourseTest(){

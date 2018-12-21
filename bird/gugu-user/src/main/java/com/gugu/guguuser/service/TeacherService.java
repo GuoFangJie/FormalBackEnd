@@ -21,4 +21,11 @@ public class TeacherService {
     public boolean activeTeacher(TeacherEntity teacherEntity){
         return teacherDao.activeTeacher(teacherEntity);
     }
+
+    /**
+     * 根据账号获取id
+     */
+    public Long getIdByAccount(String account){
+        return teacherDao.getTeacherByAccount(account);
+    }
 }

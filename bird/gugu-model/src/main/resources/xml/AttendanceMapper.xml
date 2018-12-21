@@ -3,5 +3,33 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.AttendanceMapper">
+    <update id="editTeamOrder">
+        update attendance
+        set  team_order=#{param1}
+        where id=#{param2};
+    </update>
+    <select id="getById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.AttendanceEntity">
+     select id id,klass_seminar_id klassSeminarId,team_id teamId,team_order teamOrder,
+            is_present isPresent,report_name reportName,report_url reportUrl,
+            ppt_name pptName,ppt_url pptUrl from attendance where id=#{param1}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from attendance where id=#{param1}
+    </delete>
+    
+    <update id="uploadReport">
+        update attendance set report_url=#{param1},report_name=#{param2} where id=#{param3}
+    </update>
 
+    <update id="uploadPPT">
+        update attendance set ppt_url=#{param1},ppt_name=#{param2} where id=#{param3}
+    </update>
+    
+    <select id="getReportPath" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.FileEntity">
+        select report_name name,report_url path,from attendance where id=#{param}
+    </select>
+
+    <select id="getPptPath" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.FileEntity">
+        select ppt_name name,ppt_url path,from attendance where id=#{param}
+    </select>
 </mapper>

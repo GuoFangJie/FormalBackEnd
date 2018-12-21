@@ -67,4 +67,11 @@ public class StudentService {
         return studentDao.activeStudent(studentEntity);
     }
 
+    /**
+     * 根据账号获取id
+     */
+    public Long getIdByAccount(String account){
+        return studentDao.getStudentByAccount(account);
+    }
+
 }

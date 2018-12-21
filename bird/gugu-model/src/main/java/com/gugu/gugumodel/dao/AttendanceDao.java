@@ -1,0 +1,92 @@
+package com.gugu.gugumodel.dao;
+
+import com.gugu.gugumodel.entity.FileEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.AttendanceMapper;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @author ren
+ */
+@Repository
+public class AttendanceDao {
+    @Autowired
+    AttendanceMapper attendanceMapper;
+
+    /**
+     * 修改展示的顺序
+     * @param teamOrder
+     * @param attendanceId
+     * @throws NotFoundException
+     */
+    public void editAttendanceOrder(Byte teamOrder,Long attendanceId) throws NotFoundException {
+        if(attendanceMapper.getById(attendanceId)==null){
+            throw new NotFoundException("记录不存在");
+        }else{
+            attendanceMapper.editTeamOrder(teamOrder,attendanceId);
+        }
+    }
+
+    /**
+     * 删除展示
+     * @param attendanceId
+     * @throws NotFoundException
+     */
+    public void deleteAttendance(Long attendanceId) throws NotFoundException {
+        if(attendanceMapper.getById(attendanceId)==null){
+            throw new NotFoundException("记录不存在");
+        }else{
+            attendanceMapper.deleteById(attendanceId);
+        }
+    }
+
+    /**
+     * 修改报告文件的路径
+     * @param path
+     * @param fileName
+     * @param attendanceId
+     * @throws NotFoundException
+     */
+    public void updloadReport(String path,String fileName,Long attendanceId) throws NotFoundException {
+        if(attendanceMapper.getById(attendanceId)==null){
+            throw new NotFoundException("数据不存在");
+        }else{
+            attendanceMapper.uploadReport(path,fileName,attendanceId);
+        }
+    }
+
+    /**
+     * 上传PPT
+     * @param path
+     * @param fileName
+     * @param attendanceId
+     * @throws NotFoundException
+     */
+    public void updloadPPT(String path,String fileName,Long attendanceId) throws NotFoundException {
+        if(attendanceMapper.getById(attendanceId)==null){
+            throw new NotFoundException("数据不存在");
+        }else{
+            attendanceMapper.uploadPPT(path,fileName,attendanceId);
+        }
+    }
+
+    /**
+     * 获取报告文件信息
+     * @param attendanceId
+     * @return
+     */
+    public FileEntity getReportPath(Long attendanceId){
+        return attendanceMapper.getReportPath(attendanceId);
+    }
+
+    /**
+     * 获取ppt文件信息
+     * @param attendanceId
+     * @return
+     */
+    public FileEntity getPptPath(Long attendanceId){
+        return attendanceMapper.getPptPath(attendanceId);
+    }
+}

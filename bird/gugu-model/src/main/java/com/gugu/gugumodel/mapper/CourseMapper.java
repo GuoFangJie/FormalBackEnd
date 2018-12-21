@@ -17,7 +17,9 @@ import java.util.ArrayList;
 public interface CourseMapper {
      ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudenId(Long studentId);
 
+     ArrayList<SimpleCourseEntity> findSimpleCourseEntityByTeacherId(Long teacherId);
      Long newCourse(CourseEntity courseEntity);
+
 
      CourseEntity getCourseById(Long id);
 

@@ -43,6 +43,8 @@ public class EmailUtil {
             message.setSubject(topic);
             message.setText(content);
             message.setTo(recepients);
+            mailSender.send(message);
+            System.out.println("发送成功");
         }catch (Exception e)
         {
             System.out.println(e);

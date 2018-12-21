@@ -18,8 +18,7 @@ public class MailTest {
     EmailUtil emailUtil;
     @Test
     public void emailTest(){
-        ArrayList<String> recepients=new ArrayList<>();
-        recepients.add("qwe1138318433@qq.com");
-        emailUtil.sendSimpleEmail("通知","通知各位同学",recepients);
+        String get="qwe1138318433@qq.com";
+        emailUtil.sendSimpleEmail("通知","通知各位同学",get);
     }
 }
