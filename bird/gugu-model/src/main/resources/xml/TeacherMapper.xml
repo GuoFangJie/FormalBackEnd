@@ -12,7 +12,7 @@
     </resultMap>
 
     <delete id="deleteTeacherById" parameterType="java.lang.Long">
-        delete from teacher where id=#{arg0}
+        delete from teacher where id=#{param1}
     </delete>
 
     <select id="getTeachers" resultMap="teacherResultList">
@@ -21,7 +21,7 @@
     </select>
 
     <update id="resetTeacherPassword" parameterType="java.lang.Long">
-        update teacher set password=123456 where id=#{arg0}
+        update teacher set password=123456 where id=#{param1}
     </update>
 
     <update id="changeTeacherInformation" parameterType="com.gugu.gugumodel.entity.TeacherEntity">
@@ -38,16 +38,16 @@
 
 
     <select id="getTeacherById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeacherEntity">
-        select id,is_active isActive, teacher_name teacherName,account,email,password
-        from teacher where id=#{arg0}
+        select id id,is_active isActive, teacher_name teacherName,account account,email email,password password
+        from teacher where id=#{param1}
     </select>
 
     <update id="changePassword">
-        update teacher set password=#{arg0} where id=#{arg1}
+        update teacher set password=#{param1} where id=#{param2}
     </update>
 
     <update id="changeEmail">
-        update teacher set email=#{arg0} where id=#{arg1}
+        update teacher set email=#{param1} where id=#{param2}
     </update>
 
     <select id="searchTeacher" resultMap="teacherResultList" parameterType="java.lang.String">

@@ -21,6 +21,7 @@ public class FailureHandler implements AuthenticationFailureHandler {
         }
         else if(e instanceof UsernameNotFoundException) {
             httpServletResponse.setStatus(400);
+            httpServletResponse.sendRedirect("http://localhost:8081/#/");
         }
     }
 }

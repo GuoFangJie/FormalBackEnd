@@ -16,4 +16,9 @@
     <insert id="newRound" parameterType="com.gugu.gugumodel.entity.RoundEntity" useGeneratedKeys="true" keyProperty="id">
         insert round(course_id,round_serial) values (#{courseId},#{roundSerial})
     </insert>
+
+    <select id="getRoundMessageByCourseId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.RoundEntity">
+        select id,course_id courseId,round_serial roundSerial,presentation_score_method presentationScoreMethod,
+               report_score_method reportScoreMethod,question_score_method questionScoreMethod from round where course_id=#{param}
+    </select>
 </mapper>

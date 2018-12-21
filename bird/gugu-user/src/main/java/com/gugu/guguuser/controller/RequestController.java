@@ -1,5 +1,7 @@
 package com.gugu.guguuser.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import com.gugu.gugumodel.entity.TeamValidEntity;
 import com.gugu.guguuser.service.ShareService;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-
 /**
  * @author TYJ
  */

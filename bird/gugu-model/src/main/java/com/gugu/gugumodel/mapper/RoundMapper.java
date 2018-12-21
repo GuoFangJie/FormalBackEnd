@@ -30,4 +30,11 @@ public interface RoundMapper {
      */
     void newRound(RoundEntity roundEntity);
 
+    /**
+     * 获取一个课程下所有的轮次
+     * @param courseId
+     * @return
+     */
+    ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId);
+
 }

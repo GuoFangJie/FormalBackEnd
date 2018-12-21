@@ -14,4 +14,8 @@
     <delete id="deleteByKlass" parameterType="java.lang.Long">
         delete from klass_student where klass_id=#{param1}
     </delete>
+
+    <insert id="addMember" >
+        insert into klass_student values (#{team.klassId},#{studentId},#{team.courseId},#{team.id})
+    </insert>
 </mapper>

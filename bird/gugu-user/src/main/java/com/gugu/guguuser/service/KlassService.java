@@ -44,6 +44,7 @@ public class KlassService {
      * @return
      */
     public boolean importStudentList(MultipartFile multipartFile, Long klassId){
+        klassStudentDao.deleteByKlassId(klassId);
         Workbook workbook=null;
         try {
             workbook=new XSSFWorkbook(multipartFile.getInputStream());
@@ -79,4 +80,5 @@ public class KlassService {
         klassDao.deleteKlassById(klassId);
         return true;
     }
+
 }

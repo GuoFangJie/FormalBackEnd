@@ -3,7 +3,7 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.SeminarMapper">
-    <resultMap id="SeminarEntity" type="com.gugu.gugumodel.entity.SeminarEntity">
+    <resultMap id="SeminarInfoEntity" type="com.gugu.gugumodel.entity.SeminarEntity">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="course_id" jdbcType="BIGINT" property="courseId"/>
         <result column="round_id" jdbcType="BIGINT" property="roundId"/>
@@ -15,16 +15,13 @@
         <result column="enroll_start_time" jdbcType="TIMESTAMP" property="enrollStartTime"/>
         <result column="enroll_end_time" jdbcType="TIMESTAMP" property="enrollEndTime"/>
     </resultMap>
-    <select id="getSeminarsByRound" parameterType="java.lang.Long" resultMap="SeminarEntity">
+    <select id="getSeminarsByRound" parameterType="java.lang.Long" resultMap="SeminarInfoEntity">
         select id,course_id,round_id,seminar_name,introduction,max_team,is_visible,
                seminar_serial,enroll_start_time,enroll_end_time from seminar where round_id=#{param1}
     </select>
 
     <insert id="newSeminar" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.SeminarEntity">
         insert into seminar(course_id,round_id,seminar_name,introduction,max_team,is_visible,seminar_serial,enroll_start_time,enroll_end_time) values (#{courseId},#{roundId},#{seminarName},#{introduction},#{maxTeam},#{isVisible},#{seminarSerial},#{enrollSTime},#{enrollETime})
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            select  last_insert_id()
-        </selectKey>
     </insert>
 
     <select id="getKlassIdBySeminerId" parameterType="java.lang.Long" resultType="java.lang.Long">
@@ -40,4 +37,10 @@
     <delete id="deleteSeminar" parameterType="java.lang.Long">
         delete from seminar where id=#{arg0}
     </delete>
+
+    <select id="getSeminarById" parameterType="java.lang.Long" resultMap="SeminarInfoEntity">
+        select * from seminar where id=#{arg0}
+    </select>
+
+
 </mapper>

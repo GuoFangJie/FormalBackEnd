@@ -41,7 +41,7 @@
     <select id="getStudentById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
-        from student where student.id=#{arg0}
+        from student where student.id=#{param1}
     </select>
 
     <select id="searchStudent" resultMap="studentResultList" parameterType="java.lang.String">

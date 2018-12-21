@@ -92,14 +92,15 @@ public class CourseService {
     }
 
     /**
-     * 获取课程相关的所有共享关系
+     * 获取课程相关的所有讨论课共享关系
      * @param courseId
      * @return
      */
-    public ArrayList<ShareMessageEntity> getAllShare(Long courseId) {
-        ArrayList<ShareMessageEntity> shareMessageEntities=courseDao.getSeminarShareMessage(courseId);
-        shareMessageEntities.addAll(courseDao.getTeamShareMessage(courseId));
-        return shareMessageEntities;
+    public ArrayList<ShareMessageEntity> getAllShareSeminar(Long courseId) {
+        return courseDao.getSeminarShareMessage(courseId);
+    }
+    public ArrayList<ShareMessageEntity> getAllShareTeam(Long courseId){
+        return courseDao.getTeamShareMessage(courseId);
     }
 
     /**

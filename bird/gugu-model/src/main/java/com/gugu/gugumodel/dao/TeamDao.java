@@ -1,14 +1,13 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.mapper.CourseMapper;
-import com.gugu.gugumodel.mapper.SeminarScoreMapper;
-import com.gugu.gugumodel.mapper.StudentMapper;
-import com.gugu.gugumodel.mapper.TeamMapper;
-import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.mapper.*;
 import com.gugu.gugumodel.entity.TeamEntity;
 import com.gugu.gugumodel.entity.TeamValidEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 @Repository
 public class TeamDao{
@@ -18,6 +17,8 @@ public class TeamDao{
     StudentMapper studentMapper;
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    KlassStudentMapper klassStudentMapper;
     @Autowired
     TeamValidRequestMapper teamValidRequestMapper;
     @Autowired
@@ -53,7 +54,7 @@ public class TeamDao{
 
     public void addMember(Long teamId,Long studentId){
         TeamEntity teamEntity= teamMapper.findTeamById(teamId);
-        teamMapper.addMember(teamEntity,studentId);
+        klassStudentMapper.addMember(teamEntity,studentId);
     }
 
 
@@ -82,5 +83,20 @@ public class TeamDao{
     public boolean deleteByKlassId(Long klassId){
         teamMapper.deleteByKlassId(klassId);
         return true;
+    }
+
+    /**@author ljy
+     * 新建队伍,返回队伍id
+     * @param
+     * @return
+     */
+    public Long newTeam(ArrayList<StudentEntity> memberStudents, TeamEntity teamEntity){
+        teamMapper.newTeam(teamEntity);
+        for(int i=0;i<memberStudents.size();i++){
+            klassStudentMapper.addMember(teamEntity,memberStudents.get(i).getId());
+        }
+        Long teamId=teamEntity.getId();
+        System.out.println(teamId);
+        return teamId;
     }
 }

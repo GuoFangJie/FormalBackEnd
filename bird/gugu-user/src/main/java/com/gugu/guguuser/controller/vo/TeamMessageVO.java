@@ -3,13 +3,14 @@ package com.gugu.guguuser.controller.vo;
 import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.gugumodel.entity.TeamEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * 将小组的详细信息返回给前端的类
  * @author ren
  */
-public class TeamMessageVO {
+public class TeamMessageVO implements Serializable {
     Long teamId;
     String team_name;
     Long course_id;
@@ -17,12 +18,15 @@ public class TeamMessageVO {
     StudentEntity leader;
     ArrayList<StudentEntity> members;
     int status;
+    int serial;
+
 
     public TeamMessageVO(){
 
     }
 
-    public TeamMessageVO(TeamEntity teamEntity,StudentEntity leader,ArrayList<StudentEntity> members){
+
+    public TeamMessageVO(TeamEntity teamEntity, StudentEntity leader, ArrayList<StudentEntity> members){
         team_name=teamEntity.getTeamName();
         course_id=teamEntity.getCourseId();
         klass_id=teamEntity.getKlassId();
@@ -30,6 +34,14 @@ public class TeamMessageVO {
         this.members=members;
         this.status=teamEntity.getStatus();
         this.teamId=teamEntity.getId();
+    }
+
+    public int getSerial() {
+        return serial;
+    }
+
+    public void setSerial(int serial) {
+        this.serial = serial;
     }
 
     public Long getTeamId() {

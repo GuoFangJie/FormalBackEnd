@@ -18,4 +18,8 @@
     <delete id="deleteKlassSeminarById" parameterType="java.lang.Long">
         delete from klass_seminar where id=#{arg0}
     </delete>
+
+    <update id="setReportDDLInClass">
+        update klass_seminar set report_ddl=#{date} where seminar_id=#{seminarId} and klass_id=#{klassId}
+    </update>
 </mapper>
