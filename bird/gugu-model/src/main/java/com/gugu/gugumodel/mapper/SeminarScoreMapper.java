@@ -21,4 +21,10 @@ public interface SeminarScoreMapper {
     void deleteByKlassSeminarId(Long klassSeminarId);
 
 
+    /**@author ljy
+     * 获取班级下小组在一次讨论课下的成绩
+     * @param klassSeminarId
+     * @return
+     */
+    public SeminarScoreEntity getSeminarScore(Long klassSeminarId);
 }

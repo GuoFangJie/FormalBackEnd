@@ -21,4 +21,8 @@
         select id,course_id courseId,round_serial roundSerial,presentation_score_method presentationScoreMethod,
                report_score_method reportScoreMethod,question_score_method questionScoreMethod from round where course_id=#{param}
     </select>
+
+    <update id="setSeminarRound">
+        update round set round_serial=#{roundEntity.roundSerial} where id=#{roundId}
+    </update>
 </mapper>

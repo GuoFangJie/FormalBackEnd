@@ -76,4 +76,13 @@ public class TeamService {
             teamValidEntity.setTeacherId(courseDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
             teamDao.teamValidRequest(teamValidEntity);
     }
+
+    /**@author ljy
+     * 新建队伍,返回队伍id
+     * @param
+     * @return
+     */
+    public Long newTeam(ArrayList<StudentEntity> memberStudents,TeamEntity teamEntity){
+        return teamDao.newTeam(memberStudents,teamEntity);
+    }
 }

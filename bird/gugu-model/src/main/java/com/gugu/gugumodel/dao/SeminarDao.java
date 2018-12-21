@@ -1,15 +1,12 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.mapper.KlassMapper;
-import com.gugu.gugumodel.mapper.KlassSeminarMapper;
-import com.gugu.gugumodel.mapper.SeminarMapper;
-import com.gugu.gugumodel.entity.SeminarEntity;
-import com.gugu.gugumodel.mapper.SeminarScoreMapper;
-import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author ren
@@ -20,6 +17,8 @@ public class SeminarDao {
     SeminarMapper seminarMapper;
     @Autowired
     KlassMapper klassMapper;
+    @Autowired
+    RoundMapper roundMapper;
 
     @Autowired
     KlassSeminarMapper klassSeminarMapper;
@@ -41,7 +40,8 @@ public class SeminarDao {
      * @return Long
      */
     public Long newSeminar(SeminarEntity seminarEntity){
-        return seminarMapper.newSeminar(seminarEntity);
+        seminarMapper.newSeminar(seminarEntity);
+        return seminarEntity.getId();
     }
 
     /**@author ljy
@@ -83,5 +83,93 @@ public class SeminarDao {
         //按照klassSeminarId删除seminar_score表中的记录
         seminarScoreMapper.deleteByKlassSeminarId(klassSeminarId);
         return true;
+    }
+
+
+    /**@author ljy
+     * 按照id获取讨论课
+     * @param
+     * @return
+     */
+    public SeminarEntity getSeminarById(Long seminarId){
+        return seminarMapper.getSeminarById(seminarId);
+    }
+
+    /**@author ljy
+     * 按照id修改班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean setReportDDLInClass(Long seminarId, Long klassId, Date date){
+        return klassSeminarMapper.setReportDDLInClass(seminarId,klassId,date);
+    }
+
+    /**@author ljy
+     * 按照id删除班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean deleteSeminarInClass(Long seminarId,Long classId){
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
+        klassSeminarMapper.deleteKlassSeminarById(klassSeminarId);
+        seminarScoreMapper.deleteByKlassSeminarId(klassSeminarId);
+        return true;
+    }
+
+
+    /**@author ljy
+     * 按照id获取班级下讨论课
+     * @param seminarId
+     * @return
+     */
+    public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId){
+        SeminarEntity seminarEntity=seminarMapper.getSeminarById(seminarId);
+        KlassSeminarEntity klassSeminarEntity=new KlassSeminarEntity();
+        klassSeminarEntity.setSeminarEntity(seminarEntity);
+        KlassSeminarEntity klassSeminarEntity1=klassSeminarMapper.getSeminarInClass(seminarId,klassId);
+        klassSeminarEntity.setReportDDL(klassSeminarEntity1.getReportDDL());
+        klassSeminarEntity.setStatus(klassSeminarEntity1.getStatus());
+        return klassSeminarEntity;
+    }
+
+
+    /**@author ljy
+     * 设置讨论课轮次
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarRound(Long seminarId,RoundEntity roundEntity){
+        Long roundId=seminarMapper.getRoundId(seminarId);
+        roundMapper.setSeminarRound(roundId,roundEntity);
+        return true;
+    }
+
+
+    /**@author ljy
+     * 设置讨论课状态
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarStatus(Long seminarId,Long classId,Byte status){
+        return klassSeminarMapper.setSeminarStatus(seminarId,classId,status);
+    }
+
+    /**@author ljy
+     * 设置班级下讨论课书面报告截止时间
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarReportddl(Long seminarId,Long classId,Date date){
+        return klassSeminarMapper.setSeminarReportddl(seminarId,classId,date);
+    }
+
+    /**@author ljy
+     * 获取班级下小组在一次讨论课下的成绩
+     * @param seminarId
+     * @return
+     */
+    public SeminarScoreEntity getSeminarScore(Long seminarId, Long teamId){
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
+        return seminarScoreMapper.getSeminarScore(klassSeminarId);
     }
 }

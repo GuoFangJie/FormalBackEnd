@@ -18,19 +18,23 @@ public class TeamController {
     @Autowired
     TeamService teamService;
     /**@author ljy
-     * 新建队伍(还没有写完呢,队伍是否合法是前端还是后端判断)
+     * 新建队伍,返回队伍id
      * @param teamMessageVO
      * @return
      */
     @PostMapping("/")
-    public void newTeam(@RequestBody TeamMessageVO teamMessageVO){
-        StudentEntity leaderStudent=teamMessageVO.getLeader();
+    public Long newTeam(@RequestBody TeamMessageVO teamMessageVO){
+       // StudentEntity leaderStudent=teamMessageVO.getLeader();
         ArrayList<StudentEntity> memberStudents=teamMessageVO.getMembers();
         TeamEntity teamEntity=new TeamEntity();
-        teamEntity.setTeamName(teamMessageVO.getTeam_name());
-        teamEntity.setCourseId(teamMessageVO.getCourse_id());
+       // teamEntity.setId(teamMessageVO.getTeamId());
         teamEntity.setKlassId(teamMessageVO.getKlass_id());
-
+        teamEntity.setCourseId(teamMessageVO.getCourse_id());
+        teamEntity.setLeaderId(teamMessageVO.getLeader().getId());
+        teamEntity.setTeamName(teamMessageVO.getTeam_name());
+        teamEntity.setTeamSerial(teamMessageVO.getSerial());
+        teamEntity.setStatus(teamMessageVO.getStatus());
+        return teamService.newTeam(memberStudents,teamEntity);
     }
 
     /**@author ljy

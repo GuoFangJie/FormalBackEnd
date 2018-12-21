@@ -1,12 +1,18 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.SeminarDao;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author ren
@@ -59,5 +65,79 @@ public class SeminarService {
      */
     public boolean deleteSeminar(Long seminarId){
         return seminarDao.deleteSeminar(seminarId);
+    }
+
+
+    /**@author ljy
+     * 按照id获取讨论课
+     * @param
+     * @return
+     */
+    public SeminarEntity getSeminarById(Long seminarId){
+        return seminarDao.getSeminarById(seminarId);
+    }
+
+    /**@author ljy
+     * 按照id修改班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean setReportDDLInClass(Long seminarId,Long klassId,Date date){
+        return seminarDao.setReportDDLInClass(seminarId,klassId,date);
+    }
+
+    /**@author ljy
+     * 按照id删除班级讨论课（设置不同班级讨论课的报告提交时间）
+     * @param seminarId
+     * @return
+     */
+    public boolean deleteSeminarInClass(Long seminarId,Long classId){
+        return seminarDao.deleteSeminarInClass(seminarId,classId);
+    }
+
+    /**@author ljy
+     * 按照id获取班级下讨论课
+     * @param seminarId
+     * @return
+     */
+    public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId){
+        return seminarDao.getSeminarInClass(seminarId,klassId);
+    }
+
+    /**@author ljy
+     * 设置讨论课轮次
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarRound(Long seminarId,RoundEntity roundEntity){
+        return seminarDao.setSeminarRound(seminarId,roundEntity);
+    }
+
+    /**@author ljy
+     * 设置讨论课状态
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarStatus(Long seminarId,Long classId,Byte status){
+        return seminarDao.setSeminarStatus(seminarId,classId,status);
+    }
+
+    /**@author ljy
+     * 设置班级下讨论课书面报告截止时间
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarReportddl(Long seminarId,Long classId,Date date){
+        return seminarDao.setSeminarReportddl(seminarId,classId,date);
+    }
+
+
+    /**@author ljy
+     * 获取班级下小组在一次讨论课下的成绩
+     * @param seminarId
+     * @return
+     */
+    public SeminarScoreEntity getSeminarScore(Long seminarId,Long teamId){
+        return seminarDao.getSeminarScore(seminarId,teamId);
     }
 }
