@@ -30,6 +30,11 @@ public class KlassController {
      * @param klassId
      * @return
      */
+
+    /**
+     * 按照id删除课程
+     * @param klassId
+     */
     @DeleteMapping("{classId}")
     public boolean deleteKlass(@PathVariable("classId") Long klassId){
         return klassService.deleteClass(klassId);

@@ -4,6 +4,7 @@ import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.ArrayList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

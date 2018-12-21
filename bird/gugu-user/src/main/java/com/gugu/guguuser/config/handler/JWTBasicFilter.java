@@ -24,6 +24,11 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         Cookie []cookies=request.getCookies();
+        if(cookies==null){
+            System.out.println("没找到cookie");
+            chain.doFilter(request, response);
+            return;
+        }
         for(int i=0;i<cookies.length;i++) {
             System.out.println(cookies[i].getName());
             if (cookies[i].getName().equals("Authorization")) {

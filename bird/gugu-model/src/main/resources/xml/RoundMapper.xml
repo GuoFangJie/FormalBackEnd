@@ -7,4 +7,13 @@
         select id,course_id courseId,round_serial roundSerial,presentation_score_method presentationScoreMethod,
                report_score_method reportScoreMethod,question_score_method questionScoreMethod from round where id=#{param}
     </select>
+
+    <update id="editRoundMessage" parameterType="com.gugu.gugumodel.entity.RoundEntity">
+        update round set report_score_method=#{reportScoreMethod},presentation_score_method=#{presentationScoreMethod},
+                         question_score_method=#{questionScoreMethod} where id=#{id}
+    </update>
+
+    <insert id="newRound" parameterType="com.gugu.gugumodel.entity.RoundEntity" useGeneratedKeys="true" keyProperty="id">
+        insert round(course_id,round_serial) values (#{courseId},#{roundSerial})
+    </insert>
 </mapper>

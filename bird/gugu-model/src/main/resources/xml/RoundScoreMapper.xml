@@ -2,8 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
-<mapper namespace="com.gugu.gugumodel.mapper.KlassRoundMapper">
+<mapper namespace="com.gugu.gugumodel.mapper.RoundScoreMapper">
     <delete id="deleteByTeamId" parameterType="java.lang.Long">
         delete from round_score where team_id=#{param1}
     </delete>
+
+    <select id="getByRoundId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        select round_id roundId,team_id teamId,total_score totalScore,presentation_score presentationScore,question_score questionScore,
+               report_score reportScore from round_score where round_id=#{param1}
+    </select>
+
+    <select id="getByRoundIdAndTeamId" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        select round_id roundId,team_id teamId,total_score totalScore,presentation_score presentationScore,
+               question_score questionScore,report_score reportScore from round_score where
+               round_id=#{param1} and team_id=#{param2}
+    </select>
+    
+    <update id="editRoundScore" parameterType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        update round_score set presentation_score=#{presentationScore},question_score=#{questionScore},
+                               report_score=#{reportScore},total_score=#{roralScore} where round_id=#{roundId} and team_id=#{teamId}
+    </update>
 </mapper>

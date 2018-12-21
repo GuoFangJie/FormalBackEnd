@@ -1,6 +1,7 @@
 package com.gugu.guguuser.controller;
 
 
+import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.guguuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class UserController {
      * @return
      */
     @GetMapping("information")
-    public Object getUserInfo(HttpServletRequest httpServletRequest){
+    public StudentEntity getUserInfo(HttpServletRequest httpServletRequest){
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return userService.getUserInfo(role,userId);
