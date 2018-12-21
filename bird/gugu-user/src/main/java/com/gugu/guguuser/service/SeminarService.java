@@ -2,8 +2,7 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.SeminarEntity;
-import com.gugu.gugumodel.pojo.entity.KlassEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

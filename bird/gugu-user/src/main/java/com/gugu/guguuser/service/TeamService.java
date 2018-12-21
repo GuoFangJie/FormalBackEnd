@@ -1,5 +1,6 @@
 package com.gugu.guguuser.service;
 
+import com.gugu.gugumodel.dao.CourseDao;
 import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeamDao;
 import com.gugu.gugumodel.entity.StudentEntity;

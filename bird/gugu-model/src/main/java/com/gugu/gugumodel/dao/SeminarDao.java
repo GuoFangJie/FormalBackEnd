@@ -5,8 +5,8 @@ import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import com.gugu.gugumodel.mapper.SeminarMapper;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.mapper.SeminarScoreMapper;
-import com.gugu.gugumodel.pojo.entity.KlassEntity;
-import com.gugu.gugumodel.pojo.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

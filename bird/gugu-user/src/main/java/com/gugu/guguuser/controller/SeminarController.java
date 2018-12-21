@@ -1,6 +1,8 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.pojo.entity.*;
+import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,7 @@ public class SeminarController {
      */
     @GetMapping("/{seminarId}/class")
     public KlassEntity getKlassSeminatIn(@PathVariable Long seminarId){
-            return seminarService.getKlassSeminatIn(seminarId);
+        return seminarService.getKlassSeminatIn(seminarId);
     }
 
     /**@author ljy
