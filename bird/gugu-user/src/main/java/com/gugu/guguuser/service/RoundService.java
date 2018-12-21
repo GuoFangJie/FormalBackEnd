@@ -44,4 +44,21 @@ public class RoundService {
     public ArrayList<RoundScoreEntity> getAllTeamScore(Long roundId){
         return roundDao.getAllTeamScore(roundId);
     }
+
+    /**
+     * 根据roundid和teamid获取成绩
+     */
+    public RoundScoreEntity getScoreByRoundAndTeam(Long roundId,Long teamId){
+        return roundDao.getByRoundAndTeam(roundId,teamId);
+    }
+
+    /**
+     * 修改round数据
+     * @param roundScoreEntity
+     * @throws NotFoundException
+     */
+    public void editRoundScore(RoundScoreEntity roundScoreEntity) throws NotFoundException {
+        roundScoreEntity.setTotalScore((roundScoreEntity.getPresentationScore()+roundScoreEntity.getQuestionScore()+roundScoreEntity.getReportScore())/3);
+        roundDao.editRoundScore(roundScoreEntity);
+    }
 }

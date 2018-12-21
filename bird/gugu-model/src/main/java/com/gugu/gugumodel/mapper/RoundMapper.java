@@ -29,8 +29,5 @@ public interface RoundMapper {
      * 新建round
      */
     void newRound(RoundEntity roundEntity);
-    /**
-     * 获取一个轮次下所有小组的得分
-     */
-    ArrayList<RoundScoreEntity> getAllTeamScore(Long roundId);
+
 }

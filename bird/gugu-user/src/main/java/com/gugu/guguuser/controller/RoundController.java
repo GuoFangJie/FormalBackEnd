@@ -3,12 +3,14 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.RoundScoreMapper;
 import com.gugu.guguuser.controller.vo.EditRoundVO;
 import com.gugu.guguuser.controller.vo.RoundScoreMessageVO;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import com.gugu.guguuser.service.TeamService;
+import com.sun.net.httpserver.HttpsConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,7 +80,7 @@ public class RoundController {
     }
 
     /**
-     * 获取一个轮次下所有小组的成绩 (还没写完）
+     * 获取一个轮次下所有小组的成绩
      * @param roundId
      * @return
      */
@@ -90,8 +92,38 @@ public class RoundController {
             RoundScoreMessageVO roundScoreMessageVO=new RoundScoreMessageVO();
             roundScoreMessageVO.setRoundScoreEntity(roundScoreEntities.get(i));
             roundScoreMessageVO.setTeamEntity(teamService.getTeamMessageByTeamId(roundScoreEntities.get(i).getTeamId()));
+            roundScoreMessageVO.setRoundEntity(roundService.getMessageById(roundId));
             roundScoreMessageVOS.add(roundScoreMessageVO);
         }
         return roundScoreMessageVOS;
+    }
+
+    /**
+     * 根据roundid和teamid获取成绩记录
+     * @param roundId
+     * @param teamId
+     * @return
+     */
+    @GetMapping("{roundId}/team/{teamId}/roundscore")
+    public RoundScoreMessageVO getByRoundAndTeam(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId){
+        RoundScoreEntity roundScoreEntity=roundService.getScoreByRoundAndTeam(roundId,teamId);
+        RoundScoreMessageVO roundScoreMessageVO=new RoundScoreMessageVO();
+        roundScoreMessageVO.setRoundEntity(roundService.getMessageById(roundId));
+        roundScoreMessageVO.setRoundScoreEntity(roundScoreEntity);
+        roundScoreMessageVO.setTeamEntity(teamService.getTeamMessageByTeamId(teamId));
+        return roundScoreMessageVO;
+    }
+
+    /**
+     * 根据roundid和teamid修改成绩
+     */
+    @PutMapping("/team/roundscore")
+    public void editScore(@RequestBody RoundScoreEntity roundScoreEntity,HttpServletResponse httpServletResponse){
+        try {
+            roundService.editRoundScore(roundScoreEntity);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            httpServletResponse.setStatus(404,e.getErrorMsg());
+        }
     }
 }

@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class RoundDao {
     @Autowired
     RoundMapper roundMapper;
-
+    @Autowired
+    RoundScoreMapper roundScoreMapper;
     /**
      * 根据id获取round的详细信息
      * @param roundId
@@ -50,7 +51,23 @@ public class RoundDao {
      * 获取一个轮次下所有的小组成绩
      */
     public ArrayList<RoundScoreEntity> getAllTeamScore(Long roundId){
-        return roundMapper.getAllTeamScore(roundId);
+        return roundScoreMapper.getAllTeamScore(roundId);
+    }
+    /**
+     * 通过roundid和teamid获取成绩
+     */
+    public RoundScoreEntity getByRoundAndTeam(Long roundId,Long teamId){
+        return roundScoreMapper.getTeamRoundScore(roundId,teamId);
+    }
+    /**
+     * 修改roundscore
+     */
+    public void editRoundScore(RoundScoreEntity roundScoreEntity) throws NotFoundException {
+        if(roundScoreMapper.getTeamRoundScore(roundScoreEntity.getRoundId(),roundScoreEntity.getTeamId())==null){
+            throw new NotFoundException("该数据不存在");
+        }else{
+            roundScoreMapper.editRoundScore(roundScoreEntity);
+        }
     }
 
 }
