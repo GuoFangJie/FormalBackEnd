@@ -40,7 +40,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 .compact();
         httpServletResponse.setHeader("Authorization", "GuGuBird" + token);
         System.out.println("JWT安装完成");
-        httpServletResponse.sendRedirect("http://47.94.174.82/#/TeacherMainPage");
+        httpServletResponse.sendRedirect("http://47.94.174.82:8083/#/teacher");
     }
 
 }

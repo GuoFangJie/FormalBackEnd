@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 @Mapper
 @Repository
-public interface ShareMessageMapper {
+public interface ShareSeminarMapper {
 
     /**
      * 获得共享讨论课信息
@@ -19,5 +19,6 @@ public interface ShareMessageMapper {
      * @return
      */
     public ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId);
+
 
 }

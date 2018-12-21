@@ -19,7 +19,6 @@ public class AdminDao {
      * @return AdminEntity
      */
     public AdminEntity adminLogin(String account){
-        System.out.println("dao");
         return adminMapper.adminLogin(account);
     }
 }
