@@ -63,6 +63,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         cookie.setMaxAge(3600);
         httpServletResponse.addCookie(cookie);
         System.out.println("JWT安装完成");
+        System.out.println(objects[0].toString());
         if(objects[0].toString().equals("ROLE_Teacher")){
             TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
             if(teacherEntity.getIsActive()==0){
