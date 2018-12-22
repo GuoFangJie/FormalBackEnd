@@ -18,4 +18,8 @@
     <insert id="addMember" >
         insert into klass_student values (#{team.klassId},#{studentId},#{team.courseId},#{team.id})
     </insert>
+    
+    <select id="getTeamIdByClassAndStatus" resultType="java.lang.Long">
+        select team_id from klass_student where klass_id=#{param1} and student_id=#{studentId}
+    </select>
 </mapper>

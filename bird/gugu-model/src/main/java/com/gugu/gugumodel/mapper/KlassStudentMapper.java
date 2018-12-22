@@ -36,4 +36,6 @@ public interface KlassStudentMapper {
      * @param studentId
      */
     void addMember(@Param("team") TeamEntity teamEntity, @Param("studentId") Long studentId);
+
+    Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
 }

@@ -38,6 +38,7 @@ public class CourseController {
     public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         String role=httpServletRequest.getAttribute("role").toString();
+        System.out.println(courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role).size());
         return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
     }
 
@@ -108,9 +109,14 @@ public class CourseController {
      */
     @GetMapping("/{courseId}/team")
     public TeamMessageVO getTeamMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
-        Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        Long teamId=studentService.getTeamId(courseId,studentId);
-        return new TeamMessageVO(courseService.getTeamById(teamId),studentService.getLeader(teamId),studentService.getMembers(teamId));
+        try {
+            Long studentId = Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+            Long teamId = studentService.getTeamId(courseId, studentId);
+            System.out.println("团队的id为" + teamId);
+            return new TeamMessageVO(courseService.getTeamById(teamId), studentService.getLeader(teamId), studentService.getMembers(teamId));
+        }catch (Exception e){
+            return new TeamMessageVO();
+        }
     }
 
     /**
