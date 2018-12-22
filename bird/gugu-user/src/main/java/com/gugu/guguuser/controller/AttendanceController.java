@@ -1,8 +1,10 @@
 package com.gugu.guguuser.controller;
 
+import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.service.AttendanceService;
+import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -24,6 +27,8 @@ public class AttendanceController {
     String reportPathInServer;
     @Value("${reportPath}")
     String reportPath;
+    @Autowired
+    TeamService teamService;
 
     /**
      * 修改展示顺序
@@ -125,4 +130,19 @@ public class AttendanceController {
     public FileEntity getPpt(@PathVariable("attendanceId") Long attendanceId){
         return attendanceService.getPpt(attendanceId);
     }
+
+    /**
+     * 获取报名讨论课小组列表
+     * @param seminarKlassId
+     * @return
+     */
+    @GetMapping("/{seminarKlassId}")
+    public ArrayList<AttendanceEntity> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
+        ArrayList<AttendanceEntity> attendanceEntities=attendanceService.getBySeminarKlassId(seminarKlassId);
+        for(int i=0;i<attendanceEntities.size();i++){
+            attendanceEntities.get(i).setTeamEntity(teamService.getTeamMessageByTeamId(attendanceEntities.get(i).getTeamId()));
+        }
+        return attendanceEntities;
+    }
+
 }

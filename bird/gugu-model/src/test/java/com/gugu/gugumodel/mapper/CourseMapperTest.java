@@ -54,4 +54,8 @@ public class CourseMapperTest {
     public void deleteSeminarTest(){
         courseMapper.deleteAllSeminarByCourseId(1L);
     }
+    @Test
+    public void getCourses(){
+        System.out.println(courseMapper.findSimpleCourseEntityByTeacherId(1L).size());
+    }
 }

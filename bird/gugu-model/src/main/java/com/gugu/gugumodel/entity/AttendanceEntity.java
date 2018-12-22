@@ -13,6 +13,15 @@ public class AttendanceEntity {
     String reportUrl;
     String pptName;
     String pptUrl;
+    TeamEntity teamEntity;
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
+    }
 
     public Long getId() {
         return id;

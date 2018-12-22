@@ -180,6 +180,28 @@ public class SeminarDao {
         return seminarScoreMapper.getSeminarScore(klassSeminarId,teamId);
     }
 
+    /**@author ljy
+     * 按照seminarid修改队伍讨论课成绩
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarScore(Long seminarId,Long teamId,SeminarScoreEntity seminarScoreEntity){
+        Long classId=teamMapper.getKlassIdByTeamId(teamId);
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
+        seminarScoreEntity.setKlassSeminarId(klassSeminarId);
+        return seminarScoreMapper.setSeminarScore(seminarScoreEntity);
+    }
+
+    /**@author ljy
+     * 按照seminarid获取讨论课所有小组成绩
+     * @param seminarId
+     * @return
+     */
+    public ArrayList<SeminarScoreEntity> getSeminarAllScore(Long seminarId,Long classId){
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
+        return seminarScoreMapper.getSeminarAllScore(klassSeminarId);
+    }
+
     /**@author TYJ
      * 获取一个课程下所有的讨论课
      * @param courseId

@@ -6,6 +6,10 @@ import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,5 +139,24 @@ public class SeminarService {
      */
     public SeminarScoreEntity getSeminarScore(Long seminarId,Long teamId){
         return seminarDao.getSeminarScore(seminarId,teamId);
+    }
+
+    /**@author ljy
+     * 按照seminarid修改队伍讨论课成绩
+     * @param seminarId
+     * @return
+     */
+    public boolean setSeminarScore(Long seminarId,Long teamId,SeminarScoreEntity seminarScoreEntity){
+        return seminarDao.setSeminarScore(seminarId,teamId,seminarScoreEntity);
+    }
+
+    /**@author ljy
+     * 按照seminarid获取讨论课所有小组成绩
+     * @param seminarId
+     * @return
+     */
+    public ArrayList<SeminarScoreEntity> getSeminarAllScore(Long seminarId,Long classId){
+
+        return seminarDao.getSeminarAllScore(seminarId,classId);
     }
 }

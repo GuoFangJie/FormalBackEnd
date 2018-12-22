@@ -4,13 +4,11 @@ import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
-import com.gugu.gugumodel.mapper.RoundScoreMapper;
 import com.gugu.guguuser.controller.vo.EditRoundVO;
 import com.gugu.guguuser.controller.vo.RoundScoreMessageVO;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import com.gugu.guguuser.service.TeamService;
-import com.sun.net.httpserver.HttpsConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

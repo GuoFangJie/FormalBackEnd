@@ -11,7 +11,7 @@
 
     <select id="findSimpleCourseEntityByTeacherId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SimpleCourseEntity">
         select course.id id,course.teacher_id teacherId,course.course_name courseName,
-               course.introduction introduction from course,klass_student
+               course.introduction introduction from course
         where course.teacher_id=#{param1}
     </select>
 

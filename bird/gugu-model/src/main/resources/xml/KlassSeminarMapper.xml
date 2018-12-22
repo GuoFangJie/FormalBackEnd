@@ -36,7 +36,7 @@
 
     <select id="getSeminarInClass" resultType="com.gugu.gugumodel.entity.KlassSeminarEntity">
         select klass_seminar.report_ddl reportDDL,klass_seminar.status status from klass_seminar
-        where  klass_id=#{arg1} and seminar_id=#{arg0}
+        where  klass_id=#{param2} and seminar_id=#{param1}
     </select>
 
     <update id="setSeminarStatus">
@@ -47,4 +47,8 @@
         update klass_seminar set report_ddl=#{date}
         where klass_id=#{classId} and seminar_id=#{seminarId}
     </update>
+
+    <select id="getKlassIdByKlassSeminar" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select klass_id from klass_seminar where seminar_id=#{param1}
+    </select>
 </mapper>

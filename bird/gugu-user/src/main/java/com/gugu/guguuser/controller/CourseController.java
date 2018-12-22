@@ -3,6 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.guguuser.controller.vo.NewCourseVO;
 import com.gugu.guguuser.controller.vo.ShareMessageVO;
+import com.gugu.guguuser.controller.vo.SimpleCourseVO;
 import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.CourseService;
 import com.gugu.guguuser.service.KlassService;
@@ -35,10 +36,24 @@ public class CourseController {
      * @return
      */
     @GetMapping("")
-    public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
+    public ArrayList<SimpleCourseVO> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         String role=httpServletRequest.getAttribute("role").toString();
-        return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
+        ArrayList<SimpleCourseEntity> simpleCourseEntities=courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
+        ArrayList<SimpleCourseVO> simpleCourseVOS=new ArrayList<>();
+        if(role.equals("ROLE_Teacher")) {
+            for(int i=0;i<simpleCourseEntities.size();i++){
+                SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
+                simpleCourseVOS.add(simpleCourseVO);
+            }
+        }else{
+            for(int i=0;i<simpleCourseEntities.size();i++){
+                SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
+                simpleCourseVO.setKlassId(klassService.getKlassIdByCourseAndStudent(Long.parseLong(simpleCourseVO.getId().toString()),Long.parseLong(userId)));
+                simpleCourseVOS.add(simpleCourseVO);
+            }
+        }
+        return simpleCourseVOS;
     }
 
     /**
@@ -108,9 +123,14 @@ public class CourseController {
      */
     @GetMapping("/{courseId}/team")
     public TeamMessageVO getTeamMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
-        Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        Long teamId=studentService.getTeamId(courseId,studentId);
-        return new TeamMessageVO(courseService.getTeamById(teamId),studentService.getLeader(teamId),studentService.getMembers(teamId));
+        try {
+            Long studentId = Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+            Long teamId = studentService.getTeamId(courseId, studentId);
+            System.out.println("团队的id为" + teamId);
+            return new TeamMessageVO(courseService.getTeamById(teamId), studentService.getLeader(teamId), studentService.getMembers(teamId));
+        }catch (Exception e){
+            return new TeamMessageVO();
+        }
     }
 
     /**

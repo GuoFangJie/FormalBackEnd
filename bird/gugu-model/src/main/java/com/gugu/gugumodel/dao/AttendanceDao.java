@@ -1,11 +1,14 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.AttendanceMapper;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -88,5 +91,18 @@ public class AttendanceDao {
      */
     public FileEntity getPptPath(Long attendanceId){
         return attendanceMapper.getPptPath(attendanceId);
+    }
+
+    /**
+     * 根据id获取展示的详细信息
+     */
+    public AttendanceEntity getById(Long attendanceId){
+        return attendanceMapper.getById(attendanceId);
+    }
+    /**
+     * 获取某次讨论课报名小组列表
+     */
+    public ArrayList<AttendanceEntity> getBySeminarKlassId(Long seminarKlassId){
+        return attendanceMapper.getBySeminarKlassId(seminarKlassId);
     }
 }
