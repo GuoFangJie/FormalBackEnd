@@ -37,8 +37,10 @@ public interface KlassMapper {
      * @param klassId
      */
     void deleteKlassById(Long klassId);
+
     /**
      * 根据id获取班级信息
+     * @param klassId
      */
     KlassEntity getKlassById(Long klassId);
 }

@@ -41,4 +41,11 @@ public class KlassDao{
        }
         return true;
     }
+
+    /**
+     * 根据klass获取班级
+     */
+    public KlassEntity getKlassById(Long klassId){
+        return klassMapper.getKlassById(klassId);
+    }
 }
