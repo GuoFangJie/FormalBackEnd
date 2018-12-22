@@ -26,6 +26,9 @@ public class SeminarDao {
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
 
+    @Autowired
+    TeamMapper teamMapper;
+
     /**
      * 获取一个round里面所有的seminar信息
      * @param roundId
@@ -73,15 +76,18 @@ public class SeminarDao {
         //按照id删除讨论课
         seminarMapper.deleteSeminar(seminarId);
         //按照id获取klass_seminar_id
-        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
+        ArrayList<Long> klassSeminarId=klassSeminarMapper.getAllKlassSeminarId(seminarId);
         if(klassSeminarId==null)
         {
             return false;
         }
-        //按照id删除klass_seminar表中的对应记录
-        klassSeminarMapper.deleteKlassSeminarById(klassSeminarId);
-        //按照klassSeminarId删除seminar_score表中的记录
-        seminarScoreMapper.deleteByKlassSeminarId(klassSeminarId);
+        for(int i=0;i<klassSeminarId.size();i++){
+            //按照id删除klass_seminar表中的对应记录
+            klassSeminarMapper.deleteKlassSeminarById(klassSeminarId.get(i));
+            //按照klassSeminarId删除seminar_score表中的记录
+            seminarScoreMapper.deleteByKlassSeminarId(klassSeminarId.get(i));
+        }
+
         return true;
     }
 
@@ -110,7 +116,7 @@ public class SeminarDao {
      * @return
      */
     public boolean deleteSeminarInClass(Long seminarId,Long classId){
-        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
         klassSeminarMapper.deleteKlassSeminarById(klassSeminarId);
         seminarScoreMapper.deleteByKlassSeminarId(klassSeminarId);
         return true;
@@ -169,7 +175,8 @@ public class SeminarDao {
      * @return
      */
     public SeminarScoreEntity getSeminarScore(Long seminarId, Long teamId){
-        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId);
-        return seminarScoreMapper.getSeminarScore(klassSeminarId);
+        Long classId=teamMapper.getKlassIdByTeamId(teamId);
+        Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
+        return seminarScoreMapper.getSeminarScore(klassSeminarId,teamId);
     }
 }

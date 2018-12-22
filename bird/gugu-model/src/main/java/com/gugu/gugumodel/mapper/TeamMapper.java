@@ -49,4 +49,6 @@ public interface TeamMapper {
      * @return
      */
     Long newTeam(TeamEntity teamEntity);
+
+    Long getKlassIdByTeamId(Long teamId);
 }

@@ -26,5 +26,5 @@ public interface SeminarScoreMapper {
      * @param klassSeminarId
      * @return
      */
-    public SeminarScoreEntity getSeminarScore(Long klassSeminarId);
+    public SeminarScoreEntity getSeminarScore(Long klassSeminarId,Long teamId);
 }

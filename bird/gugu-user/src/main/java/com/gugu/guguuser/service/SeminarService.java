@@ -6,10 +6,6 @@ import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,7 +83,7 @@ public class SeminarService {
     }
 
     /**@author ljy
-     * 按照id删除班级讨论课（设置不同班级讨论课的报告提交时间）
+     * 按照id删除班级讨论课
      * @param seminarId
      * @return
      */
