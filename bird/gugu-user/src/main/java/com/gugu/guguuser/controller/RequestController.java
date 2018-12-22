@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * @author TYJ
  */
@@ -30,7 +32,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/seminarshare")
-    public ArrayList<ShareApplicationEntity> getSeminarShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getSeminarShareList(userId);
     }
@@ -41,7 +43,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamshare")
-    public ArrayList<ShareApplicationEntity> getTeamShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getTeamShareList(userId);
     }
@@ -52,7 +54,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamvalid")
-    public ArrayList<TeamValidEntity> getTeamRequestList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getTeamRequestList(HttpServletRequest httpServletRequest){
         Long teacherId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return teamValidService.getTeamRequestList(teacherId);
     }

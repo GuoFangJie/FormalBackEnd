@@ -40,7 +40,7 @@ public class SeminarController {
      */
     @GetMapping("/{seminarId}/class")
     public KlassEntity getKlassSeminatIn(@PathVariable Long seminarId){
-            return seminarService.getKlassSeminatIn(seminarId);
+        return seminarService.getKlassSeminatIn(seminarId);
     }
 
     /**@author ljy

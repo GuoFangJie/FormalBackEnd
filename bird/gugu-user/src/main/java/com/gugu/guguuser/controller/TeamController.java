@@ -44,8 +44,14 @@ public class TeamController {
      */
     @GetMapping("/{teamId}")
     public TeamMessageVO getTeamById(@PathVariable Long teamId){
+        if(teamId==null){
+            return null;
+        }
         //小组信息
         TeamEntity teamEntity=teamService.getTeamMessageByTeamId(teamId);
+        if(teamEntity==null){
+            return null;
+        }
         //组长信息
         StudentEntity studentEntity=teamService.getLeaderByTeamId(teamId);
         //组员信息

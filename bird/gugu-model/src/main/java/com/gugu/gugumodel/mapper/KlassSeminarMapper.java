@@ -24,12 +24,21 @@ public interface KlassSeminarMapper {
      */
     ArrayList<Long> getKlassSeminarIdByKlass(Long klassId);
 
+
     /**@author ljy
-     * 按照seminarId获取klass_seminar_id
+     * 按照seminarId获取所有klass_seminar_id
      * @param
      * @return
      */
-    Long getKlassSeminarId(Long seminarId);
+    ArrayList<Long> getAllKlassSeminarId(Long seminarId);
+
+
+    /**@author ljy
+     * 按照seminarId ,klassId获取klass_seminar_id
+     * @param
+     * @return
+     */
+    Long getKlassSeminarId(Long seminarId,Long klass_id);
 
     /**@author ljy
      * 按照id获取删除klass_seminar表中的记录
