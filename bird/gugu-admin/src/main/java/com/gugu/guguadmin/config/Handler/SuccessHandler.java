@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,9 +39,12 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 .setClaims(claim)
                 .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
                 .compact();
-        httpServletResponse.setHeader("Authorization", "GuGuBird" + token);
+        Cookie cookie=new Cookie("Author","GuGuBird"+token);
+        cookie.setMaxAge(3600);
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
         System.out.println("JWT安装完成");
-        httpServletResponse.sendRedirect("http://47.94.174.82:8083/#/teacher");
+        httpServletResponse.sendRedirect("http://47.94.174.82:8083/index.html#/teacher");
     }
 
 }

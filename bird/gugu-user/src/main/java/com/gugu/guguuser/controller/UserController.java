@@ -4,28 +4,44 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.guguuser.controller.vo.EmailVO;
 import com.gugu.guguuser.controller.vo.PasswordVO;
+import com.gugu.guguuser.service.StudentService;
+import com.gugu.guguuser.service.TeacherService;
 import com.gugu.guguuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TeacherService teacherService;
     /**
      * 发送密码到用户的邮箱
-     * @param httpServletRequest
+     * @param
      * @return
      */
-    @GetMapping("password")
-    public boolean sendPasswordToUser(HttpServletRequest httpServletRequest){
-        String role= (String) httpServletRequest.getAttribute("role");
-        String userId=httpServletRequest.getAttribute("userId").toString();
-        return userService.sendPasswordToUser(Long.parseLong(userId),role);
+    @GetMapping("password/{account}")
+    public boolean sendPasswordToUser(HttpServletResponse httpServletResponse, @PathVariable("account")String account){
+        Long userId;
+        String role;
+        if(teacherService.getIdByAccount(account)!=null){
+            role="ROLE_Teacher";
+            userId=teacherService.getIdByAccount(account);
+        }else if(studentService.getIdByAccount(account)!=null){
+            role="ROLE_Student";
+            userId=studentService.getIdByAccount(account);
+        }else{
+            httpServletResponse.setStatus(404,"用户不存在");
+            return false;
+        }
+        return userService.sendPasswordToUser(userId,role);
     }
 
     /**

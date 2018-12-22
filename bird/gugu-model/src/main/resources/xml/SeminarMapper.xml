@@ -42,5 +42,7 @@
         select * from seminar where id=#{arg0}
     </select>
 
-
+    <select id="getRoundId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select round_id from seminar where id=#{arg0}
+    </select>
 </mapper>

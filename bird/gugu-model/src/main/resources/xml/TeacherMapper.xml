@@ -58,7 +58,7 @@
 
     <update id="activeTeacher" parameterType="com.gugu.gugumodel.entity.TeacherEntity">
         update teacher
-        set  email=#{email},password=#{password}
+        set  email=#{email},password=#{password},is_active=1
         where id=#{id};
     </update>
 

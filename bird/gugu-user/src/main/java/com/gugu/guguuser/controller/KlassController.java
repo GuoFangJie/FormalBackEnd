@@ -25,14 +25,9 @@ public class KlassController {
         klassService.importStudentList(multipartFile,classId);
     }
 
-    /**
-     * 删除班级
-     * @param klassId
-     * @return
-     */
 
     /**
-     * 按照id删除课程
+     * 按照id删除班级
      * @param klassId
      */
     @DeleteMapping("{classId}")

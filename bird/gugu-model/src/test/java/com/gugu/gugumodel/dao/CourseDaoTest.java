@@ -13,6 +13,6 @@ public class CourseDaoTest {
     CourseDao courseDao;
     @Test
     public void getCourse(){
-        courseDao.findSimpleCourseEntityByStudentId(1L);
+        courseDao.findSimpleCourseEntityByUserId(1L,"ROLE_Teacher");
     }
 }

@@ -20,8 +20,18 @@ public class CourseDao{
     CourseMapper courseMapper;
 
 
-    public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
-        return courseMapper.findSimpleCourseEntityByStudenId(studentId);
+    /**
+     * 找出与用户相关的课程信息
+     * @param userId
+     * @param role
+     * @return
+     */
+    public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByUserId(Long userId,String role) {
+        if(role.equals("ROLE_Teacher")){
+            return courseMapper.findSimpleCourseEntityByTeacherId(userId);
+        }else{
+            return courseMapper.findSimpleCourseEntityByStudenId(userId);
+        }
     }
     public Long newCourse(CourseEntity courseEntity){
         return courseMapper.newCourse(courseEntity);

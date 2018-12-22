@@ -9,6 +9,12 @@
         where klass_student.student_id=#{arg0} and klass_student.course_id=course.id
     </select>
 
+    <select id="findSimpleCourseEntityByTeacherId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SimpleCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName,
+               course.introduction introduction from course,klass_student
+        where course.teacher_id=#{param1}
+    </select>
+
     <insert id="newCourse" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.CourseEntity">
         insert course(id,teacher_id,course_name,introduction,presentation_percentage,
         question_percentage,report_percentage,team_start_time,team_end_time)

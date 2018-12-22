@@ -24,11 +24,11 @@ public class CourseService {
 
     /**
      * 获取与学生相关的基本课程信息
-     * @param studentId
+     * @param
      * @return
      */
-    public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long studentId) {
-        return courseDao.findSimpleCourseEntityByStudentId(studentId);
+    public ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudentId(Long userId,String role) {
+        return courseDao.findSimpleCourseEntityByUserId(userId,role);
     }
 
     /**

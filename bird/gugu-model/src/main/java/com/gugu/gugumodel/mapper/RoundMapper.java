@@ -3,6 +3,7 @@ package com.gugu.gugumodel.mapper;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -37,4 +38,9 @@ public interface RoundMapper {
      */
     ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId);
 
+    /**@author ljy
+     * 设置讨论课轮次
+     * @return
+     */
+    public boolean setSeminarRound(@Param("roundId") Long roundId, @Param("roundEntity") RoundEntity roundEntity);
 }
