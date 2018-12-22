@@ -15,6 +15,7 @@ public class StudentEntity {
     private String email;
     @JsonIgnore
     private String password;
+    private Long teamId;
 
     public StudentEntity(){
     }
@@ -24,6 +25,14 @@ public class StudentEntity {
         this.studentName=teacherEntity.getTeacherName();
         this.account=teacherEntity.getAccount();
         this.email=teacherEntity.getEmail();
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public String getPassword() {
