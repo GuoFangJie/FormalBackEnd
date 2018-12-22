@@ -50,5 +50,11 @@ public interface TeamMapper {
      */
     Long newTeam(TeamEntity teamEntity);
 
+
+    /**@author ljy
+     * 根据teamId获取klassId
+     * @param
+     * @return
+     */
     Long getKlassIdByTeamId(Long teamId);
 }

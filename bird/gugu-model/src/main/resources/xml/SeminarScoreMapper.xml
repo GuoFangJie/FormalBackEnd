@@ -24,4 +24,14 @@
         select * from seminar_score where klass_seminar_id=#{arg0} and team_id=#{arg1}
     </select>
 
+    <update id="setSeminarScore" parameterType="com.gugu.gugumodel.entity.SeminarScoreEntity">
+        update seminar_score set team_id=#{teamId},total_score=#{totalScore},
+        presentaton_score=#{presentationScore},question_score=#{questionScore},report_score=#{reportScore}
+        where klass_seminar_id=#{klassSeminarId}
+    </update>
+
+    <select id="getSeminarAllScore" parameterType="java.lang.Long" resultMap="SeminarScoreMap">
+        select * from seminar_score where klass_seminar_id=#{arg0}
+    </select>
+
 </mapper>

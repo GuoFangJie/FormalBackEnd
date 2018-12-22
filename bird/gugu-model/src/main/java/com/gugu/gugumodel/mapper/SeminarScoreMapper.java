@@ -2,6 +2,7 @@ package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -27,4 +28,17 @@ public interface SeminarScoreMapper {
      * @return
      */
     public SeminarScoreEntity getSeminarScore(Long klassSeminarId,Long teamId);
+
+    /**@author ljy
+     * 按照seminarid修改队伍讨论课成绩
+     * @return
+     */
+    public boolean setSeminarScore(SeminarScoreEntity seminarScoreEntity);
+
+    /**@author ljy
+     * 按照seminarid获取讨论课所有小组成绩
+     * @param klassSeminarId
+     * @return
+     */
+    public ArrayList<SeminarScoreEntity>getSeminarAllScore(Long klassSeminarId);
 }

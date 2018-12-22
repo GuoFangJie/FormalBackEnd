@@ -15,7 +15,7 @@
         delete from klass_student where klass_id=#{param1}
     </delete>
 
-    <insert id="addMember" >
-        insert into klass_student values (#{team.klassId},#{studentId},#{team.courseId},#{team.id})
-    </insert>
+    <update id="addMember" >
+        update klass_student set team_id=#{team.id} where klass_id=#{team.klassId} and student_id=#{studentId}
+    </update>
 </mapper>
