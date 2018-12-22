@@ -33,7 +33,7 @@ public class KlassStudentDao{
      * @return
      */
     public Long getTeamIdByClassAndStudent(Long klassSeminarId,Long studentId){
-        return klassStudentMapper.getTeamIdByClassAndStudent(klassSeminarMapper.getKlassSeminarId(klassSeminarId),studentId);
+        return klassStudentMapper.getTeamIdByClassAndStudent(klassSeminarMapper.getKlassIdByKlassSeminar(klassSeminarId),studentId);
     }
 
 }

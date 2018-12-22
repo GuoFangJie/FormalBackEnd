@@ -77,4 +77,11 @@ public interface KlassSeminarMapper {
     public boolean setSeminarReportddl(@Param("seminarId")Long seminarId,@Param("classId")Long classId,@Param("date")Date date);
 
 
+
+    /**
+     * 根据klassSeminar获取klassid
+     * @param klassSeminarId
+     * @return
+     */
+    Long getKlassIdByKlassSeminar(Long klassSeminarId);
 }
