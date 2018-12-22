@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import com.gugu.gugumodel.mapper.KlassStudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public class KlassStudentDao{
     @Autowired
     KlassStudentMapper klassStudentMapper;
+    @Autowired
+    KlassSeminarMapper klassSeminarMapper;
     public Long getTeamId(Long student_id, Long course_id) {
         return klassStudentMapper.findTeamIdByStudentIdAndCourseId(student_id,course_id);
     }
@@ -22,4 +25,15 @@ public class KlassStudentDao{
         klassStudentMapper.deleteByKlass(klassId);
         return true;
     }
+
+    /**
+     * 根据学生id和班级id获取teamid
+     * @param
+     * @param studentId
+     * @return
+     */
+    public Long getTeamIdByClassAndStudent(Long klassSeminarId,Long studentId){
+        return klassStudentMapper.getTeamIdByClassAndStudent(klassSeminarMapper.getKlassSeminarId(klassSeminarId),studentId);
+    }
+
 }

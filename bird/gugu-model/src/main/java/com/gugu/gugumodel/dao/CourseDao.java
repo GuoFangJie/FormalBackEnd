@@ -33,6 +33,7 @@ public class CourseDao{
             return courseMapper.findSimpleCourseEntityByStudenId(userId);
         }
     }
+
     public Long newCourse(CourseEntity courseEntity){
         return courseMapper.newCourse(courseEntity);
     }

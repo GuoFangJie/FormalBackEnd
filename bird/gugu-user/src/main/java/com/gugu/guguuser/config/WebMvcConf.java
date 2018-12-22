@@ -16,7 +16,7 @@ public class WebMvcConf extends WebMvcConfigurerAdapter {
     String reportPathInServer;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(reportPath).addResourceLocations("file:"+reportPathInServer);
+        registry.addResourceHandler(reportPath+"**").addResourceLocations("file:"+reportPathInServer);
     }
 
 }

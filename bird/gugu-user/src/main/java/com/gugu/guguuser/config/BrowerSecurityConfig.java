@@ -41,7 +41,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                // .antMatchers("/test/nice").hasRole("Teacher")
                 //.antMatchers("/course/{courseId}/class","class/{classId}").hasRole("Teacher")
-                .antMatchers("/**/**","/user/{account}/login","/toLoginPage","/user/login").permitAll()
+                .antMatchers("/**/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
