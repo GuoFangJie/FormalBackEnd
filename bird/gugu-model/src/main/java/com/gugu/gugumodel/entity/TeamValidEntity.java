@@ -5,28 +5,21 @@ package com.gugu.gugumodel.entity;
  * @author ljy
  */
 public class TeamValidEntity{
-   String requestType;
+   Long id;
    Long courseId;
    Long classId;
    Long teamId;
    Long leaderId;
    String reason;
    Long teacherId;
+   Byte status;
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getCourseId() {
@@ -67,5 +60,21 @@ public class TeamValidEntity{
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }
