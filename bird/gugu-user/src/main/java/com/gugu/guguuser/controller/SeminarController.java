@@ -192,10 +192,10 @@ public class SeminarController {
         return seminarService.getSeminarAllScore(seminarId,classId);
     }
 
-    @GetMapping("/{seminarKlassId}")
+    @GetMapping("/{seminarKlassId}/seminarEnter")
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         String role=httpServletRequest.getAttribute("role").toString();
-        return ("forward:ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}");
+        return "ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}";
     }
 }
