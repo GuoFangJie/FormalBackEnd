@@ -3,6 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.guguuser.controller.vo.NewCourseVO;
 import com.gugu.guguuser.controller.vo.ShareMessageVO;
+import com.gugu.guguuser.controller.vo.SimpleCourseVO;
 import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.CourseService;
 import com.gugu.guguuser.service.KlassService;
@@ -38,8 +39,19 @@ public class CourseController {
     public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         String role=httpServletRequest.getAttribute("role").toString();
-        System.out.println(courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role).size());
-        return courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
+        ArrayList<SimpleCourseEntity> simpleCourseEntities=courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
+        if(role.equals("ROLE_Teacher")) {
+            return simpleCourseEntities;
+        }else{
+            ArrayList<SimpleCourseVO> simpleCourseVOS=new ArrayList<>();
+            for(int i=0;i<simpleCourseEntities.size();i++){
+                SimpleCourseVO simpleCourseVO=(SimpleCourseVO) simpleCourseEntities.get(i);
+                simpleCourseVO.setKlassId(1L);
+                simpleCourseVOS.add(simpleCourseVO);
+            }
+            //return simpleCourseVOS;
+        }
+        return simpleCourseEntities;
     }
 
     /**
