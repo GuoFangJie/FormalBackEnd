@@ -1,11 +1,10 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.CourseDao;
-import com.gugu.gugumodel.dao.KlassDao;
-import com.gugu.gugumodel.dao.ShareMessageDao;
-import com.gugu.gugumodel.dao.TeacherDao;
+import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.CourseEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +25,9 @@ public class ShareService {
     CourseDao courseDao;
 
     @Autowired
+    SeminarDao seminarDao;
+
+    @Autowired
     KlassDao klassDao;
 
     @Autowired
@@ -40,6 +42,33 @@ public class ShareService {
     public ArrayList<Map> getSeminarShareList(Long userId){
         ArrayList<ShareApplicationEntity> seminarShareList=shareMessageDao.getSeminarShareList(userId);
         return this.produceShareRequest(seminarShareList);
+    }
+
+    /**
+     * 修改共享讨论课申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    public boolean changeSeminarShareStatus(Long requestId,String handleType) throws ParamErrorException{
+        Byte status;
+        if(handleType.equals("accept")){
+            status=1;
+            ShareApplicationEntity shareApplicationEntity=shareMessageDao.getSeminarShareApplicationById(requestId);
+            CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
+            courseDao.deleteAllSeminarByCourseId(shareApplicationEntity.getSubCourseId());
+            ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
+            //然后插入到klass_seminar表中
+            shareMessageDao.changeSeminarShareStatus(requestId,status);
+        }
+        else if(handleType.equals("refuse")){
+            status=0;
+            shareMessageDao.changeSeminarShareStatus(requestId,status);
+        }
+        else{
+            throw new ParamErrorException("请求参数错误（必须为accept/refuse）");
+        }
+        return true;
     }
 
     /**

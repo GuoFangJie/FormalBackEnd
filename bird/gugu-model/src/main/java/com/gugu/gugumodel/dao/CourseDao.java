@@ -128,4 +128,10 @@ public class CourseDao{
     public Long getTeacherIdByCourse(Long courseId){
         return courseMapper.getTeacherIdByCourse(courseId);
     }
+
+    public void deleteAllSeminarByCourseId(Long courseId){
+        courseMapper.deleteAllSeminarByCourseId(courseId);
+    }
+
+
 }

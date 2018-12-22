@@ -1,5 +1,6 @@
 package com.gugu.guguuser.controller;
 
+import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
@@ -24,7 +25,7 @@ public class RequestController {
     ShareService shareService;
 
     @Autowired
-    TeamRequestService teamValidService;
+    TeamRequestService teamRequestService;
 
     /**
      * 获得共享讨论课信息
@@ -35,6 +36,17 @@ public class RequestController {
     public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getSeminarShareList(userId);
+    }
+
+    /**
+     * 修改共享讨论课申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    @PutMapping("/{requestId}/seminarshare")
+    public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+        return shareService.changeSeminarShareStatus(requestId,handleType);
     }
 
     /**
@@ -56,6 +68,17 @@ public class RequestController {
     @GetMapping("/teamvalid")
     public ArrayList<Map> getTeamRequestList(HttpServletRequest httpServletRequest){
         Long teacherId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        return teamValidService.getTeamRequestList(teacherId);
+        return teamRequestService.getTeamRequestList(teacherId);
+    }
+
+    /**
+     * 修改共享小组申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    @PutMapping("/{requestId}/seminarshare")
+    public boolean changeTeamRequestStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+        return teamRequestService.changeTeamRequestStatus(requestId,handleType);
     }
 }

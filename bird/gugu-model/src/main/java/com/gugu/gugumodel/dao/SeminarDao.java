@@ -179,4 +179,13 @@ public class SeminarDao {
         Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
         return seminarScoreMapper.getSeminarScore(klassSeminarId,teamId);
     }
+
+    /**@author TYJ
+     * 获取一个课程下所有的讨论课
+     * @param courseId
+     * @return
+     */
+    public ArrayList<SeminarEntity> getSeminarByCourseId(Long courseId){
+        return seminarMapper.getSeminarByCourseId(courseId);
+    }
 }

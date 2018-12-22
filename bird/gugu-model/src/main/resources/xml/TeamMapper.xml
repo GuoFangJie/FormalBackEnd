@@ -58,4 +58,8 @@
         insert into team (klass_id,course_id,leader_id,team_name,team_serial,status)
         values (#{klassId},#{courseId},#{leaderId},#{teamName},#{teamSerial},#{status})
     </insert>
+
+    <update id="changeTeamStatus">
+        update team set status=#{param2} where id=#{param1}
+    </update>
 </mapper>

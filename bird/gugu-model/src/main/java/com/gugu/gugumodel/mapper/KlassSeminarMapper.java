@@ -24,6 +24,10 @@ public interface KlassSeminarMapper {
      */
     ArrayList<Long> getKlassSeminarIdByKlass(Long klassId);
 
+    /**
+     * 根据班级获取klassSeminarEntity
+     */
+    ArrayList<KlassSeminarEntity> getKlassSeminarEntityByKlassId(Long klassId);
 
     /**@author ljy
      * 按照seminarId获取所有klass_seminar_id
@@ -74,4 +78,6 @@ public interface KlassSeminarMapper {
      * @return
      */
     public boolean setSeminarReportddl(@Param("seminarId")Long seminarId,@Param("classId")Long classId,@Param("date")Date date);
+
+
 }

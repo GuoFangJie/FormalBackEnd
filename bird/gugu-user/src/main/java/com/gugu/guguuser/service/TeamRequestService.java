@@ -1,13 +1,8 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.CourseDao;
-import com.gugu.gugumodel.dao.KlassDao;
-import com.gugu.gugumodel.dao.StudentDao;
-import com.gugu.gugumodel.dao.TeamRequestDao;
-import com.gugu.gugumodel.entity.CourseEntity;
-import com.gugu.gugumodel.entity.KlassEntity;
-import com.gugu.gugumodel.entity.StudentEntity;
-import com.gugu.gugumodel.entity.TeamValidEntity;
+import com.gugu.gugumodel.dao.*;
+import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +17,13 @@ import java.util.Map;
 public class TeamRequestService {
 
     @Autowired
-    TeamRequestDao teamMessageDao;
+    TeamRequestDao teamRequestDao;
 
     @Autowired
     CourseDao courseDao;
+
+    @Autowired
+    TeamDao teamDao;
 
     @Autowired
     KlassDao klassDao;
@@ -39,7 +37,7 @@ public class TeamRequestService {
      * @return
      */
     public ArrayList<Map> getTeamRequestList(Long teacherId){
-        ArrayList<TeamValidEntity> teamRequestList=teamMessageDao.getTeamRequestList(teacherId);
+        ArrayList<TeamValidEntity> teamRequestList=teamRequestDao.getTeamRequestList(teacherId);
         ArrayList <Map> teamMessageList=new ArrayList<Map>();
         for(int i=0;i< teamRequestList.size();i++){
             Map teamMessage = new HashMap();
@@ -63,4 +61,26 @@ public class TeamRequestService {
         return teamMessageList;
     }
 
+    /**
+     * 修改组队申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    public boolean changeTeamRequestStatus(Long requestId,String handleType) throws ParamErrorException {
+        Byte status;
+        TeamValidEntity teamValidEntity=teamRequestDao.getTeamRequestById(requestId);
+        if(handleType.equals("accept")){
+            status=1;
+        }
+        else if(handleType.equals("refuse")){
+            status=0;
+        }
+        else{
+            throw new ParamErrorException("请求参数错误（必须为accept/refuse）");
+        }
+        teamDao.changeTeamStatus(teamValidEntity.getTeamId(),status);
+        teamRequestDao.changeTeamRequestStatus(requestId,status);
+        return true;
+    }
 }
