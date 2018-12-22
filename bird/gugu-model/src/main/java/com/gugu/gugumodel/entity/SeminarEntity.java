@@ -10,6 +10,7 @@ public class SeminarEntity {
     Long id;
     Long courseId;
     Long roundId;
+    Byte roundSerial;
     String seminarName;
     String introduction;
     Byte maxTeam;
@@ -19,8 +20,32 @@ public class SeminarEntity {
     Timestamp enrollEndTime;
     Date enrollSTime;
     Date enrollETime;
+    String start;
+    String end;
 
+    public Byte getRoundSerial() {
+        return roundSerial;
+    }
 
+    public void setRoundSerial(Byte roundSerial) {
+        this.roundSerial = roundSerial;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 
     public Date getEnrollSTime() {
         return enrollSTime;

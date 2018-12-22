@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -74,6 +75,8 @@ public interface KlassSeminarMapper {
      * @return
      */
     public boolean setSeminarReportddl(@Param("seminarId")Long seminarId,@Param("classId")Long classId,@Param("date")Date date);
+
+
 
     /**
      * 根据klassSeminar获取klassid

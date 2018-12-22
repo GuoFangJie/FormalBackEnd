@@ -4,10 +4,7 @@ import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.guguuser.controller.vo.ActiveUserVO;
 import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,4 +32,11 @@ public class StudentController {
         studentEntity.setId(userId);
         return studentService.activeStudent(studentEntity);
     }
+
+    /**
+     * 根据id或者account搜索学生
+     * @return
+     */
+//    @GetMapping("")
+//    public
 }

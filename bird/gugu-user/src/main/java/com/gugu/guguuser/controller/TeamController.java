@@ -22,7 +22,7 @@ public class TeamController {
      * @param teamMessageVO
      * @return
      */
-    @PostMapping("/")
+    @PostMapping("")
     public Long newTeam(@RequestBody TeamMessageVO teamMessageVO){
        // StudentEntity leaderStudent=teamMessageVO.getLeader();
         ArrayList<StudentEntity> memberStudents=teamMessageVO.getMembers();

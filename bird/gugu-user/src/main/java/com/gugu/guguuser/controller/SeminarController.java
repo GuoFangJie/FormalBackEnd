@@ -5,6 +5,7 @@ import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @RestController
@@ -21,6 +23,8 @@ public class SeminarController {
 
     @Autowired
     SeminarService seminarService;
+    @Autowired
+    RoundService roundService;
 
     /**@author ljy
      * 新建讨论课,创建成功后返回seminarId
@@ -28,9 +32,19 @@ public class SeminarController {
      */
     @PostMapping("")
     public Long newSeminar(@RequestBody SeminarEntity seminarEntity)throws ParseException {
-        //DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
-        //seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getS()));
-        //seminarEntity.setEnrollETime(formatter.parse(seminarEntity.getE()));
+        DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
+        seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
+        seminarEntity.setEnrollETime(formatter.parse(seminarEntity.getEnd()));
+        if(seminarEntity.getRoundId()==-1){
+            RoundEntity roundEntity=new RoundEntity();
+            roundEntity.setCourseId(seminarEntity.getCourseId());
+            roundEntity.setRoundSerial(seminarEntity.getRoundSerial());
+            Byte t=1;
+            roundEntity.setPresentationScoreMethod(t);
+            roundEntity.setQuestionScoreMethod(t);
+            roundEntity.setReportScoreMethod(t);
+            roundService.newRound(roundEntity);
+        }
         return seminarService.newSeminar(seminarEntity);
     }
 
@@ -155,6 +169,27 @@ public class SeminarController {
     @GetMapping("/{seminarId}/team/{teamId}/senimarscore")
     public SeminarScoreEntity getSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId){
         return seminarService.getSeminarScore(seminarId,teamId);
+    }
+
+    /**@author ljy
+     * 按照seminarid修改队伍讨论课成绩
+     * @param seminarId
+     * @return
+     */
+    @PutMapping("/{seminarId}/team/{teamId}/senimarscore")
+    public boolean setSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId,@RequestBody SeminarScoreEntity seminarScoreEntity){
+        seminarScoreEntity.setTeamId(teamId);
+        return seminarService.setSeminarScore(seminarId,teamId,seminarScoreEntity);
+    }
+
+    /**@author ljy
+     * 按照seminarid获取讨论课所有小组成绩
+     * @param seminarId
+     * @return
+     */
+    @GetMapping("/{seminarId}/seminarscore")
+    public ArrayList<SeminarScoreEntity> getSeminarAllScore(@PathVariable Long seminarId,Long classId){
+        return seminarService.getSeminarAllScore(seminarId,classId);
     }
 
     @GetMapping("/{seminarKlassId}")

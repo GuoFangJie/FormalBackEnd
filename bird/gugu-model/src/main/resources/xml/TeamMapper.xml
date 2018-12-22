@@ -58,4 +58,8 @@
         insert into team (klass_id,course_id,leader_id,team_name,team_serial,status)
         values (#{klassId},#{courseId},#{leaderId},#{teamName},#{teamSerial},#{status})
     </insert>
+
+    <select id="getKlassIdByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select klass_id from team where id=#{arg0}
+    </select>
 </mapper>
