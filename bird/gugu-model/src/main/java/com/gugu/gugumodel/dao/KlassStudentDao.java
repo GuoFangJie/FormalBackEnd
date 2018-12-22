@@ -36,4 +36,13 @@ public class KlassStudentDao{
         return klassStudentMapper.getTeamIdByClassAndStudent(klassSeminarMapper.getKlassIdByKlassSeminar(klassSeminarId),studentId);
     }
 
+    /**
+     * 根据学生和课程获取班级id
+     * @param studentId
+     * @param courseId
+     * @return
+     */
+    public Long getKlassIdByCourseAndStudent(Long studentId,Long courseId){
+        return klassStudentMapper.getKlassIdByCourseAndStudent(courseId,studentId);
+    }
 }

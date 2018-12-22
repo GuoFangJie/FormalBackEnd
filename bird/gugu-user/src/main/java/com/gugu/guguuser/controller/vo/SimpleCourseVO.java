@@ -15,4 +15,10 @@ public class SimpleCourseVO extends SimpleCourseEntity {
     public void setKlassId(Long klassId) {
         this.klassId = klassId;
     }
+    public SimpleCourseVO(SimpleCourseEntity simpleCourseEntity){
+        this.setCourseName(simpleCourseEntity.getCourseName());
+        this.setTeacherId(simpleCourseEntity.getTeacherId());
+        this.setIntroduction(simpleCourseEntity.getIntroduction());
+        this.setId(simpleCourseEntity.getId());
+    }
 }

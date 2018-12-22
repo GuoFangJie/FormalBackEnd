@@ -9,6 +9,7 @@ import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public class SeminarController {
      * 新建讨论课,创建成功后返回seminarId
      * @return Long
      */
-    @PostMapping("/")
+    @PostMapping("")
     public Long newSeminar(@RequestBody SeminarEntity seminarEntity)throws ParseException {
         //DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
         //seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getS()));
@@ -154,5 +155,12 @@ public class SeminarController {
     @GetMapping("/{seminarId}/team/{teamId}/senimarscore")
     public SeminarScoreEntity getSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId){
         return seminarService.getSeminarScore(seminarId,teamId);
+    }
+
+    @GetMapping("/{seminarKlassId}")
+    public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
+        Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        String role=httpServletRequest.getAttribute("role").toString();
+        return ("forward:ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}");
     }
 }

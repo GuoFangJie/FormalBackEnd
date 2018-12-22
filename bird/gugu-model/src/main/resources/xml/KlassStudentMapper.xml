@@ -22,4 +22,8 @@
     <select id="getTeamIdByClassAndStatus" resultType="java.lang.Long">
         select team_id from klass_student where klass_id=#{param1} and student_id=#{studentId}
     </select>
+
+    <select id="getKlassIdByCourseAndStudent" resultType="java.lang.Long">
+        select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
+    </select>
 </mapper>

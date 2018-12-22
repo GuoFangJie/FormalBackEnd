@@ -81,4 +81,13 @@ public class KlassService {
         return true;
     }
 
+    /**
+     * 根据学生和课程获取班级id
+     * @param courseId
+     * @param studentId
+     * @return
+     */
+    public Long getKlassIdByCourseAndStudent(Long courseId,Long studentId){
+        return klassStudentDao.getKlassIdByCourseAndStudent(courseId,studentId);
+    }
 }
