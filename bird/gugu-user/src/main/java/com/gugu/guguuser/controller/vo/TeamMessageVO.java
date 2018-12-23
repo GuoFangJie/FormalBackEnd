@@ -10,15 +10,15 @@ import java.util.ArrayList;
  * 将小组的详细信息返回给前端的类
  * @author ren
  */
-public class TeamMessageVO implements Serializable {
+public class TeamMessageVO{
     Long teamId;
-    String team_name;
-    Long course_id;
-    Long klass_id;
+    String teamName;
+    Long courseId;
+    Long klassId;
     StudentEntity leader;
     ArrayList<StudentEntity> members;
-    int status;
-    int serial;
+    Integer status;
+    Integer serial;
 
 
     public TeamMessageVO(){
@@ -27,21 +27,13 @@ public class TeamMessageVO implements Serializable {
 
 
     public TeamMessageVO(TeamEntity teamEntity, StudentEntity leader, ArrayList<StudentEntity> members){
-        team_name=teamEntity.getTeamName();
-        course_id=teamEntity.getCourseId();
-        klass_id=teamEntity.getKlassId();
+        teamName=teamEntity.getTeamName();
+        courseId=teamEntity.getCourseId();
+        klassId=teamEntity.getKlassId();
         this.leader=leader;
         this.members=members;
         this.status=teamEntity.getStatus();
         this.teamId=teamEntity.getId();
-    }
-
-    public int getSerial() {
-        return serial;
-    }
-
-    public void setSerial(int serial) {
-        this.serial = serial;
     }
 
     public Long getTeamId() {
@@ -52,36 +44,28 @@ public class TeamMessageVO implements Serializable {
         this.teamId = teamId;
     }
 
-    public int getStatus() {
-        return status;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setStatus(int valid) {
-        this.status = valid;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
-    public String getTeam_name() {
-        return team_name;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setTeam_name(String team_name) {
-        this.team_name = team_name;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
-    public Long getCourse_id() {
-        return course_id;
+    public Long getKlassId() {
+        return klassId;
     }
 
-    public void setCourse_id(Long course_id) {
-        this.course_id = course_id;
-    }
-
-    public Long getKlass_id() {
-        return klass_id;
-    }
-
-    public void setKlass_id(Long klass_id) {
-        this.klass_id = klass_id;
+    public void setKlassId(Long klassId) {
+        this.klassId = klassId;
     }
 
     public StudentEntity getLeader() {
@@ -98,5 +82,21 @@ public class TeamMessageVO implements Serializable {
 
     public void setMembers(ArrayList<StudentEntity> members) {
         this.members = members;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getSerial() {
+        return serial;
+    }
+
+    public void setSerial(Integer serial) {
+        this.serial = serial;
     }
 }

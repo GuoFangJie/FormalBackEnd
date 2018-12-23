@@ -10,7 +10,6 @@ import com.gugu.guguuser.service.KlassService;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -131,6 +130,17 @@ public class CourseController {
         }catch (Exception e){
             return new TeamMessageVO();
         }
+    }
+
+    @GetMapping("/{courseId}/teams")
+    public ArrayList<TeamMessageVO> getTeamsMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
+        ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
+        ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
+        for(int i=0;i<teamsId.size();i++){
+            TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),studentService.getMembers(teamsId.get(i).getId()));
+            teamMessageVOS.add(teamMessageVO);
+        }
+        return teamMessageVOS;
     }
 
     /**

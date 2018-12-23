@@ -22,7 +22,6 @@ import java.util.Date;
 @RestController
 @RequestMapping("/seminar")
 public class SeminarController {
-
     @Autowired
     SeminarService seminarService;
     @Autowired
@@ -47,7 +46,9 @@ public class SeminarController {
             roundEntity.setPresentationScoreMethod(t);
             roundEntity.setQuestionScoreMethod(t);
             roundEntity.setReportScoreMethod(t);
-            roundService.newRound(roundEntity);
+            seminarEntity.setRoundId(roundService.newRound(roundEntity));
+           // System.out.println(roundEntity.getId());
+
         }
         return seminarService.newSeminar(seminarEntity);
     }
@@ -58,7 +59,7 @@ public class SeminarController {
      * @return KlassEntiry
      */
     @GetMapping("/{seminarId}/class")
-    public KlassEntity getKlassSeminatIn(@PathVariable Long seminarId){
+    public ArrayList<KlassEntity> getKlassSeminatIn(@PathVariable Long seminarId){
         return seminarService.getKlassSeminatIn(seminarId);
     }
 
@@ -68,8 +69,11 @@ public class SeminarController {
      * @return
      */
     @PutMapping("/{seminarId}")
-    public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity){
+    public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity)throws ParseException{
         seminarEntity.setId(seminarId);
+        DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
+        seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
+        seminarEntity.setEnrollETime(formatter.parse(seminarEntity.getEnd()));
         return seminarService.updateSeminar(seminarEntity);
     }
 
@@ -96,7 +100,7 @@ public class SeminarController {
         {
             throw new NotFoundException("can't find seminar!");
         }
-        roundService.getRoundSerialById(seminarEntity.getRoundId());
+        seminarEntity.setRoundSerial(roundService.getRoundSerialById(seminarEntity.getRoundId()));
         return seminarEntity;
     }
 
@@ -131,7 +135,7 @@ public class SeminarController {
     public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId, @PathVariable("classId")Long classId){
         //获取seminar中的信息和klass_seminar中的讨论课状态
          KlassSeminarEntity klassSeminarEntity=seminarService.getSeminarInClass(seminarId,classId);
-         klassService.getKlassById(classId);
+         klassSeminarEntity.setKlassEntity(klassService.getKlassById(classId));
         return klassSeminarEntity;
     }
 
@@ -209,6 +213,6 @@ public class SeminarController {
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         String role=httpServletRequest.getAttribute("role").toString();
-        return "ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}";
+        return "ws:/websocket/"+seminarKlassId+"/"+userId+"/"+role+"";
     }
 }

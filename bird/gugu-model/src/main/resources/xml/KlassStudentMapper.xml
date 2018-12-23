@@ -24,8 +24,9 @@
     <select id="getKlassIdByCourseAndStudent" resultType="java.lang.Long">
         select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
     </select>
-    <update id="addMember">
-        update klass_student set team_id=#{team.id} where klass_id=#{team.klassId} and student_id=#{studentId}
+
+    <update id="addMember" >
+        update klass_student set team_id=#{param1} where klass_id=#{param2} and student_id=#{studentId}
     </update>
 
     <select id="getStudentTeam" resultType="java.lang.Long">

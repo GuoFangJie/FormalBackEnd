@@ -21,7 +21,8 @@
     </select>
 
     <insert id="newSeminar" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.SeminarEntity">
-        insert into seminar(course_id,round_id,seminar_name,introduction,max_team,is_visible,seminar_serial,enroll_start_time,enroll_end_time) values (#{courseId},#{roundId},#{seminarName},#{introduction},#{maxTeam},#{isVisible},#{seminarSerial},#{enrollSTime},#{enrollETime})
+        insert into seminar(course_id,round_id,seminar_name,introduction,max_team,is_visible,seminar_serial,enroll_start_time,enroll_end_time)
+        values (#{courseId},#{roundId},#{seminarName},#{introduction},#{maxTeam},#{isVisible},#{seminarSerial},#{enrollSTime},#{enrollETime})
     </insert>
 
     <select id="getKlassIdBySeminerId" parameterType="java.lang.Long" resultType="java.lang.Long">

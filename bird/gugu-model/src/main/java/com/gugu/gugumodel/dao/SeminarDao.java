@@ -52,10 +52,14 @@ public class SeminarDao {
      * @param seminarId
      * @return KlassEntiry
      */
-    public KlassEntity getKlassSeminatIn(Long seminarId){
-        Long klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
+    public ArrayList<KlassEntity> getKlassSeminatIn(Long seminarId){
+        ArrayList<Long> klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
         System.out.println(klassId);
-       return klassMapper.getKlassById(klassId);
+        ArrayList<KlassEntity> klassEntities=new ArrayList<>();
+        for(int i=0;i<klassId.size();i++){
+            klassEntities.add(klassMapper.getKlassById(klassId.get(i)));
+        }
+       return klassEntities;
     }
 
     /**@author ljy
@@ -132,9 +136,10 @@ public class SeminarDao {
         SeminarEntity seminarEntity=seminarMapper.getSeminarById(seminarId);
         KlassSeminarEntity klassSeminarEntity=new KlassSeminarEntity();
         klassSeminarEntity.setSeminarEntity(seminarEntity);
-        KlassSeminarEntity klassSeminarEntity1=klassSeminarMapper.getSeminarInClass(seminarId,klassId);
+        KlassSeminarEntity klassSeminarEntity1= klassSeminarMapper.getSeminarInClass(seminarId,klassId);
         klassSeminarEntity.setReportDDL(klassSeminarEntity1.getReportDDL());
         klassSeminarEntity.setStatus(klassSeminarEntity1.getStatus());
+        klassSeminarEntity.setKlassSeminarId(klassSeminarEntity1.getKlassSeminarId());
         return klassSeminarEntity;
     }
 

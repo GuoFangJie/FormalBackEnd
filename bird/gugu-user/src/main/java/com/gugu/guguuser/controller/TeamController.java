@@ -28,10 +28,10 @@ public class TeamController {
         ArrayList<StudentEntity> memberStudents=teamMessageVO.getMembers();
         TeamEntity teamEntity=new TeamEntity();
        // teamEntity.setId(teamMessageVO.getTeamId());
-        teamEntity.setKlassId(teamMessageVO.getKlass_id());
-        teamEntity.setCourseId(teamMessageVO.getCourse_id());
+        teamEntity.setKlassId(teamMessageVO.getKlassId());
+        teamEntity.setCourseId(teamMessageVO.getCourseId());
         teamEntity.setLeaderId(teamMessageVO.getLeader().getId());
-        teamEntity.setTeamName(teamMessageVO.getTeam_name());
+        teamEntity.setTeamName(teamMessageVO.getTeamName());
         teamEntity.setTeamSerial(teamMessageVO.getSerial());
         teamEntity.setStatus(teamMessageVO.getStatus());
         return teamService.newTeam(memberStudents,teamEntity);
@@ -69,9 +69,9 @@ public class TeamController {
     public void updateTeam(@PathVariable Long teamId,@RequestBody TeamMessageVO teamMessageVO){
         teamMessageVO.setTeamId(teamId);
         TeamEntity teamEntity=new TeamEntity();
-        teamEntity.setKlassId(teamMessageVO.getKlass_id());
-        teamEntity.setCourseId(teamMessageVO.getCourse_id());
-        teamEntity.setTeamName(teamMessageVO.getTeam_name());
+        teamEntity.setKlassId(teamMessageVO.getKlassId());
+        teamEntity.setCourseId(teamMessageVO.getCourseId());
+        teamEntity.setTeamName(teamMessageVO.getTeamName());
         teamEntity.setLeaderId(teamMessageVO.getLeader().getId());
         teamEntity.setStatus(teamMessageVO.getStatus());
         teamEntity.setId(teamMessageVO.getTeamId());

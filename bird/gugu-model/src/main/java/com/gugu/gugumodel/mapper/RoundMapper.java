@@ -47,5 +47,5 @@ public interface RoundMapper {
     /**@author ljy
      * 根据roundId获取roundSerial
      */
-    public Long getRoundSerialById(Long roundId);
+    Byte getRoundSerialById(Long roundId);
 }

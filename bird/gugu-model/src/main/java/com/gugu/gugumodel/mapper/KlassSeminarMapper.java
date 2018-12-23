@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -102,4 +103,11 @@ public interface KlassSeminarMapper {
      * @param seminarId
      */
     void newKlassSeminar(Long klassId,Long seminarId);
+
+
+    /**
+     * 添加klass和seminar的联系
+     * @return
+     */
+    public boolean addKlassSeminar(Long  seminarId, Long klssId);
 }
