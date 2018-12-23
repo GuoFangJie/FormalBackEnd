@@ -69,8 +69,11 @@ public class SeminarController {
      * @return
      */
     @PutMapping("/{seminarId}")
-    public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity){
+    public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity)throws ParseException{
         seminarEntity.setId(seminarId);
+        DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
+        seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
+        seminarEntity.setEnrollETime(formatter.parse(seminarEntity.getEnd()));
         return seminarService.updateSeminar(seminarEntity);
     }
 
