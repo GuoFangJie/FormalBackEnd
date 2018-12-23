@@ -213,6 +213,6 @@ public class SeminarController {
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         String role=httpServletRequest.getAttribute("role").toString();
-        return "ws:/websocket/"+seminarKlassId+"/"+userId+"/"+role+"";
+        return "ws://jknwqf.natappfree.cc/websocket/"+seminarKlassId+"/"+userId+"/"+role+"";
     }
 }

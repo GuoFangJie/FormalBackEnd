@@ -48,4 +48,10 @@ public interface RoundMapper {
      * 根据roundId获取roundSerial
      */
     Byte getRoundSerialById(Long roundId);
+
+    /**
+     * @author TYJ
+     * 删除课程下所有的轮次
+     */
+    void deleteAllRoundByCourseId(Long courseId);
 }

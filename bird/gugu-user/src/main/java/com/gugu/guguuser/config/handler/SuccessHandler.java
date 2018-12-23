@@ -37,6 +37,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     String teacherMain;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        System.out.println("登录成功");
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
         Map<String,Object> head=new HashMap<>();
         head.put("alg","SHA256");

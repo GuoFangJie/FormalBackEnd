@@ -2,6 +2,7 @@ package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.KlassRoundMapper;
 import com.gugu.gugumodel.mapper.RoundMapper;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.mapper.RoundScoreMapper;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 public class RoundDao {
     @Autowired
     RoundMapper roundMapper;
+    @Autowired
+    KlassRoundMapper klassRoundMapper;
     @Autowired
     RoundScoreMapper roundScoreMapper;
     /**
@@ -80,5 +83,14 @@ public class RoundDao {
      */
     public Byte getRoundSerialById(Long roundId){
         return roundMapper.getRoundSerialById(roundId);
+    }
+
+    /**
+     * @author TYJ
+     * 删除课程下所有的轮次
+     */
+    public void deleteAllRoundByCourseId(Long courseId){
+        klassRoundMapper.deleteAllKlassRoundByCourseId(courseId);
+        roundMapper.deleteAllRoundByCourseId(courseId);
     }
 }

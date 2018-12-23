@@ -23,10 +23,13 @@ public class ShareService {
     CourseDao courseDao;
 
     @Autowired
-    SeminarDao seminarDao;
+    KlassDao klassDao;
 
     @Autowired
-    KlassDao klassDao;
+    RoundDao roundDao;
+
+    @Autowired
+    SeminarDao seminarDao;
 
     @Autowired
     KlassStudentDao klassStudentDao;
@@ -65,12 +68,19 @@ public class ShareService {
             CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
             //获得从课程
             CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
+            //删除从课程的所有round
+            roundDao.deleteAllRoundByCourseId(shareApplicationEntity.getSubCourseId());
             //删除从课程的所有seminar
             courseDao.deleteAllSeminarByCourseId(shareApplicationEntity.getSubCourseId());
             //获得主课程的所有seminar,并加入到从课程的klass_seminar表中
             ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
             for(int i=0;i<seminarList.size();i++){
                 klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
+            }
+            //获得主课程的所有round,并加入到从课程的klass_round表中
+            ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
+            for(int i=0;i<roundList.size();i++){
+                klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
             }
             //修改共享消息的状态
             shareMessageDao.changeSeminarShareStatus(requestId,status);

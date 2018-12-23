@@ -34,10 +34,11 @@ public class StudentMapperTest {
 
     @Test
     public void newStudentTest(){
-        StudentEntity studentEntity=new StudentEntity();
-        studentEntity.setAccount("113831843");
-        studentEntity.setStudentName("任剑鹏");
-        studentMapper.newStudent(studentEntity);
-        System.out.println(studentEntity.getId());
+//        StudentEntity studentEntity=new StudentEntity();
+//        studentEntity.setAccount("113831843");
+//        studentEntity.setStudentName("任剑鹏");
+//        studentMapper.newStudent(studentEntity);
+//        System.out.println(studentEntity.getId());
+        System.out.println(studentMapper.getStudentByAccount("24320162202920"));
     }
 }
