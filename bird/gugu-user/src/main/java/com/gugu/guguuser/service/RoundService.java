@@ -36,7 +36,8 @@ public class RoundService {
      * 新建round记录
      */
     public Long newRound(RoundEntity roundEntity){
-        return roundDao.newRound(roundEntity);
+        Long aLong = roundDao.newRound(roundEntity);
+        return aLong;
     }
     /**
      * 获取一个轮次下所有小组的成绩
@@ -72,7 +73,7 @@ public class RoundService {
     /**@author ljy
      * 根据roundId获取roundSerial
      */
-    public Long getRoundSerialById(Long roundId){
+    public Byte getRoundSerialById(Long roundId){
         return roundDao.getRoundSerialById(roundId);
     }
 }

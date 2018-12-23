@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
+import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import com.gugu.gugumodel.mapper.SeminarScoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,9 @@ public class KlassSeminarDao {
 
     public ArrayList<KlassSeminarEntity> getAllKlassSeminarEntityByKlassId(Long klassId){
         return klassSeminarMapper.getKlassSeminarEntityByKlassId(klassId);
+    }
+
+    public boolean addKlassSeminar(Long seminarId, Long klssId){
+        return klassSeminarMapper.addKlassSeminar(seminarId,klssId);
     }
 }

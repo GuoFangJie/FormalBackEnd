@@ -45,6 +45,7 @@ public class RoundDao {
      */
     public Long newRound(RoundEntity roundEntity){
         roundMapper.newRound(roundEntity);
+        System.out.println(roundEntity.getId());
         return roundEntity.getId();
     }
     /**
@@ -77,7 +78,7 @@ public class RoundDao {
     /**@author ljy
      * 根据roundId获取roundSerial
      */
-    public Long getRoundSerialById(Long roundId){
+    public Byte getRoundSerialById(Long roundId){
         return roundMapper.getRoundSerialById(roundId);
     }
 }

@@ -53,6 +53,15 @@ public class KlassDao{
     }
 
     /**
+     * 根据课程获取班级id列表
+     * @param courseId
+     * @return
+     */
+    public ArrayList<Long> getKlassIdByCourseId(Long courseId){
+        return klassMapper.getKlassIdByCourseId(courseId);
+    }
+
+    /**
      * 新建班级与讨论课的关系
      * @param seminarId
      * @param courseId

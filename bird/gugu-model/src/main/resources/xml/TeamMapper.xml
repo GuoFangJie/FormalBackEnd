@@ -38,9 +38,9 @@
         delete from team where id=#{arg0}
     </delete>
 
-    <delete id="deleteStudentTeamRelation" parameterType="java.lang.Long">
-        delete from klass_student where team_id=#{arg0}
-    </delete>
+    <update id="deleteStudentTeamRelation" parameterType="java.lang.Long">
+        update klass_student set team_id=null where team_id=#{arg0}
+    </update>
 
     <update id="removeMember" >
         update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}

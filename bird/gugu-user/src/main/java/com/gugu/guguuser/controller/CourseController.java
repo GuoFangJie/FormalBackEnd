@@ -138,6 +138,7 @@ public class CourseController {
         ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
         for(int i=0;i<teamsId.size();i++){
             TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),studentService.getMembers(teamsId.get(i).getId()));
+            teamMessageVOS.add(teamMessageVO);
         }
         return teamMessageVOS;
     }

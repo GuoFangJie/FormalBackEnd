@@ -13,8 +13,9 @@
                          question_score_method=#{questionScoreMethod} where id=#{id}
     </update>
 
-    <insert id="newRound" parameterType="com.gugu.gugumodel.entity.RoundEntity" useGeneratedKeys="true" keyProperty="id">
-        insert round(course_id,round_serial) values (#{courseId},#{roundSerial})
+    <insert id="newRound" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.RoundEntity">
+        insert into round(course_id,round_serial,presentation_score_method,report_score_method,question_score_method)
+        values (#{courseId},#{roundSerial},#{presentationScoreMethod},#{reportScoreMethod},#{questionScoreMethod})
     </insert>
 
     <select id="getRoundMessageByCourseId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.RoundEntity">
@@ -26,7 +27,7 @@
         update round set round_serial=#{roundEntity.roundSerial} where id=#{roundId}
     </update>
 
-    <select id="getRoundSerialById" parameterType="java.lang.Long">
+    <select id="getRoundSerialById" parameterType="java.lang.Long" resultType="java.lang.Byte">
         select round_serial from round where id=#{arg0}
     </select>
 </mapper>

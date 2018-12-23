@@ -1,5 +1,7 @@
 package com.gugu.guguuser.service;
 
+import com.gugu.gugumodel.dao.KlassDao;
+import com.gugu.gugumodel.dao.KlassSeminarDao;
 import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.KlassEntity;
@@ -21,6 +23,10 @@ import java.util.Date;
 public class SeminarService {
     @Autowired
     SeminarDao seminarDao;
+    @Autowired
+    KlassDao klassDao;
+    @Autowired
+    KlassSeminarDao klassSeminarDao;
 
     /**
      * 根据roundid获取所有讨论课信息
@@ -37,7 +43,13 @@ public class SeminarService {
      * @return Long
      */
     public Long newSeminar(SeminarEntity seminarEntity){
-        return seminarDao.newSeminar(seminarEntity);
+        Long seminarId=seminarDao.newSeminar(seminarEntity);
+        ArrayList<Long> klassId=klassDao.getKlassIdByCourseId(seminarEntity.getCourseId());
+
+        for(int i=0;i<klassId.size();i++){
+            klassSeminarDao.addKlassSeminar(seminarId,klassId.get(i));
+        }
+        return seminarId;
     }
 
     /**@author ljy

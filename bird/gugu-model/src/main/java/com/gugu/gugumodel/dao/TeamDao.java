@@ -54,7 +54,7 @@ public class TeamDao{
 
     public void addMember(Long teamId,Long studentId){
         TeamEntity teamEntity= teamMapper.findTeamById(teamId);
-        klassStudentMapper.addMember(teamEntity,studentId);
+        klassStudentMapper.addMember(teamEntity.getId(),teamEntity.getKlassId(),studentId);
     }
 
 
@@ -93,7 +93,7 @@ public class TeamDao{
     public Long newTeam(ArrayList<StudentEntity> memberStudents, TeamEntity teamEntity){
         teamMapper.newTeam(teamEntity);
         for(int i=0;i<memberStudents.size();i++){
-            klassStudentMapper.addMember(teamEntity,memberStudents.get(i).getId());
+            klassStudentMapper.addMember(teamEntity.getId(),teamEntity.getKlassId(),memberStudents.get(i).getId());
         }
         Long teamId=teamEntity.getId();
         System.out.println(teamId);

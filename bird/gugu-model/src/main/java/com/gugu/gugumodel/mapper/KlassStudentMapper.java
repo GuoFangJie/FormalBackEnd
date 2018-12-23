@@ -32,10 +32,10 @@ public interface KlassStudentMapper {
 
     /**@author ljy
      * 添加成员
-     * @param teamEntity
+     * @param 
      * @param studentId
      */
-    void addMember(@Param("team") TeamEntity teamEntity, @Param("studentId") Long studentId);
+    void addMember(Long teamId,Long klassId, @Param("studentId") Long studentId);
 
     /**
      * 根据班级和学生获取小组id
