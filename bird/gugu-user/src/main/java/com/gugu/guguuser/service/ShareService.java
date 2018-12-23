@@ -78,7 +78,10 @@ public class ShareService {
                 klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
             }
             //获得主课程的所有round,并加入到从课程的klass_round表中
-
+            ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
+            for(int i=0;i<roundList.size();i++){
+                klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
+            }
             //修改共享消息的状态
             shareMessageDao.changeSeminarShareStatus(requestId,status);
             //修改课程共享的状态
