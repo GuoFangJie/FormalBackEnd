@@ -136,7 +136,7 @@ public class SeminarDao {
         SeminarEntity seminarEntity=seminarMapper.getSeminarById(seminarId);
         KlassSeminarEntity klassSeminarEntity=new KlassSeminarEntity();
         klassSeminarEntity.setSeminarEntity(seminarEntity);
-        KlassSeminarEntity klassSeminarEntity1=klassSeminarMapper.getSeminarInClass(seminarId,klassId);
+        KlassSeminarEntity klassSeminarEntity1= klassSeminarMapper.getSeminarInClass(seminarId,klassId);
         klassSeminarEntity.setReportDDL(klassSeminarEntity1.getReportDDL());
         klassSeminarEntity.setStatus(klassSeminarEntity1.getStatus());
         return klassSeminarEntity;

@@ -35,7 +35,7 @@
     </update>
 
     <select id="getSeminarInClass" resultType="com.gugu.gugumodel.entity.KlassSeminarEntity">
-        select klass_seminar.report_ddl reportDDL,klass_seminar.status status from klass_seminar
+        select  klass_seminar.id klassSeminarId,klass_seminar.report_ddl reportDDL,klass_seminar.status status from klass_seminar
         where  klass_id=#{param2} and seminar_id=#{param1}
     </select>
 
