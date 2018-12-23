@@ -90,6 +90,13 @@ public interface KlassSeminarMapper {
     Long getKlassIdByKlassSeminar(Long klassSeminarId);
 
     /**
+     * 根据courseId删除所有的klassSeminar
+     * @param courseId
+     * @return
+     */
+    void deleteAllKlassSeminarByCourseId(Long courseId);
+
+    /**
      * 新建班级和讨论课之间的关系
      * @param klassId
      * @param seminarId

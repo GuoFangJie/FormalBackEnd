@@ -55,4 +55,14 @@
         insert klass_seminar(klass_id,seminar_id,status)
         values (#{param1},#{param2},0)
     </insert>
+
+    <delete id="deleteAllKlassSeminarByCourseId">
+        delete from klass_seminar
+        where seminar_id in
+        (
+             select seminar_id
+             from seminar
+             where course_id=#{param1}
+        )
+    </delete>
 </mapper>
