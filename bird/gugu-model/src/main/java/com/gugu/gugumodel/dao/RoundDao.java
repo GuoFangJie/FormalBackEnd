@@ -45,6 +45,7 @@ public class RoundDao {
      */
     public Long newRound(RoundEntity roundEntity){
         roundMapper.newRound(roundEntity);
+        System.out.println(roundEntity.getId());
         return roundEntity.getId();
     }
     /**

@@ -43,4 +43,11 @@ public interface KlassMapper {
      * @param klassId
      */
     KlassEntity getKlassById(Long klassId);
+
+    /**
+     * 根据课程获取班级id列表
+     * @param courseId
+     * @return
+     */
+    public ArrayList<Long> getKlassIdByCourseId(Long courseId);
 }

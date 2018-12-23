@@ -47,7 +47,9 @@ public class SeminarController {
             roundEntity.setPresentationScoreMethod(t);
             roundEntity.setQuestionScoreMethod(t);
             roundEntity.setReportScoreMethod(t);
-            roundService.newRound(roundEntity);
+            seminarEntity.setRoundId(roundService.newRound(roundEntity));
+           // System.out.println(roundEntity.getId());
+
         }
         return seminarService.newSeminar(seminarEntity);
     }
@@ -58,7 +60,7 @@ public class SeminarController {
      * @return KlassEntiry
      */
     @GetMapping("/{seminarId}/class")
-    public KlassEntity getKlassSeminatIn(@PathVariable Long seminarId){
+    public ArrayList<KlassEntity> getKlassSeminatIn(@PathVariable Long seminarId){
         return seminarService.getKlassSeminatIn(seminarId);
     }
 
