@@ -14,4 +14,10 @@ public interface KlassRoundMapper {
      * @param klassId
      */
     void deleteByKlass(Long klassId);
+
+    /**
+     * 删除课程下所有klassRound
+     * @param courseId
+     */
+    void deleteAllKlassRoundByCourseId(Long courseId);
 }

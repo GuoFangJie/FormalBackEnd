@@ -1,5 +1,6 @@
 package com.gugu.guguuser.controller;
 
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,7 +78,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamvalid")
-    public ArrayList<Map> getTeamRequestList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getTeamRequestList(HttpServletRequest httpServletRequest) throws NotFoundException {
         Long teacherId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return teamRequestService.getTeamRequestList(teacherId);
     }

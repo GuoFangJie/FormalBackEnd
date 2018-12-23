@@ -6,4 +6,14 @@
     <delete id="deleteByKlass" parameterType="java.lang.Long">
         delete from klass_round where klass_id=#{param1}
     </delete>
+
+    <delete id="deleteAllKlassRoundByCourseId">
+        delete from klass_round
+        where round_id in
+        (
+             select id
+             from round
+             where course_id=#{param1}
+        )
+    </delete>
 </mapper>
