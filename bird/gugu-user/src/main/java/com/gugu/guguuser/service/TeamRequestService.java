@@ -2,6 +2,7 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,20 +37,26 @@ public class TeamRequestService {
      * @param teacherId
      * @return
      */
-    public ArrayList<Map> getTeamRequestList(Long teacherId){
+    public ArrayList<Map> getTeamRequestList(Long teacherId) throws NotFoundException {
         ArrayList<TeamValidEntity> teamRequestList=teamRequestDao.getTeamRequestList(teacherId);
         ArrayList <Map> teamMessageList=new ArrayList<Map>();
         for(int i=0;i<teamRequestList.size();i++){
             Map teamMessage = new HashMap();
             TeamValidEntity teamRequest=teamRequestList.get(i);
             if(teamRequest==null){
-                continue;
+                throw new NotFoundException("找不到相应的组队申请");
             }
             CourseEntity course=courseDao.getCourseById(teamRequest.getCourseId());
             KlassEntity klass=klassDao.getKlassById(teamRequest.getClassId());
             StudentEntity leader=studentDao.getStudentById(teamRequest.getLeaderId());
-            if(course==null&&klass==null&&leader==null){
-                continue;
+            if(course==null){
+                throw new NotFoundException("找不到相应的课程信息");
+            }
+            if(klass==null){
+                throw new NotFoundException("找不到相应的班级信息");
+            }
+            if(leader==null){
+                throw new NotFoundException("找不到相应的组长信息");
             }
             String courseName=new String();
             courseName=course.getCourseName();
