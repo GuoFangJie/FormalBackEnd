@@ -15,10 +15,11 @@ public class CourseServiceTest {
     CourseService courseService;
     @Autowired
     CourseDao courseDao;
-
+    @Autowired
+    KlassService klassService;
     @Test
     public void findSimpleCourseTest(){
-        courseDao.findSimpleCourseEntityByUserId(1L,"ROLE_Teacher");
+        System.out.println(klassService.getKlassIdByCourseAndStudent(30L,414L));
     }
     @Test
     public void newCourseTest(){

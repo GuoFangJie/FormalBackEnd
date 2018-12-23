@@ -62,8 +62,10 @@ public class KlassService {
             Long studentId=studentDao.getStudentByAccount(row.getCell(0).getStringCellValue());
             if(studentId==null) {
                 StudentEntity studentEntity = new StudentEntity();
-                studentEntity.setStudentName(row.getCell(1).getStringCellValue().replaceAll(" ",""));
-                studentEntity.setAccount(row.getCell(0).getStringCellValue().replaceAll(" ",""));
+                String studentName=row.getCell(1).getStringCellValue().replaceAll(" ","");
+                String account=row.getCell(0).getStringCellValue().replaceAll(" ","");
+                studentEntity.setStudentName(studentName.replace(" ",""));
+                studentEntity.setAccount(account.replace(" ",""));
                 studentDao.newStudent(studentEntity);
                 studentId=studentEntity.getId();
             }

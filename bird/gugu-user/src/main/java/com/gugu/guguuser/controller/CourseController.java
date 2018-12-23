@@ -48,6 +48,8 @@ public class CourseController {
         }else{
             for(int i=0;i<simpleCourseEntities.size();i++){
                 SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
+                System.out.println(simpleCourseVO.getId());
+                System.out.println(userId);
                 simpleCourseVO.setKlassId(klassService.getKlassIdByCourseAndStudent(Long.parseLong(simpleCourseVO.getId().toString()),Long.parseLong(userId)));
                 simpleCourseVOS.add(simpleCourseVO);
             }

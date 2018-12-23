@@ -40,7 +40,7 @@ public class TeamRequestService {
     public ArrayList<Map> getTeamRequestList(Long teacherId) throws NotFoundException {
         ArrayList<TeamValidEntity> teamRequestList=teamRequestDao.getTeamRequestList(teacherId);
         ArrayList <Map> teamMessageList=new ArrayList<Map>();
-        for(int i=0;i< teamRequestList.size();i++){
+        for(int i=0;i<teamRequestList.size();i++){
             Map teamMessage = new HashMap();
             TeamValidEntity teamRequest=teamRequestList.get(i);
             if(teamRequest==null){
@@ -58,7 +58,8 @@ public class TeamRequestService {
             if(leader==null){
                 throw new NotFoundException("找不到相应的组长信息");
             }
-            String courseName=course.getCourseName();
+            String courseName=new String();
+            courseName=course.getCourseName();
             Byte klassSerial=klass.getKlassSerial();
             teamMessage.put("requestId",teamRequest.getId());
             teamMessage.put("courseId",teamRequest.getCourseId());

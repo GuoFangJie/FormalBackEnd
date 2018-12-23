@@ -13,6 +13,6 @@ public class KlassStudentMapperTest {
     KlassStudentMapper klassStudentMapper;
     @Test
     public void getTeamIdTest(){
-        klassStudentMapper.findTeamIdByStudentIdAndCourseId(1L,1L);
+        System.out.println(klassStudentMapper.getKlassIdByCourseAndStudent(30L,141l));
     }
 }
