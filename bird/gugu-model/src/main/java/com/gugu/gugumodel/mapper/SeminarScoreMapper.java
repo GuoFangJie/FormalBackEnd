@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,4 +42,12 @@ public interface SeminarScoreMapper {
      * @return
      */
     public ArrayList<SeminarScoreEntity>getSeminarAllScore(Long klassSeminarId);
+
+    /**
+     * 根据团队id和roundid获取成绩
+     * @param teamId
+     * @param roundId
+     * @return
+     */
+    ArrayList<SeminarScoreEntity> getRoundSeminarScore(Long teamId,Long roundId);
 }

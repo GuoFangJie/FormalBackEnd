@@ -10,6 +10,7 @@ public class SimpleCourseEntity {
     private String courseName;
     private String introduction;
 
+
     public Integer getId() {
         return id;
     }

@@ -15,9 +15,9 @@
         <result column="enroll_start_time" jdbcType="TIMESTAMP" property="enrollStartTime"/>
         <result column="enroll_end_time" jdbcType="TIMESTAMP" property="enrollEndTime"/>
     </resultMap>
-    <select id="getSeminarsByRound" parameterType="java.lang.Long" resultMap="SeminarInfoEntity">
-        select id,course_id,round_id,seminar_name,introduction,max_team,is_visible,
-               seminar_serial,enroll_start_time,enroll_end_time from seminar where round_id=#{param1}
+    <select id="getSeminarsByRound" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.SeminarEntity">
+        select id id,course_id courseId,round_id roundId,seminar_name seminarName,introduction introduction,max_team maxTeam,is_visible isVisible,
+               seminar_serial seminarSerial,enroll_start_time enrollStartTime,enroll_end_time enrollEndTime from seminar where round_id=#{param1}
     </select>
 
     <insert id="newSeminar" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.SeminarEntity">

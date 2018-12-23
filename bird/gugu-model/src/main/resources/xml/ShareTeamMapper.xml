@@ -23,5 +23,8 @@
         update share_team_application set status=#{param2} where sub_course_teacher_id=#{param1}
     </update>
 
+    <insert id="newShareTeamApplication" useGeneratedKeys="true" keyProperty="id">
+        insert into share_seminar_application(main_course_id, sub_course_id, sub_course_teacher_id) values (#{param1},#{param2},#{param3})
+    </insert>
 
 </mapper>

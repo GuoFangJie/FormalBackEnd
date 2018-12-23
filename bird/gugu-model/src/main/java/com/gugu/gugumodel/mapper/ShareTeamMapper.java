@@ -35,4 +35,11 @@ public interface ShareTeamMapper {
      */
     void changeTeamShareStatus(Long requestId,Byte status);
 
+    /**
+     * 新建共享分组申请
+     * @param mainCourseId
+     * @param subCourseId
+     * @param subCourseTeacher
+     */
+    void newShareTeamApplication(Long mainCourseId,Long subCourseId,Long subCourseTeacher);
 }

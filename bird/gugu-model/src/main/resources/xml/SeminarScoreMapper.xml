@@ -34,4 +34,10 @@
         select * from seminar_score where klass_seminar_id=#{arg0}
     </select>
 
+    <select id="getRoundSeminarScore"  resultType="com.gugu.gugumodel.entity.SeminarScoreEntity">
+        select seminar_score.klass_seminar_id klassSeminarId,seminar_score.team_id teamId ,seminar_score.total_score totalScore,seminar_score.presentaton_score presentationScore,seminar_score.question_score questionScore,
+               seminar_score.report_score reportScore from seminar_score,klass_seminar,seminar
+        where seminar_score.team_id=#{param1} and seminar_score.klass_seminar_id=klass_seminar.id and klass_seminar.seminar_id=seminar.id and seminar.round_id=#{param2}
+    </select>
+
 </mapper>

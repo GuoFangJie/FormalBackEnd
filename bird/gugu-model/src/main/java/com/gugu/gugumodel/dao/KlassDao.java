@@ -86,11 +86,11 @@ public class KlassDao{
     /**
      * 新建班级和轮次的关系
      */
-    public boolean newKlassRound(Long seminarId,Long courseId){
+    public boolean newKlassRound(Long roundId,Long courseId){
         ArrayList<KlassEntity> longs=klassMapper.getKlassByCourseId(courseId);
         try{
             for(int i=0;i<longs.size();i++){
-                klassRoundMapper.newKlassRound(longs.get(i).getId(),seminarId);
+                klassRoundMapper.newKlassRound(longs.get(i).getId(),roundId);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());

@@ -35,5 +35,11 @@ public interface ShareSeminarMapper {
      */
     public void changeSeminarShareStatus(Long requestId,Byte status);
 
-
+    /**
+     * 新建共享讨论课申请
+     * @param mainCourseId
+     * @param subCourseId
+     * @param subCourseTeacher
+     */
+    void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Long subCourseTeacher);
 }

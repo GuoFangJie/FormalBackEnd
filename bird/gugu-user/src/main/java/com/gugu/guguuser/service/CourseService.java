@@ -21,6 +21,8 @@ public class CourseService {
     TeamDao teamDao;
     @Autowired
     KlassDao klassDao;
+    @Autowired
+    ShareMessageDao shareMessageDao;
 
     /**
      * 获取与学生相关的基本课程信息
@@ -124,5 +126,15 @@ public class CourseService {
      */
     public ArrayList<TeamEntity> getAllTeamByCourse(Long courseId){
         return  courseDao.getAllTeamByCourse(courseId);
+    }
+
+    /**
+     * 新建申请
+     * @param mainCourseId
+     * @param subCourseId
+     * @param type
+     */
+    public void newApplication(Long mainCourseId,Long subCourseId,Integer type){
+        shareMessageDao.newShareSeminarApplication(mainCourseId,subCourseId,type);
     }
 }

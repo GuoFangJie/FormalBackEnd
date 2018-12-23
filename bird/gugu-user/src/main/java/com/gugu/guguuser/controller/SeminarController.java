@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -166,7 +167,8 @@ public class SeminarController {
      * @return
      */
     @PutMapping("/{seminarId}/class/{classId}/reportddl")
-    public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody String d)throws ParseException{
+    public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestParam("date") String d)throws ParseException{
+        System.out.println(d);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date=sdf.parse(d);
         return seminarService.setSeminarReportddl(seminarId,classId,date);

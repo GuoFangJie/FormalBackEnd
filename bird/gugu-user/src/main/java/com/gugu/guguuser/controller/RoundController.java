@@ -3,6 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.EditRoundVO;
 import com.gugu.guguuser.controller.vo.RoundScoreMessageVO;
@@ -123,5 +124,16 @@ public class RoundController {
             e.printStackTrace();
             httpServletResponse.setStatus(404,e.getErrorMsg());
         }
+    }
+
+    /**
+     * 获取小组在某轮下的成绩
+     * @param roundId
+     * @param teamId
+     * @return
+     */
+    @GetMapping("/{roundId}/team/{teamId}")
+    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId ){
+        return roundService.getTeamAllScoreInRound(teamId,roundId);
     }
 }

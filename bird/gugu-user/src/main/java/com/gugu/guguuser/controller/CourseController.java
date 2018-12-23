@@ -231,4 +231,20 @@ public class CourseController {
         return roundService.getRoundMessageByCourseId(courseId);
     }
 
+    /**
+     * 新建申请
+     * @param httpServletResponse
+     * @param mainCourseId
+     * @param subCourseId
+     * @param type
+     */
+    @PostMapping("/{courseId}/application")
+    public void newApplication(HttpServletResponse httpServletResponse,@PathVariable("courseId") Long mainCourseId,@RequestParam("subCourseId") Long subCourseId,@RequestParam("type") Integer type){
+        try {
+            courseService.newApplication(mainCourseId,subCourseId,type);
+        }catch (Exception e){
+            httpServletResponse.setStatus(400,"系统错误");
+        }
+    }
+
 }

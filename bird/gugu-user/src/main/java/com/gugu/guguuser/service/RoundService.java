@@ -1,8 +1,10 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.RoundDao;
+import com.gugu.gugumodel.dao.SeminarScoreDao;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 public class RoundService {
     @Autowired
     RoundDao roundDao;
+    @Autowired
+    SeminarScoreDao seminarScoreDao;
 
     /**
      * 根据roundId获取详细信息
@@ -75,5 +79,15 @@ public class RoundService {
      */
     public Byte getRoundSerialById(Long roundId){
         return roundDao.getRoundSerialById(roundId);
+    }
+
+    /**
+     * 获取某轮下小组所有成绩
+     * @param teamId
+     * @param roundId
+     * @return
+     */
+    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId,Long roundId){
+        return seminarScoreDao.getTeamAllScoreInRound(teamId,roundId);
     }
 }

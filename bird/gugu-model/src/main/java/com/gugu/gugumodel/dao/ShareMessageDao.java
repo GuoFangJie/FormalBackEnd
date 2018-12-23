@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.mapper.CourseMapper;
 import com.gugu.gugumodel.mapper.ShareSeminarMapper;
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
 import com.gugu.gugumodel.mapper.ShareTeamMapper;
@@ -19,6 +20,9 @@ public class ShareMessageDao {
 
     @Autowired
     ShareTeamMapper shareTeamMapper;
+
+    @Autowired
+    CourseMapper courseMapper;
 
     /**
      * 获得共享讨论课信息
@@ -84,5 +88,21 @@ public class ShareMessageDao {
      */
     public void changeTeamShareStatus(Long requestId,Byte status){
         shareTeamMapper.changeTeamShareStatus(requestId,status);
+    }
+
+    /**
+     * 新建共享申请
+     * 1 为共享讨论课
+     * 2为共享分组
+     * @param mainCourseId
+     * @param subCourseId
+     */
+    public void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Integer type){
+        Long subCourseTeacher=courseMapper.getTeacherIdByCourse(subCourseId);
+        if(type.equals(1)){
+            shareSeminarMapper.newShareSeminarApplication(mainCourseId,subCourseId,subCourseTeacher);
+        }else{
+            shareTeamMapper.newShareTeamApplication(mainCourseId,subCourseId,subCourseTeacher);
+        }
     }
 }
