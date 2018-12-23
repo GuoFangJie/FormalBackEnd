@@ -6,4 +6,7 @@
     <delete id="deleteByKlass" parameterType="java.lang.Long">
         delete from klass_round where klass_id=#{param1}
     </delete>
+    <insert id="newKlassRound">
+        insert klass_round(klass_id,round_id) values (#{param1},#{param2})
+    </insert>
 </mapper>

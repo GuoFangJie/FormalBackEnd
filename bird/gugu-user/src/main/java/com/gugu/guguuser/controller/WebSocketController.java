@@ -38,6 +38,7 @@ public class WebSocketController {
         this.seminarKlassId=seminarKlassId;
         this.session = session;
         webSocketSet.add(this);
+        System.out.println("连接成功");
         //加入set中
         addOnlineCount();
         sendMessage("连接成功");

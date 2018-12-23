@@ -32,7 +32,7 @@ public interface KlassStudentMapper {
 
     /**@author ljy
      * 添加成员
-     * @param 
+     * @param
      * @param studentId
      */
     void addMember(Long teamId,Long klassId, @Param("studentId") Long studentId);

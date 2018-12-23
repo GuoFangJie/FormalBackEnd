@@ -42,7 +42,7 @@ public class KlassStudentDao{
      * @param courseId
      * @return
      */
-    public Long getKlassIdByCourseAndStudent(Long studentId,Long courseId){
+    public Long getKlassIdByCourseAndStudent(Long courseId,Long studentId){
         return klassStudentMapper.getKlassIdByCourseAndStudent(courseId,studentId);
     }
 }
