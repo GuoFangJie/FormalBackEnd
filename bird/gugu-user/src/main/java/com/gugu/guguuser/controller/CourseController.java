@@ -10,7 +10,6 @@ import com.gugu.guguuser.service.KlassService;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

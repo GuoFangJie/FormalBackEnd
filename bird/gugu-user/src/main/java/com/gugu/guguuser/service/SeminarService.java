@@ -45,7 +45,7 @@ public class SeminarService {
      * @param seminarId
      * @return KlassEntiry
      */
-    public KlassEntity getKlassSeminatIn(Long seminarId){
+    public ArrayList<KlassEntity> getKlassSeminatIn(Long seminarId){
         return seminarDao.getKlassSeminatIn(seminarId);
     }
 

@@ -52,10 +52,14 @@ public class SeminarDao {
      * @param seminarId
      * @return KlassEntiry
      */
-    public KlassEntity getKlassSeminatIn(Long seminarId){
-        Long klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
+    public ArrayList<KlassEntity> getKlassSeminatIn(Long seminarId){
+        ArrayList<Long> klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
         System.out.println(klassId);
-       return klassMapper.getKlassById(klassId);
+        ArrayList<KlassEntity> klassEntities=new ArrayList<>();
+        for(int i=0;i<klassId.size();i++){
+            klassEntities.add(klassMapper.getKlassById(klassId.get(i)));
+        }
+       return klassEntities;
     }
 
     /**@author ljy
