@@ -6,6 +6,7 @@ import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 
@@ -80,5 +81,14 @@ public class AttendanceService {
      */
     public ArrayList<AttendanceEntity> getBySeminarKlassId(Long klassSeminarId){
         return attendanceDao.getBySeminarKlassId(klassSeminarId);
+    }
+
+    /**ljy
+     * 报名展示
+     * @param attendanceEntity
+     * @return
+     */
+    public Long newAttendance(AttendanceEntity attendanceEntity){
+        return attendanceDao.newAttendance(attendanceEntity);
     }
 }

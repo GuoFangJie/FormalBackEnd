@@ -12,7 +12,7 @@
     </resultMap>
 
     <insert id="teamValidRequest" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.TeamValidEntity">
-        insert into team_valid_application(team_id,teacher_id,reason,status) values (#{teamId},#{teacherId},#{reason},0)
+        insert into team_valid_application(team_id,teacher_id,reason,status) values (#{teamId},#{teacherId},#{reason},null)
     </insert>
 
     <select id="getTeamValidStatus" parameterType="java.lang.Long" resultType="java.lang.Long">
@@ -20,7 +20,7 @@
     </select>
 
     <select id="getTeamRequestList" resultMap="teamRequestResultList">
-        select id,team_id,teacher_id,reason,status from team_valid_application where teacher_id=#{param1}
+        select id,team_id,teacher_id,reason,status from team_valid_application where teacher_id=#{param1} and status=null
     </select>
 
     <select id="getTeamRequestById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamValidEntity">

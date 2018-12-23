@@ -21,4 +21,10 @@ public interface KlassRoundMapper {
      * @param roundId
      */
     void newKlassRound(Long klassId,Long roundId);
+
+    /**
+     * 删除课程下所有klassRound
+     * @param courseId
+     */
+    void deleteAllKlassRoundByCourseId(Long courseId);
 }
