@@ -17,7 +17,7 @@
     </select>
 
     <select id="getAllKlassSeminarId" parameterType="java.lang.Long">
-        select select id from klass_seminar where seminar_id=#{arg0}
+        select id from klass_seminar where seminar_id=#{arg0}
     </select>
 
     <delete id="deleteKlassSeminarById" parameterType="java.lang.Long">

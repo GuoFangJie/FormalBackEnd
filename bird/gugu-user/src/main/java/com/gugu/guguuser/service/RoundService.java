@@ -68,4 +68,11 @@ public class RoundService {
     public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
         return roundDao.getRoundMessageByCourseId(courseId);
     }
+
+    /**@author ljy
+     * 根据roundId获取roundSerial
+     */
+    public Long getRoundSerialById(Long roundId){
+        return roundDao.getRoundSerialById(roundId);
+    }
 }

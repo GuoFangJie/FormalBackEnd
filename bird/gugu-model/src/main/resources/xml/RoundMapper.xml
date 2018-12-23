@@ -25,4 +25,8 @@
     <update id="setSeminarRound">
         update round set round_serial=#{roundEntity.roundSerial} where id=#{roundId}
     </update>
+
+    <select id="getRoundSerialById" parameterType="java.lang.Long">
+        select round_serial from round where id=#{arg0}
+    </select>
 </mapper>

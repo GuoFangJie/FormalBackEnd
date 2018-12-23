@@ -38,4 +38,10 @@ public interface KlassStudentMapper {
     void addMember(@Param("team") TeamEntity teamEntity, @Param("studentId") Long studentId);
 
     Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
+
+    /**
+     * 根据id获取学生所在小组
+     * @return
+     */
+    public Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
 }

@@ -73,4 +73,11 @@ public class RoundDao {
     public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
         return roundMapper.getRoundMessageByCourseId(courseId);
     }
+
+    /**@author ljy
+     * 根据roundId获取roundSerial
+     */
+    public Long getRoundSerialById(Long roundId){
+        return roundMapper.getRoundSerialById(roundId);
+    }
 }

@@ -45,7 +45,7 @@
     </select>
 
     <select id="searchStudent" resultMap="studentResultList" parameterType="java.lang.String">
-        select id,account,student_name,email
+        select *
         from student
         where account=#{arg0} or student_name=#{arg0}
     </select>

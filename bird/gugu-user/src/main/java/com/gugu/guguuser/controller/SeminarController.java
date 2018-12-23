@@ -1,10 +1,12 @@
 package com.gugu.guguuser.controller;
 
+import com.gugu.gugumodel.dao.KlassDao;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.guguuser.service.KlassService;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class SeminarController {
     SeminarService seminarService;
     @Autowired
     RoundService roundService;
+    @Autowired
+    KlassService klassService;
 
     /**@author ljy
      * 新建讨论课,创建成功后返回seminarId
@@ -91,6 +95,7 @@ public class SeminarController {
         {
             throw new NotFoundException("can't find seminar!");
         }
+        roundService.getRoundSerialById(seminarEntity.getRoundId());
         return seminarEntity;
     }
 
@@ -124,7 +129,9 @@ public class SeminarController {
     @GetMapping("/{seminarId}/class/{classId}")
     public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId,@PathVariable("classId") Long classId){
         //获取seminar中的信息和klass_seminar中的讨论课状态
-        return seminarService.getSeminarInClass(seminarId,classId);
+         KlassSeminarEntity klassSeminarEntity=seminarService.getSeminarInClass(seminarId,classId);
+         klassService.getKlassById(classId);
+        return klassSeminarEntity;
     }
 
     /**@author ljy

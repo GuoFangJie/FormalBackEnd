@@ -2,6 +2,7 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.entity.KlassSeminarEntity;
 import com.gugu.gugumodel.entity.StudentEntity;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -9,6 +10,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -79,6 +82,16 @@ public class KlassService {
         klassSeminarDao.deleteKlassSeminar(klassId);
         klassDao.deleteKlassById(klassId);
         return true;
+    }
+
+
+    /**@author ljy
+     * 按照id获取班级下讨论课
+     * @param classId
+     * @return
+     */
+    public KlassEntity getKlassById(Long classId){
+         return klassDao.getKlassById(classId);
     }
 
 }

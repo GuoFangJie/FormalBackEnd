@@ -18,4 +18,8 @@
     <update id="addMember" >
         update klass_student set team_id=#{team.id} where klass_id=#{team.klassId} and student_id=#{studentId}
     </update>
+
+    <select id="getStudentTeam" resultType="java.lang.Long">
+        select team_id from klass_student where klass_id=#{klassId} and student_id=#{studentId}
+    </select>
 </mapper>

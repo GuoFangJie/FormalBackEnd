@@ -8,10 +8,19 @@ import java.util.Date;
  */
 public class KlassSeminarEntity {
   SeminarEntity seminarEntity;
+  KlassEntity klassEntity;
   Long klassId;
   Long klassSeminarId;
   Date reportDDL;
   Byte status;
+
+    public KlassEntity getKlassEntity() {
+        return klassEntity;
+    }
+
+    public void setKlassEntity(KlassEntity klassEntity) {
+        this.klassEntity = klassEntity;
+    }
 
     public SeminarEntity getSeminarEntity() {
         return seminarEntity;
