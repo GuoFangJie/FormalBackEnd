@@ -133,7 +133,7 @@ public class SeminarController {
     public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId, @PathVariable("classId")Long classId){
         //获取seminar中的信息和klass_seminar中的讨论课状态
          KlassSeminarEntity klassSeminarEntity=seminarService.getSeminarInClass(seminarId,classId);
-         klassService.getKlassById(classId);
+         klassSeminarEntity.setKlassEntity(klassService.getKlassById(classId));
         return klassSeminarEntity;
     }
 
