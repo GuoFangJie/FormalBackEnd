@@ -19,8 +19,12 @@
         select status from team_valid_application where team_id=#{arg0}
     </select>
 
-    <select id="getTeamRequestById" resultMap="teamRequestResultList" parameterType="java.lang.Long">
-        select * from team_valid_application where id=#{param1}
+    <select id="getTeamRequestList" resultMap="teamRequestResultList">
+        select id,team_id,teacher_id,reason,status from team_valid_application where teacher_id=#{param1}
+    </select>
+
+    <select id="getTeamRequestById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamValidEntity">
+        select id id,team_id teamId,teacher_id teacherId,reason reason,status status from team_valid_application where id=#{param1}
     </select>
 
     <update id="changeTeamRequestStatus">

@@ -110,4 +110,9 @@
         select teacher_id from course where id=#{arg0}
     </select>
 
+    <update id="changeSeminarShareStatus">
+        update course set seminar_main_course_id=#{param2}
+        where id=#{param1}
+    </update>
+
 </mapper>

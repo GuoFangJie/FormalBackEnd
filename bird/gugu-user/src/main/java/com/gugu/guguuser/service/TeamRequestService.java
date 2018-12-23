@@ -42,16 +42,22 @@ public class TeamRequestService {
         for(int i=0;i< teamRequestList.size();i++){
             Map teamMessage = new HashMap();
             TeamValidEntity teamRequest=teamRequestList.get(i);
-            teamMessage.put("requestId",teamRequest.getId());
+            if(teamRequest==null){
+                continue;
+            }
             CourseEntity course=courseDao.getCourseById(teamRequest.getCourseId());
-            teamMessage.put("courseId",teamRequest.getCourseId());
-            String courseName=course.getCourseName();
-            teamMessage.put("courseName",courseName);
             KlassEntity klass=klassDao.getKlassById(teamRequest.getClassId());
-            teamMessage.put("klassId",teamRequest.getClassId());
-            Byte klassSerial=klass.getKlassSerial();
-            teamMessage.put("klassSerial",klassSerial);
             StudentEntity leader=studentDao.getStudentById(teamRequest.getLeaderId());
+            if(teamRequest==null&&course==null&&klass==null&&leader==null){
+                continue;
+            }
+            String courseName=course.getCourseName();
+            Byte klassSerial=klass.getKlassSerial();
+            teamMessage.put("requestId",teamRequest.getId());
+            teamMessage.put("courseId",teamRequest.getCourseId());
+            teamMessage.put("courseName",courseName);
+            teamMessage.put("klassId",teamRequest.getClassId());
+            teamMessage.put("klassSerial",klassSerial);
             teamMessage.put("leaderId",leader.getId());
             teamMessage.put("leaderName",leader.getStudentName());
             teamMessage.put("reason",teamRequest.getReason());

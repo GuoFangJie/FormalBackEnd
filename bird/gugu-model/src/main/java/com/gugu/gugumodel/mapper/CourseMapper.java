@@ -59,4 +59,12 @@ public interface CourseMapper {
 
      Long getTeacherIdByCourse(Long courseId);
 
+     /**
+      * @author TYJ
+      * 修改课程共享讨论课的状态
+      * @param subCourseId
+      * @param mainCourseId
+      * @return
+      */
+     int changeSeminarShareStatus(Long subCourseId,Long mainCourseId);
 }
