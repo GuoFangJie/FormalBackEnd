@@ -22,7 +22,6 @@ import java.util.Date;
 @RestController
 @RequestMapping("/seminar")
 public class SeminarController {
-
     @Autowired
     SeminarService seminarService;
     @Autowired
