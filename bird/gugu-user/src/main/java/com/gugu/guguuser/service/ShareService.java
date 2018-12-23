@@ -4,6 +4,7 @@ import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.CourseEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.TeacherEntity;
 import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,11 +56,21 @@ public class ShareService {
         if(handleType.equals("accept")){
             status=1;
             ShareApplicationEntity shareApplicationEntity=shareMessageDao.getSeminarShareApplicationById(requestId);
+            //获得主课程
             CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
+            //获得从课程
+            CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
+            //删除从课程的所有seminar
             courseDao.deleteAllSeminarByCourseId(shareApplicationEntity.getSubCourseId());
+            //获得主课程的所有seminar,并加入到从课程的klass_seminar表中
             ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
-            //然后插入到klass_seminar表中
+            for(int i=0;i<seminarList.size();i++){
+                klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
+            }
+            //修改共享消息的状态
             shareMessageDao.changeSeminarShareStatus(requestId,status);
+            //修改课程共享的状态
+            courseDao.changeSeminarShareStatus(subCourse.getId(),mainCourse.getId());
         }
         else if(handleType.equals("refuse")){
             status=0;
@@ -91,16 +102,26 @@ public class ShareService {
         for(int i=0;i< shareList.size();i++){
             Map shareRequest = new HashMap();
             ShareApplicationEntity shareApplication=shareList.get(i);
-            shareRequest.put("requestId",shareApplication.getId());
+            if(shareApplication==null){
+                continue;
+            }
             CourseEntity mainCourse=courseDao.getCourseById(shareApplication.getMainCourseId());
             CourseEntity subCourse=courseDao.getCourseById(shareApplication.getSubCourseId());
+            if(mainCourse==null&&subCourse==null){
+                continue;
+            }
+            TeacherEntity mainTeacher=teacherDao.getTeacherById(mainCourse.getTeacherId());
+            if(mainTeacher==null){
+                continue;
+            }
+            shareRequest.put("requestId",shareApplication.getId());
             String mainCourseName=mainCourse.getCourseName();
             shareRequest.put("mainCourseId",shareApplication.getMainCourseId());
             shareRequest.put("mainCourseName",mainCourseName);
             String subCourseName=subCourse.getCourseName();
             shareRequest.put("subCourseId",shareApplication.getSubCourseId());
             shareRequest.put("subCourseName",subCourseName);
-            String mainTeacherName=teacherDao.getTeacherById(mainCourse.getTeacherId()).getTeacherName();
+            String mainTeacherName=mainTeacher.getTeacherName();
             shareRequest.put("mainTeacherId",shareApplication.getSubCourseTeacherId());
             shareRequest.put("mainTeacherName",mainTeacherName);
             shareRequest.put("type",shareApplication.getType());

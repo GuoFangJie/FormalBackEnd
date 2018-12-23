@@ -145,4 +145,16 @@ public class CourseDao{
     public ArrayList<TeamEntity> getAllTeamByCourse(Long courseId){
         return teamMapper.getAllTeamByCourse(courseId);
     }
+    /**
+     * @author TYJ
+     * 修改课程共享讨论课的状态
+     * @param subCourseId
+     * @param mainCourseId
+     * @return
+     */
+    public int changeSeminarShareStatus(Long subCourseId,Long mainCourseId){
+        return courseMapper.changeSeminarShareStatus(subCourseId,mainCourseId);
+    }
+
+
 }
