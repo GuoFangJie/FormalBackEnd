@@ -36,7 +36,7 @@ public interface SeminarMapper {
      * @param seminarId
      * @return KlassEntiry
      */
-    public ArrayList<Long> getKlassIdBySeminerId(Long seminarId);
+     ArrayList<Long> getKlassIdBySeminerId(Long seminarId);
 
     /**@author ljy
      * 按照id修改讨论课

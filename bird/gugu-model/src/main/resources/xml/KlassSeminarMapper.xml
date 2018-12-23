@@ -54,7 +54,7 @@
 
     <insert id="addKlassSeminar" useGeneratedKeys="true" keyProperty="id">
         insert into klass_seminar(klass_id,seminar_id,report_ddl,status)
-        values (#{arg1},#{arg0},null ,0)
+        values (#{param2},#{param1},null ,0)
     </insert>
     <insert id="newKlassSeminar">
         insert klass_seminar(klass_id,seminar_id,status)

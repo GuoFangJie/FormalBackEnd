@@ -97,7 +97,7 @@ public class SeminarController {
         {
             throw new NotFoundException("can't find seminar!");
         }
-        roundService.getRoundSerialById(seminarEntity.getRoundId());
+        seminarEntity.setRoundSerial(roundService.getRoundSerialById(seminarEntity.getRoundId()));
         return seminarEntity;
     }
 
@@ -210,6 +210,6 @@ public class SeminarController {
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         String role=httpServletRequest.getAttribute("role").toString();
-        return "ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}";
+        return "ws:/websocket/"+seminarKlassId+"/"+userId+"/"+role+"";
     }
 }

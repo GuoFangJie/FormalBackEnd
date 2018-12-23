@@ -54,8 +54,8 @@ public class SeminarDao {
      */
     public ArrayList<KlassEntity> getKlassSeminatIn(Long seminarId){
         ArrayList<Long> klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
-        //System.out.println(klassId);
-        ArrayList<KlassEntity> klassEntities=new ArrayList<KlassEntity>();
+        System.out.println(klassId);
+        ArrayList<KlassEntity> klassEntities=new ArrayList<>();
         for(int i=0;i<klassId.size();i++){
             klassEntities.add(klassMapper.getKlassById(klassId.get(i)));
         }
@@ -139,6 +139,7 @@ public class SeminarDao {
         KlassSeminarEntity klassSeminarEntity1= klassSeminarMapper.getSeminarInClass(seminarId,klassId);
         klassSeminarEntity.setReportDDL(klassSeminarEntity1.getReportDDL());
         klassSeminarEntity.setStatus(klassSeminarEntity1.getStatus());
+        klassSeminarEntity.setKlassSeminarId(klassSeminarEntity1.getKlassSeminarId());
         return klassSeminarEntity;
     }
 

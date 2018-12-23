@@ -73,7 +73,7 @@ public class RoundService {
     /**@author ljy
      * 根据roundId获取roundSerial
      */
-    public Long getRoundSerialById(Long roundId){
+    public Byte getRoundSerialById(Long roundId){
         return roundDao.getRoundSerialById(roundId);
     }
 }
