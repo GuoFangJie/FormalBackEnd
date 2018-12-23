@@ -66,4 +66,23 @@ public class ShareMessageDao {
         }
         return shareTeamList;
     }
+
+    /**
+     * 根据ID获取共享分组请求信息
+     * @param requestId
+     * @return
+     */
+    public ShareApplicationEntity getTeamShareApplicationById(Long requestId){
+        return shareTeamMapper.getTeamShareApplicationById(requestId);
+    }
+
+    /**
+     * 修改共享分组申请的状态
+     * @param requestId
+     * @param status
+     * @return
+     */
+    public void changeTeamShareStatus(Long requestId,Byte status){
+        shareTeamMapper.changeTeamShareStatus(requestId,status);
+    }
 }

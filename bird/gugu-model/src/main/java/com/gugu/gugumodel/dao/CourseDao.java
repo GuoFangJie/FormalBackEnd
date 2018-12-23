@@ -8,6 +8,7 @@ import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.CourseMapper;
 import com.gugu.gugumodel.mapper.TeamMapper;
+import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,9 @@ public class CourseDao{
     CourseMapper courseMapper;
     @Autowired
     TeamMapper teamMapper;
+
+    @Autowired
+    KlassSeminarMapper klassSeminarMapper;
 
 
     /**
@@ -134,6 +138,7 @@ public class CourseDao{
     }
 
     public void deleteAllSeminarByCourseId(Long courseId){
+        klassSeminarMapper.deleteAllKlassSeminarByCourseId(courseId);
         courseMapper.deleteAllSeminarByCourseId(courseId);
     }
 
@@ -156,5 +161,15 @@ public class CourseDao{
         return courseMapper.changeSeminarShareStatus(subCourseId,mainCourseId);
     }
 
+    /**
+     * @author TYJ
+     * 修改课程共享分组的状态
+     * @param subCourseId
+     * @param mainCourseId
+     * @return
+     */
+    public int changeTeamShareStatus(Long subCourseId,Long mainCourseId){
+        return courseMapper.changeTeamShareStatus(subCourseId,mainCourseId);
+    }
 
 }

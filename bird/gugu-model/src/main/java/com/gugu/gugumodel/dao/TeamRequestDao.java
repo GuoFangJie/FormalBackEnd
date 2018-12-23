@@ -1,9 +1,12 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.ShareApplicationEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.gugumodel.entity.TeamValidEntity;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.ShareSeminarMapper;
 import com.gugu.gugumodel.mapper.ShareTeamMapper;
+import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.mapper.TeamValidRequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,13 +22,25 @@ public class TeamRequestDao {
     @Autowired
     TeamValidRequestMapper teamValidRequestMapper;
 
+    @Autowired
+    StudentMapper studentMapper;
+
 
     /**
      * 教师获得组队申请信息
      * @param teacherId
      * @return
      */
-    public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId){
+    public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId) throws NotFoundException{
+        ArrayList<TeamValidEntity> teamRequestList=teamValidRequestMapper.getTeamRequestList(teacherId);
+        for(int i=0;i<teamRequestList.size();i++){
+            Long teamId=teamRequestList.get(i).getTeamId();
+            StudentEntity leader=studentMapper.getLeader(teamId);
+            if(leader==null){
+                throw new NotFoundException("没有找到相应的组长");
+            }
+            teamRequestList.get(i).setLeaderId(leader.getId());
+        }
         return teamValidRequestMapper.getTeamRequestList(teacherId);
     }
 

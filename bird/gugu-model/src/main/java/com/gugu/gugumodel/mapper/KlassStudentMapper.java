@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Mapper
 @Repository
 public interface KlassStudentMapper {
@@ -59,4 +61,28 @@ public interface KlassStudentMapper {
      * @return
      */
     Long getKlassIdByCourseAndStudent(Long courseId,Long studentId);
+
+    /**
+     * 根据teamId获得studentId
+     * @param teamId
+     * @return
+     */
+    ArrayList<Long> getStudentByTeamId(Long teamId);
+
+    /**
+     * @author TYJ
+     * 删除课程下所有学生组内信息
+     * @param courseId
+     * @return
+     */
+    void removeAllMemberByCourseId(Long courseId);
+
+    /**
+     * @author TYJ
+     * 更新学生的队伍信息
+     * @param studentId
+     * @param teamId
+     * @return
+     */
+    void updateTeamByStudentId(Long studentId,Long teamId);
 }

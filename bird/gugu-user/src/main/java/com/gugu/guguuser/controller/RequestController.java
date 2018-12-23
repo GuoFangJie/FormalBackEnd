@@ -61,6 +61,17 @@ public class RequestController {
     }
 
     /**
+     * 修改共享分组申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    @PutMapping("/{requestId}/teamshare")
+    public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+        return shareService.changeTeamShareStatus(requestId,handleType);
+    }
+
+    /**
      * 教师获得组队申请信息
      * @param httpServletRequest
      * @return

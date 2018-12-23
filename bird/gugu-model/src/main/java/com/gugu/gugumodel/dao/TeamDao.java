@@ -111,4 +111,37 @@ public class TeamDao{
     public int changeTeamStatus(Long teamId,Byte status){
         return teamMapper.changeTeamStatus(teamId,status);
     }
+
+    /**
+     * @author TYJ
+     * 删除课程下的所有小组
+     * @param courseId
+     * @return
+     */
+    public void deleteAllTeamByCourseId(Long courseId){
+        klassStudentMapper.removeAllMemberByCourseId(courseId);
+        teamMapper.deleteAllTeamByCourseId(courseId);
+    }
+
+    /**
+     * @author TYJ
+     * 根据课程获得所有小组
+     * @param courseId
+     * @return
+     */
+    public ArrayList<TeamEntity> getAllTeamByCourseId(Long courseId){
+        return teamMapper.getAllTeamByCourseId(courseId);
+    }
+
+    /**
+     * @author TYJ
+     * 创建队伍,返回队伍id
+     * @param teamEntity
+     * @return
+     */
+    public Long createTeam(TeamEntity teamEntity){
+        teamMapper.newTeam(teamEntity);
+        Long teamId=teamEntity.getId();
+        return teamId;
+    }
 }

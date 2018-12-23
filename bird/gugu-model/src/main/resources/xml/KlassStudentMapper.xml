@@ -32,4 +32,15 @@
     <select id="getStudentTeam" resultType="java.lang.Long">
         select team_id from klass_student where klass_id=#{klassId} and student_id=#{studentId}
     </select>
+
+    <select id="getStudentByTeamId" resultType="java.lang.Long">
+        select student_id from klass_student where team_id=#{param1}
+    </select>
+
+    <update id="removeAllMemberByCourseId">
+        update klass_student set team_id=null where course_id=#{param1}
+    </update>
+    <update id="updateTeamByStudentId">
+        update klass_student set team_id=#{param2} where student_id=#{param1}
+    </update>
 </mapper>

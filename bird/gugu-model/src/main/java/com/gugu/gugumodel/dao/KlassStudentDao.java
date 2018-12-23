@@ -5,6 +5,8 @@ import com.gugu.gugumodel.mapper.KlassStudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public class KlassStudentDao{
     @Autowired
@@ -44,5 +46,25 @@ public class KlassStudentDao{
      */
     public Long getKlassIdByCourseAndStudent(Long courseId,Long studentId){
         return klassStudentMapper.getKlassIdByCourseAndStudent(courseId,studentId);
+    }
+
+    /**
+     * 根据teamId获得studentId
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Long> getStudentByTeamId(Long teamId){
+        return klassStudentMapper.getStudentByTeamId(teamId);
+    }
+
+    /**
+     * @author TYJ
+     * 更新学生的队伍信息
+     * @param studentId
+     * @param teamId
+     * @return
+     */
+    public void updateTeamByStudentId(Long studentId,Long teamId){
+        klassStudentMapper.updateTeamByStudentId(studentId,teamId);
     }
 }
