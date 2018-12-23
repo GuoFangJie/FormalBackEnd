@@ -30,9 +30,9 @@
         delete from klass_student where team_id=#{arg0}
     </delete>
 
-    <insert id="buildRelationStuAndTeam" >
-        insert into klass_student(klass_id,student_id,course_id,team_id) values (#{teamEntity.klassId},#{studentId},#{teamEntity.courseId},#{teamEntity.id});
-    </insert>
+    <update id="buildRelationStuAndTeam">
+        update klass_student set team_id=#{teamId} where student_id=#{studentId}
+    </update>
 
     <delete id="deleteTeam" parameterType="java.lang.Long">
         delete from team where id=#{arg0}
@@ -66,4 +66,9 @@
     <update id="changeTeamStatus">
         update team set status=#{param2} where id=#{param1}
     </update>
+
+    <select id="getAllTeamByCourse" parameterType="java.lang.Long" resultMap="TeamEntity">
+        select id,klass_id,course_id,leader_id,team_name,team_serial,
+               status from team where course_id=#{param1}
+    </select>
 </mapper>

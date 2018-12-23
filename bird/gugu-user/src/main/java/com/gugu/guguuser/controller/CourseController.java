@@ -133,6 +133,16 @@ public class CourseController {
         }
     }
 
+    @GetMapping("/{courseId}/teams")
+    public ArrayList<TeamMessageVO> getTeamsMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
+        ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
+        ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
+        for(int i=0;i<teamsId.size();i++){
+            TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),studentService.getMembers(teamsId.get(i).getId()));
+        }
+        return teamMessageVOS;
+    }
+
     /**
      * 获取同一个课程下面未组队的同学，不包括自己
      * @param courseId

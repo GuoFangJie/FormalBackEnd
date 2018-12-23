@@ -116,4 +116,13 @@ public class CourseService {
             return courseDao.deleteTeamShare(shareId);
         }
     }
+
+    /**
+     * 获取课程下所有的小组信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<TeamEntity> getAllTeamByCourse(Long courseId){
+        return  courseDao.getAllTeamByCourse(courseId);
+    }
 }

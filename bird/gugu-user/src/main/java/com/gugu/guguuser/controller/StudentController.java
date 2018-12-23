@@ -45,4 +45,15 @@ public class StudentController {
         studentEntity.setTeamId(studentService.getStudentTeam(studentEntity.getId(),classId));
         return studentEntity;
     }
+
+    /**
+     * 获取当前账号
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("getaccount")
+    public String getAccount(HttpServletRequest httpServletRequest){
+        Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        return studentService.getStudentById(userId).getAccount();
+    }
 }

@@ -18,7 +18,7 @@ public interface TeamMapper {
 
     void deleteStudentFromTeam(Long teamId);
 
-    void buildRelationStuAndTeam(@Param("studentId") Long studentId, @Param("teamEntity") TeamEntity teamEntity);
+    void buildRelationStuAndTeam(@Param("studentId") Long studentId, @Param("teamId")Long teamId );
 
     /**
      * 根据id删除team
@@ -59,4 +59,11 @@ public interface TeamMapper {
     Long getKlassIdByTeamId(Long teamId);
 
     int changeTeamStatus(Long teamId,Byte status);
+
+    /**
+     * 获取课程下所有的小组信息
+     * @param courseId
+     * @return
+     */
+    ArrayList<TeamEntity> getAllTeamByCourse(Long courseId);
 }
