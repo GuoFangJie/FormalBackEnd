@@ -105,4 +105,14 @@ public class AttendanceDao {
     public ArrayList<AttendanceEntity> getBySeminarKlassId(Long seminarKlassId){
         return attendanceMapper.getBySeminarKlassId(seminarKlassId);
     }
+
+    /**ljy
+     * 报名展示
+     * @param attendanceEntity
+     * @return
+     */
+    public Long newAttendance(AttendanceEntity attendanceEntity){
+        attendanceMapper.newAttendance(attendanceEntity);
+        return attendanceEntity.getId();
+    }
 }

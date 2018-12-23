@@ -38,4 +38,9 @@
                is_present isPresent,report_name reportName,report_url reportUrl,
                ppt_name pptName,ppt_url pptUrl from attendance where klass_seminar_id={param1}
     </select>
+
+    <insert id="newAttendance" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.AttendanceEntity">
+        insert into attendance(klass_seminar_id,team_id,team_order,is_present)
+        values (#{klassSeminarId},#{teamId},#{teamOrder},0)
+    </insert>
 </mapper>

@@ -69,4 +69,12 @@ public interface AttendanceMapper {
      * @return
      */
    ArrayList<AttendanceEntity> getBySeminarKlassId(Long seminarKlassId);
+
+
+    /**ljy
+     * 报名展示
+     * @param attendanceEntity
+     * @return
+     */
+    public Long newAttendance(AttendanceEntity attendanceEntity);
 }

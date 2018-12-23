@@ -145,4 +145,14 @@ public class AttendanceController {
         return attendanceEntities;
     }
 
+    /**ljy
+     * 报名展示
+     * @param attendanceEntity
+     * @return
+     */
+    @PostMapping("")
+    public Long newAttendance(@RequestBody AttendanceEntity attendanceEntity){
+        return attendanceService.newAttendance(attendanceEntity);
+    }
+
 }
