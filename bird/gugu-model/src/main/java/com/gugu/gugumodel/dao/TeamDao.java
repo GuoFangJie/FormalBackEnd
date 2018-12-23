@@ -39,7 +39,7 @@ public class TeamDao{
 
 
     public void buildRelationStuAndTeam(Long studentId,TeamEntity teamEntity){
-        teamMapper.buildRelationStuAndTeam(studentId,teamEntity);
+        teamMapper.buildRelationStuAndTeam(studentId,teamEntity.getId());
     }
 
 

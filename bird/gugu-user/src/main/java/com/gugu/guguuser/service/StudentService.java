@@ -91,4 +91,11 @@ public class StudentService {
     public Long getStudentTeam(Long studentId,Long classId){
         return studentDao.getStudentTeam(studentId,classId);
     }
+
+    /**
+     * 根据id获取学生
+     */
+    public StudentEntity getStudentById(Long studentId){
+        return studentDao.getStudentById(studentId);
+    }
 }

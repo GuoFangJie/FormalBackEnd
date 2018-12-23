@@ -7,6 +7,7 @@ import com.gugu.gugumodel.entity.ShareMessageEntity;
 import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.CourseMapper;
+import com.gugu.gugumodel.mapper.TeamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 public class CourseDao{
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    TeamMapper teamMapper;
 
 
     /**
@@ -134,5 +137,12 @@ public class CourseDao{
         courseMapper.deleteAllSeminarByCourseId(courseId);
     }
 
-
+    /**
+     * 获取一个课程下的所有小组
+     * @param courseId
+     * @return
+     */
+    public ArrayList<TeamEntity> getAllTeamByCourse(Long courseId){
+        return teamMapper.getAllTeamByCourse(courseId);
+    }
 }
