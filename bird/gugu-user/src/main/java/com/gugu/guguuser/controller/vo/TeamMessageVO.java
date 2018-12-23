@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * 将小组的详细信息返回给前端的类
  * @author ren
  */
-public class TeamMessageVO implements Serializable {
+public class TeamMessageVO{
     Long teamId;
     String team_name;
     Long course_id;

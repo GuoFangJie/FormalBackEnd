@@ -23,6 +23,7 @@ public class TeamDao{
     TeamValidRequestMapper teamValidRequestMapper;
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
+
     public TeamEntity getTeamById(Long team_id) {
         return teamMapper.findTeamById(team_id);
     }
