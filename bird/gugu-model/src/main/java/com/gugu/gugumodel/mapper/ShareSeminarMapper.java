@@ -20,5 +20,20 @@ public interface ShareSeminarMapper {
      */
     public ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId);
 
+    /**
+     * 根据ID获取共享请求信息
+     * @param requestId
+     * @return
+     */
+    public ShareApplicationEntity getSeminarShareApplicationById(Long requestId);
+
+    /**
+     * 修改共享讨论课申请的状态
+     * @param requestId
+     * @param status
+     * @return
+     */
+    public void changeSeminarShareStatus(Long requestId,Byte status);
+
 
 }

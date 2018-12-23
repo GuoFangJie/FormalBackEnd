@@ -3,6 +3,13 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeamValidRequestMapper">
+    <resultMap id="teamRequestResultList" type="com.gugu.gugumodel.entity.TeamValidEntity">
+        <id column="id" property="id"/>
+        <result column="team_id" property="teamId"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="reason" property="reason"/>
+        <result column="status" property="status"/>
+    </resultMap>
 
     <insert id="teamValidRequest" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.TeamValidEntity">
         insert into team_valid_application(team_id,teacher_id,reason,status) values (#{teamId},#{teacherId},#{reason},0)
@@ -11,5 +18,13 @@
     <select id="getTeamValidStatus" parameterType="java.lang.Long" resultType="java.lang.Long">
         select status from team_valid_application where team_id=#{arg0}
     </select>
+
+    <select id="getTeamRequestById" resultMap="teamRequestResultList" parameterType="java.lang.Long">
+        select * from team_valid_application where id=#{param1}
+    </select>
+
+    <update id="changeTeamRequestStatus">
+        update team_valid_application set status=#{param2} where id=#{param1}
+    </update>
 
 </mapper>

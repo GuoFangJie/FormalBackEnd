@@ -36,22 +36,24 @@ public class CourseController {
      * @return
      */
     @GetMapping("")
-    public ArrayList<SimpleCourseEntity> getCourseByUser(HttpServletRequest httpServletRequest){
+    public ArrayList<SimpleCourseVO> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         String role=httpServletRequest.getAttribute("role").toString();
         ArrayList<SimpleCourseEntity> simpleCourseEntities=courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
+        ArrayList<SimpleCourseVO> simpleCourseVOS=new ArrayList<>();
         if(role.equals("ROLE_Teacher")) {
-            return simpleCourseEntities;
-        }else{
-            ArrayList<SimpleCourseVO> simpleCourseVOS=new ArrayList<>();
             for(int i=0;i<simpleCourseEntities.size();i++){
-                SimpleCourseVO simpleCourseVO=(SimpleCourseVO) simpleCourseEntities.get(i);
-                simpleCourseVO.setKlassId(1L);
+                SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
                 simpleCourseVOS.add(simpleCourseVO);
             }
-            //return simpleCourseVOS;
+        }else{
+            for(int i=0;i<simpleCourseEntities.size();i++){
+                SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
+                simpleCourseVO.setKlassId(klassService.getKlassIdByCourseAndStudent(Long.parseLong(simpleCourseVO.getId().toString()),Long.parseLong(userId)));
+                simpleCourseVOS.add(simpleCourseVO);
+            }
         }
-        return simpleCourseEntities;
+        return simpleCourseVOS;
     }
 
     /**

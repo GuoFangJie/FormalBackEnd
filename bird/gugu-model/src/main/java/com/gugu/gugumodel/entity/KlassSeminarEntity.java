@@ -13,6 +13,11 @@ public class KlassSeminarEntity {
   Long klassSeminarId;
   Date reportDDL;
   Byte status;
+    SeminarEntity seminarEntity;
+    Long klassId;
+    Long klassSeminarId;
+    Date reportDDL;
+    Byte status;
 
     public KlassEntity getKlassEntity() {
         return klassEntity;

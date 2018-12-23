@@ -37,6 +37,12 @@ public interface KlassStudentMapper {
      */
     void addMember(@Param("team") TeamEntity teamEntity, @Param("studentId") Long studentId);
 
+    /**
+     * 根据班级和学生获取小组id
+     * @param klassId
+     * @param studentId
+     * @return
+     */
     Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
 
     /**
@@ -44,4 +50,13 @@ public interface KlassStudentMapper {
      * @return
      */
     public Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
+
+
+    /**
+     * 根据学生和课程获取班级id
+     * @param courseId
+     * @param studentId
+     * @return
+     */
+    Long getKlassIdByCourseAndStudent(Long courseId,Long studentId);
 }

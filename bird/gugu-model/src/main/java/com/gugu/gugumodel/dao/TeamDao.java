@@ -69,7 +69,7 @@ public class TeamDao{
 
 
     public void teamValidRequest(TeamValidEntity teamValidEntity){
-            teamValidRequestMapper.teamValidRequest(teamValidEntity);
+        teamValidRequestMapper.teamValidRequest(teamValidEntity);
     }
 
 
@@ -98,5 +98,16 @@ public class TeamDao{
         Long teamId=teamEntity.getId();
         System.out.println(teamId);
         return teamId;
+    }
+
+    /**
+     * @author TYJ
+     * 修改小组状态
+     * @param teamId
+     * @param status
+     * @return
+     */
+    public int changeTeamStatus(Long teamId,Byte status){
+        return teamMapper.changeTeamStatus(teamId,status);
     }
 }

@@ -1,10 +1,13 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.AttendanceDao;
+import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -68,5 +71,14 @@ public class AttendanceService {
      */
     public FileEntity getPpt(Long attendanceId){
         return attendanceDao.getPptPath(attendanceId);
+    }
+
+    /**
+     * 获取报名讨论课的小组列表
+     * @param klassSeminarId
+     * @return
+     */
+    public ArrayList<AttendanceEntity> getBySeminarKlassId(Long klassSeminarId){
+        return attendanceDao.getBySeminarKlassId(klassSeminarId);
     }
 }

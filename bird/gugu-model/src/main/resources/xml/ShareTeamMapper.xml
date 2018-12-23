@@ -3,7 +3,7 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.ShareTeamMapper">
-    <resultMap id="shareTeamResultList" type="com.gugu.gugumodel.entity.ShareMessageEntity">
+    <resultMap id="shareTeamResultList" type="com.gugu.gugumodel.entity.TeamValidEntity">
         <id column="id" property="id"/>
         <result column="main_course_id" property="mainCourseId"/>
         <result column="sub_course_id" property="subCourseId"/>

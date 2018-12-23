@@ -12,6 +12,12 @@
         select id from klass_seminar where klass_id=#{param1}
     </select>
 
+    <select id="getKlassSeminarEntityByKlassId" resultType="com.gugu.gugumodel.entity.KlassSeminarEntity">
+        select seminar_id seminarEntity.id,klass_id klassId,id klassSeminarId,reportDDL report_ddl,status status
+        from klass_seminar
+        where klass_id=#{param1}
+    </select>
+
     <select id="getKlassSeminarId" resultType="java.lang.Long">
         select id from klass_seminar where seminar_id=#{arg0} and klass_id=#{arg1}
     </select>
@@ -30,7 +36,7 @@
 
     <select id="getSeminarInClass" resultType="com.gugu.gugumodel.entity.KlassSeminarEntity">
         select klass_seminar.report_ddl reportDDL,klass_seminar.status status from klass_seminar
-        where  klass_id=#{arg1} and seminar_id=#{arg0}
+        where  klass_id=#{param2} and seminar_id=#{param1}
     </select>
 
     <update id="setSeminarStatus">

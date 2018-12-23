@@ -17,5 +17,25 @@ public interface TeamValidRequestMapper {
 
      Long getTeamValidStatus(Long teamId);
 
+     /**
+      * 教师获得组队申请信息
+      * @param teacherId
+      * @return
+      */
      ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId);
+
+     /**
+      * 根据ID获取组队申请信息
+      * @param requestId
+      * @return
+      */
+     TeamValidEntity getTeamRequestById(Long requestId);
+
+     /**
+      * 修改组队申请的状态
+      * @param requestId
+      * @param status
+      * @return
+      */
+     void changeTeamRequestStatus(Long requestId,Byte status);
 }

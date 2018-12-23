@@ -12,6 +12,7 @@ import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -127,7 +128,7 @@ public class SeminarController {
      * @return
      */
     @GetMapping("/{seminarId}/class/{classId}")
-    public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId,@PathVariable("classId") Long classId){
+    public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId, @PathVariable("classId")Long classId){
         //获取seminar中的信息和klass_seminar中的讨论课状态
          KlassSeminarEntity klassSeminarEntity=seminarService.getSeminarInClass(seminarId,classId);
          klassService.getKlassById(classId);
@@ -196,5 +197,12 @@ public class SeminarController {
     @GetMapping("/{seminarId}/seminarscore")
     public ArrayList<SeminarScoreEntity> getSeminarAllScore(@PathVariable Long seminarId,Long classId){
         return seminarService.getSeminarAllScore(seminarId,classId);
+    }
+
+    @GetMapping("/{seminarKlassId}/seminarEnter")
+    public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
+        Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
+        String role=httpServletRequest.getAttribute("role").toString();
+        return "ws:/websocket/{"+seminarKlassId+"}/{"+userId+"}/{"+role+"}";
     }
 }

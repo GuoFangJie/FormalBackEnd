@@ -67,5 +67,11 @@ public interface SeminarMapper {
      */
     public Long getRoundId(Long seminarId);
 
+    /**@author TYJ
+     * 获取一个课程下所有的讨论课
+     * @param courseId
+     * @return
+     */
+    ArrayList<SeminarEntity> getSeminarByCourseId(Long courseId);
 
 }

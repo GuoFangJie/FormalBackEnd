@@ -57,4 +57,6 @@ public interface TeamMapper {
      * @return
      */
     Long getKlassIdByTeamId(Long teamId);
+
+    int changeTeamStatus(Long teamId,Byte status);
 }

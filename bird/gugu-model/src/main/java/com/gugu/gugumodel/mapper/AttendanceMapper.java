@@ -5,6 +5,8 @@ import com.gugu.gugumodel.entity.FileEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 /**
  * @author ren
  */
@@ -60,4 +62,11 @@ public interface AttendanceMapper {
      * @return
      */
    FileEntity getPptPath(Long attendanceId);
+
+    /**
+     * 获取报名讨论课的展示信息
+     * @param seminarKlassId
+     * @return
+     */
+   ArrayList<AttendanceEntity> getBySeminarKlassId(Long seminarKlassId);
 }
