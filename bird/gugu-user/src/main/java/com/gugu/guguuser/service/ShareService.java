@@ -1,10 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.entity.CourseEntity;
-import com.gugu.gugumodel.entity.SeminarEntity;
-import com.gugu.gugumodel.entity.ShareApplicationEntity;
-import com.gugu.gugumodel.entity.TeacherEntity;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +29,16 @@ public class ShareService {
     KlassDao klassDao;
 
     @Autowired
+    KlassStudentDao klassStudentDao;
+
+    @Autowired
     TeacherDao teacherDao;
 
+    @Autowired
+    StudentDao studentDao;
+
+    @Autowired
+    TeamDao teamDao;
 
     /**
      * 获得共享讨论课信息
@@ -93,6 +98,43 @@ public class ShareService {
     }
 
     /**
+     * 修改共享组队申请的状态
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    public boolean changeTeamShareStatus(Long requestId,String handleType) throws ParamErrorException{
+        Byte status;
+        if(handleType.equals("accept")){
+            status=1;
+            ShareApplicationEntity shareApplicationEntity=shareMessageDao.getTeamShareApplicationById(requestId);
+            //获得主课程
+            CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
+            //获得从课程
+            CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
+            //删除从课程的所有team
+            teamDao.deleteAllTeamByCourseId(subCourse.getId());
+            //获得所有主课程的team
+            ArrayList<TeamEntity> teamList=teamDao.getAllTeamByCourseId(mainCourse.getId());
+            //转换team的课程
+            for(int i=0;i<teamList.size();i++){
+                this.teamChangeCourse(teamList.get(i),mainCourse,subCourse);
+            }
+            //修改课程共享的状态
+            courseDao.changeTeamShareStatus(subCourse.getId(),mainCourse.getId());
+        }
+        else if(handleType.equals("refuse")){
+            status=0;
+        }
+        else{
+            throw new ParamErrorException("请求参数错误（必须为accept/refuse）");
+        }
+        //修改申请信息的状态
+        shareMessageDao.changeTeamShareStatus(requestId,status);
+        return true;
+    }
+
+    /**
      * 生成申请信息
      * @param shareList
      * @return
@@ -130,4 +172,62 @@ public class ShareService {
         }
         return shareRequestList;
     }
+
+    /**
+     * 转换小组的课程
+     * @param teamEntity
+     * @param mainCourse
+     * @param subCourse
+     * @return
+     */
+    private void teamChangeCourse(TeamEntity teamEntity,CourseEntity mainCourse,CourseEntity subCourse){
+        ArrayList<Long> studentList=klassStudentDao.getStudentByTeamId(mainCourse.getId());
+        ArrayList<Long> newStudentList=new ArrayList<Long>();
+        //多数学生所在的klassId
+        Long maxKlassId=null;
+        for(int i=0;i<studentList.size();i++){
+            Map<Long,Integer> klassMap=new HashMap<>();
+            Integer temp=0;
+            StudentEntity student=studentDao.getStudentById(studentList.get(i));
+            //获得这个学生的klassId
+            Long klassId=klassStudentDao.getKlassIdByCourseAndStudent(student.getId(),subCourse.getId());
+            //收集每个学生的klassId
+            if(klassId!=null){
+                Integer klassCount=klassMap.get(klassId);
+                newStudentList.add(klassId);
+                if(klassCount==null){
+                    klassMap.put(klassId,1);
+                }
+                else{
+                    klassMap.put(klassId,klassCount+1);
+                }
+            }
+            //取出人数最多的klassId
+            for (Long key : klassMap.keySet()) {
+                Integer value=klassMap.get(key);
+                temp=(value>temp)?value:temp;
+                maxKlassId=key;
+            }
+        }
+        //设置新组的klassId为队伍里人数最多的klassId
+        teamEntity.setKlassId(maxKlassId);
+        //设置新组的courseId为从课程的courseId
+        teamEntity.setCourseId(subCourse.getId());
+        //创建新组的副本
+        Long newTeamId=teamDao.createTeam(teamEntity);
+        this.setNewTeamByStudentId(newStudentList,newTeamId);
+    }
+
+    /**
+     * 设置学生的新team
+     * @param studentList
+     * @param teamId
+     * @return
+     */
+    private void setNewTeamByStudentId(ArrayList<Long> studentList,Long teamId){
+        for(int i=0;i<studentList.size();i++){
+            klassStudentDao.updateTeamByStudentId(studentList.get(i),teamId);
+        }
+    }
+
 }

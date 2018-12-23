@@ -115,4 +115,9 @@
         where id=#{param1}
     </update>
 
+    <update id="changeTeamShareStatus">
+        update course set team_main_course_id=#{param2}
+        where id=#{param1}
+    </update>
+
 </mapper>

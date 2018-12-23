@@ -18,6 +18,21 @@ public interface ShareTeamMapper {
      * @param userId
      * @return
      */
-    public ArrayList<ShareApplicationEntity> getTeamShareList(Long userId);
+    ArrayList<ShareApplicationEntity> getTeamShareList(Long userId);
+
+    /**
+     * 根据ID获取共享分组请求信息
+     * @param requestId
+     * @return
+     */
+    ShareApplicationEntity getTeamShareApplicationById(Long requestId);
+
+    /**
+     * 修改共享分组申请的状态
+     * @param requestId
+     * @param status
+     * @return
+     */
+    void changeTeamShareStatus(Long requestId,Byte status);
 
 }

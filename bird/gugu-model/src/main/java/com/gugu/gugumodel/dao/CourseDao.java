@@ -150,5 +150,15 @@ public class CourseDao{
         return courseMapper.changeSeminarShareStatus(subCourseId,mainCourseId);
     }
 
+    /**
+     * @author TYJ
+     * 修改课程共享分组的状态
+     * @param subCourseId
+     * @param mainCourseId
+     * @return
+     */
+    public int changeTeamShareStatus(Long subCourseId,Long mainCourseId){
+        return courseMapper.changeTeamShareStatus(subCourseId,mainCourseId);
+    }
 
 }

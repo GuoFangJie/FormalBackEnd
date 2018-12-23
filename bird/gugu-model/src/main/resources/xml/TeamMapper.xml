@@ -18,7 +18,7 @@
     </select>
 
     <select id="getLeaderId" parameterType="java.lang.Long">
-          select leader_id from team where id=#{arg0}
+        select leader_id from team where id=#{arg0}
     </select>
 
     <update id="updateTeam" parameterType="com.gugu.gugumodel.entity.TeamEntity">
@@ -66,4 +66,13 @@
     <update id="changeTeamStatus">
         update team set status=#{param2} where id=#{param1}
     </update>
+
+    <delete id="deleteAllTeamByCourseId">
+        delete from team where course_id=#{param1}
+    </delete>
+
+    <select id="getAllTeamByCourseId" resultMap="TeamEntity">
+        select * from team
+        where course_id={#param1} and status=1
+    </select>
 </mapper>

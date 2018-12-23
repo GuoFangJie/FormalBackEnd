@@ -67,4 +67,13 @@ public interface CourseMapper {
       * @return
       */
      int changeSeminarShareStatus(Long subCourseId,Long mainCourseId);
+
+     /**
+      * @author TYJ
+      * 修改课程共享分组的状态
+      * @param subCourseId
+      * @param mainCourseId
+      * @return
+      */
+     int changeTeamShareStatus(Long subCourseId,Long mainCourseId);
 }

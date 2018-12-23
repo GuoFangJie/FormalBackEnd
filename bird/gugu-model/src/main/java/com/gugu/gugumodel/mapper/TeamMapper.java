@@ -59,4 +59,21 @@ public interface TeamMapper {
     Long getKlassIdByTeamId(Long teamId);
 
     int changeTeamStatus(Long teamId,Byte status);
+
+    /**
+     * @author TYJ
+     * 删除课程下的所有小组
+     * @param courseId
+     * @return
+     */
+    void deleteAllTeamByCourseId(Long courseId);
+
+
+    /**
+     * @author TYJ
+     * 根据课程获得所有小组
+     * @param courseId
+     * @return
+     */
+    ArrayList<TeamEntity> getAllTeamByCourseId(Long courseId);
 }
