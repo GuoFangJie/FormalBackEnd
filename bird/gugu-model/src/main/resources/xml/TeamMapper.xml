@@ -62,4 +62,8 @@
     <select id="getKlassIdByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select klass_id from team where id=#{arg0}
     </select>
+
+    <update id="changeTeamStatus">
+        update team set status=#{param2} where id=#{param1}
+    </update>
 </mapper>

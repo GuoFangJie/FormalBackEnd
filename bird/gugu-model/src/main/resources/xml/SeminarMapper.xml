@@ -45,4 +45,8 @@
     <select id="getRoundId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select round_id from seminar where id=#{arg0}
     </select>
+
+    <select id="getSeminarByCourseId" resultMap="SeminarInfoEntity">
+        select * from seminar where course_id=#{param1}
+    </select>
 </mapper>

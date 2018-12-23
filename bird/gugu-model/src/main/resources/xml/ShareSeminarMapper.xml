@@ -15,6 +15,13 @@
         select * from share_seminar_application where sub_course_teacher_id=#{param1}
     </select>
 
+    <select id="getSeminarShareApplicationById" resultMap="shareSeminarResultList" parameterType="java.lang.Long">
+        select * from share_seminar_application where id=#{param1}
+    </select>
+
+    <update id="changeSeminarShareStatus">
+        update share_seminar_application set status=#{param2} where id=#{param1}
+    </update>
 
 
 </mapper>

@@ -43,4 +43,9 @@ public interface RoundMapper {
      * @return
      */
     public boolean setSeminarRound(@Param("roundId") Long roundId, @Param("roundEntity") RoundEntity roundEntity);
+
+    /**@author ljy
+     * 根据roundId获取roundSerial
+     */
+    public Long getRoundSerialById(Long roundId);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -33,10 +34,15 @@ public class StudentController {
         return studentService.activeStudent(studentEntity);
     }
 
-    /**
-     * 根据id或者account搜索学生
+    /**ljy
+     * 根据account搜索学生
      * @return
      */
-//    @GetMapping("")
-//    public
+    @GetMapping("")
+    public StudentEntity searchStudent(String account,Long classId){
+        System.out.println(account);
+        StudentEntity studentEntity=(studentService.searchStudent(account)).get(0);
+        studentEntity.setTeamId(studentService.getStudentTeam(studentEntity.getId(),classId));
+        return studentEntity;
+    }
 }

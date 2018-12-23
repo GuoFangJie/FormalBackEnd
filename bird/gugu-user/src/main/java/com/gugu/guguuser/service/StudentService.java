@@ -5,6 +5,7 @@ import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 
@@ -74,4 +75,20 @@ public class StudentService {
         return studentDao.getStudentByAccount(account);
     }
 
+
+    /**
+     * 根据account搜索学生
+     * @return
+     */
+    public ArrayList<StudentEntity> searchStudent(String account){
+        return studentDao.searchStudent(account);
+    }
+
+    /**
+     * 根据id获取学生所在小组
+     * @return
+     */
+    public Long getStudentTeam(Long studentId,Long classId){
+        return studentDao.getStudentTeam(studentId,classId);
+    }
 }

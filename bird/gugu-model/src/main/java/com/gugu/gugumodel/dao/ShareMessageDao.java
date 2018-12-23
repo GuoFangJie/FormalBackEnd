@@ -28,10 +28,29 @@ public class ShareMessageDao {
     public ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId){
         ArrayList<ShareApplicationEntity> shareSeminarList=shareSeminarMapper.getSeminarShareList(userId);
         for(int i=0;i<shareSeminarList.size();i++){
-            Byte status=1;
-            shareSeminarList.get(i).setStatus(status);
+            Byte type=1;
+            shareSeminarList.get(i).setType(type);
         }
         return shareSeminarList;
+    }
+
+    /**
+     * 根据ID获取共享请求信息
+     * @param requestId
+     * @return
+     */
+    public ShareApplicationEntity getSeminarShareApplicationById(Long requestId){
+        return shareSeminarMapper.getSeminarShareApplicationById(requestId);
+    }
+
+    /**
+     * 修改共享讨论课申请的状态
+     * @param requestId
+     * @param status
+     * @return
+     */
+    public void changeSeminarShareStatus(Long requestId,Byte status){
+        shareSeminarMapper.changeSeminarShareStatus(requestId,status);
     }
 
     /**
@@ -42,8 +61,8 @@ public class ShareMessageDao {
     public ArrayList<ShareApplicationEntity> getTeamShareList(Long userId){
         ArrayList<ShareApplicationEntity> shareTeamList=shareTeamMapper.getTeamShareList(userId);
         for(int i=0;i<shareTeamList.size();i++){
-            Byte status=2;
-            shareTeamList.get(i).setStatus(status);
+            Byte type=2;
+            shareTeamList.get(i).setType(type);
         }
         return shareTeamList;
     }

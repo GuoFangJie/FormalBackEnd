@@ -45,6 +45,12 @@ public interface KlassStudentMapper {
      */
     Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
 
+    /**
+     * 根据id获取学生所在小组
+     * @return
+     */
+    public Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
+
 
     /**
      * 根据学生和课程获取班级id

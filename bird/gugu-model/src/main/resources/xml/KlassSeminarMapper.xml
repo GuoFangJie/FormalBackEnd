@@ -12,12 +12,18 @@
         select id from klass_seminar where klass_id=#{param1}
     </select>
 
+    <select id="getKlassSeminarEntityByKlassId" resultType="com.gugu.gugumodel.entity.KlassSeminarEntity">
+        select seminar_id seminarEntity.id,klass_id klassId,id klassSeminarId,reportDDL report_ddl,status status
+        from klass_seminar
+        where klass_id=#{param1}
+    </select>
+
     <select id="getKlassSeminarId" resultType="java.lang.Long">
         select id from klass_seminar where seminar_id=#{arg0} and klass_id=#{arg1}
     </select>
 
     <select id="getAllKlassSeminarId" parameterType="java.lang.Long">
-        select select id from klass_seminar where seminar_id=#{arg0}
+        select id from klass_seminar where seminar_id=#{arg0}
     </select>
 
     <delete id="deleteKlassSeminarById" parameterType="java.lang.Long">

@@ -29,4 +29,23 @@ public class TeamRequestDao {
         return teamValidRequestMapper.getTeamRequestList(teacherId);
     }
 
+    /**
+     * 根据ID获取组队申请信息
+     * @param requestId
+     * @return
+     */
+    public TeamValidEntity getTeamRequestById(Long requestId){
+        return teamValidRequestMapper.getTeamRequestById(requestId);
+    }
+
+    /**
+     * 修改组队申请的状态
+     * @param requestId
+     * @param status
+     * @return
+     */
+    public void changeTeamRequestStatus(Long requestId,Byte status){
+        teamValidRequestMapper.changeTeamRequestStatus(requestId,status);
+    }
+
 }

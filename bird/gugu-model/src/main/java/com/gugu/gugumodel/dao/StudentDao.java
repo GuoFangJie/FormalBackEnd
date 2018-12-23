@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.mapper.KlassStudentMapper;
 import com.gugu.gugumodel.mapper.StudentMapper;
 import com.gugu.gugumodel.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 public class StudentDao {
     @Autowired
     StudentMapper studentMapper;
+
+    @Autowired
+    KlassStudentMapper klassStudentMapper;
 
     /**
      * 管理员根据学生ID删除学生账号
@@ -157,4 +161,11 @@ public class StudentDao {
     }
 
 
+    /**
+     * 根据id获取学生所在小组
+     * @return
+     */
+    public Long getStudentTeam(Long studentId,Long classId){
+        return klassStudentMapper.getStudentTeam(studentId,classId);
+    }
 }
