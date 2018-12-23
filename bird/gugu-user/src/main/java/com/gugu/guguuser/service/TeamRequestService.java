@@ -39,7 +39,7 @@ public class TeamRequestService {
     public ArrayList<Map> getTeamRequestList(Long teacherId){
         ArrayList<TeamValidEntity> teamRequestList=teamRequestDao.getTeamRequestList(teacherId);
         ArrayList <Map> teamMessageList=new ArrayList<Map>();
-        for(int i=0;i< teamRequestList.size();i++){
+        for(int i=0;i<teamRequestList.size();i++){
             Map teamMessage = new HashMap();
             TeamValidEntity teamRequest=teamRequestList.get(i);
             if(teamRequest==null){
@@ -48,10 +48,11 @@ public class TeamRequestService {
             CourseEntity course=courseDao.getCourseById(teamRequest.getCourseId());
             KlassEntity klass=klassDao.getKlassById(teamRequest.getClassId());
             StudentEntity leader=studentDao.getStudentById(teamRequest.getLeaderId());
-            if(teamRequest==null&&course==null&&klass==null&&leader==null){
+            if(course==null&&klass==null&&leader==null){
                 continue;
             }
-            String courseName=course.getCourseName();
+            String courseName=new String();
+            courseName=course.getCourseName();
             Byte klassSerial=klass.getKlassSerial();
             teamMessage.put("requestId",teamRequest.getId());
             teamMessage.put("courseId",teamRequest.getCourseId());
