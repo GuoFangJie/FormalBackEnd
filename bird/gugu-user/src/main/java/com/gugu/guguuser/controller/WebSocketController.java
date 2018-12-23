@@ -6,17 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
 /**
  * @author ren
  */
@@ -36,7 +32,7 @@ public class WebSocketController {
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(Session session, @PathParam("seminarKlassId") Long seminarKlassId,@PathParam("role")String role,@PathParam("userId")Long userId) {
+    public void onOpen(Session session, @PathParam("seminarKlassId") Long seminarKlassId,@PathParam("role")String role,@PathParam("userId")Long userId) throws IOException, EncodeException {
         this.userId=userId;
         this.role=role;
         this.seminarKlassId=seminarKlassId;
@@ -44,11 +40,7 @@ public class WebSocketController {
         webSocketSet.add(this);
         //加入set中
         addOnlineCount();
-        try {
-            sendMessage("连接成功");
-        } catch (IOException e) {
-            System.out.println("websocket IO异常");
-        }
+        sendMessage("连接成功");
     }
 
     /**
@@ -70,9 +62,13 @@ public class WebSocketController {
      * 2.下一个展示
      * 3.结束讨论课
      * @param */
+    //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
-    public void onMessage(@PathParam("messageType") Byte messageType,Long attendanceId,Session session) throws IOException {
+    public void onMessage(String message,Session session) throws IOException, EncodeException {
         System.out.println("收到来自窗口的信息");
+        String[] strings=message.split(";");
+        Byte messageType=Byte.parseByte(strings[0]);
+        Long attendanceId=Long.parseLong(strings[1]);
         //群发消息
         switch (messageType){
             case 1:
@@ -80,7 +76,9 @@ public class WebSocketController {
                 WebSocketController[] webSocketControllers= (WebSocketController[]) webSocketSet.toArray();
                 boolean get=false;
                 for(int i=0;i<webSocketControllers.length;i++){
-                    if(webSocketControllers[i].getUserId().equals(questionEntity.getStudentId())){
+                    if(webSocketControllers[i].getRole().equals("ROLE_Teacher")){
+                        sendMessage(questionEntity);
+                    }else if(webSocketControllers[i].getUserId().equals(questionEntity.getStudentId())){
                         webSocketControllers[i].sendMessage("请说出你的问题");
                         get=true;
                         break;
@@ -115,8 +113,8 @@ public class WebSocketController {
     /**
      * 实现服务器主动推送
      */
-    public void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText("这是一个message");
+    public void sendMessage(Object message) throws IOException, EncodeException {
+        this.session.getBasicRemote().sendObject(message);
     }
 
 

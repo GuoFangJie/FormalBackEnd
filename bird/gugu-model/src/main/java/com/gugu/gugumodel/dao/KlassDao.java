@@ -2,6 +2,7 @@ package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.mapper.KlassMapper;
 import com.gugu.gugumodel.entity.KlassEntity;
+import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 public class KlassDao{
     @Autowired
     KlassMapper klassMapper;
+    @Autowired
+    KlassSeminarMapper klassSeminarMapper;
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassMapper.getKlassByCourseId(courseId);
     }
@@ -47,5 +50,24 @@ public class KlassDao{
      */
     public KlassEntity getKlassById(Long klassId){
         return klassMapper.getKlassById(klassId);
+    }
+
+    /**
+     * 新建班级与讨论课的关系
+     * @param seminarId
+     * @param courseId
+     * @return
+     */
+    public boolean newKlassSeminar(Long seminarId,Long courseId){
+        ArrayList<KlassEntity> longs=klassMapper.getKlassByCourseId(courseId);
+        try{
+            for(int i=0;i<longs.size();i++){
+                klassSeminarMapper.newKlassSeminar(longs.get(i).getId(),seminarId);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

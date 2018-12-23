@@ -192,6 +192,12 @@ public class SeminarController {
         return seminarService.getSeminarAllScore(seminarId,classId);
     }
 
+    /**
+     * 连接websocket
+     * @param seminarKlassId
+     * @param httpServletRequest
+     * @return
+     */
     @GetMapping("/{seminarKlassId}/seminarEnter")
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());

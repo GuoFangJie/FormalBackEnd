@@ -84,4 +84,11 @@ public interface KlassSeminarMapper {
      * @return
      */
     Long getKlassIdByKlassSeminar(Long klassSeminarId);
+
+    /**
+     * 新建班级和讨论课之间的关系
+     * @param klassId
+     * @param seminarId
+     */
+    void newKlassSeminar(Long klassId,Long seminarId);
 }

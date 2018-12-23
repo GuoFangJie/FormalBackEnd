@@ -45,4 +45,8 @@
     <select id="getKlassIdByKlassSeminar" parameterType="java.lang.Long" resultType="java.lang.Long">
         select klass_id from klass_seminar where seminar_id=#{param1}
     </select>
+    <insert id="newKlassSeminar">
+        insert klass_seminar(klass_id,seminar_id,status)
+        values (#{param1},#{param2},0)
+    </insert>
 </mapper>
