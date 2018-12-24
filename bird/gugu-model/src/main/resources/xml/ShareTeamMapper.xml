@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="getTeamShareList" resultMap="shareTeamResultList" parameterType="java.lang.Long">
-        select * from share_team_application where sub_course_teacher_id=#{param1} and status=null
+        select * from share_team_application where sub_course_teacher_id=#{param1}
     </select>
 
     <select id="getTeamShareApplicationById" resultMap="shareTeamResultList" parameterType="java.lang.Long">

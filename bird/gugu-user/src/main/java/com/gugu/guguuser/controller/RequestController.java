@@ -34,7 +34,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/seminarshare")
-    public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getSeminarShareList(userId);
     }
@@ -56,7 +56,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamshare")
-    public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getTeamShareList(userId);
     }

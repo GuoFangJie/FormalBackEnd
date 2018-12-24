@@ -46,9 +46,13 @@ public class TeamRequestService {
             if(teamRequest==null){
                 throw new NotFoundException("找不到相应的组队申请");
             }
-            CourseEntity course=courseDao.getCourseById(teamRequest.getCourseId());
-            KlassEntity klass=klassDao.getKlassById(teamRequest.getClassId());
-            StudentEntity leader=studentDao.getStudentById(teamRequest.getLeaderId());
+            TeamEntity team=teamDao.getTeamById(teamRequest.getTeamId());
+            if(team==null){
+                throw new NotFoundException("找不到相应的队伍信息");
+            }
+            CourseEntity course=courseDao.getCourseById(team.getCourseId());
+            KlassEntity klass=klassDao.getKlassById(team.getKlassId());
+            StudentEntity leader=studentDao.getLeader(team.getId());
             if(course==null){
                 throw new NotFoundException("找不到相应的课程信息");
             }
@@ -58,18 +62,15 @@ public class TeamRequestService {
             if(leader==null){
                 throw new NotFoundException("找不到相应的组长信息");
             }
-            String courseName=new String();
-            courseName=course.getCourseName();
             Byte klassSerial=klass.getKlassSerial();
             teamMessage.put("requestId",teamRequest.getId());
-            teamMessage.put("courseId",teamRequest.getCourseId());
-            teamMessage.put("courseName",courseName);
-            teamMessage.put("klassId",teamRequest.getClassId());
+            teamMessage.put("courseId",course.getId());
+            teamMessage.put("courseName",course.getCourseName());
+            teamMessage.put("klassId",klass.getId());
             teamMessage.put("klassSerial",klassSerial);
             teamMessage.put("leaderId",leader.getId());
             teamMessage.put("leaderName",leader.getStudentName());
             teamMessage.put("reason",teamRequest.getReason());
-            teamMessage.put("status",teamRequest.getStatus());
             teamMessageList.add(teamMessage);
         }
         return teamMessageList;
