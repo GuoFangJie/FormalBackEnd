@@ -60,19 +60,19 @@ public class WebSocketController {
 
     /**
      * 收到客户端消息后调用的方法
-     *1.为获取下一个问题
-     * 2.下一个展示
+     *1.下一个展示
+     * 2.下一个提问
      * 3.结束讨论课
      * @param */
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
     public void onMessage(String message,Session session) throws IOException, EncodeException {
         System.out.println(message);
-        if(message.equals("1")){
+        if(message.equals("2")){
             for(WebSocketController webSocketController:webSocketSet){
                 webSocketController.sendMessage("1");
             }
-        }else if(message.equals("2")){
+        }else if(message.equals("1")){
             for(WebSocketController webSocketController:webSocketSet){
                 webSocketController.sendMessage("2");
             }
@@ -94,7 +94,7 @@ public class WebSocketController {
     /**
      * 实现服务器主动推送
      */
-    public void sendMessage(String message) throws IOException, EncodeException {
+    public void sendMessage(String message) throws IOException{
         this.session.getBasicRemote().sendText(message);
     }
 
