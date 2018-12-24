@@ -134,6 +134,12 @@ public class CourseController {
         }
     }
 
+    /**
+     * 获取课程下所有小组信息
+     * @param courseId
+     * @param httpServletRequest
+     * @return
+     */
     @GetMapping("/{courseId}/teams")
     public ArrayList<TeamMessageVO> getTeamsMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
         ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
@@ -216,10 +222,10 @@ public class CourseController {
      * @param
      * @return
      */
-//    @DeleteMapping("/{courseId}/share/{shareId}")
-//    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
-//        return courseService.deleteCourseShare(shareId,type);
-//    }
+    @DeleteMapping("/{courseId}/share/{shareId}")
+    public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
+        return courseService.deleteCourseShare(shareId,type);
+    }
 
     /**
      * 获取一个课程下的所有轮次
