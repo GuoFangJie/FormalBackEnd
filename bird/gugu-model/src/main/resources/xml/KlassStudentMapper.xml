@@ -30,7 +30,7 @@
     </update>
 
     <select id="getStudentTeam" resultType="java.lang.Long">
-        select team_id from klass_student where klass_id=#{klassId} and student_id=#{studentId}
+        select team_id from team_student where student_id=#{arg0}
     </select>
 
     <select id="getStudentByTeamId" resultType="java.lang.Long">
