@@ -58,10 +58,18 @@ public class CourseDao{
     }
 
 
+    /**
+     * 获取与课程相关的共享讨论课信息
+     * @param courseId
+     * @return
+     */
     public ArrayList<ShareMessageEntity> getSeminarShareMessage(Long courseId) {
         Long mainCourseId=courseMapper.getSeminarMainCourseId(courseId);
         SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
         ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
+        if(mainCourseId==null){
+            return shareMessageEntities;
+        }
         if(mainCourseId.equals(courseId)){
             ArrayList<ShareReceiveCourseEntity> shareRecieveCourseEntities=courseMapper.getSeminarRecieveCourses(courseId);
             for(int i=0;i<shareRecieveCourseEntities.size();i++){
@@ -77,10 +85,18 @@ public class CourseDao{
         return shareMessageEntities;
     }
 
+    /**
+     * 获取与课程相关的共享小组信息
+     * @param courseId
+     * @return
+     */
     public ArrayList<ShareMessageEntity> getTeamShareMessage(Long courseId) {
         Long mainCourseId=courseMapper.getTeamMainCourseId(courseId);
         SimpleCourseEntity mainCourse=courseMapper.getSimpleCourseById(mainCourseId);
         ArrayList<ShareMessageEntity> shareMessageEntities=new ArrayList<>();
+        if(mainCourseId==null){
+            return shareMessageEntities;
+        }
         if(mainCourseId.equals(courseId)){
             ArrayList<ShareReceiveCourseEntity> shareRecieveCourseEntities=courseMapper.getTeamRecieveCourses(courseId);
             for(int i=0;i<shareRecieveCourseEntities.size();i++){

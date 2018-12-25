@@ -1,16 +1,18 @@
 package com.gugu.guguuser.controller;
 
+import com.gugu.gugumodel.dao.QuestionDao;
 import com.gugu.gugumodel.entity.QuestionEntity;
+import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.guguuser.controller.vo.QuestionVO;
 import com.gugu.guguuser.service.QuestionService;
+import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -19,8 +21,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/websocket/{seminarKlassId}/{userId}/{role}")
 @Component
 public class WebSocketController {
-    @Autowired
-    QuestionService questionService;
     private static int onlineCount = 0;
     private static CopyOnWriteArraySet<WebSocketController> webSocketSet = new CopyOnWriteArraySet<WebSocketController>();
     private Session session;
@@ -41,63 +41,43 @@ public class WebSocketController {
         System.out.println("连接成功");
         //加入set中
         addOnlineCount();
-        sendMessage("连接成功");
+        StringBuffer stringBuffer=new StringBuffer("连接成功");
+        sendMessage("200");
     }
 
     /**
      * 连接关闭调用的方法
      */
-    @OnClose
-    public void onClose() {
-        webSocketSet.remove(this);
-        //从set中删除
-        subOnlineCount();
-        //在线数减1
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
-    }
+//    @OnClose
+//    public void onClose() {
+//        webSocketSet.remove(this);
+//        //从set中删除
+//        subOnlineCount();
+//        //在线数减1
+//        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+//    }
 
 
     /**
      * 收到客户端消息后调用的方法
-     *1.为获取下一个问题
-     * 2.下一个展示
+     *1.下一个展示
+     * 2.下一个提问
      * 3.结束讨论课
      * @param */
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
     public void onMessage(String message,Session session) throws IOException, EncodeException {
-        System.out.println("收到来自窗口的信息");
-        String[] strings=message.split(";");
-        Byte messageType=Byte.parseByte(strings[0]);
-        Long attendanceId=Long.parseLong(strings[1]);
-        //群发消息
-        switch (messageType){
-            case 1:
-                QuestionEntity questionEntity=questionService.getNext(attendanceId);
-                WebSocketController[] webSocketControllers= (WebSocketController[]) webSocketSet.toArray();
-                boolean get=false;
-                for(int i=0;i<webSocketControllers.length;i++){
-                    if(webSocketControllers[i].getRole().equals("ROLE_Teacher")){
-                        sendMessage(questionEntity);
-                    }else if(webSocketControllers[i].getUserId().equals(questionEntity.getStudentId())){
-                        webSocketControllers[i].sendMessage("请说出你的问题");
-                        get=true;
-                        break;
-                    }
-                }
-                if(!get){
-                    this.sendMessage("系统出现问题");
-                }break;
-            case 2:
-                for(WebSocketController item : webSocketSet){
-                    sendMessage("下一个展示");
-                }break;
-            case 3:
-                for(WebSocketController item: webSocketSet){
-                    if(item.getRole().equals("ROLE_Student")){
-                        sendMessage("讨论课结束");
-                    }
-                }
+        System.out.println(message);
+        if(message.equals("2")){
+            for(WebSocketController webSocketController:webSocketSet){
+                webSocketController.sendMessage("1");
+            }
+        }else if(message.equals("1")){
+            for(WebSocketController webSocketController:webSocketSet){
+                webSocketController.sendMessage("2");
+            }
+        }else{
+            sendMessage("系统出错");
         }
     }
 
@@ -114,11 +94,13 @@ public class WebSocketController {
     /**
      * 实现服务器主动推送
      */
-    public void sendMessage(Object message) throws IOException, EncodeException {
-        this.session.getBasicRemote().sendObject(message);
+    public void sendMessage(String message) throws IOException{
+        this.session.getBasicRemote().sendText(message);
     }
 
+    public void sendObject(Object object){
 
+    }
     /**
      * 群发自定义消息
      * */

@@ -19,7 +19,7 @@
     </select>
 
     <select id="getKlassSeminarId" resultType="java.lang.Long">
-        select id from klass_seminar where seminar_id=#{arg0} and klass_id=#{arg1}
+        select id from klass_seminar where seminar_id=#{param1} and klass_id=#{param2}
     </select>
 
     <select id="getAllKlassSeminarId" parameterType="java.lang.Long" resultType="java.lang.Long">

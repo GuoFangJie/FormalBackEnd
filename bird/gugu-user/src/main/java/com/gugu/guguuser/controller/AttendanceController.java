@@ -118,7 +118,12 @@ public class AttendanceController {
      */
     @GetMapping("/{attendanceId}/report")
     public FileEntity getReport(@PathVariable("attendanceId") Long attendanceId){
-        return attendanceService.getReport(attendanceId);
+        FileEntity fileEntity= attendanceService.getReport(attendanceId);
+        if(fileEntity==null){
+            return new FileEntity();
+        }else{
+            return fileEntity;
+        }
     }
 
     /**
@@ -128,7 +133,12 @@ public class AttendanceController {
      */
     @GetMapping("/{attendanceId}/ppt")
     public FileEntity getPpt(@PathVariable("attendanceId") Long attendanceId){
-        return attendanceService.getPpt(attendanceId);
+        FileEntity fileEntity= attendanceService.getPpt(attendanceId);
+        if(fileEntity==null){
+            return new FileEntity();
+        }else{
+            return fileEntity;
+        }
     }
 
     /**
