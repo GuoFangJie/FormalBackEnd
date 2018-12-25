@@ -7,6 +7,7 @@ import com.gugu.gugumodel.entity.ShareMessageEntity;
 import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.CourseMapper;
+import com.gugu.gugumodel.mapper.KlassStudentMapper;
 import com.gugu.gugumodel.mapper.TeamMapper;
 import com.gugu.gugumodel.mapper.KlassSeminarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class CourseDao{
     CourseMapper courseMapper;
     @Autowired
     TeamMapper teamMapper;
-
+    @Autowired
+    KlassStudentMapper klassStudentMapper;
     @Autowired
     KlassSeminarMapper klassSeminarMapper;
 
@@ -41,14 +43,29 @@ public class CourseDao{
         }
     }
 
+    /**
+     * 新建课程
+     * @param courseEntity
+     * @return
+     */
     public Long newCourse(CourseEntity courseEntity){
         return courseMapper.newCourse(courseEntity);
     }
 
+    /**
+     * 根据id获取课程详细信息
+     * @param id
+     * @return
+     */
     public CourseEntity getCourseById(Long id) {
         return courseMapper.getCourseById(id);
     }
 
+    /**
+     * 根据courseId删除课程
+     * @param id
+     * @throws NotFoundException
+     */
     public void deleteCourseById(Long id) throws NotFoundException {
         if(getCourseById(id)!=null) {
             courseMapper.deleteCourseById(id);
@@ -121,6 +138,11 @@ public class CourseDao{
         return courseMapper.getCourseIdByTeacherId(id);
     }
 
+    /**
+     * 删除共享讨论课的信息
+     * @param shareId
+     * @return
+     */
     public boolean deleteSeminarShare(Long shareId){
         ShareApplicationEntity shareApplicationEntity=courseMapper.getSeminarShareApplicationById(shareId);
         if(shareApplicationEntity==null){
@@ -135,24 +157,35 @@ public class CourseDao{
         return true;
     }
 
+    /**
+     * 删除共享分组的记录
+     * @param shareId
+     * @return
+     */
     public boolean deleteTeamShare(Long shareId){
         ShareApplicationEntity shareApplicationEntity=courseMapper.getTeamShareApplicationById(shareId);
         if(shareApplicationEntity==null){
             return false;
         }
-        if(courseMapper.getTeamRecieveCourses(shareApplicationEntity.getMainCourseId()).size()==0) {
-            courseMapper.deleteCourseTeamMain(shareApplicationEntity.getMainCourseId());
-        }
         courseMapper.deleteCourseTeamMain(shareApplicationEntity.getSubCourseId());
         courseMapper.deleteTeamShare(shareId);
-        courseMapper.deleteAllTeamByCourseId(shareApplicationEntity.getSubCourseId());
+        klassStudentMapper.deleteReceiveTeamShare(shareApplicationEntity.getSubCourseId());
         return true;
     }
 
+    /**
+     * 根据courseid获取老师id
+     * @param courseId
+     * @return
+     */
     public Long getTeacherIdByCourse(Long courseId){
         return courseMapper.getTeacherIdByCourse(courseId);
     }
 
+    /**
+     * 删除课程下所有的讨论课
+     * @param courseId
+     */
     public void deleteAllSeminarByCourseId(Long courseId){
         klassSeminarMapper.deleteAllKlassSeminarByCourseId(courseId);
         courseMapper.deleteAllSeminarByCourseId(courseId);

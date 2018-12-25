@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -116,6 +117,7 @@ public class AttendanceController {
      * @param attendanceId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{attendanceId}/report")
     public FileEntity getReport(@PathVariable("attendanceId") Long attendanceId){
         FileEntity fileEntity= attendanceService.getReport(attendanceId);

@@ -37,7 +37,7 @@ public interface KlassStudentMapper {
      * @param
      * @param studentId
      */
-    void addMember(Long teamId,Long klassId, @Param("studentId") Long studentId);
+    void addMember(Long teamId,Long klassId,  Long studentId);
 
     /**
      * 根据班级和学生获取小组id
@@ -51,7 +51,7 @@ public interface KlassStudentMapper {
      * 根据id获取学生所在小组
      * @return
      */
-    public Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
+     Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
 
 
     /**
@@ -85,4 +85,9 @@ public interface KlassStudentMapper {
      * @return
      */
     void updateTeamByStudentId(Long studentId,Long teamId);
+
+    /**
+     * 删除从课程的分组共享记录
+     */
+    void deleteReceiveTeamShare(Long courseId);
 }

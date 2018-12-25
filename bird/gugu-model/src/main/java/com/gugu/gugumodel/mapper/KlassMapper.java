@@ -49,5 +49,5 @@ public interface KlassMapper {
      * @param courseId
      * @return
      */
-    public ArrayList<Long> getKlassIdByCourseId(Long courseId);
+     ArrayList<Long> getKlassIdByCourseId(Long courseId);
 }

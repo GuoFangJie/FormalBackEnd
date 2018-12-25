@@ -1,12 +1,5 @@
 package com.gugu.guguuser.controller;
 
-import com.gugu.gugumodel.dao.QuestionDao;
-import com.gugu.gugumodel.entity.QuestionEntity;
-import com.gugu.gugumodel.entity.StudentEntity;
-import com.gugu.guguuser.controller.vo.QuestionVO;
-import com.gugu.guguuser.service.QuestionService;
-import com.gugu.guguuser.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;

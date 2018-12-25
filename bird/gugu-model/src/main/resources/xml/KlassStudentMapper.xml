@@ -4,7 +4,8 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.KlassStudentMapper">
     <select id="findTeamIdByStudentIdAndCourseId" resultType="java.lang.Long">
-        select team_id from klass_student where student_id=#{student_id} and course_id=#{course_id}
+        select team_student.team_id from klass_student,team_student,klass_team where klass_student.student_id=#{student_id} and klass_student.course_id=#{course_id}
+        and klass_student.klass_id=klass_team.team_id and team_student.student_id=#{student_id} and klass_team.team_id=team_student.team_id
     </select>
 
     <insert id="newStudentToClass">
@@ -22,26 +23,32 @@
     </select>
 
     <select id="getKlassIdByCourseAndStudent" resultType="java.lang.Long">
-        select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
+        select team_student.team_id from team_student,klass_team where team_student.team_id=klass_team.team_id
+        and team_student.student_id=#{param2} and klass_team.klass_id=#{param1}
     </select>
 
-    <update id="addMember" >
-        update klass_student set team_id=#{param1} where klass_id=#{param2} and student_id=#{studentId}
-    </update>
+    <insert id="addMember" >
+        insert into team_student(team_id, student_id) values (#{param1},#{param3})
+    </insert>
 
     <select id="getStudentTeam" resultType="java.lang.Long">
-        select team_id from klass_student where klass_id=#{klassId} and student_id=#{studentId}
+        select team_student.team_id from team_student,klass_team where team_student.team_id=klass_team.team_id
+          and team_student.student_id=#{studentId} and klass_team.klass_id=#{klassId}
     </select>
 
     <select id="getStudentByTeamId" resultType="java.lang.Long">
-        select student_id from klass_student where team_id=#{param1}
+        select distinct student_id from team_student where team_id=#{param1}
     </select>
 
-    <update id="removeAllMemberByCourseId">
-        update klass_student set team_id=null where course_id=#{param1}
-    </update>
+    <delete id="removeAllMemberByCourseId">
+        delete  klass_team.*,team_student.* from klass_team,team_student where
+        klass.course_id=#{param1} and klass.id=klass_team.klass_id and klass_team.team_id=team_student.team_id
+    </delete>
 
     <update id="updateTeamByStudentId">
-        update klass_student set team_id=#{param2} where student_id=#{param1}
+        update team_student set team_id=#{param2} where student_id=#{param1}
     </update>
+    <delete id="deleteReceiveTeamShare" parameterType="java.lang.Long">
+        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+    </delete>
 </mapper>
