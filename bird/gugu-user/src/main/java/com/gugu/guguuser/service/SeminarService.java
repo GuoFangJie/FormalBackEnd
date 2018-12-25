@@ -6,6 +6,7 @@ import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.SeminarEntity;
+import com.gugu.guguuser.util.SerialUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,8 @@ public class SeminarService {
     KlassDao klassDao;
     @Autowired
     KlassSeminarDao klassSeminarDao;
+    @Autowired
+    SerialUtil serialUtil;
 
     /**
      * 根据roundid获取所有讨论课信息
@@ -43,6 +46,10 @@ public class SeminarService {
      * @return Long
      */
     public Long newSeminar(SeminarEntity seminarEntity){
+        //计算seminar_serial
+        ArrayList<Integer> seminarSerials=seminarDao.getSerial(seminarEntity.getCourseId());
+        serialUtil.setSerialList(seminarSerials);
+        seminarEntity.setSeminarSerial(serialUtil.calcuSerial());
         Long seminarId=seminarDao.newSeminar(seminarEntity);
         ArrayList<Long> klassId=klassDao.getKlassIdByCourseId(seminarEntity.getCourseId());
 

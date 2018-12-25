@@ -4,26 +4,32 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+@Component
 public class SerialUtil {
 
-    private ArrayList<Integer> serialList=new ArrayList<>();
+    private ArrayList<Byte> serialList;
 
-    SerialUtil(ArrayList<Integer> serialList){
-        this.serialList=serialList;
+    public ArrayList<Byte> getSerialList() {
+        return serialList;
     }
 
-    public Integer getSerial(){
+    public void setSerialList(ArrayList<Byte> serialList) {
+        this.serialList = serialList;
+    }
+
+    public Byte calcuSerial(){
         if(serialList.size()==0){
             return 1;
         }
         else{
-            for(int i=0;i<serialList.size();i++){
+            for(Byte i=0;i<serialList.size();i++){
                 if(!serialList.get(i).equals(i+1)){
                     return i;
                 }
             }
         }
-        return serialList.size()+1;
+        Integer re=serialList.size()+1;
+        return Byte.parseByte(re.toString());
     }
 
 }

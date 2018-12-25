@@ -4,6 +4,7 @@ import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.KlassSeminarEntity;
 import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.guguuser.util.SerialUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -32,12 +33,19 @@ public class KlassService {
     KlassRoundDao klassRoundDao;
     @Autowired
     KlassSeminarDao klassSeminarDao;
+
+    @Autowired
+    SerialUtil serialUtil;
     /**
      * 新建班级
      * @param klassEntity
      * @return
      */
     public Long newKlass(KlassEntity klassEntity) {
+        //计算klass_serial
+        ArrayList<Byte> klassSerial=klassDao.getSerial(klassEntity.getCourseId());
+        serialUtil.setSerialList(klassSerial);
+        klassEntity.setKlassSerial(serialUtil.calcuSerial());
         return klassDao.newKlass(klassEntity);
     }
 

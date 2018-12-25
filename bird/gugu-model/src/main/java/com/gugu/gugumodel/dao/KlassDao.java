@@ -109,4 +109,14 @@ public class KlassDao{
         }
         return true;
     }
+
+
+
+    /**@author ljy
+     *获取课程下已有的serial
+     * @param courseId
+     */
+    public ArrayList<Byte> getSerial(Long courseId){
+        return klassMapper.getSerial(courseId);
+    }
 }

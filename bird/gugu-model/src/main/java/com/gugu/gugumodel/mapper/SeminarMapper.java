@@ -74,4 +74,11 @@ public interface SeminarMapper {
      */
     ArrayList<SeminarEntity> getSeminarByCourseId(Long courseId);
 
+
+    /**@author ljy
+     * 获取一个课程下已有的serial
+     * @param courseId
+     * @return
+     */
+    public ArrayList<Integer> getSerial(Long courseId);
 }

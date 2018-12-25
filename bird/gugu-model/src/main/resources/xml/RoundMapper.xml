@@ -34,4 +34,8 @@
     <delete id="deleteAllRoundByCourseId">
         delete from round where course_id=#{param1}
     </delete>
+
+    <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
+        select round_serial from round where course_id=#{arg0}
+    </select>
 </mapper>
