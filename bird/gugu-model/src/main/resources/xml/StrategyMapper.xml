@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.gugu.gugumodel.mapper.StrategyMapper" >
+    <select id="getTeamStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamStrategyEntity">
+        select course_id courseId, strategy_serial strategySerial, strategy_name strategyName, strategy_id strategyId from team_strategy where course_id=#{param1}
+    </select>
+    
+    <select id="getTeamAndStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.TeamAndStrategyEntity">
+        select id id, strategy_name strategyName, strategy_id strategyId from team_and_strategy where id=#{param1}
+    </select>
+
+    <select id="getTeamOrStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.TeamOrStrategyEntity">
+        select id id, strategy_name strategy, strategy_id strategyId from team_or_strategy where id=#{param1}
+    </select>
+    
+    <select id="getConflictCourseStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.ConflictCourseStrategy">
+        select  id id, course_id courseId from conflict_course_strategy where id=#{param1}
+    </select>
+    
+    <select id="getCourseMemberLimitStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity">
+        select id id, course_id courseId, min_member minMember, max_member maxMember from course_member_limit_strategy where id=#{param1}
+    </select>
+
+    <select id="getMemberLimitStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.MemberLimitStrategy">
+        select id id, min_member minMember, max_member maxMember from member_limit_strategy where id=#{param1}
+    </select>
+</mapper>

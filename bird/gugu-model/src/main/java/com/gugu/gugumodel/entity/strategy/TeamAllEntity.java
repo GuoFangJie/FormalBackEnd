@@ -1,5 +1,7 @@
 package com.gugu.gugumodel.entity.strategy;
 
+import com.gugu.gugumodel.entity.CourseEntity;
+import com.gugu.gugumodel.entity.KlassEntity;
 import com.gugu.gugumodel.entity.StudentEntity;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class TeamAllEntity {
     Integer numOfMember;
-    ArrayList<StudentEntity> studentEntities;
+    ArrayList<ArrayList<CourseEntity>> studentEntities;
 
     public Integer getNumOfMember() {
         return numOfMember;
@@ -19,11 +21,11 @@ public class TeamAllEntity {
         this.numOfMember = numOfMember;
     }
 
-    public ArrayList<StudentEntity> getStudentEntities() {
+    public ArrayList<ArrayList<CourseEntity>> getStudentEntities() {
         return studentEntities;
     }
 
-    public void setStudentEntities(ArrayList<StudentEntity> studentEntities) {
+    public void setStudentEntities(ArrayList<ArrayList<CourseEntity>> studentEntities) {
         this.studentEntities = studentEntities;
     }
 }

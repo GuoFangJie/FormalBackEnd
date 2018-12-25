@@ -1,5 +1,9 @@
 package com.gugu.gugumodel.entity.strategy;
 
+import com.gugu.gugumodel.entity.CourseEntity;
+
+import java.util.ArrayList;
+
 /**
  * @author ren
  */
@@ -7,6 +11,15 @@ public class CourseMemberLimitStrategyEntity implements Strategy {
     Long id;
     Byte minMember;
     Byte maxMember;
+    Long courseId;
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
 
     public Long getId() {
         return id;
@@ -35,8 +48,17 @@ public class CourseMemberLimitStrategyEntity implements Strategy {
 
     @Override
     public boolean isLegal(TeamAllEntity teamAllEntity) {
-        if(teamAllEntity.getNumOfMember()>minMember&&teamAllEntity.getNumOfMember()<maxMember){
-            return true;
+        Integer count=0;
+        for(ArrayList<CourseEntity> courseEntities:teamAllEntity.getStudentEntities()){
+            for(CourseEntity courseEntity:courseEntities){
+                if(courseEntity.getId().equals(this.courseId)){
+                    count++;
+                    break;
+                }
+            }
+        }
+        if(count>minMember&&count<maxMember){
+            return false;
         }else{
             return true;
         }
