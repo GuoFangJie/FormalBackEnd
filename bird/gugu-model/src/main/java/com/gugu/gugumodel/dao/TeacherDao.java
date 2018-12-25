@@ -95,6 +95,7 @@ public class TeacherDao {
     public void changeEmail(String email,Long teacherId){
         teacherMapper.changeEmail(email,teacherId);
     }
+
     /**
      * 激活账号
      */
