@@ -10,7 +10,6 @@ import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class CourseDao{
     KlassSeminarMapper klassSeminarMapper;
     @Autowired
     StrategyMapper strategyMapper;
+
 
     /**
      * 找出与用户相关的课程信息
@@ -56,7 +56,7 @@ public class CourseDao{
      * @param courseEntity
      * @return
      */
-    public Long addStrategy(CourseEntity courseEntity){
+    public boolean addStrategy(CourseEntity courseEntity){
         //加课程自身的规则，并获取规则ID
         Long memberLimitStrategyId = strategyMapper.addMemberLimitStrategy(courseEntity.getMemberLimitStrategy());
         ArrayList<Long> idList = new ArrayList<>();
@@ -101,13 +101,35 @@ public class CourseDao{
         strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,"MemberLimitStrategy");
 
         //获得strategySerial
-        ArrayList<Byte> serialList =strategyMapper.getSerialList(courseEntity.getId());
+        Byte strategySerial=this.getSerial(courseEntity);
 
-        
         //将最终规则存入最终表中
-        strategyMapper.conbineAllStrategy(courseEntity.getId(),"TeamAndStrategy",courseLimitId);
+        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",courseLimitId);
 
-        return null;
+        return true;
+    }
+
+    /**
+     * 根据课程id获取strategySerial
+     * @param courseEntity
+     * @return
+     */
+    private Byte getSerial(CourseEntity courseEntity){
+        Byte strategySerial=null;
+        ArrayList<Byte> serialList =strategyMapper.getSerialList(courseEntity.getId());
+        if(serialList.size()==0){
+            return 1;
+        }
+        else{
+            for(Byte i=0;i<serialList.size();i++){
+                if(!serialList.get(i).equals(i+1)){
+                    Integer temp=i+1;
+                    return Byte.parseByte(temp.toString());
+                }
+            }
+        }
+        Integer re=serialList.size()+1;
+        return Byte.parseByte(re.toString());
     }
 
     /**

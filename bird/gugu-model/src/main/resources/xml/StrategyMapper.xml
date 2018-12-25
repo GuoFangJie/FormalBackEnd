@@ -30,4 +30,8 @@
     <select id="getSerialList" resultType="java.lang.Byte">
         select strategy_serial from team_strategy where course_id=#{param1}
     </select>
+
+    <insert id="combineAllStrategy">
+        insert into team_strategy(id,strategy_serial,strategy_name,strategy_id) values (#{param1},#{param2},#{param3},#{param4})
+    </insert>
 </mapper>

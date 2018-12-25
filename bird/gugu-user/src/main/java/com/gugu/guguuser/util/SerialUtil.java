@@ -1,7 +1,6 @@
 package com.gugu.guguuser.util;
 
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component
@@ -24,7 +23,8 @@ public class SerialUtil {
         else{
             for(Byte i=0;i<serialList.size();i++){
                 if(!serialList.get(i).equals(i+1)){
-                    return i;
+                    Integer temp=i+1;
+                    return Byte.parseByte(temp.toString());
                 }
             }
         }

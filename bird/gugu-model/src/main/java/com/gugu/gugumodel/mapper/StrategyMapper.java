@@ -58,7 +58,7 @@ public interface StrategyMapper {
       * @param strategyId
       * @param strategyName
       */
-     void conbineAllStrategy(Long courseId,String strategyName,Long strategyId);
+     void combineAllStrategy(Long courseId,Byte strategySerial,String strategyName,Long strategyId);
 
      /**
       * 获取相应课程的serial
