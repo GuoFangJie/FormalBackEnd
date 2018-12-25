@@ -83,4 +83,12 @@ public interface TeamMapper {
      * @return
      */
     ArrayList<TeamEntity> getAllTeamByCourseId(Long courseId);
+
+    /**
+     * @author TYJ
+     * 创建klass_team副本
+     * @param klassId
+     * @param teamId
+     */
+    void createKlassTeam(Long klassId,Long teamId);
 }

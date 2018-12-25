@@ -92,7 +92,7 @@ public interface KlassStudentMapper {
      * @param teamId
      * @return
      */
-    void removeKlassTeamRelaton(Long teamId);
+    void removeKlassTeamRelation(Long teamId);
 
     /**
      * @author ljy

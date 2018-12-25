@@ -125,7 +125,7 @@ public class TeamDao{
         ArrayList<TeamEntity> teamEntities=teamMapper.getAllTeamByCourseId(courseId);
         for(int i=0;i<teamEntities.size();i++){
             //删除klass_team表中的联系
-            klassStudentMapper.removeKlassTeamRelaton(teamEntities.get(i).getId());
+            klassStudentMapper.removeKlassTeamRelation(teamEntities.get(i).getId());
             //删除team_student表中的联系
             klassStudentMapper.removeStudentTeamRelation(teamEntities.get(i).getId());
         }
@@ -144,13 +144,11 @@ public class TeamDao{
 
     /**
      * @author TYJ
-     * 创建队伍,返回队伍id
-     * @param teamEntity
-     * @return
+     * 创建KlassTeam副本
+     * @param klassId
+     * @param teamId
      */
-    public Long createTeam(TeamEntity teamEntity){
-        teamMapper.newTeam(teamEntity);
-        Long teamId=teamEntity.getId();
-        return teamId;
+    public void createKlassTeam(Long klassId,Long teamId){
+        teamMapper.createKlassTeam(klassId,teamId);
     }
 }
