@@ -161,11 +161,11 @@ public class StudentDao {
     }
 
 
-    /**
+    /**改数据库后新修改部分
      * 根据id获取学生所在小组
      * @return
      */
     public Long getStudentTeam(Long studentId,Long classId){
-        return klassStudentMapper.getStudentTeam(studentId,classId);
+        return klassStudentMapper.getStudentTeam(studentId);
     }
 }
