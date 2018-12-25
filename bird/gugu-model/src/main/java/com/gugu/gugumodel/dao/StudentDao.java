@@ -31,14 +31,14 @@ public class StudentDao {
         studentMapper.deleteStudentById(id);
     }
 
-    /**
-     * @author TYJ
-     * 删除学生账号要删除学生的组队情况
-     * @param studentId
-     */
-    public void existAllTeam(Long studentId){
-        studentMapper.existAllTeam(studentId);
-    }
+//    /**
+//     * @author TYJ
+//     * 删除学生账号要删除学生的组队情况
+//     * @param studentId
+//     */
+//    public void existAllTeam(Long studentId){
+//        studentMapper.existAllTeam(studentId);
+//    }
 
     /**
      * 获取除了队长以外其他成员的信息
@@ -63,7 +63,16 @@ public class StudentDao {
 
 
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId) {
-        ArrayList<StudentEntity> studentEntities=studentMapper.getStudentWithoutTeam(courseId);
+        ArrayList<StudentEntity> studentEntities=new ArrayList<StudentEntity>();
+        //获取课程下所有学生
+        ArrayList<Long> studentsInCourse=klassStudentMapper.getStudentInCourse(courseId);
+        for(int i=0;i<studentsInCourse.size();i++){
+
+            if( klassStudentMapper.getTeamIdByStudentAndCourse(studentsInCourse.get(i),courseId)!=null){
+                studentEntities.add(studentMapper.getStudentById(studentsInCourse.get(i)));
+            }
+        }
+        //studentMapper.getStudentWithoutTeam(courseId);
         StudentEntity studentEntity=studentMapper.getStudentById(studentId);
         studentEntities.remove(studentEntity);
         return studentEntities;

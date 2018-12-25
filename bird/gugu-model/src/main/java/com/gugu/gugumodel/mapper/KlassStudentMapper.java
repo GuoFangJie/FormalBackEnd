@@ -13,10 +13,9 @@ public interface KlassStudentMapper {
     /**
      * 根据学生id和课程id获取小组id
      * @param student_id
-     * @param course_id
      * @return
      */
-    Long findTeamIdByStudentIdAndCourseId(@Param("student_id") Long student_id, @Param("course_id") Long course_id);
+    Long findTeamIdByStudentIdAndCourseId(Long student_id);
 
     /**
      * 新增学生和班级的关联记录
@@ -101,4 +100,21 @@ public interface KlassStudentMapper {
      * @return
      */
     void removeStudentTeamRelation(Long teamId);
+
+
+    /**
+     * @author ljy
+     *获取课程下的所有学生
+     * @param courseId
+     * @return
+     */
+    ArrayList<Long> getStudentInCourse(Long courseId);
+
+    /**
+     * @author ljy
+     *根据学生id和课程id获取teamid
+     * @param studentId
+     * @return
+     */
+    Long getTeamIdByStudentAndCourse(@Param("studentId") Long studentId,@Param("courseId") Long courseId);
 }

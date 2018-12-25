@@ -23,7 +23,7 @@ public class StudentService {
      * @param id
      */
     public void deleteStudentById(Long id){
-        studentDao.existAllTeam(id);
+        //studentDao.existAllTeam(id);
         studentDao.deleteStudentById(id);
     }
 
