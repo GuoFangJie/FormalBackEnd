@@ -13,10 +13,10 @@ public interface KlassStudentMapper {
     /**
      * 根据学生id和课程id获取小组id
      * @param student_id
-     * @param course_id
+     * @param 
      * @return
      */
-    Long findTeamIdByStudentIdAndCourseId(@Param("student_id") Long student_id, @Param("course_id") Long course_id);
+    Long findTeamIdByStudentIdAndCourseId(Long student_id);
 
     /**
      * 新增学生和班级的关联记录
@@ -37,7 +37,7 @@ public interface KlassStudentMapper {
      * @param
      * @param studentId
      */
-    void addMember(Long teamId,Long klassId,  Long studentId);
+    void addMember(Long teamId,Long studentId);
 
     /**
      * 根据班级和学生获取小组id
@@ -51,7 +51,7 @@ public interface KlassStudentMapper {
      * 根据id获取学生所在小组
      * @return
      */
-     Long getStudentTeam(@Param("studentId") Long studentId,@Param("klassId") Long classId);
+    public Long getStudentTeam(Long studentId);
 
 
     /**
@@ -87,7 +87,35 @@ public interface KlassStudentMapper {
     void updateTeamByStudentId(Long studentId,Long teamId);
 
     /**
-     * 删除从课程的分组共享记录
+     * @author ljy
+     *删除klass_team表中的联系
+     * @param teamId
+     * @return
      */
-    void deleteReceiveTeamShare(Long courseId);
+    void removeKlassTeamRelation(Long teamId);
+
+    /**
+     * @author ljy
+     *删除team_student表中的联系
+     * @param teamId
+     * @return
+     */
+    void removeStudentTeamRelation(Long teamId);
+
+
+    /**
+     * @author ljy
+     *获取课程下的所有学生
+     * @param courseId
+     * @return
+     */
+    ArrayList<Long> getStudentInCourse(Long courseId);
+
+    /**
+     * @author ljy
+     *根据学生id和课程id获取teamid
+     * @param studentId
+     * @return
+     */
+    Long getTeamIdByStudentAndCourse(@Param("studentId") Long studentId,@Param("courseId") Long courseId);
 }

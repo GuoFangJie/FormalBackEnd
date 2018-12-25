@@ -15,14 +15,14 @@
         delete from student where id=#{param1}
     </delete>
 
-    <delete id="existAllTeam" parameterType="java.lang.Long">
-        delete from klass_student where student_id=#{arg0}
-    </delete>
+    <!--<delete id="existAllTeam" parameterType="java.lang.Long">-->
+        <!--delete from klass_student where student_id=#{arg0}-->
+    <!--</delete>-->
 
     <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
-        from student,klass_student where klass_student.team_id=#{param1} and klass_student.student_id=student.id
+        from student,team_student where team_student.team_id=#{param1} and team_student.student_id=student.id
     </select>
 
     <select id="getLeader" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
@@ -34,8 +34,9 @@
     <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
                student.password password
-        from student,klass_student where klass_student.team_id is null
-        and klass_student.student_id=student.id and klass_student.course_id=#{arg0}
+        from student,klass_student ,team_student where student.id not in
+        (select student_id from klass_student where klass_student.course_id=#{aeg0})
+        klass_student.student_id=student.id and klass_student.course_id=#{arg0}
     </select>
 
     <select id="getStudentById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">

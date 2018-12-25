@@ -33,7 +33,12 @@ public class TeamRequestDao {
      */
     public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId) throws NotFoundException{
         ArrayList<TeamValidEntity> teamRequestList=teamValidRequestMapper.getTeamRequestList(teacherId);
-        return teamValidRequestMapper.getTeamRequestList(teacherId);
+        for(int i=0;i<teamRequestList.size();i++){
+            if(teamRequestList.get(i).getStatus()!=null){
+                teamRequestList.remove(i);
+            }
+        }
+        return teamRequestList;
     }
 
     /**

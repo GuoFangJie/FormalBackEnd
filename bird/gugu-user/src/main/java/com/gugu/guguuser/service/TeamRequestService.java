@@ -68,6 +68,8 @@ public class TeamRequestService {
             teamMessage.put("courseName",course.getCourseName());
             teamMessage.put("klassId",klass.getId());
             teamMessage.put("klassSerial",klassSerial);
+            teamMessage.put("teamId",team.getId());
+            teamMessage.put("teamName",team.getTeamName());
             teamMessage.put("leaderId",leader.getId());
             teamMessage.put("leaderName",leader.getStudentName());
             teamMessage.put("reason",teamRequest.getReason());

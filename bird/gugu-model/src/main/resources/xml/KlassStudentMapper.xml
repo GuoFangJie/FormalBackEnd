@@ -23,8 +23,7 @@
     </select>
 
     <select id="getKlassIdByCourseAndStudent" resultType="java.lang.Long">
-        select team_student.team_id from team_student,klass_team where team_student.team_id=klass_team.team_id
-        and team_student.student_id=#{param2} and klass_team.klass_id=#{param1}
+        select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
     </select>
 
     <insert id="addMember" >
@@ -32,23 +31,34 @@
     </insert>
 
     <select id="getStudentTeam" resultType="java.lang.Long">
-        select team_student.team_id from team_student,klass_team where team_student.team_id=klass_team.team_id
-          and team_student.student_id=#{studentId} and klass_team.klass_id=#{klassId}
+        select team_id from team_student where student_id=#{arg0}
     </select>
 
     <select id="getStudentByTeamId" resultType="java.lang.Long">
         select distinct student_id from team_student where team_id=#{param1}
     </select>
 
-    <delete id="removeAllMemberByCourseId">
-        delete  klass_team.*,team_student.* from klass_team,team_student where
-        klass.course_id=#{param1} and klass.id=klass_team.klass_id and klass_team.team_id=team_student.team_id
-    </delete>
+    <update id="removeAllMemberByCourseId">
+        update klass_student set team_id=null where course_id=#{param1}
+    </update>
 
     <update id="updateTeamByStudentId">
-        update team_student set team_id=#{param2} where student_id=#{param1}
+        update klass_student set team_id=#{param2} where student_id=#{param1}
     </update>
-    <delete id="deleteReceiveTeamShare" parameterType="java.lang.Long">
-        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+
+    <delete id="removeKlassTeamRelaton" parameterType="java.lang.Long">
+        delete from klass_team where team_id=#{arg0}
     </delete>
+
+    <delete id="removeStudentTeamRelation">
+        delete from team_student where team_id=#{arg0}
+    </delete>
+
+    <select id="getStudentInCourse" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select student_id from klass_student where course_id=#{arg0}
+    </select>
+    <select id="getTeamIdByStudentAndCourse" resultType="java.lang.Long">
+        select team_id from team_student where student_id=#{studentId} and team_id in
+        (select id from team where course_id=#{courseId})
+    </select>
 </mapper>

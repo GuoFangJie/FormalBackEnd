@@ -97,9 +97,9 @@
                sub_course_teacher_id subCourseTeacherId,status from share_team_application
         where id=#{arg0}
     </select>
-    <update id="deleteAllTeamByCourseId" parameterType="java.lang.Long">
-        update klass_student set team_id=null where course_id=#{arg0}
-    </update>
+    <delete id="deleteAllTeamByCourseId" parameterType="java.lang.Long">
+        delete from team where course_id=#{arg0}
+    </delete>
 
     <delete id="deleteAllSeminarByCourseId" parameterType="java.lang.Long">
         delete seminar,klass_seminar from seminar left join klass_seminar on klass_seminar.seminar_id=seminar.id

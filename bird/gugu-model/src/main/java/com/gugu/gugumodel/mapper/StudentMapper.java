@@ -23,9 +23,8 @@ public interface StudentMapper {
      /**
       * @author TYJ
       * 删除学生账号要删除学生的组队情况
-      * @param studentId
       */
-     void existAllTeam(Long studentId);
+    // void existAllTeam(Long studentId);
 
      ArrayList<StudentEntity> searchStudent(String identity);
 

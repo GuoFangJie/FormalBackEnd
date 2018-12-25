@@ -27,24 +27,24 @@
     </update>
 
     <delete id="deleteStudentFromTeam" parameterType="java.lang.Long">
-        delete from klass_student where team_id=#{arg0}
+        delete from team_student where team_id=#{arg0}
     </delete>
 
     <update id="buildRelationStuAndTeam">
-        update klass_student set team_id=#{teamId} where student_id=#{studentId}
+        update team_student set team_id=#{teamId} where student_id=#{studentId}
     </update>
 
     <delete id="deleteTeam" parameterType="java.lang.Long">
         delete from team where id=#{arg0}
     </delete>
 
-    <update id="deleteStudentTeamRelation" parameterType="java.lang.Long">
-        update klass_student set team_id=null where team_id=#{arg0}
-    </update>
+    <delete id="deleteStudentTeamRelation" parameterType="java.lang.Long">
+        delete from team_student where team_id=#{arg0}
+    </delete>
 
-    <update id="removeMember" >
-        update klass_student set team_id=null where student_id=#{studentId} and team_id=#{teamId}
-    </update>
+    <delete id="removeMember" >
+        delete from team_student where student_id=#{studentId} and team_id=#{teamId}
+    </delete>
 
     <select id="getTeamIdByKlassId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select team_id from klass_team where klass_id=#{param1}
@@ -79,6 +79,10 @@
 
     <select id="getAllTeamByCourseId" resultMap="TeamEntity">
         select * from team
-        where course_id={#param1} and status=1
+        where course_id={#param1}
     </select>
+
+    <insert id="createKlassTeam">
+        insert into klass_team values (#{param2},#{param1})
+    </insert>
 </mapper>
