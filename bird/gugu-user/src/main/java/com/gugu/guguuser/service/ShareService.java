@@ -2,6 +2,7 @@ package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.exception.ParamErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class ShareService {
      * @param userId
      * @return
      */
-    public ArrayList<Map> getSeminarShareList(Long userId){
+    public ArrayList<Map> getSeminarShareList(Long userId) throws NotFoundException{
         ArrayList<ShareApplicationEntity> seminarShareList=shareMessageDao.getSeminarShareList(userId);
         return this.produceShareRequest(seminarShareList);
     }
@@ -102,7 +103,7 @@ public class ShareService {
      * @param userId
      * @return
      */
-    public ArrayList<Map> getTeamShareList(Long userId){
+    public ArrayList<Map> getTeamShareList(Long userId) throws NotFoundException{
         ArrayList<ShareApplicationEntity> teamShareList=shareMessageDao.getTeamShareList(userId);
         return this.produceShareRequest(teamShareList);
     }
@@ -149,22 +150,23 @@ public class ShareService {
      * @param shareList
      * @return
      */
-    private ArrayList<Map> produceShareRequest(ArrayList<ShareApplicationEntity> shareList){
+    private ArrayList<Map> produceShareRequest(ArrayList<ShareApplicationEntity> shareList) throws NotFoundException{
         ArrayList <Map> shareRequestList=new ArrayList<Map>();
-        for(int i=0;i< shareList.size();i++){
+        for(int i=0;i<shareList.size();i++){
             Map shareRequest = new HashMap();
             ShareApplicationEntity shareApplication=shareList.get(i);
+            System.out.println(shareApplication);
             if(shareApplication==null){
-                continue;
+                throw new NotFoundException("找不到相应的共享申请");
             }
             CourseEntity mainCourse=courseDao.getCourseById(shareApplication.getMainCourseId());
             CourseEntity subCourse=courseDao.getCourseById(shareApplication.getSubCourseId());
             if(mainCourse==null&&subCourse==null){
-                continue;
+                throw new NotFoundException("找不到主课程/从课程");
             }
             TeacherEntity mainTeacher=teacherDao.getTeacherById(mainCourse.getTeacherId());
             if(mainTeacher==null){
-                continue;
+                throw new NotFoundException("找不到主课程的教师");
             }
             shareRequest.put("requestId",shareApplication.getId());
             String mainCourseName=mainCourse.getCourseName();
@@ -177,7 +179,6 @@ public class ShareService {
             shareRequest.put("mainTeacherId",shareApplication.getSubCourseTeacherId());
             shareRequest.put("mainTeacherName",mainTeacherName);
             shareRequest.put("type",shareApplication.getType());
-            shareRequest.put("status",shareApplication.getStatus());
             shareRequestList.add(shareRequest);
         }
         return shareRequestList;

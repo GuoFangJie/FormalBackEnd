@@ -20,7 +20,7 @@
     </select>
 
     <select id="getTeamRequestList" resultMap="teamRequestResultList">
-        select id,team_id,teacher_id,reason,status from team_valid_application where teacher_id=#{param1} and status=null
+        select id,team_id,teacher_id,reason,status from team_valid_application where teacher_id=#{param1}
     </select>
 
     <select id="getTeamRequestById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamValidEntity">

@@ -34,14 +34,11 @@ public class TeamRequestDao {
     public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId) throws NotFoundException{
         ArrayList<TeamValidEntity> teamRequestList=teamValidRequestMapper.getTeamRequestList(teacherId);
         for(int i=0;i<teamRequestList.size();i++){
-            Long teamId=teamRequestList.get(i).getTeamId();
-            StudentEntity leader=studentMapper.getLeader(teamId);
-            if(leader==null){
-                throw new NotFoundException("没有找到相应的组长");
+            if(teamRequestList.get(i).getStatus()!=null){
+                teamRequestList.remove(i);
             }
-            teamRequestList.get(i).setLeaderId(leader.getId());
         }
-        return teamValidRequestMapper.getTeamRequestList(teacherId);
+        return teamRequestList;
     }
 
     /**

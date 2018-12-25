@@ -34,7 +34,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/seminarshare")
-    public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getSeminarShareList(userId);
     }
@@ -42,11 +42,12 @@ public class RequestController {
     /**
      * 修改共享讨论课申请的状态
      * @param requestId
-     * @param handleType
+     * @param message
      * @return
      */
     @PutMapping("/{requestId}/seminarshare")
-    public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+    public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
+        String handleType=message.get("handleType").toString();
         return shareService.changeSeminarShareStatus(requestId,handleType);
     }
 
@@ -56,7 +57,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamshare")
-    public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest){
+    public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getTeamShareList(userId);
     }
@@ -64,11 +65,12 @@ public class RequestController {
     /**
      * 修改共享分组申请的状态
      * @param requestId
-     * @param handleType
+     * @param message
      * @return
      */
     @PutMapping("/{requestId}/teamshare")
-    public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+    public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
+        String handleType=message.get("handleType").toString();
         return shareService.changeTeamShareStatus(requestId,handleType);
     }
 
@@ -86,11 +88,12 @@ public class RequestController {
     /**
      * 修改共享小组申请的状态
      * @param requestId
-     * @param handleType
+     * @param message
      * @return
      */
     @PutMapping("/{requestId}/teamvalid")
-    public boolean changeTeamRequestStatus(@PathVariable("requestId") Long requestId,@RequestBody String handleType) throws ParamErrorException {
+    public boolean changeTeamRequestStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
+        String handleType=message.get("handleType").toString();
         return teamRequestService.changeTeamRequestStatus(requestId,handleType);
     }
 }

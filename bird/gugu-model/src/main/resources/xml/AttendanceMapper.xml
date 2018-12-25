@@ -26,11 +26,11 @@
     </update>
     
     <select id="getReportPath" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.FileEntity">
-        select report_name name,report_url path,from attendance where id=#{param}
+        select report_name name,report_url path from attendance where id=#{param1}
     </select>
 
     <select id="getPptPath" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.FileEntity">
-        select ppt_name name,ppt_url path,from attendance where id=#{param}
+        select ppt_name name,ppt_url path from attendance where id=#{param1}
     </select>
 
     <select id="getBySeminarKlassId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.AttendanceEntity">

@@ -67,4 +67,6 @@ public class QuestionEntity {
     public void setScore(Float score) {
         this.score = score;
     }
+
+
 }

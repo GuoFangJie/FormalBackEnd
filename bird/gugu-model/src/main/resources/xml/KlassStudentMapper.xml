@@ -40,6 +40,7 @@
     <update id="removeAllMemberByCourseId">
         update klass_student set team_id=null where course_id=#{param1}
     </update>
+
     <update id="updateTeamByStudentId">
         update klass_student set team_id=#{param2} where student_id=#{param1}
     </update>
