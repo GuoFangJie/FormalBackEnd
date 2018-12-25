@@ -54,4 +54,9 @@ public interface RoundMapper {
      * 删除课程下所有的轮次
      */
     void deleteAllRoundByCourseId(Long courseId);
+    /**
+     * @author ljy
+     * 获取当前课程下已有的round_serial
+     */
+    public ArrayList<Byte> getSerial(Long courseId);
 }

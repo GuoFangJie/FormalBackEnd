@@ -6,6 +6,7 @@ import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.guguuser.util.SerialUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class RoundService {
     RoundDao roundDao;
     @Autowired
     SeminarScoreDao seminarScoreDao;
+    @Autowired
+    SerialUtil serialUtil;
 
     /**
      * 根据roundId获取详细信息
@@ -40,6 +43,10 @@ public class RoundService {
      * 新建round记录
      */
     public Long newRound(RoundEntity roundEntity){
+        //计算round_serial
+        ArrayList<Byte> roundSerial=roundDao.getSerial(roundEntity.getCourseId());
+        serialUtil.setSerialList(roundSerial);
+        roundEntity.setRoundSerial(serialUtil.calcuSerial());
         Long aLong = roundDao.newRound(roundEntity);
         return aLong;
     }

@@ -93,4 +93,12 @@ public class RoundDao {
         klassRoundMapper.deleteAllKlassRoundByCourseId(courseId);
         roundMapper.deleteAllRoundByCourseId(courseId);
     }
+
+    /**
+     * @author ljy
+     * 获取当前课程下已有的round_serial
+     */
+    public ArrayList<Byte> getSerial(Long courseId){
+        return roundMapper.getSerial(courseId);
+    }
 }

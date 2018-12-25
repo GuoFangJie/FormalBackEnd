@@ -50,4 +50,7 @@
     <select id="getSeminarByCourseId" resultMap="SeminarInfoEntity">
         select * from seminar where course_id=#{param1}
     </select>
+    <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
+        select seminar_serial from seminar where course_id=#{arg0}
+    </select>
 </mapper>

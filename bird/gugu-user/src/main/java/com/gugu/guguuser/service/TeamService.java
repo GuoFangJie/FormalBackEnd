@@ -6,6 +6,7 @@ import com.gugu.gugumodel.dao.TeamDao;
 import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.gugumodel.entity.TeamEntity;
 import com.gugu.gugumodel.entity.TeamValidEntity;
+import com.gugu.guguuser.util.SerialUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class TeamService {
 
     @Autowired
     CourseDao courseDao;
+
+    @Autowired
+    SerialUtil serialUtil;
 
     public TeamEntity getTeamMessageByTeamId(Long teamId){
         return teamDao.getTeamById(teamId);
@@ -83,7 +87,10 @@ public class TeamService {
      * @return
      */
     public Long newTeam(ArrayList<StudentEntity> memberStudents,TeamEntity teamEntity){
+        //新增了计算team_serial
         ArrayList<Integer> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
+        serialUtil.setSerialList(teamSerial);
+        teamEntity.setTeamSerial(serialUtil.calcuSerial());
         return teamDao.newTeam(memberStudents,teamEntity);
     }
 }
