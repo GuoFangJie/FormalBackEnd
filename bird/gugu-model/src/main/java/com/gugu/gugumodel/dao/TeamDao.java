@@ -151,4 +151,13 @@ public class TeamDao{
     public void createKlassTeam(Long klassId,Long teamId){
         teamMapper.createKlassTeam(klassId,teamId);
     }
+
+    /**
+     * @author TYJ
+     * 获取当前所有的serial
+     * @param klassId
+     */
+    public ArrayList<Integer> getSerial(Long klassId){
+        return teamMapper.getSerial(klassId);
+    }
 }

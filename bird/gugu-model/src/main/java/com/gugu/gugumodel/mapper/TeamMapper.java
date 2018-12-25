@@ -91,4 +91,11 @@ public interface TeamMapper {
      * @param teamId
      */
     void createKlassTeam(Long klassId,Long teamId);
+    /**
+     * @author TYJ
+     * 获取当前所有的serial
+     * @param klassId
+     */
+    ArrayList<Integer> getSerial(Long klassId);
+
 }

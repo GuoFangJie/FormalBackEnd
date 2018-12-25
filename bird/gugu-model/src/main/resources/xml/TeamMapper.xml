@@ -84,4 +84,7 @@
     <insert id="createKlassTeam">
         insert into klass_team values (#{param2},#{param1})
     </insert>
+    <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select team_serial from team where klass_id=#{arg0}
+    </select>
 </mapper>
