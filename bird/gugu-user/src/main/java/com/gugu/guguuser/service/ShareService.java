@@ -152,7 +152,7 @@ public class ShareService {
      */
     private ArrayList<Map> produceShareRequest(ArrayList<ShareApplicationEntity> shareList) throws NotFoundException{
         ArrayList <Map> shareRequestList=new ArrayList<Map>();
-        for(int i=0;i< shareList.size();i++){
+        for(int i=0;i<shareList.size();i++){
             Map shareRequest = new HashMap();
             ShareApplicationEntity shareApplication=shareList.get(i);
             System.out.println(shareApplication);
