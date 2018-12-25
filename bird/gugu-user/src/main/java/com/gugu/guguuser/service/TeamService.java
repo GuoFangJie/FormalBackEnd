@@ -83,6 +83,7 @@ public class TeamService {
      * @return
      */
     public Long newTeam(ArrayList<StudentEntity> memberStudents,TeamEntity teamEntity){
+        ArrayList<Integer> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
         return teamDao.newTeam(memberStudents,teamEntity);
     }
 }

@@ -2,6 +2,8 @@ package com.gugu.gugumodel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+
 /**
  * 储存学生信息的entity，感觉老师和学生的表一样
  * 不存放账号密码
@@ -16,6 +18,7 @@ public class StudentEntity {
     @JsonIgnore
     private String password;
     private Long teamId;
+    ArrayList<Long> courses;
 
     public StudentEntity(){
     }
@@ -25,6 +28,14 @@ public class StudentEntity {
         this.studentName=teacherEntity.getTeacherName();
         this.account=teacherEntity.getAccount();
         this.email=teacherEntity.getEmail();
+    }
+
+    public ArrayList<Long> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Long> courses) {
+        this.courses = courses;
     }
 
     public Long getTeamId() {

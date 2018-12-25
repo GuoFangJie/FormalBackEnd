@@ -18,7 +18,8 @@ public class TeacherController {
     @Autowired
     TeacherService teacherService;
 
-    /**@author ljy
+    /**
+     * @author ljy
      * 管理员新建教师账号
      * @param
      * @return
