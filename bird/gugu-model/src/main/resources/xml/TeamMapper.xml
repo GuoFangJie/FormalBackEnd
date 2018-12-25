@@ -78,6 +78,10 @@
 
     <select id="getAllTeamByCourseId" resultMap="TeamEntity">
         select * from team
-        where course_id={#param1} and status=1
+        where course_id={#param1}
     </select>
+
+    <insert id="createKlassTeam">
+        insert into klass_team values (#{param2},#{param1})
+    </insert>
 </mapper>

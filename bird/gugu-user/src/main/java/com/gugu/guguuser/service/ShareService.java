@@ -185,27 +185,27 @@ public class ShareService {
     }
 
     /**
-     * 转换小组的课程
+     * 在klass_team中创建副本
      * @param teamEntity
      * @param mainCourse
      * @param subCourse
      * @return
      */
     private void teamChangeCourse(TeamEntity teamEntity,CourseEntity mainCourse,CourseEntity subCourse){
-        ArrayList<Long> studentList=klassStudentDao.getStudentByTeamId(mainCourse.getId());
-        ArrayList<Long> newStudentList=new ArrayList<Long>();
+        //获取该组所有的学生
+        ArrayList<Long> studentList=klassStudentDao.getStudentByTeamId(teamEntity.getId());
         //多数学生所在的klassId
         Long maxKlassId=null;
         for(int i=0;i<studentList.size();i++){
             Map<Long,Integer> klassMap=new HashMap<>();
             Integer temp=0;
+            //获取这个学生的entity
             StudentEntity student=studentDao.getStudentById(studentList.get(i));
             //获得这个学生的klassId
             Long klassId=klassStudentDao.getKlassIdByCourseAndStudent(student.getId(),subCourse.getId());
             //收集每个学生的klassId
             if(klassId!=null){
                 Integer klassCount=klassMap.get(klassId);
-                newStudentList.add(klassId);
                 if(klassCount==null){
                     klassMap.put(klassId,1);
                 }
@@ -216,17 +216,14 @@ public class ShareService {
             //取出人数最多的klassId
             for (Long key : klassMap.keySet()) {
                 Integer value=klassMap.get(key);
-                temp=(value>temp)?value:temp;
-                maxKlassId=key;
+                if(value>temp){
+                    temp=value;
+                    maxKlassId=key;
+                }
             }
         }
-        //设置新组的klassId为队伍里人数最多的klassId
-        teamEntity.setKlassId(maxKlassId);
-        //设置新组的courseId为从课程的courseId
-        teamEntity.setCourseId(subCourse.getId());
-        //创建新组的副本
-        Long newTeamId=teamDao.createTeam(teamEntity);
-        this.setNewTeamByStudentId(newStudentList,newTeamId);
+        //创建新的klass_team的副本
+        teamDao.createKlassTeam(teamEntity.getId(),maxKlassId);
     }
 
     /**

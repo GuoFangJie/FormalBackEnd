@@ -37,7 +37,7 @@
     </select>
 
     <select id="getStudentByTeamId" resultType="java.lang.Long">
-        select student_id from klass_student where team_id=#{param1}
+        select student_id from team_student where team_id=#{param1}
     </select>
 
     <update id="removeAllMemberByCourseId">
