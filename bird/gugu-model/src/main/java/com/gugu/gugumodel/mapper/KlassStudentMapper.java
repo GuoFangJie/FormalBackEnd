@@ -37,7 +37,7 @@ public interface KlassStudentMapper {
      * @param
      * @param studentId
      */
-    void addMember(Long teamId,Long klassId, @Param("studentId") Long studentId);
+    void addMember(Long teamId,Long studentId);
 
     /**
      * 根据班级和学生获取小组id
@@ -85,4 +85,20 @@ public interface KlassStudentMapper {
      * @return
      */
     void updateTeamByStudentId(Long studentId,Long teamId);
+
+    /**
+     * @author ljy
+     *删除klass_team表中的联系
+     * @param teamId
+     * @return
+     */
+    void removeKlassTeamRelaton(Long teamId);
+
+    /**
+     * @author ljy
+     *删除team_student表中的联系
+     * @param teamId
+     * @return
+     */
+    void removeStudentTeamRelation(Long teamId);
 }

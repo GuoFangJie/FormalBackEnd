@@ -53,9 +53,11 @@ public class TeamDao{
         teamMapper.deleteStudentTeamRelation(teamId);
     }
 
+    /*数据库修改后修改的
+    * */
     public void addMember(Long teamId,Long studentId){
-        TeamEntity teamEntity= teamMapper.findTeamById(teamId);
-        klassStudentMapper.addMember(teamEntity.getId(),teamEntity.getKlassId(),studentId);
+       // TeamEntity teamEntity= teamMapper.findTeamById(teamId);
+        klassStudentMapper.addMember(teamId,studentId);
     }
 
 
@@ -94,7 +96,7 @@ public class TeamDao{
     public Long newTeam(ArrayList<StudentEntity> memberStudents, TeamEntity teamEntity){
         teamMapper.newTeam(teamEntity);
         for(int i=0;i<memberStudents.size();i++){
-            klassStudentMapper.addMember(teamEntity.getId(),teamEntity.getKlassId(),memberStudents.get(i).getId());
+            klassStudentMapper.addMember(teamEntity.getId(),memberStudents.get(i).getId());
         }
         Long teamId=teamEntity.getId();
         System.out.println(teamId);
@@ -114,12 +116,19 @@ public class TeamDao{
 
     /**
      * @author TYJ
-     * 删除课程下的所有小组
+     * 删除课程下的所有小组 ,数据库修改后新修改
      * @param courseId
      * @return
      */
     public void deleteAllTeamByCourseId(Long courseId){
-        klassStudentMapper.removeAllMemberByCourseId(courseId);
+        //获取课程下的所有小组
+        ArrayList<TeamEntity> teamEntities=teamMapper.getAllTeamByCourseId(courseId);
+        for(int i=0;i<teamEntities.size();i++){
+            //删除klass_team表中的联系
+            klassStudentMapper.removeKlassTeamRelaton(teamEntities.get(i).getId());
+            //删除team_student表中的联系
+            klassStudentMapper.removeStudentTeamRelation(teamEntities.get(i).getId());
+        }
         teamMapper.deleteAllTeamByCourseId(courseId);
     }
 

@@ -25,9 +25,12 @@
         select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
     </select>
 
-    <update id="addMember" >
-        update klass_student set team_id=#{param1} where klass_id=#{param2} and student_id=#{studentId}
-    </update>
+    <insert id="addMember" >
+        insert into team_student(team_id,student_id) values(#{arg0},#{arg1})
+    </insert>
+    <!--<update id="addMember" >-->
+        <!--update klass_student set team_id=#{param1} where klass_id=#{param2} and student_id=#{studentId}-->
+    <!--</update>-->
 
     <select id="getStudentTeam" resultType="java.lang.Long">
         select team_id from team_student where student_id=#{arg0}
@@ -44,4 +47,12 @@
     <update id="updateTeamByStudentId">
         update klass_student set team_id=#{param2} where student_id=#{param1}
     </update>
+
+    <delete id="removeKlassTeamRelaton" parameterType="java.lang.Long">
+        delete from klass_team where team_id=#{arg0}
+    </delete>
+
+    <delete id="removeStudentTeamRelation">
+        delete from team_student where team_id=#{arg0}
+    </delete>
 </mapper>
