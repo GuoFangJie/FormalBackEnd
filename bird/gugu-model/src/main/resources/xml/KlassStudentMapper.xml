@@ -4,7 +4,8 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.KlassStudentMapper">
     <select id="findTeamIdByStudentIdAndCourseId" resultType="java.lang.Long">
-        select team_id from team_student where student_id=#{arg0}
+        select team_student.team_id from klass_student,team_student,klass_team where klass_student.student_id=#{student_id} and klass_student.course_id=#{course_id}
+        and klass_student.klass_id=klass_team.team_id and team_student.student_id=#{student_id} and klass_team.team_id=team_student.team_id
     </select>
 
     <insert id="newStudentToClass">
@@ -26,18 +27,15 @@
     </select>
 
     <insert id="addMember" >
-        insert into team_student(team_id,student_id) values(#{arg0},#{arg1})
+        insert into team_student(team_id, student_id) values (#{param1},#{param3})
     </insert>
-    <!--<update id="addMember" >-->
-        <!--update klass_student set team_id=#{param1} where klass_id=#{param2} and student_id=#{studentId}-->
-    <!--</update>-->
 
     <select id="getStudentTeam" resultType="java.lang.Long">
         select team_id from team_student where student_id=#{arg0}
     </select>
 
     <select id="getStudentByTeamId" resultType="java.lang.Long">
-        select student_id from team_student where team_id=#{param1}
+        select distinct student_id from team_student where team_id=#{param1}
     </select>
 
     <update id="removeAllMemberByCourseId">

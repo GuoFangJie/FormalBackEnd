@@ -10,6 +10,7 @@ import com.gugu.guguuser.service.KlassService;
 import com.gugu.guguuser.service.RoundService;
 import com.gugu.guguuser.service.SeminarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,8 @@ public class SeminarController {
     RoundService roundService;
     @Autowired
     KlassService klassService;
-
+    @Value("webserver")
+    String webserver;
     /**@author ljy
      * 新建讨论课,创建成功后返回seminarId
      * @return Long
@@ -215,6 +217,6 @@ public class SeminarController {
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         String role=httpServletRequest.getAttribute("role").toString();
-        return "ws://47.94.174.82：8081/websocket/"+seminarKlassId+"/"+userId+"/"+role;
+        return "ws://"+webserver+"/websocket/"+seminarKlassId+"/"+userId+"/"+role;
     }
 }

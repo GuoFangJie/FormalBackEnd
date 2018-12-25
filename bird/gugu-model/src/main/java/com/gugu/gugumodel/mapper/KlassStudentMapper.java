@@ -13,6 +13,7 @@ public interface KlassStudentMapper {
     /**
      * 根据学生id和课程id获取小组id
      * @param student_id
+     * @param 
      * @return
      */
     Long findTeamIdByStudentIdAndCourseId(Long student_id);
@@ -46,7 +47,7 @@ public interface KlassStudentMapper {
      */
     Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
 
-    /**改数据库后新修改部分
+    /**
      * 根据id获取学生所在小组
      * @return
      */

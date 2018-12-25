@@ -20,10 +20,21 @@ public class KlassDao{
     KlassSeminarMapper klassSeminarMapper;
     @Autowired
     KlassRoundMapper klassRoundMapper;
+
+    /**
+     * 获取课程下所有的班级信息
+     * @param courseId
+     * @return
+     */
     public ArrayList<KlassEntity> getKlassByCourseId(Long courseId) {
         return klassMapper.getKlassByCourseId(courseId);
     }
 
+    /**
+     * 新建班级
+     * @param klassEntity
+     * @return
+     */
     public Long newKlass(KlassEntity klassEntity) {
         klassMapper.newKlass(klassEntity);
         return klassEntity.getId();
