@@ -61,4 +61,8 @@
         select team_id from team_student where student_id=#{studentId} and team_id in
         (select id from team where course_id=#{courseId})
     </select>
+
+    <delete id="deleteReceiveTeamShare" parameterType="java.lang.Long">
+        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+    </delete>
 </mapper>

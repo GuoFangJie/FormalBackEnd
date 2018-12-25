@@ -13,7 +13,7 @@ public interface KlassStudentMapper {
     /**
      * 根据学生id和课程id获取小组id
      * @param student_id
-     * @param 
+     * @param
      * @return
      */
     Long findTeamIdByStudentIdAndCourseId(Long student_id);
@@ -118,4 +118,10 @@ public interface KlassStudentMapper {
      * @return
      */
     Long getTeamIdByStudentAndCourse(@Param("studentId") Long studentId,@Param("courseId") Long courseId);
+
+    /**
+     * 删除从课程的分组
+     * @param courseId
+     */
+    void deleteReceiveTeamShare(Long courseId);
 }
