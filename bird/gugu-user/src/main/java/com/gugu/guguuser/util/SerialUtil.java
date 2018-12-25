@@ -1,5 +1,7 @@
 package com.gugu.guguuser.util;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
 public class SerialUtil {

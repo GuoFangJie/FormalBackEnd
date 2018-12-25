@@ -5,6 +5,7 @@ package com.gugu.gugumodel.entity.strategy;
  */
 public class CourseMemberLimitStrategyEntity implements Strategy {
     Long id;
+    Long courseId;
     Byte minMember;
     Byte maxMember;
 
