@@ -29,6 +29,8 @@ public class SeminarDao {
     @Autowired
     TeamMapper teamMapper;
 
+    @Autowired
+    CourseMapper courseMapper;
     /**
      * 获取一个round里面所有的seminar信息
      * @param roundId
@@ -196,6 +198,7 @@ public class SeminarDao {
         Long classId=teamMapper.getKlassIdByTeamId(teamId);
         Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
         seminarScoreEntity.setKlassSeminarId(klassSeminarId);
+        //CourseEntity courseEntity=courseMapper.getCourseByTeamId(teamId);
         return seminarScoreMapper.setSeminarScore(seminarScoreEntity);
     }
 

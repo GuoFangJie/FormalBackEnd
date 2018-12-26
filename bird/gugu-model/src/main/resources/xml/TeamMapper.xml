@@ -30,9 +30,9 @@
         delete from team_student where team_id=#{arg0}
     </delete>
 
-    <update id="buildRelationStuAndTeam">
-        update team_student set team_id=#{teamId} where student_id=#{studentId}
-    </update>
+    <insert id="buildRelationStuAndTeam">
+        insert into team_student set team_id=#{teamId} where student_id=#{studentId}
+    </insert>
 
     <delete id="deleteTeam" parameterType="java.lang.Long">
         delete from team where id=#{arg0}
@@ -78,12 +78,12 @@
     </select>
 
     <delete id="deleteAllTeamByCourseId">
-        delete klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
     </delete>
 
     <select id="getAllTeamByCourseId" resultMap="TeamEntityMap">
         select * from team
-        where course_id={#param1}
+        where course_id=#{param1}
     </select>
 
     <insert id="createKlassTeam">

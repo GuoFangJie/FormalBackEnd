@@ -86,7 +86,7 @@ public class RequestController {
     }
 
     /**
-     * 修改共享小组申请的状态
+     * 修改小组申请的状态
      * @param requestId
      * @param message
      * @return
