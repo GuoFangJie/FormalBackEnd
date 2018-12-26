@@ -81,4 +81,11 @@ public interface SeminarMapper {
      * @return
      */
     public ArrayList<Byte> getSerial(Long courseId);
+
+    /**@author ljy
+     * 根据courseId和roundId获取讨论课信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId);
 }

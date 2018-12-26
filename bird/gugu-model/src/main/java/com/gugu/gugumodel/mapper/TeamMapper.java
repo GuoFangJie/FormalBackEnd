@@ -50,6 +50,12 @@ public interface TeamMapper {
      */
     Long newTeam(TeamEntity teamEntity);
 
+    /**
+     * 新建队伍和班级的关联
+     * @param teamEntity
+     */
+    void newKlassTeam(TeamEntity teamEntity);
+
 
     /**@author ljy
      * 根据teamId获取klassId
@@ -98,4 +104,11 @@ public interface TeamMapper {
      */
     ArrayList<Byte> getSerial(Long klassId);
 
+
+    /**
+     * @author ljy
+     * 根据teamId获取team信息
+     * @param teamId
+     */
+    TeamEntity getTeamById(Long teamId);
 }

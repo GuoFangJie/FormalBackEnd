@@ -13,8 +13,15 @@ public class KlassStudentDao{
     KlassStudentMapper klassStudentMapper;
     @Autowired
     KlassSeminarMapper klassSeminarMapper;
+
+    /**
+     * 根据学号和班级获取teamid
+     * @param student_id
+     * @param course_id
+     * @return
+     */
     public Long getTeamId(Long student_id, Long course_id) {
-        return klassStudentMapper.findTeamIdByStudentIdAndCourseId(student_id);
+        return klassStudentMapper.findTeamIdByStudentIdAndCourseId(student_id,course_id);
     }
 
     public void newStudentToClass(Long klassId,Long studentId,Long courseId){

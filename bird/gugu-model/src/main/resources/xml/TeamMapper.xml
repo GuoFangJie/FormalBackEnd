@@ -59,6 +59,10 @@
         values (#{klassId},#{courseId},#{leaderId},#{teamName},#{teamSerial},#{status})
     </insert>
 
+    <insert id="newKlassTeam" parameterType="com.gugu.gugumodel.entity.TeamEntity">
+        insert into klass_team(klass_id, team_id) values (#{klassId},#{id})
+    </insert>
+
     <select id="getKlassIdByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select klass_id from team where id=#{arg0}
     </select>
@@ -87,5 +91,9 @@
     </insert>
     <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
         select team_serial from team where klass_id=#{arg0}
+    </select>
+
+    <select id="getTeamById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamEntity">
+        select * from team where id=#{arg0}
     </select>
 </mapper>
