@@ -97,4 +97,12 @@
         select * from team where id=#{arg0}
     </select>
 
+    <select id="getTeamStatusById" parameterType="java.lang.Long" resultType="java.lang.Byte">
+        select status from team where id=#{arg0}
+    </select>
+
+    <update id="setStatus">
+        update team set status=#{arg1} where id=#{arg0}
+    </update>
+
 </mapper>

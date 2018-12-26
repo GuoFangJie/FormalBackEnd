@@ -59,14 +59,16 @@ public class TeamDao{
 
     /*数据库修改后修改的
     * */
-    public void addMember(Long teamId,Long studentId){
+    public Byte addMember(Long teamId,Long studentId){
        // TeamEntity teamEntity= teamMapper.findTeamById(teamId);
-        klassStudentMapper.addMember(teamId,studentId);
+         klassStudentMapper.addMember(teamId,studentId);
+         return teamMapper.getTeamStatusById(teamId);
     }
 
 
-    public void removeMember(Long teamId,Long studentId){
+    public Byte removeMember(Long teamId,Long studentId){
         teamMapper.removeMember(teamId,studentId);
+        return teamMapper.getTeamStatusById(teamId);
     }
 
 
@@ -164,6 +166,16 @@ public class TeamDao{
      */
     public ArrayList<Byte> getSerial(Long klassId){
         return teamMapper.getSerial(klassId);
+    }
+
+    /**
+     * @author ljy
+     * 获取当前所有的serial
+     * @param teamId
+     * @param status
+     */
+    public void setStatus(Long teamId,Byte status){
+        teamMapper.setStatus(teamId,status);
     }
 
     /**
@@ -284,7 +296,7 @@ public class TeamDao{
                 }
             }
         }
-        if(count>courseMemberLimitStrategyEntities.getMinMember()&&count<courseMemberLimitStrategyEntities.getMaxMember()){
+        if(count>=courseMemberLimitStrategyEntities.getMinMember()&&count<=courseMemberLimitStrategyEntities.getMaxMember()){
             return true;
         }else{
             return false;
@@ -300,7 +312,7 @@ public class TeamDao{
     public boolean memberLimitStrategy(Long id,Long teamId){
         MemberLimitStrategy memberLimitStrategy=strategyMapper.getMemberLimitStrategy(id);
         ArrayList<StudentEntity> studentEntities=studentMapper.getMembers(teamId);
-        if(studentEntities.size()>memberLimitStrategy.getMinMember()&&studentEntities.size()<memberLimitStrategy.getMaxMember()){
+        if(studentEntities.size()>=memberLimitStrategy.getMinMember()&&studentEntities.size()<=memberLimitStrategy.getMaxMember()){
             return true;
         }else {
             return false;

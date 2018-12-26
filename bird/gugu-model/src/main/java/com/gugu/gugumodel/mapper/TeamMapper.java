@@ -112,5 +112,20 @@ public interface TeamMapper {
      * @param teamId
      */
     TeamEntity getTeamById(Long teamId);
+
+    /**
+     * @author ljy
+     * 根据teamId获取team状态信息
+     * @param teamId
+     */
+    Byte getTeamStatusById(Long teamId);
+
+    /**
+     * @author ljy
+     * 获取当前所有的serial
+     * @param teamId
+     * @param status
+     */
+    public void setStatus(Long teamId,Byte status);
     
 }

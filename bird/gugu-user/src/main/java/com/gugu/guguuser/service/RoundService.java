@@ -1,9 +1,6 @@
 package com.gugu.guguuser.service;
 
-import com.gugu.gugumodel.dao.RoundDao;
-import com.gugu.gugumodel.dao.SeminarDao;
-import com.gugu.gugumodel.dao.SeminarScoreDao;
-import com.gugu.gugumodel.dao.TeamDao;
+import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
@@ -26,15 +23,17 @@ public class RoundService {
     @Autowired
     SeminarScoreDao seminarScoreDao;
     @Autowired
-    SerialUtil serialUtil;
-
+    KlassDao klassDao;
+    @Autowired
+    KlassRoundDao klassRoundDao;
     @Autowired
     RoundScoreMapper roundScoreMapper;
     @Autowired
     TeamDao teamDao;
-
     @Autowired
     SeminarDao seminarDao;
+    @Autowired
+    SerialUtil serialUtil;
 
     /**
      * 根据roundId获取详细信息
@@ -59,8 +58,15 @@ public class RoundService {
         ArrayList<Byte> roundSerial=roundDao.getSerial(roundEntity.getCourseId());
         serialUtil.setSerialList(roundSerial);
         roundEntity.setRoundSerial(serialUtil.calcuSerial());
-        Long aLong = roundDao.newRound(roundEntity);
-        return aLong;
+        roundDao.newRound(roundEntity);
+        Long newRoundId=roundEntity.getId();
+        //获取课程下所有班级
+        ArrayList<Long> klassList=klassDao.getKlassIdByCourseId(roundEntity.getCourseId());
+        //创建班级下round的副本
+        for(int i=0;i<klassList.size();i++){
+            klassRoundDao.newKlassRound(klassList.get(i),newRoundId);
+        }
+        return newRoundId;
     }
     /**
      * 获取一个轮次下所有小组的成绩

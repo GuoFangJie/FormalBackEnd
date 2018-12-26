@@ -63,6 +63,7 @@ public class CourseService {
         courseDao.addTeamStrategy(courseEntity);
         //加入冲突课程限制
         courseDao.addConflictStrategy(courseEntity);
+
         return courseEntity.getId();
     }
 
