@@ -61,11 +61,11 @@ public class CourseDao{
     }
 
     /**
-     * 新建课程的限制规则
+     * 新建课程的组队限制规则
      * @param courseEntity
      * @return
      */
-    public boolean addStrategy(CourseEntity courseEntity){
+    public boolean addTeamStrategy(CourseEntity courseEntity){
         //加课程自身的规则，并获取规则ID
         MemberLimitStrategy selfLimit=courseEntity.getMemberLimitStrategy();
         strategyMapper.addMemberLimitStrategy(selfLimit);
@@ -88,7 +88,8 @@ public class CourseDao{
         if(courseEntity.isAnd()){
             //如果是“与”关系
             //获取与表最大ID
-            Long andId=strategyMapper.getAndMaxId()+1;
+            Long andId=strategyMapper.getAndMaxId();
+            andId=(andId==null)?andId=Long.parseLong("1"):andId+1;
             for(int i=0;i<idList.size();i++){
                 //加入“与”表
                 strategyMapper.andCourseMemberLimitStrategy(andId,idList.get(i),"CourseMemberLimitStrategy");
@@ -99,7 +100,8 @@ public class CourseDao{
         else if(!courseEntity.isAnd()){
             //如果是“或关系”
             //获取或表最大ID
-            Long orId=strategyMapper.getAndMaxId()+1;
+            Long orId=strategyMapper.getAndMaxId();
+            orId=(orId==null)?orId=Long.parseLong("1"):orId+1;
             for(int i=0;i<idList.size();i++){
                 //加入“或”表
                strategyMapper.orCourseMemberLimitStrategy(orId,idList.get(i),"CourseMemberLimitStrategy");
@@ -110,6 +112,7 @@ public class CourseDao{
 
         //将课程自身规则和选其他课的规则以“与”逻辑存入表中
         Long newAndId=strategyMapper.getAndMaxId();
+        newAndId=(newAndId==null)?newAndId=Long.parseLong("1"):newAndId+1;
         strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,strategy_name);
         strategyMapper.andCourseMemberLimitStrategy(newAndId,memberLimitStrategyId,"MemberLimitStrategy");
 
@@ -119,6 +122,25 @@ public class CourseDao{
         //将最终规则存入最终表中
         strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",newAndId);
 
+        return true;
+    }
+
+    /**
+     * 新建课程的组队限制规则
+     * @param courseEntity
+     * @return
+     */
+    public boolean addConflictStrategy(CourseEntity courseEntity){
+        ArrayList<CourseEntity> conflictList=courseEntity.getConflictCourseList();
+        Long maxId=strategyMapper.getConflictMaxId();
+        maxId=(maxId==null)?Long.parseLong("1"):maxId+1;
+        for(int i=0;i<conflictList.size();i++){
+            //加入冲突的课程
+            System.out.println(conflictList.get(i).getId());
+            strategyMapper.addConflictStrategy(maxId,conflictList.get(i).getId());
+        }
+        //将本课程加入冲突列表中
+        strategyMapper.addConflictStrategy(maxId,courseEntity.getId());
         return true;
     }
 

@@ -127,7 +127,7 @@ public class ShareService {
             teamDao.deleteAllTeamByCourseId(subCourse.getId());
             //获得所有主课程的team
             ArrayList<TeamEntity> teamList=teamDao.getAllTeamByCourseId(mainCourse.getId());
-            //转换team的课程
+            //在klass_team中创建副本
             for(int i=0;i<teamList.size();i++){
                 this.teamChangeCourse(teamList.get(i),mainCourse,subCourse);
             }

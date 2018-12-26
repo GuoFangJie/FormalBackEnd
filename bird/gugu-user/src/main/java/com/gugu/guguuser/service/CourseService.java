@@ -47,8 +47,13 @@ public class CourseService {
      * @return
      */
     public Long newCourse(CourseEntity courseEntity){
-        courseDao.addStrategy(courseEntity);
-        return courseDao.newCourse(courseEntity);
+        //新建课程 获取ID
+        courseDao.newCourse(courseEntity);
+        //加入组队限制
+        courseDao.addTeamStrategy(courseEntity);
+        //加入冲突课程限制
+        courseDao.addConflictStrategy(courseEntity);
+        return courseEntity.getId();
     }
 
     /**
