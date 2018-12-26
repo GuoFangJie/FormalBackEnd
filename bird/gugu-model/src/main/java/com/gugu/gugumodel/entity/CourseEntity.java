@@ -27,7 +27,36 @@ public class CourseEntity {
     private boolean isAnd;
     private ArrayList<CourseEntity> conflictCourseList;
     private Long strategyId;
+    private Long seminarMainCourseId;
+    private Long teamMainCourseId;
 
+    public void setPresentationPercentage(Integer presentationPercentage) {
+        this.presentationPercentage = presentationPercentage;
+    }
+
+    public void setQuestionPercentage(Integer questionPercentage) {
+        this.questionPercentage = questionPercentage;
+    }
+
+    public void setReportPercentage(Integer reportPercentage) {
+        this.reportPercentage = reportPercentage;
+    }
+
+    public Long getSeminarMainCourseId() {
+        return seminarMainCourseId;
+    }
+
+    public void setSeminarMainCourseId(Long seminarMainCourseId) {
+        this.seminarMainCourseId = seminarMainCourseId;
+    }
+
+    public Long getTeamMainCourseId() {
+        return teamMainCourseId;
+    }
+
+    public void setTeamMainCourseId(Long teamMainCourseId) {
+        this.teamMainCourseId = teamMainCourseId;
+    }
 
     public Long getId() {
         return id;

@@ -24,7 +24,7 @@
 
     <select id="getCourseById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.CourseEntity">
         select id id,teacher_id teacherId,course_name courseName,introduction introduction,presentation_percentage presentationPercentage,question_percentage questionPercentage,report_percentage reportPercentage,
-               team_start_time teamStartTime,team_end_time teamEndTime from course where id=#{arg0}
+               team_start_time teamStartTime,team_end_time teamEndTime,seminar_main_course_id seminarMainCourseId,team_main_course_id teamMainCourseId from course where id=#{arg0}
     </select>
     
     <delete id="deleteCourseById" parameterType="java.lang.Long">

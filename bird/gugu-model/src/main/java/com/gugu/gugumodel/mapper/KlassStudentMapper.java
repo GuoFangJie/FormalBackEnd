@@ -125,4 +125,12 @@ public interface KlassStudentMapper {
      * @param courseId
      */
     void deleteReceiveTeamShare(Long courseId);
+
+    /**
+     * 获取未组队的成员信息
+     * @param courseId
+     * @param studentId
+     * @return
+     */
+    ArrayList<StudentEntity> getStudentWithoutTeam(Long courseId,Long studentId);
 }
