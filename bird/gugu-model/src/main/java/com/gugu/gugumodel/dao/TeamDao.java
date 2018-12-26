@@ -1,6 +1,8 @@
 package com.gugu.gugumodel.dao;
 
+import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.strategy.*;
 import com.gugu.gugumodel.mapper.*;
 import com.gugu.gugumodel.entity.TeamEntity;
 import com.gugu.gugumodel.entity.TeamValidEntity;
@@ -23,6 +25,8 @@ public class TeamDao{
     TeamValidRequestMapper teamValidRequestMapper;
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
+    @Autowired
+    StrategyMapper strategyMapper;
 
     public TeamEntity getTeamById(Long team_id) {
         return teamMapper.findTeamById(team_id);
@@ -159,5 +163,146 @@ public class TeamDao{
      */
     public ArrayList<Byte> getSerial(Long klassId){
         return teamMapper.getSerial(klassId);
+    }
+
+    /**
+     * 正式调用究极复杂递归的地方
+     */
+    public boolean teamIsLeagal(Long courseId,Long teamId){
+        return isLegal("TeamStrategy",courseId,teamId);
+    }
+    /**
+     * 究极无敌恐怖复杂递归调用的组队策略
+     */
+    public boolean isLegal(String strategy,Long id,Long teamId){
+        switch (strategy){
+            case "TeamStrategy":
+                return teamStrategyIsLegal(id,teamId);
+            case "TeamAndStrategy":
+                return teamAndStrategyIsLegal(id,teamId);
+            case "TeamOrStrategy":
+                return teamOrStrategyIsLegal(id,teamId);
+            case "ConflictCourseStrategy":
+                return conflictCourseStrategyIsLegal(id,teamId);
+            case "MemberLimitStrategy":
+                return memberLimitStrategy(id,teamId);
+            case "CourseMemberLimitStrategy":
+                return courseMemberLimitStrategyIsLegal(id,teamId);
+                default:break;
+        }
+        return false;
+    }
+
+    /**
+     * 处理team_strategy
+     * @param id
+     * @return
+     */
+    public boolean teamStrategyIsLegal(Long id,Long teamId){
+        ArrayList<TeamStrategyEntity> strategyEntity=strategyMapper.getTeamStrategy(id);
+        for(TeamStrategyEntity teamStrategyEntity:strategyEntity){
+            if(!isLegal(teamStrategyEntity.getStrategyName(),teamStrategyEntity.getStrategyId(),teamId)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 处理team_and_strategy
+     * @param id
+     * @return
+     */
+    public boolean teamAndStrategyIsLegal(Long id,Long teamId){
+        ArrayList<TeamAndStrategyEntity> teamAndStrategyEntity=strategyMapper.getTeamAndStrategy(id);
+        for(TeamAndStrategyEntity teamAndStrategyEntity1:teamAndStrategyEntity){
+            if(!isLegal(teamAndStrategyEntity1.getStrategyName(),teamAndStrategyEntity1.getStrategyId(),teamId)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 处理team_and_strategy
+     * @param id
+     * @return
+     */
+    public boolean teamOrStrategyIsLegal(Long id,Long teamId){
+        ArrayList<TeamOrStrategyEntity> teamOrStrategyEntity=strategyMapper.getTeamOrStrategy(id);
+        for(TeamOrStrategyEntity teamOrStrategyEntity1:teamOrStrategyEntity){
+            if(isLegal(teamOrStrategyEntity1.getStrategy(),teamOrStrategyEntity1.getStrategyId(),teamId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 处理conflict_course_strategy的数据
+     * @param id
+     * @param teamId
+     * @return
+     */
+    public boolean conflictCourseStrategyIsLegal(Long id,Long teamId){
+        Long courseId=0L;
+        ArrayList<ConflictCourseStrategy> conflictCourseStrategies=strategyMapper.getConflictCourseStrategy(id);
+        ArrayList<StudentEntity> studentEntities=studentMapper.getMembers(teamId);
+        for(StudentEntity studentEntity:studentEntities){
+            ArrayList<SimpleCourseEntity> simpleCourseEntities=courseMapper.findSimpleCourseEntityByStudenId(studentEntity.getId());
+            for(SimpleCourseEntity simpleCourseEntity:simpleCourseEntities){
+                for(ConflictCourseStrategy conflictCourseStrategy:conflictCourseStrategies){
+                    if(conflictCourseStrategy.getCourseId().equals(simpleCourseEntity.getId())){
+                        if(courseId==0L){
+                            courseId=conflictCourseStrategy.getCourseId();
+                        }else if(!courseId.equals(conflictCourseStrategy.getCourseId())){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 处理course_member_limit_strategy的数据
+     * @param id
+     * @param teamId
+     * @return
+     */
+    public boolean courseMemberLimitStrategyIsLegal(Long id,Long teamId){
+        CourseMemberLimitStrategyEntity courseMemberLimitStrategyEntities=strategyMapper.getCourseMemberLimitStrategy(id);
+        Integer count=0;
+        ArrayList<StudentEntity> studentEntities=studentMapper.getMembers(teamId);
+        for(StudentEntity studentEntity:studentEntities){
+            ArrayList<SimpleCourseEntity> simpleCourseEntities=courseMapper.findSimpleCourseEntityByStudenId(studentEntity.getId());
+            for(SimpleCourseEntity simpleCourseEntity:simpleCourseEntities){
+                if(simpleCourseEntity.getId().equals(courseMemberLimitStrategyEntities.getCourseId())){
+                    count++;
+                }
+            }
+        }
+        if(count>courseMemberLimitStrategyEntities.getMinMember()&&count<courseMemberLimitStrategyEntities.getMaxMember()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 处理member_limit_strategy
+     * @param id
+     * @param teamId
+     * @return
+     */
+    public boolean memberLimitStrategy(Long id,Long teamId){
+        MemberLimitStrategy memberLimitStrategy=strategyMapper.getMemberLimitStrategy(id);
+        ArrayList<StudentEntity> studentEntities=studentMapper.getMembers(teamId);
+        if(studentEntities.size()>memberLimitStrategy.getMinMember()&&studentEntities.size()<memberLimitStrategy.getMaxMember()){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
