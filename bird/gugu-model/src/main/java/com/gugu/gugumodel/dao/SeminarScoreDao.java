@@ -25,4 +25,11 @@ public class SeminarScoreDao{
     public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId,Long roundId){
         return seminarScoreMapper.getRoundSeminarScore(teamId,roundId);
     }
+
+    /**@author lju
+     * 获取小组在某课程下某轮次下的所有讨论课成绩
+     */
+    public ArrayList<SeminarScoreEntity> getAllSeminarScore(Long courseId,Long roundId,Long teamId){
+        return seminarScoreMapper.getAllSeminarScore(courseId,roundId,teamId);
+    }
 }

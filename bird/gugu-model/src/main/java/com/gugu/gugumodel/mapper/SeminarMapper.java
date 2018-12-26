@@ -88,4 +88,11 @@ public interface SeminarMapper {
      * @return
      */
     public ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId);
+
+    /**@author ljy
+     * 根据klassSeminarId获取seminar
+     * @param klassSeminarId
+     * @return
+     */
+    public SeminarEntity getSeminarByKlassSeminarId(@Param("klassSeminarId") Long klassSeminarId,@Param("courseId") Long courseId);
 }

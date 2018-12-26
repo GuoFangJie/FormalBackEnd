@@ -18,8 +18,14 @@ public interface CourseMapper {
      ArrayList<SimpleCourseEntity> findSimpleCourseEntityByStudenId(Long studentId);
 
      ArrayList<SimpleCourseEntity> findSimpleCourseEntityByTeacherId(Long teacherId);
-     Long newCourse(CourseEntity courseEntity);
 
+     /**
+      * 获取所有的课程
+      * @return
+      */
+     ArrayList<CourseEntity> getAllCourse();
+
+     Long newCourse(CourseEntity courseEntity);
 
      CourseEntity getCourseById(Long id);
 

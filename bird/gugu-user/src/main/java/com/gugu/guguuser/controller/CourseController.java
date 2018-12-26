@@ -57,6 +57,15 @@ public class CourseController {
     }
 
     /**
+     * 获取所有的课程
+     * @return
+     */
+    @GetMapping("/allcourse")
+    public ArrayList<CourseEntity> getAllCourse(){
+        return courseService.getAllCourse();
+    }
+
+    /**
      * 新建课程，返回课程id
      * @param
      * @return

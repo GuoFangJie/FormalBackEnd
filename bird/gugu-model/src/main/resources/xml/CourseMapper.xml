@@ -15,6 +15,10 @@
         where course.teacher_id=#{param1}
     </select>
 
+    <select id="getAllCourse" resultType="com.gugu.gugumodel.entity.SimpleCourseEntity">
+        select course.id id,course.teacher_id teacherId,course.course_name courseName from course
+    </select>
+
     <insert id="newCourse" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.CourseEntity">
         insert course(id,teacher_id,course_name,introduction,presentation_percentage,
         question_percentage,report_percentage,team_start_time,team_end_time)
