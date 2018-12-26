@@ -34,6 +34,14 @@ public class CourseService {
     }
 
     /**
+     * 获取所有的课程
+     * @return
+     */
+    public ArrayList<CourseEntity> getAllCourse(){
+        return courseDao.getAllCourse();
+    }
+
+    /**
      * 新建课程
      * @param courseEntity
      * @return

@@ -44,6 +44,14 @@ public class CourseDao{
     }
 
     /**
+     * 获取所有的课程
+     * @return
+     */
+    public ArrayList<CourseEntity> getAllCourse(){
+        return courseMapper.getAllCourse();
+    }
+
+    /**
      * 新建课程
      * @param courseEntity
      * @return
