@@ -39,7 +39,8 @@ public class QuestionService {
     /**
      * 给提问打分
      */
-    public void scoreQuestion(Long questionId,Float score) throws NotFoundException {
+    public void scoreQuestion(Long questionId,Float score,Long courseId,Long roundId,Long klassSeminarId,Long teamId) throws NotFoundException {
         questionDao.scoreQuestion(questionId,score);
+        attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,3,courseId);
     }
 }

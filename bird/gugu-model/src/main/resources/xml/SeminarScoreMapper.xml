@@ -48,4 +48,8 @@
         )
     </select>
 
+    <insert id="newSeminarScore" parameterType="com.gugu.gugumodel.entity.SeminarScoreEntity">
+        insert into seminar_score(klass_seminar_id, team_id, total_score, presentation_score, question_score, report_score)
+        values (#{klassSeminarId},#{teamId},#{totalScore},#{presentationScore},#{questionScore},#{reportScore})
+    </insert>
 </mapper>

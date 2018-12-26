@@ -33,20 +33,7 @@ public class QuestionController {
         questionService.newQuestion(userId,attendanceId);
     }
 
-    /**
-     * 给提问打分
-     * @param httpServletResponse
-     * @param questionId
-     * @param score
-     */
-    @PutMapping("/{questionId}/score")
-    public void scoreQuestion(HttpServletResponse httpServletResponse, @PathVariable("questionId")Long questionId, @RequestParam("score") Float score){
-        try {
-            questionService.scoreQuestion(questionId,score);
-        } catch (NotFoundException e) {
-            httpServletResponse.setStatus(404,e.getErrorMsg());
-        }
-    }
+
 
     /**
      * 获取下一个问题

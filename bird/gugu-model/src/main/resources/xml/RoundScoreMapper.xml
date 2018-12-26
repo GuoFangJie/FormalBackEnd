@@ -26,6 +26,11 @@
 
     <select id="getTeamTotalScoreInRound" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
         select round_id roundId,team_id teamId,total_score totalScore from round_score
-        where round_id=#{arg1} and team_id in (select id from team where course_id=#{arg0})
+        where round_id=#{param2} and team_id in (select id from team where course_id=#{param1})
     </select>
+
+    <insert id="newRoundScore" parameterType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        insert into round_score (round_id, team_id, total_score, presentation_score, question_score, report_score) values
+            (#{roundId},#{teamId},#{totalScore},#{presentationScore},#{questionScore},#{questionScore})
+    </insert>
 </mapper>

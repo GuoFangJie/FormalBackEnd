@@ -1,12 +1,9 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.entity.AttendanceEntity;
-import com.gugu.gugumodel.entity.CourseEntity;
-import com.gugu.gugumodel.entity.FileEntity;
-import com.gugu.gugumodel.entity.SeminarScoreEntity;
+import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
-import com.gugu.gugumodel.mapper.AttendanceMapper;
-import com.gugu.gugumodel.mapper.SeminarScoreMapper;
+import com.gugu.gugumodel.mapper.*;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +19,12 @@ public class AttendanceDao {
     AttendanceMapper attendanceMapper;
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
+    @Autowired
+    RoundMapper roundMapper;
+    @Autowired
+    RoundScoreMapper roundScoreMapper;
+    @Autowired
+    CourseMapper courseMapper;
 
     /**
      * 修改展示的顺序
@@ -127,7 +130,7 @@ public class AttendanceDao {
      * @param seminarScoreEntity
      * @return
      */
-    public Float calculateScore(CourseEntity courseEntity, SeminarScoreEntity seminarScoreEntity){
+    public Float calculateSeminarScore(CourseEntity courseEntity, SeminarScoreEntity seminarScoreEntity){
         float allScore=0F;
         if(seminarScoreEntity.getPresentationScore()!=null){
             allScore+=seminarScoreEntity.getPresentationScore()*courseEntity.getPresentationPercentage()/100;
@@ -142,12 +145,88 @@ public class AttendanceDao {
     }
 
     /**
+     * 计算round总分
+     * @param courseEntity
+     * @param roundScoreEntity
+     * @return
+     */
+    public Float calculateRoundScore (CourseEntity courseEntity,RoundScoreEntity roundScoreEntity){
+        float allScore=0F;
+        if(roundScoreEntity.getPresentationScore()!=null){
+            allScore+=roundScoreEntity.getPresentationScore()*courseEntity.getPresentationPercentage()/100;
+        }
+        if(roundScoreEntity.getQuestionScore()!=null){
+            allScore+=roundScoreEntity.getQuestionScore()*courseEntity.getQuestionPercentage()/100;
+        }
+        if(roundScoreEntity.getReportScore()!=null){
+            allScore+=roundScoreEntity.getReportScore()*courseEntity.getReportPercentage()/100;
+        }
+        return allScore;
+    }
+
+    /**
      * 计算轮次分数
+     * 0 平均分
+     * 1 最高分
      * @param
      */
-    public void calculateRoundScore(Long teamId,Long roundId){
+    public void calculateFinalRoundScore(Long teamId,Long roundId,Long courseId){
         ArrayList<SeminarScoreEntity> seminarScoreEntities=seminarScoreMapper.getRoundSeminarScore(teamId,roundId);
-
+        RoundEntity roundEntity=roundMapper.getRoundMessageById(roundId);
+        ArrayList<Float> questionScore=new ArrayList<>();
+        ArrayList<Float> presentationScore=new ArrayList<>();
+        ArrayList<Float> reportScore=new ArrayList<>();
+        Float report=0F;
+        Float question=0F;
+        Float presentation=0F;
+        //收集讨论课成绩
+        for(SeminarScoreEntity seminarScoreEntity:seminarScoreEntities){
+            if(seminarScoreEntity.getReportScore()!=null){
+                reportScore.add(seminarScoreEntity.getReportScore());
+            }
+            if(seminarScoreEntity.getQuestionScore()!=null){
+                questionScore.add(seminarScoreEntity.getQuestionScore());
+            }
+            if(seminarScoreEntity.getPresentationScore()!=null){
+                presentationScore.add(seminarScoreEntity.getPresentationScore());
+            }
+        }
+        //计算展示成绩
+        if(roundEntity.getPresentationScoreMethod().equals(0)){
+            presentation=calculateAverage(presentationScore,seminarScoreEntities.size());
+        }else{
+            presentation=calculateHighest(presentationScore);
+        }
+        //计算提问成绩
+        if(roundEntity.getQuestionScoreMethod().equals(0)){
+            question=calculateAverage(questionScore,seminarScoreEntities.size());
+        }else{
+            question=calculateHighest(questionScore);
+        }
+        //计算报告成绩
+        if(roundEntity.getReportScoreMethod().equals(0)){
+            report=calculateAverage(reportScore,seminarScoreEntities.size());
+        }else{
+            report=calculateHighest(reportScore);
+        }
+        RoundScoreEntity roundScoreEntity=roundScoreMapper.getTeamRoundScore(roundId,teamId);
+        //判断之前有没有round_score的记录
+        if(roundScoreEntity==null){
+            roundScoreEntity=new RoundScoreEntity();
+            roundScoreEntity.setPresentationScore(presentation);
+            roundScoreEntity.setQuestionScore(question);
+            roundScoreEntity.setReportScore(report);
+            roundScoreEntity.setRoundId(roundId);
+            roundScoreEntity.setTeamId(teamId);
+            roundScoreEntity.setTotalScore(calculateRoundScore(courseMapper.getCourseById(courseId),roundScoreEntity));
+            roundScoreMapper.newRoundScore(roundScoreEntity);
+        }else{
+            roundScoreEntity.setReportScore(report);
+            roundScoreEntity.setQuestionScore(question);
+            roundScoreEntity.setPresentationScore(presentation);
+            roundScoreEntity.setTotalScore(calculateRoundScore(courseMapper.getCourseById(courseId),roundScoreEntity));
+            roundScoreMapper.editRoundScore(roundScoreEntity);
+        }
     }
 
     /**
@@ -178,5 +257,50 @@ public class AttendanceDao {
             }
         }
         return highest;
+    }
+
+    /**
+     * 1. 给报告打分
+     * 2. 给展示打分
+     * 3. 给提问打分
+     */
+    public void setSeminarScore(Long roundId,Long klassSeminarId,Long teamId,Float score,int type,Long courseId){
+        SeminarScoreEntity seminarScoreEntity=seminarScoreMapper.getSeminarScore(klassSeminarId, teamId);
+        if(type==1){
+            if(seminarScoreEntity==null){
+                seminarScoreEntity=new SeminarScoreEntity();
+                seminarScoreEntity.setTeamId(teamId);
+                seminarScoreEntity.setKlassSeminarId(klassSeminarId);
+                seminarScoreEntity.setReportScore(score);
+                seminarScoreMapper.newSeminarScore(seminarScoreEntity);
+            }else{
+                seminarScoreEntity.setReportScore(score);
+                seminarScoreMapper.setSeminarScore(seminarScoreEntity);
+            }
+        }else if(type==2){
+            if(seminarScoreEntity==null){
+                seminarScoreEntity=new SeminarScoreEntity();
+                seminarScoreEntity.setTeamId(teamId);
+                seminarScoreEntity.setKlassSeminarId(klassSeminarId);
+                seminarScoreEntity.setPresentationScore(score);
+                seminarScoreMapper.newSeminarScore(seminarScoreEntity);
+            }else{
+                seminarScoreEntity.setPresentationScore(score);
+                seminarScoreMapper.setSeminarScore(seminarScoreEntity);
+            }
+        }else{
+            if(seminarScoreEntity==null){
+                seminarScoreEntity=new SeminarScoreEntity();
+                seminarScoreEntity.setTeamId(teamId);
+                seminarScoreEntity.setKlassSeminarId(klassSeminarId);
+                seminarScoreEntity.setQuestionScore(score);
+                seminarScoreMapper.newSeminarScore(seminarScoreEntity);
+            }else{
+                seminarScoreEntity.setQuestionScore(score);
+                seminarScoreMapper.setSeminarScore(seminarScoreEntity);
+            }
+        }
+        calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity);
+        calculateFinalRoundScore(teamId,roundId,courseId);
     }
 }
