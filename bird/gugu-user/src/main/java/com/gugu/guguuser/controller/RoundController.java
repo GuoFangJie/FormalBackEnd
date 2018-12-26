@@ -133,8 +133,8 @@ public class RoundController {
      * @return
      */
     @GetMapping("/{roundId}/team/{teamId}")
-    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId ){
-        return roundService.getTeamAllScoreInRound(teamId,roundId);
+    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId ,Long courseId){
+        return roundService.getTeamAllScoreInRound(teamId,roundId,courseId);
     }
 
 
