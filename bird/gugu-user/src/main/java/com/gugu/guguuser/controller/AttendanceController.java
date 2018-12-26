@@ -161,9 +161,9 @@ public class AttendanceController {
         for(int i=0;i<attendanceEntities.size();i++){
             attendanceEntities.get(i).setTeamEntity(teamService.getTeamMessageByTeamId(attendanceEntities.get(i).getTeamId()));
             AttendanceMessageVO attendanceMessageVO=new AttendanceMessageVO(attendanceEntities.get(i));
-            if(seminarService.getOnceSeminarScore(attendanceMessageVO.getKlassSeminarId(),attendanceMessageVO.getTeamId()).getPresentationScore()!=null) {
+            try {
                 attendanceMessageVO.setScore(seminarService.getOnceSeminarScore(attendanceMessageVO.getKlassSeminarId(), attendanceMessageVO.getTeamId()).getPresentationScore());
-            }else{
+            }catch (NullPointerException e){
                 attendanceMessageVO.setScore(null);
             }
             attendanceMessageVOS.add(attendanceMessageVO);
