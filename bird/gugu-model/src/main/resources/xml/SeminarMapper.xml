@@ -57,4 +57,8 @@
     <select id="getSeminarByCourseAndRound">
         select id,seminar_name seminarName from seminar where course_id=#{arg0} and round_id=#{arg1}
     </select>
+
+    <select id="getSeminarByKlassSeminarId" parameterType="java.lang.Long" resultMap="SeminarInfoEntity">
+        select * from seminar where id=(select seminar_id from klass_seminar where id=#{klassSeminarId} and klass_id =(select id from klass where courseId=#{courseId}))
+    </select>
 </mapper>

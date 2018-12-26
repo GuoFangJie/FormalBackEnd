@@ -7,11 +7,20 @@ import java.util.ArrayList;
  * @author ren
  */
 public class TeamScoreInRoundEntity {
+    TeamEntity teamEntity;
     //小组在一轮讨论课中的总成绩,其中包含teamid和roundid
     RoundScoreEntity roundScoreEntity;
     //在一轮中的每次讨论课的成绩
     ArrayList<SeminarScoreEntity> seminarScoreEntities;
 
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
+    }
 
     public RoundScoreEntity getRoundScoreEntity() {
         return roundScoreEntity;

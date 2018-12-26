@@ -3,6 +3,7 @@ package com.gugu.guguuser.service;
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.RoundMapper;
 import com.gugu.guguuser.controller.vo.RoundTeamsScoreMessageVO;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class CourseService {
 
     @Autowired
     SeminarDao seminarDao;
+    @Autowired
+    RoundMapper roundMapper;
 
     /**
      * 获取与学生相关的基本课程信息
@@ -155,14 +158,26 @@ public class CourseService {
     public RoundTeamsScoreMessageVO getTeamScoreInRound(Long courseId,Long roundId){
         //存放每轮次下所有小组成绩list
         ArrayList<TeamScoreInRoundEntity> teamScoreInRoundEntities=new ArrayList<TeamScoreInRoundEntity>();
-        //获取本轮此下所有小组在本轮此下的总成绩
+        //获取本轮次下所有小组在本轮此下的总成绩
         ArrayList<RoundScoreEntity> roundScoreEntities=courseDao.getTeamTotalScoreInRound(courseId,roundId);
-//        for(int i=0;i<roundScoreEntities.size();i++){
-//            teamScoreInRoundEntities
-//        }
-//        //找到该课程下该轮次下所有的讨论课
-//        ArrayList<SeminarEntity> seminarEntities=seminarDao.getSeminarByCourseAndRound(courseId,roundId);
-//        return courseService.getTeamScoreInRound(courseId,roundId);
-        return null;
+        for(int i=0;i<roundScoreEntities.size();i++){
+            Long teamId=roundScoreEntities.get(i).getTeamId();
+            ArrayList<SeminarScoreEntity> seminarScoreEntities=seminarScoreDao.getAllSeminarScore(courseId,roundId,teamId);
+            for(int j=0;j<seminarScoreEntities.size();j++){
+                seminarScoreEntities.get(j).setSeminarEntity(seminarDao.getSeminarByKlassSeminarId(seminarScoreEntities.get(j).getKlassSeminarId(),courseId));
+            }
+            TeamScoreInRoundEntity teamScoreInRoundEntity=new TeamScoreInRoundEntity();
+            teamScoreInRoundEntity.setTeamEntity(teamDao.getTeamById(teamId));
+            teamScoreInRoundEntity.setRoundScoreEntity(roundScoreEntities.get(i));
+            teamScoreInRoundEntity.setSeminarScoreEntities(seminarScoreEntities);
+            teamScoreInRoundEntities.add(teamScoreInRoundEntity);
+        }
+        //找到该课程下该轮次下所有的讨论课
+        //ArrayList<SeminarEntity> seminarEntities= seminarDao.getSeminarByCourseAndRound(courseId,roundId);
+        RoundTeamsScoreMessageVO roundTeamsScoreMessageVO=new RoundTeamsScoreMessageVO();
+        roundTeamsScoreMessageVO.setRoundId(roundId);
+        roundTeamsScoreMessageVO.setRoundSerial(roundMapper.getRoundSerialById(roundId));
+        roundTeamsScoreMessageVO.setTeamScoreInRoundEntities(teamScoreInRoundEntities);
+        return roundTeamsScoreMessageVO;
     }
 }

@@ -239,4 +239,13 @@ public class SeminarDao {
     public ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId){
            return seminarMapper.getSeminarByCourseAndRound(courseId,roundId);
     }
+
+    /**@author ljy
+     * 根据klassSeminarId获取seminar
+     * @param klassSeminarId
+     * @return
+     */
+    public SeminarEntity getSeminarByKlassSeminarId(Long klassSeminarId,Long courseId){
+        return seminarMapper.getSeminarByKlassSeminarId(klassSeminarId,courseId);
+    }
 }
