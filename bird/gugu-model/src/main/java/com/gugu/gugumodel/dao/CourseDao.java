@@ -2,6 +2,7 @@ package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
+import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.entity.CourseEntity;
 import com.gugu.gugumodel.entity.ShareMessageEntity;
@@ -58,14 +59,18 @@ public class CourseDao{
      */
     public boolean addStrategy(CourseEntity courseEntity){
         //加课程自身的规则，并获取规则ID
-        Long memberLimitStrategyId = strategyMapper.addMemberLimitStrategy(courseEntity.getMemberLimitStrategy());
+        MemberLimitStrategy selfLimit=courseEntity.getMemberLimitStrategy();
+        strategyMapper.addMemberLimitStrategy(selfLimit);
+        Long memberLimitStrategyId = selfLimit.getId();
+
         ArrayList<Long> idList = new ArrayList<>();
         ArrayList<CourseMemberLimitStrategyEntity> courseMemberLimitStrategyList = courseEntity.getCourseMemberLimitStrategyEntityList();
 
         //加入其他课程的规则信息
         for(int i=0;i<courseMemberLimitStrategyList.size();i++){
             //加入选其他课的规则，并把ID到List中
-            Long courseMemberLimitStrategyId=strategyMapper.addCourseMemberLimitStrategy(courseMemberLimitStrategyList.get(i));
+            strategyMapper.addCourseMemberLimitStrategy(courseMemberLimitStrategyList.get(i));
+            Long courseMemberLimitStrategyId=courseMemberLimitStrategyList.get(i).getId();
             idList.add(courseMemberLimitStrategyId);
         }
 
@@ -95,16 +100,16 @@ public class CourseDao{
             strategy_name="TeamOrStrategy";
         }
 
-        //将课程自身规则和选其他课的规则以“与”逻辑存入表中，取出ID
+        //将课程自身规则和选其他课的规则以“与”逻辑存入表中
         Long newAndId=strategyMapper.getAndMaxId();
         strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,strategy_name);
-        strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,"MemberLimitStrategy");
+        strategyMapper.andCourseMemberLimitStrategy(newAndId,memberLimitStrategyId,"MemberLimitStrategy");
 
         //获得strategySerial
         Byte strategySerial=this.getSerial(courseEntity);
 
         //将最终规则存入最终表中
-        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",courseLimitId);
+        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",newAndId);
 
         return true;
     }
