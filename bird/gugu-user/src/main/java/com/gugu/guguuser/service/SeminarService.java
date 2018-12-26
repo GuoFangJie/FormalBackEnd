@@ -43,6 +43,7 @@ public class SeminarService {
 
     /**
      * 新建讨论课,创建成功后返回seminarId
+     * @param seminarEntity
      * @return Long
      */
     public Long newSeminar(SeminarEntity seminarEntity){
@@ -52,7 +53,7 @@ public class SeminarService {
         seminarEntity.setSeminarSerial(serialUtil.calcuSerial());
         Long seminarId=seminarDao.newSeminar(seminarEntity);
         ArrayList<Long> klassId=klassDao.getKlassIdByCourseId(seminarEntity.getCourseId());
-
+        //创建班级下的讨论课
         for(int i=0;i<klassId.size();i++){
             klassSeminarDao.addKlassSeminar(seminarId,klassId.get(i));
         }

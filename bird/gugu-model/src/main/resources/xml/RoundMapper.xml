@@ -38,4 +38,8 @@
     <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
         select round_serial from round where course_id=#{arg0}
     </select>
+
+    <select id="getTeamTotalScore" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        select round_id roundId,team_id teamId,total_score totalScore,presentation_score presentationScore,question_score questionScore,report_score reportScore from round_score where team_id=#{teamId} and round_id=#{roundId} and round_id in (select id from round where course_id=#{courseId})
+    </select>
 </mapper>

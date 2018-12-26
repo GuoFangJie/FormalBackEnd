@@ -121,15 +121,13 @@ public class CourseDao{
 
         //获得strategySerial
         Byte strategySerial=this.getSerial(courseEntity);
-
         //将最终规则存入最终表中
         strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",newAndId);
-
         return true;
     }
 
     /**
-     * 新建课程的组队限制规则
+     * 冲突课程的限制规则
      * @param courseEntity
      * @return
      */
@@ -144,6 +142,10 @@ public class CourseDao{
         }
         //将本课程加入冲突列表中
         strategyMapper.addConflictStrategy(maxId,courseEntity.getId());
+        //获得strategySerial
+        Byte strategySerial=this.getSerial(courseEntity);
+        //将最终规则存入最终表中
+        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"ConflictCourseStrategy",maxId);
         return true;
     }
 

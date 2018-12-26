@@ -44,7 +44,7 @@
         select * from seminar_score where team_id=#{teamId} and
         klass_seminar_id in(select id from klass_seminar
         where seminar_id in(select id from seminar where course_id=#{courseId} and round_id=#{roundId}) and
-        klass_id in(select id from klass where courseId=#{courseId})
+        klass_id in(select id from klass where course_id=#{courseId})
         )
     </select>
 

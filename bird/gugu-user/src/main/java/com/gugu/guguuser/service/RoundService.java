@@ -1,11 +1,15 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.RoundDao;
+import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.dao.SeminarScoreDao;
+import com.gugu.gugumodel.dao.TeamDao;
 import com.gugu.gugumodel.entity.RoundEntity;
 import com.gugu.gugumodel.entity.RoundScoreEntity;
 import com.gugu.gugumodel.entity.SeminarScoreEntity;
+import com.gugu.gugumodel.entity.TeamScoreInRoundEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.RoundScoreMapper;
 import com.gugu.guguuser.util.SerialUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,14 @@ public class RoundService {
     SeminarScoreDao seminarScoreDao;
     @Autowired
     SerialUtil serialUtil;
+
+    @Autowired
+    RoundScoreMapper roundScoreMapper;
+    @Autowired
+    TeamDao teamDao;
+
+    @Autowired
+    SeminarDao seminarDao;
 
     /**
      * 根据roundId获取详细信息
@@ -94,7 +106,27 @@ public class RoundService {
      * @param roundId
      * @return
      */
-    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId,Long roundId){
+    public TeamScoreInRoundEntity getTeamAllScoreInRoundT(Long teamId, Long roundId, Long courseId){
+        //获取所有的讨论课成绩
+        ArrayList<SeminarScoreEntity> seminarScoreEntities=seminarScoreDao.getAllSeminarScore(courseId,roundId,teamId);
+        for(int i=0;i<seminarScoreEntities.size();i++){
+            seminarScoreEntities.get(i).setSeminarEntity(seminarDao.getSeminarByKlassSeminarId(seminarScoreEntities.get(i).getKlassSeminarId(),courseId));
+        }
+        TeamScoreInRoundEntity teamScoreInRoundEntity=new TeamScoreInRoundEntity();
+        teamScoreInRoundEntity.setSeminarScoreEntities(seminarScoreEntities);
+        teamScoreInRoundEntity.setTeamEntity(teamDao.getTeamById(teamId));
+        //获取轮次下总成绩
+        teamScoreInRoundEntity.setRoundScoreEntity(roundDao.getTeamTotalScore(teamId,roundId,courseId));
+        return teamScoreInRoundEntity;
+    }
+
+    /**
+     * 获取某轮下小组所有成绩
+     * @param teamId
+     * @param roundId
+     * @return
+     */
+    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId, Long roundId){
         return seminarScoreDao.getTeamAllScoreInRound(teamId,roundId);
     }
 }
