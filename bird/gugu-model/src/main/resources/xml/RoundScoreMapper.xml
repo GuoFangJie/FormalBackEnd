@@ -12,9 +12,10 @@
                report_score reportScore from round_score where round_id=#{param1}
     </select>
 
-    <select id="getByRoundIdAndTeamId" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+    <select id="getTeamRoundScore" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
         select round_id roundId,team_id teamId,total_score totalScore,presentation_score presentationScore,
-               question_score questionScore,report_score reportScore from round_score where
+               question_score questionScore,report_score reportScore
+            from round_score where
                round_id=#{param1} and team_id=#{param2}
     </select>
     
