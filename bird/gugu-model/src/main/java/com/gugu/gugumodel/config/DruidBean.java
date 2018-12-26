@@ -18,17 +18,17 @@ public class DruidBean {
 
     private String driverClassName ;
 
-    private Integer initialSize = 5;
+    private Integer initialSize = 20;
 
-    private Integer minIdle = 5;
+    private Integer minIdle = 20;
 
-    private Integer maxActive = 20;
+    private Integer maxActive = 30;
 
     private Integer maxWait = 60000;
 
     private Integer timeBetweenEvictionRunsMillis = 60000;
 
-    private Integer minEvictableIdleTimeMillis = 300000;
+    private Integer minEvictableIdleTimeMillis = 30000;
 
     private String validationQuery = "SELECT 'x'";
 
