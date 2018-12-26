@@ -259,13 +259,15 @@ public class CourseController {
      * 新建申请
      * @param httpServletResponse
      * @param mainCourseId
-     * @param subCourseId
-     * @param type
+     * @param
+     * @param
      */
     @PostMapping("/{courseId}/application")
-    public void newApplication(HttpServletResponse httpServletResponse,@PathVariable("courseId") Long mainCourseId,@RequestParam("subCourseId") Long subCourseId,@RequestParam("type") Integer type){
+    public void newApplication(HttpServletResponse httpServletResponse,@PathVariable("courseId") Long mainCourseId,@RequestBody SubCourseVO subCourseVO){
         try {
-            courseService.newApplication(mainCourseId,subCourseId,type);
+            for(Long subCourseId:subCourseVO.getSubCourseId()){
+                courseService.newApplication(mainCourseId,subCourseId,subCourseVO.getType());
+            }
         }catch (Exception e){
             httpServletResponse.setStatus(400,"系统错误");
         }

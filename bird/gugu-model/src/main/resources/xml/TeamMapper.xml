@@ -96,4 +96,5 @@
     <select id="getTeamById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamEntity">
         select * from team where id=#{arg0}
     </select>
+
 </mapper>

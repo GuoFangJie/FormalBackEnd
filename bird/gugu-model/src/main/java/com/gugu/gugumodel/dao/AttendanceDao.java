@@ -1,9 +1,12 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.AttendanceEntity;
+import com.gugu.gugumodel.entity.CourseEntity;
 import com.gugu.gugumodel.entity.FileEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.AttendanceMapper;
+import com.gugu.gugumodel.mapper.SeminarScoreMapper;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 public class AttendanceDao {
     @Autowired
     AttendanceMapper attendanceMapper;
+    @Autowired
+    SeminarScoreMapper seminarScoreMapper;
 
     /**
      * 修改展示的顺序
@@ -114,5 +119,64 @@ public class AttendanceDao {
     public Long newAttendance(AttendanceEntity attendanceEntity){
         attendanceMapper.newAttendance(attendanceEntity);
         return attendanceEntity.getId();
+    }
+
+    /**
+     * 计算seminar总分
+     * @param courseEntity
+     * @param seminarScoreEntity
+     * @return
+     */
+    public Float calculateScore(CourseEntity courseEntity, SeminarScoreEntity seminarScoreEntity){
+        float allScore=0F;
+        if(seminarScoreEntity.getPresentationScore()!=null){
+            allScore+=seminarScoreEntity.getPresentationScore()*courseEntity.getPresentationPercentage()/100;
+        }
+        if(seminarScoreEntity.getQuestionScore()!=null){
+            allScore+=seminarScoreEntity.getQuestionScore()*courseEntity.getQuestionPercentage()/100;
+        }
+        if(seminarScoreEntity.getReportScore()!=null){
+            allScore+=seminarScoreEntity.getReportScore()*courseEntity.getReportPercentage()/100;
+        }
+        return allScore;
+    }
+
+    /**
+     * 计算轮次分数
+     * @param
+     */
+    public void calculateRoundScore(Long teamId,Long roundId){
+        ArrayList<SeminarScoreEntity> seminarScoreEntities=seminarScoreMapper.getRoundSeminarScore(teamId,roundId);
+
+    }
+
+    /**
+     *
+     * @param seminarScoreEntities
+     * @param num
+     * 计算平均分
+     * @return
+     */
+    public Float calculateAverage(ArrayList<Float> seminarScoreEntities,Integer num){
+        Float all=0F;
+        for(Float seminarScoreEntity:seminarScoreEntities){
+            all+=seminarScoreEntity;
+        }
+        return all/num;
+    }
+
+    /**
+     * 计算最高分
+     * @param scores
+     * @return
+     */
+    public Float calculateHighest(ArrayList<Float> scores){
+        Float highest=-1F;
+        for(Float s:scores){
+            if(highest<s){
+                highest=s;
+            }
+        }
+        return highest;
     }
 }
