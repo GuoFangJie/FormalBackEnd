@@ -50,6 +50,12 @@ public interface TeamMapper {
      */
     Long newTeam(TeamEntity teamEntity);
 
+    /**
+     * 新建队伍和班级的关联
+     * @param teamEntity
+     */
+    void newKlassTeam(TeamEntity teamEntity);
+
 
     /**@author ljy
      * 根据teamId获取klassId

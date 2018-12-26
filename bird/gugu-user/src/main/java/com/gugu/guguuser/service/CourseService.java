@@ -44,13 +44,26 @@ public class CourseService {
     }
 
     /**
+     * 获取所有的课程
+     * @return
+     */
+    public ArrayList<CourseEntity> getAllCourse(){
+        return courseDao.getAllCourse();
+    }
+
+    /**
      * 新建课程
      * @param courseEntity
      * @return
      */
     public Long newCourse(CourseEntity courseEntity){
-        courseDao.addStrategy(courseEntity);
-        return courseDao.newCourse(courseEntity);
+        //新建课程 获取ID
+        courseDao.newCourse(courseEntity);
+        //加入组队限制
+        courseDao.addTeamStrategy(courseEntity);
+        //加入冲突课程限制
+        courseDao.addConflictStrategy(courseEntity);
+        return courseEntity.getId();
     }
 
     /**

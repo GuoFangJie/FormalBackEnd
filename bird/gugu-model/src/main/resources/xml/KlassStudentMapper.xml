@@ -4,8 +4,8 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.KlassStudentMapper">
     <select id="findTeamIdByStudentIdAndCourseId" resultType="java.lang.Long">
-        select team_student.team_id from klass_student,team_student,klass_team where klass_student.student_id=#{student_id} and klass_student.course_id=#{course_id}
-        and klass_student.klass_id=klass_team.team_id and team_student.student_id=#{student_id} and klass_team.team_id=team_student.team_id
+        select team_student.team_id from klass_student,team_student,klass_team where klass_student.student_id=#{param1} and klass_student.course_id=#{param2}
+        and klass_student.klass_id=klass_team.klass_id and team_student.student_id=#{param1} and klass_team.team_id=team_student.team_id
     </select>
 
     <insert id="newStudentToClass">
@@ -27,7 +27,7 @@
     </select>
 
     <insert id="addMember" >
-        insert into team_student(team_id, student_id) values (#{param1},#{param3})
+        insert into team_student(team_id, student_id) values (#{param1},#{param2})
     </insert>
 
     <select id="getStudentTeam" resultType="java.lang.Long">
@@ -54,8 +54,8 @@
         delete from team_student where team_id=#{arg0}
     </delete>
 
-    <select id="getStudentInCourse" parameterType="java.lang.Long" resultType="java.lang.Long">
-        select student_id from klass_student where course_id=#{arg0}
+    <select id="getStudentInCourse" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
+        select student.id id, student.is_active isActive,student.student_name studentName,student.account account,student.email email from klass_student,student where klass_student.course_id=#{arg0} and student.id=klass_student.student_id
     </select>
     <select id="getTeamIdByStudentAndCourse" resultType="java.lang.Long">
         select team_id from team_student where student_id=#{studentId} and team_id in

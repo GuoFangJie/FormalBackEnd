@@ -51,6 +51,11 @@ public interface StrategyMapper {
       */
      Long getOrMaxId();
 
+    /**
+     * 获取冲突表最大ID
+     */
+     Long getConflictMaxId();
+
      /**
       * 将结果存入最终表中
       * @param courseId
@@ -58,6 +63,13 @@ public interface StrategyMapper {
       * @param strategyName
       */
      void combineAllStrategy(Long courseId,Byte strategySerial,String strategyName,Long strategyId);
+
+    /**
+     * 将结果存入最终表中
+     * @param id
+     * @param courseId
+     */
+     void addConflictStrategy(Long id,Long courseId);
 
      /**
       * 获取相应课程的serial
