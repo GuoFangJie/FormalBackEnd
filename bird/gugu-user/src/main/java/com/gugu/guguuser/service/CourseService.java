@@ -39,6 +39,7 @@ public class CourseService {
      * @return
      */
     public Long newCourse(CourseEntity courseEntity){
+        courseDao.addStrategy(courseEntity);
         return courseDao.newCourse(courseEntity);
     }
 

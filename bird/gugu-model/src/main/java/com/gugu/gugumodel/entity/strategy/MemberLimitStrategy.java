@@ -35,10 +35,8 @@ public class MemberLimitStrategy implements Strategy {
 
     @Override
     public boolean isLegal(TeamAllEntity teamAllEntity) {
-        if(teamAllEntity.getNumOfMember()>minMember&&teamAllEntity.getNumOfMember()<maxMember){
-            return true;
-        }else{
-            return true;
-        }
+        return false;
     }
+
+
 }

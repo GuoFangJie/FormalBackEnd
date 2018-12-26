@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 public class CourseMemberLimitStrategyEntity implements Strategy {
     Long id;
+    Long courseId;
     Byte minMember;
     Byte maxMember;
-    Long courseId;
 
     public Long getCourseId() {
         return courseId;

@@ -216,4 +216,13 @@ public class SeminarDao {
     public ArrayList<SeminarEntity> getSeminarByCourseId(Long courseId){
         return seminarMapper.getSeminarByCourseId(courseId);
     }
+
+    /**@author ljy
+     * 获取一个课程下已有的serial
+     * @param courseId
+     * @return
+     */
+    public ArrayList<Byte> getSerial(Long courseId){
+        return seminarMapper.getSerial(courseId);
+    }
 }

@@ -50,4 +50,9 @@ public interface KlassMapper {
      * @return
      */
      ArrayList<Long> getKlassIdByCourseId(Long courseId);
+    /**@author ljy
+     *获取课程下已有的serial
+     * @param courseId
+     */
+    public ArrayList<Byte> getSerial(Long courseId);
 }

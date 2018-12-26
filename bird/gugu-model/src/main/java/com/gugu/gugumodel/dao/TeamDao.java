@@ -161,7 +161,7 @@ public class TeamDao{
      * 获取当前所有的serial
      * @param klassId
      */
-    public ArrayList<Integer> getSerial(Long klassId){
+    public ArrayList<Byte> getSerial(Long klassId){
         return teamMapper.getSerial(klassId);
     }
 

@@ -1,6 +1,8 @@
 package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
+import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
 import com.gugu.guguuser.controller.vo.NewCourseVO;
 import com.gugu.guguuser.controller.vo.ShareMessageVO;
 import com.gugu.guguuser.controller.vo.SimpleCourseVO;
@@ -74,6 +76,16 @@ public class CourseController {
         courseEntity.setReportPercentage(newCourseVO.getReportPercentage());
         courseEntity.setTeamStartTime(Timestamp.valueOf(newCourseVO.getTeamStartTime()));
         courseEntity.setTeamEndTime(Timestamp.valueOf(newCourseVO.getTeamEndTime()));
+        //设置本课程人数限制
+        MemberLimitStrategy selfStrategy=new MemberLimitStrategy();
+        selfStrategy.setMinMember(newCourseVO.getMinMember());
+        selfStrategy.setMaxMember(newCourseVO.getMaxMember());
+        courseEntity.setMemberLimitStrategy(selfStrategy);
+        //设置选修课程人数限制
+        courseEntity.setCourseMemberLimitStrategyEntityList(newCourseVO.getCourseMemberLimitStrategyList());
+        courseEntity.setAnd(newCourseVO.isAnd());
+        //设置冲突课程
+        courseEntity.setConflictCourseList(newCourseVO.getConflictCourseList());
         courseService.newCourse(courseEntity);
         return courseEntity.getId();
     }
