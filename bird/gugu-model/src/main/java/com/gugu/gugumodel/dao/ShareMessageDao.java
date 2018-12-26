@@ -31,14 +31,15 @@ public class ShareMessageDao {
      */
     public ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId){
         ArrayList<ShareApplicationEntity> shareSeminarList=shareSeminarMapper.getSeminarShareList(userId);
+        ArrayList<ShareApplicationEntity> realList=new ArrayList<>();
         for(int i=0;i<shareSeminarList.size();i++){
-            if(shareSeminarList.get(i).getStatus()!=null){
-                shareSeminarList.remove(i);
+            if(shareSeminarList.get(i).getStatus()==null){
+                Byte type=1;
+                shareSeminarList.get(i).setType(type);
+                realList.add(shareSeminarList.get(i));
             }
-            Byte type=1;
-            shareSeminarList.get(i).setType(type);
         }
-        return shareSeminarList;
+        return realList;
     }
 
     /**
@@ -67,14 +68,15 @@ public class ShareMessageDao {
      */
     public ArrayList<ShareApplicationEntity> getTeamShareList(Long userId){
         ArrayList<ShareApplicationEntity> shareTeamList=shareTeamMapper.getTeamShareList(userId);
+        ArrayList<ShareApplicationEntity> realList=new ArrayList<>();
         for(int i=0;i<shareTeamList.size();i++){
-            if(shareTeamList.get(i).getStatus()!=null){
-                shareTeamList.remove(i);
+            if(shareTeamList.get(i).getStatus()==null){
+                Byte type=2;
+                shareTeamList.get(i).setType(type);
+                realList.add(shareTeamList.get(i));
             }
-            Byte type=2;
-            shareTeamList.get(i).setType(type);
         }
-        return shareTeamList;
+        return realList;
     }
 
     /**

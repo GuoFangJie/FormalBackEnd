@@ -3,6 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
+import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.*;
 import com.gugu.guguuser.service.CourseService;
 import com.gugu.guguuser.service.KlassService;
@@ -28,6 +29,7 @@ public class CourseController {
     KlassService klassService;
     @Autowired
     RoundService roundService;
+
     /**
      * 获取与用户相关的课程
      * @param
@@ -251,7 +253,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/round")
-    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId){
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId) throws NotFoundException {
         return roundService.getRoundMessageByCourseId(courseId);
     }
 
