@@ -38,7 +38,7 @@ public interface KlassStudentMapper {
      * @param
      * @param studentId
      */
-    void addMember(Long teamId,Long studentId);
+    void addMember(@Param("teamId") Long teamId,@Param("studentId") Long studentId);
 
     /**
      * 根据班级和学生获取小组id
