@@ -94,7 +94,7 @@ public class RoundService {
      * @param roundId
      * @return
      */
-    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId,Long roundId){
-        return seminarScoreDao.getTeamAllScoreInRound(teamId,roundId);
+    public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(Long teamId,Long roundId,Long courseId){
+        return seminarScoreDao.getAllSeminarScore(teamId,roundId,courseId);
     }
 }
