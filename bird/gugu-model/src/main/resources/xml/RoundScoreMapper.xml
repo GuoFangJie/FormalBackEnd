@@ -23,4 +23,9 @@
         update round_score set presentation_score=#{presentationScore},question_score=#{questionScore},
                                report_score=#{reportScore},total_score=#{roralScore} where round_id=#{roundId} and team_id=#{teamId}
     </update>
+
+    <select id="getTeamTotalScoreInRound" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">
+        select round_id roundId,team_id teamId,total_score totalScore from round_score
+        where round_id=#{arg1} and team_id in (select id from team where course_id=#{arg0})
+    </select>
 </mapper>

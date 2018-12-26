@@ -1,6 +1,7 @@
 package com.gugu.gugumodel.mapper;
 
 import com.gugu.gugumodel.entity.RoundScoreEntity;
+import com.gugu.gugumodel.entity.TeamScoreInRoundEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +36,11 @@ public interface RoundScoreMapper {
      * 修改roundScore记录
      */
     void editRoundScore(RoundScoreEntity roundScoreEntity);
+
+    /**
+     * @author ljy
+     * 获取小组在本轮此下的总成绩
+     * @return
+     */
+    public ArrayList<RoundScoreEntity> getTeamTotalScoreInRound(Long courseId, Long roundId);
 }

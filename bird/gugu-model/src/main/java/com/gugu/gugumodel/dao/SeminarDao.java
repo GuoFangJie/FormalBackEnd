@@ -205,7 +205,11 @@ public class SeminarDao {
      */
     public ArrayList<SeminarScoreEntity> getSeminarAllScore(Long seminarId,Long classId){
         Long klassSeminarId=klassSeminarMapper.getKlassSeminarId(seminarId,classId);
-        return seminarScoreMapper.getSeminarAllScore(klassSeminarId);
+        ArrayList<SeminarScoreEntity> seminarScoreEntities=seminarScoreMapper.getSeminarAllScore(klassSeminarId);
+        for(int i=0;i<seminarScoreEntities.size();i++){
+            seminarScoreEntities.get(i).setTeamEntity(teamMapper.getTeamById(seminarScoreEntities.get(i).getTeamId()));
+        }
+        return seminarScoreEntities;
     }
 
     /**@author TYJ
@@ -224,5 +228,15 @@ public class SeminarDao {
      */
     public ArrayList<Byte> getSerial(Long courseId){
         return seminarMapper.getSerial(courseId);
+    }
+
+
+    /**@author ljy
+     * 根据courseId和roundId获取讨论课信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId){
+           return seminarMapper.getSeminarByCourseAndRound(courseId,roundId);
     }
 }
