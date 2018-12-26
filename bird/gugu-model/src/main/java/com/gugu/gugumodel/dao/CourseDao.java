@@ -137,7 +137,6 @@ public class CourseDao{
         maxId=(maxId==null)?Long.parseLong("1"):maxId+1;
         for(int i=0;i<conflictList.size();i++){
             //加入冲突的课程
-            System.out.println(conflictList.get(i).getId());
             strategyMapper.addConflictStrategy(maxId,conflictList.get(i).getId());
         }
         //将本课程加入冲突列表中
@@ -162,7 +161,9 @@ public class CourseDao{
         }
         else{
             for(Byte i=0;i<serialList.size();i++){
-                if(!serialList.get(i).equals(i+1)){
+                Integer tempInt=i+1;
+                Byte tempb=Byte.parseByte(tempInt.toString());
+                if(!serialList.get(i).equals(tempb)){
                     Integer temp=i+1;
                     return Byte.parseByte(temp.toString());
                 }

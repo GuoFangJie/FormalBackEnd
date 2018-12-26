@@ -22,7 +22,9 @@ public class SerialUtil {
         }
         else{
             for(Byte i=0;i<serialList.size();i++){
-                if(!serialList.get(i).equals(i+1)){
+                Integer tempInt=i+1;
+                Byte tempb=Byte.parseByte(tempInt.toString());
+                if(!serialList.get(i).equals(tempb)){
                     Integer temp=i+1;
                     return Byte.parseByte(temp.toString());
                 }

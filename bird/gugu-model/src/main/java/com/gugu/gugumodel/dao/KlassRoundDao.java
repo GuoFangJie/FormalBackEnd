@@ -33,4 +33,15 @@ public class KlassRoundDao {
         }
         return true;
     }
+
+    /**
+     * 新建klass_round记录
+     * @param klassId
+     * @param roundId
+     * @return
+     */
+    public boolean newKlassRound(Long klassId,Long roundId){
+        klassRoundMapper.newKlassRound(klassId,roundId);
+        return true;
+    }
 }
