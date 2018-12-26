@@ -80,5 +80,5 @@ public interface SeminarMapper {
      * @param courseId
      * @return
      */
-    public ArrayList<Integer> getSerial(Long courseId);
+    public ArrayList<Byte> getSerial(Long courseId);
 }

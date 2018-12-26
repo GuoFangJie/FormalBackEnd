@@ -88,7 +88,7 @@ public class TeamService {
      */
     public Long newTeam(ArrayList<StudentEntity> memberStudents,TeamEntity teamEntity){
         //新增了计算team_serial
-        ArrayList<Integer> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
+        ArrayList<Byte> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
         serialUtil.setSerialList(teamSerial);
         teamEntity.setTeamSerial(serialUtil.calcuSerial());
         return teamDao.newTeam(memberStudents,teamEntity);

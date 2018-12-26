@@ -3,7 +3,7 @@
 
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.TeamMapper">
-    <resultMap id="TeamEntity" type="com.gugu.gugumodel.entity.TeamEntity">
+    <resultMap id="TeamEntityMap" type="com.gugu.gugumodel.entity.TeamEntity">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="klass_id" jdbcType="BIGINT" property="klassId"/>
         <result column="course_id" jdbcType="BIGINT" property="courseId"/>
@@ -12,7 +12,7 @@
         <result column="team_serial" jdbcType="TINYINT" property="teamSerial"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
-    <select id="findTeamById" parameterType="java.lang.Long" resultMap="TeamEntity">
+    <select id="findTeamById" parameterType="java.lang.Long" resultMap="TeamEntityMap">
         select id,klass_id,course_id,leader_id,team_name,team_serial,
                status from team where id=#{arg0}
     </select>
@@ -67,7 +67,7 @@
         update team set status=#{param2} where id=#{param1}
     </update>
 
-    <select id="getAllTeamByCourse" parameterType="java.lang.Long" resultMap="TeamEntity">
+    <select id="getAllTeamByCourse" parameterType="java.lang.Long" resultMap="TeamEntityMap">
         select team.id,team.leader_id,team.team_name,team.team_serial,
                team.status from team,klass_team,klass where klass.course_id=#{param1} and klass.id=klass_team.klass_id
               and team.id=klass_team.team_id
@@ -77,7 +77,7 @@
         delete klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
     </delete>
 
-    <select id="getAllTeamByCourseId" resultMap="TeamEntity">
+    <select id="getAllTeamByCourseId" resultMap="TeamEntityMap">
         select * from team
         where course_id={#param1}
     </select>
@@ -85,7 +85,7 @@
     <insert id="createKlassTeam">
         insert into klass_team values (#{param2},#{param1})
     </insert>
-    <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
         select team_serial from team where klass_id=#{arg0}
     </select>
 </mapper>
