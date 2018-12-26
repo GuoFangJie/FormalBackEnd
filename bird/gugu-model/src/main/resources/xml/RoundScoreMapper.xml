@@ -21,7 +21,7 @@
     
     <update id="editRoundScore" parameterType="com.gugu.gugumodel.entity.RoundScoreEntity">
         update round_score set presentation_score=#{presentationScore},question_score=#{questionScore},
-                               report_score=#{reportScore},total_score=#{roralScore} where round_id=#{roundId} and team_id=#{teamId}
+                               report_score=#{reportScore},total_score=#{totalScore} where round_id=#{roundId} and team_id=#{teamId}
     </update>
 
     <select id="getTeamTotalScoreInRound" resultType="com.gugu.gugumodel.entity.RoundScoreEntity">

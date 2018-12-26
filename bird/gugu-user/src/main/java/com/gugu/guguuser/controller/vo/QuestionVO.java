@@ -2,6 +2,7 @@ package com.gugu.guguuser.controller.vo;
 
 import com.gugu.gugumodel.entity.QuestionEntity;
 import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.TeamEntity;
 
 /**
  * @author ren
@@ -9,6 +10,15 @@ import com.gugu.gugumodel.entity.StudentEntity;
 public class QuestionVO {
     QuestionEntity questionEntity;
     StudentEntity studentEntity;
+    TeamEntity teamEntity;
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
+    }
 
     public QuestionEntity getQuestionEntity() {
         return questionEntity;

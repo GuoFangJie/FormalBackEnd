@@ -3,7 +3,10 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.gugumodel.mapper.AttendanceMapper;
+import com.gugu.guguuser.controller.vo.AttendanceMessageVO;
 import com.gugu.guguuser.service.AttendanceService;
+import com.gugu.guguuser.service.SeminarService;
 import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +33,8 @@ public class AttendanceController {
     String reportPath;
     @Autowired
     TeamService teamService;
+    @Autowired
+    SeminarService seminarService;
 
     /**
      * 修改展示顺序
@@ -149,12 +154,21 @@ public class AttendanceController {
      * @return
      */
     @GetMapping("/{seminarKlassId}")
-    public ArrayList<AttendanceEntity> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
+    public ArrayList<AttendanceMessageVO> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
+        System.out.println(seminarKlassId);
+        ArrayList<AttendanceMessageVO> attendanceMessageVOS=new ArrayList<>();
         ArrayList<AttendanceEntity> attendanceEntities=attendanceService.getBySeminarKlassId(seminarKlassId);
         for(int i=0;i<attendanceEntities.size();i++){
             attendanceEntities.get(i).setTeamEntity(teamService.getTeamMessageByTeamId(attendanceEntities.get(i).getTeamId()));
+            AttendanceMessageVO attendanceMessageVO=new AttendanceMessageVO(attendanceEntities.get(i));
+            if(seminarService.getOnceSeminarScore(attendanceMessageVO.getKlassSeminarId(),attendanceMessageVO.getTeamId()).getPresentationScore()!=null) {
+                attendanceMessageVO.setScore(seminarService.getOnceSeminarScore(attendanceMessageVO.getKlassSeminarId(), attendanceMessageVO.getTeamId()).getPresentationScore());
+            }else{
+                attendanceMessageVO.setScore(null);
+            }
+            attendanceMessageVOS.add(attendanceMessageVO);
         }
-        return attendanceEntities;
+        return attendanceMessageVOS;
     }
 
     /**ljy

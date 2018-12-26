@@ -4,15 +4,9 @@ import com.gugu.gugumodel.dao.KlassDao;
 import com.gugu.gugumodel.dao.KlassSeminarDao;
 import com.gugu.gugumodel.dao.SeminarDao;
 import com.gugu.gugumodel.entity.*;
-import com.gugu.gugumodel.entity.KlassEntity;
-import com.gugu.gugumodel.entity.SeminarEntity;
 import com.gugu.guguuser.util.SerialUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -178,5 +172,15 @@ public class SeminarService {
     public ArrayList<SeminarScoreEntity> getSeminarAllScore(Long seminarId,Long classId){
 
         return seminarDao.getSeminarAllScore(seminarId,classId);
+    }
+
+    /**
+     * 获取一个小组一次展示的成绩
+     * @param klassSeminarId
+     * @param teamId
+     * @return
+     */
+    public SeminarScoreEntity getOnceSeminarScore(Long klassSeminarId,Long teamId){
+        return seminarDao.getOnceSeminarScore(klassSeminarId,teamId);
     }
 }
