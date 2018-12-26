@@ -222,7 +222,7 @@ public class SeminarDao {
      * @param courseId
      * @return
      */
-    public ArrayList<Integer> getSerial(Long courseId){
+    public ArrayList<Byte> getSerial(Long courseId){
         return seminarMapper.getSerial(courseId);
     }
 }

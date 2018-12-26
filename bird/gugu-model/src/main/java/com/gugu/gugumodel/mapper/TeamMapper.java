@@ -96,6 +96,6 @@ public interface TeamMapper {
      * 获取当前所有的serial
      * @param klassId
      */
-    ArrayList<Integer> getSerial(Long klassId);
+    ArrayList<Byte> getSerial(Long klassId);
 
 }

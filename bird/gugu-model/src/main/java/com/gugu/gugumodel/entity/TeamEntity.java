@@ -10,7 +10,7 @@ public class TeamEntity {
     private Long courseId;
     private Long leaderId;
     private String teamName;
-    private Integer teamSerial;
+    private Byte teamSerial;
     private Integer status;
 
 
@@ -54,11 +54,11 @@ public class TeamEntity {
         this.teamName = teamName;
     }
 
-    public Integer getTeamSerial() {
+    public Byte getTeamSerial() {
         return teamSerial;
     }
 
-    public void setTeamSerial(Integer teamSerial) {
+    public void setTeamSerial(Byte teamSerial) {
         this.teamSerial = teamSerial;
     }
 

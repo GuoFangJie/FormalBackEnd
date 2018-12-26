@@ -47,7 +47,7 @@ public class SeminarService {
      */
     public Long newSeminar(SeminarEntity seminarEntity){
         //计算seminar_serial
-        ArrayList<Integer> seminarSerials=seminarDao.getSerial(seminarEntity.getCourseId());
+        ArrayList<Byte> seminarSerials=seminarDao.getSerial(seminarEntity.getCourseId());
         serialUtil.setSerialList(seminarSerials);
         seminarEntity.setSeminarSerial(serialUtil.calcuSerial());
         Long seminarId=seminarDao.newSeminar(seminarEntity);

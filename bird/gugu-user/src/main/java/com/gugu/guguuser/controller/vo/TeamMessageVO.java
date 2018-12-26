@@ -18,7 +18,7 @@ public class TeamMessageVO{
     StudentEntity leader;
     ArrayList<StudentEntity> members;
     Integer status;
-    Integer serial;
+    Byte serial;
 
 
     public TeamMessageVO(){
@@ -92,11 +92,11 @@ public class TeamMessageVO{
         this.status = status;
     }
 
-    public Integer getSerial() {
+    public Byte getSerial() {
         return serial;
     }
 
-    public void setSerial(Integer serial) {
+    public void setSerial(Byte serial) {
         this.serial = serial;
     }
 }
