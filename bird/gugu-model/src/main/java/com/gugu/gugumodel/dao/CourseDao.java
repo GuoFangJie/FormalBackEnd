@@ -27,6 +27,9 @@ public class CourseDao{
     @Autowired
     StrategyMapper strategyMapper;
 
+    @Autowired
+    RoundScoreMapper roundScoreMapper;
+
 
     /**
      * 找出与用户相关的课程信息
@@ -301,4 +304,12 @@ public class CourseDao{
         return courseMapper.changeTeamShareStatus(subCourseId,mainCourseId);
     }
 
+    /**
+     * @author ljy
+     * 获取小组在本轮此下的总成绩
+     * @return
+     */
+    public ArrayList<RoundScoreEntity> getTeamTotalScoreInRound(Long courseId,Long roundId){
+        return roundScoreMapper.getTeamTotalScoreInRound(courseId,roundId);
+    }
 }

@@ -98,4 +98,11 @@ public interface TeamMapper {
      */
     ArrayList<Byte> getSerial(Long klassId);
 
+
+    /**
+     * @author ljy
+     * 根据teamId获取team信息
+     * @param teamId
+     */
+    TeamEntity getTeamById(Long teamId);
 }

@@ -3,10 +3,7 @@ package com.gugu.guguuser.controller;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
-import com.gugu.guguuser.controller.vo.NewCourseVO;
-import com.gugu.guguuser.controller.vo.ShareMessageVO;
-import com.gugu.guguuser.controller.vo.SimpleCourseVO;
-import com.gugu.guguuser.controller.vo.TeamMessageVO;
+import com.gugu.guguuser.controller.vo.*;
 import com.gugu.guguuser.service.CourseService;
 import com.gugu.guguuser.service.KlassService;
 import com.gugu.guguuser.service.RoundService;
@@ -263,6 +260,18 @@ public class CourseController {
         }catch (Exception e){
             httpServletResponse.setStatus(400,"系统错误");
         }
+    }
+
+
+    /**
+     * 获取特定课程下每个轮次每个小组的总分以及在该轮下每个讨论课下的成绩
+     * @param roundId
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/round/{roundId}")
+    public RoundTeamsScoreMessageVO getTeamScoreInRound(@PathVariable("courseId") Long courseId,@PathVariable("roundId")Long roundId){
+        return courseService.getTeamScoreInRound(courseId,roundId);
     }
 
 }

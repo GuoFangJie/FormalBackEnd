@@ -136,4 +136,6 @@ public class RoundController {
     public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId ){
         return roundService.getTeamAllScoreInRound(teamId,roundId);
     }
+
+
 }

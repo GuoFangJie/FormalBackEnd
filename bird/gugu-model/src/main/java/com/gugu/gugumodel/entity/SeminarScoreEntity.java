@@ -11,6 +11,24 @@ public class SeminarScoreEntity {
     private float presentationScore;
     private float questionScore;
     private float reportScore;
+    private SeminarEntity seminarEntity;
+    private TeamEntity teamEntity;
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
+    }
+
+    public SeminarEntity getSeminarEntity() {
+        return seminarEntity;
+    }
+
+    public void setSeminarEntity(SeminarEntity seminarEntity) {
+        this.seminarEntity = seminarEntity;
+    }
 
     public Long getKlassSeminarId() {
         return klassSeminarId;

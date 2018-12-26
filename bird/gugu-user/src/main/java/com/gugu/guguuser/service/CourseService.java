@@ -3,10 +3,14 @@ package com.gugu.guguuser.service;
 import com.gugu.gugumodel.dao.*;
 import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.guguuser.controller.vo.RoundTeamsScoreMessageVO;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Service
@@ -23,6 +27,9 @@ public class CourseService {
     KlassDao klassDao;
     @Autowired
     ShareMessageDao shareMessageDao;
+
+    @Autowired
+    SeminarDao seminarDao;
 
     /**
      * 获取与学生相关的基本课程信息
@@ -137,5 +144,25 @@ public class CourseService {
      */
     public void newApplication(Long mainCourseId,Long subCourseId,Integer type){
         shareMessageDao.newShareSeminarApplication(mainCourseId,subCourseId,type);
+    }
+
+    /**
+     * 获取特定课程下每个轮次每个小组的总分以及在该轮下每个讨论课下的成绩
+     * @param roundId
+     * @param courseId
+     * @return
+     */
+    public RoundTeamsScoreMessageVO getTeamScoreInRound(Long courseId,Long roundId){
+        //存放每轮次下所有小组成绩list
+        ArrayList<TeamScoreInRoundEntity> teamScoreInRoundEntities=new ArrayList<TeamScoreInRoundEntity>();
+        //获取本轮此下所有小组在本轮此下的总成绩
+        ArrayList<RoundScoreEntity> roundScoreEntities=courseDao.getTeamTotalScoreInRound(courseId,roundId);
+//        for(int i=0;i<roundScoreEntities.size();i++){
+//            teamScoreInRoundEntities
+//        }
+//        //找到该课程下该轮次下所有的讨论课
+//        ArrayList<SeminarEntity> seminarEntities=seminarDao.getSeminarByCourseAndRound(courseId,roundId);
+//        return courseService.getTeamScoreInRound(courseId,roundId);
+        return null;
     }
 }
