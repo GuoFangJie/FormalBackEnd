@@ -77,4 +77,28 @@ public interface AttendanceMapper {
      * @return
      */
     public Long newAttendance(AttendanceEntity attendanceEntity);
+
+    /**
+     * 提交展示成绩
+     * @param score
+     * @param klassSeminarId
+     * @param teamId
+     */
+    void editPresentationScore(Long score,Long klassSeminarId,Long teamId);
+
+    /**
+     * 提交报告成绩
+     * @param score
+     * @param klassSeminarId
+     * @param teamId
+     */
+    void editReportScore(Long score,Long klassSeminarId,Long teamId);
+
+    /**
+     * 设置总分
+     * @param score
+     * @param klassSeminarId
+     * @param teamId
+     */
+    void editTotlaScore(Long score,Long klassSeminarId,Long teamId);
 }
