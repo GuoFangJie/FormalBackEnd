@@ -31,7 +31,7 @@
     </delete>
 
     <insert id="buildRelationStuAndTeam">
-        insert into team_student set team_id=#{teamId} where student_id=#{studentId}
+        insert into team_student values (#{teamId},#{studentId})
     </insert>
 
     <delete id="deleteTeam" parameterType="java.lang.Long">
