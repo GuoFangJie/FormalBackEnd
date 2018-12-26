@@ -65,4 +65,10 @@
     <delete id="deleteReceiveTeamShare" parameterType="java.lang.Long">
         delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
     </delete>
+
+    <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
+        select DISTINCT student.id id, student.is_active isActive,student.student_name studentName,student.account account,student.email email from
+        klass_student,student,team_student where student.id!=#{param2} and klass_student.course_id=#{param1} and student.id=klass_student.student_id and student.id not in
+        (select team_student.student_id from team_student,klass,klass_team where team_student.student_id=student.id and team_student.team_id=klass_team.team_id and klass_team.klass_id=klass.id and klass.course_id=#{param1})
+    </select>
 </mapper>

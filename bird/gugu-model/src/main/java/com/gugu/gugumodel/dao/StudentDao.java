@@ -70,18 +70,7 @@ public class StudentDao {
      * @return
      */
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId) {
-        //获取课程下所有学生
-        ArrayList<StudentEntity> studentsInCourse=klassStudentMapper.getStudentInCourse(courseId);
-        for(int i=0;i<studentsInCourse.size();i++){
-            Long userId=studentsInCourse.get(i).getId();
-            if(!studentId.equals(userId)&&klassStudentMapper.findTeamIdByStudentIdAndCourseId(userId,courseId)==null){
-                studentsInCourse.remove(i);
-                i--;
-            }
-        }
-        //studentMapper.getStudentWithoutTeam(courseId);
-        StudentEntity studentEntity=studentMapper.getStudentById(studentId);
-        return studentsInCourse;
+        return klassStudentMapper.getStudentWithoutTeam(courseId,studentId);
     }
 
 

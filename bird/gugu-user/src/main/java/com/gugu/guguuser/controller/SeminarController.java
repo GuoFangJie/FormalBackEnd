@@ -181,7 +181,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
-    @GetMapping("/{seminarId}/team/{teamId}/senimarscore")
+    @GetMapping("/{seminarId}/team/{teamId}/seminarscore")
     public SeminarScoreEntity getSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId){
         return seminarService.getSeminarScore(seminarId,teamId);
     }
@@ -191,7 +191,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
-    @PutMapping("/{seminarId}/team/{teamId}/senimarscore")
+    @PutMapping("/{seminarId}/team/{teamId}/seminarscore")
     public boolean setSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId,@RequestBody SeminarScoreEntity seminarScoreEntity){
         seminarScoreEntity.setTeamId(teamId);
         return seminarService.setSeminarScore(seminarId,teamId,seminarScoreEntity);

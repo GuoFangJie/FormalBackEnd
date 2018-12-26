@@ -283,4 +283,31 @@ public class CourseController {
         return courseService.getTeamScoreInRound(courseId,roundId);
     }
 
+    /**
+     * 获取课程是否为共享讨论课主课程
+     */
+    @GetMapping("/{courseId}/isMainSeminar")
+    public boolean isMainSeminar(@PathVariable ("courseId")Long courseId){
+        CourseEntity courseEntity=courseService.getCourseById(courseId);
+        if(courseEntity.getSeminarMainCourseId()==null||courseEntity.getSeminarMainCourseId().equals(courseId)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 获取是否是共享组队的主课程
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/{courseId}/isMainTeam")
+    public boolean isMainTeam(@PathVariable("courseId") Long courseId){
+        CourseEntity courseEntity=courseService.getCourseById(courseId);
+        if(courseEntity.getTeamMainCourseId()==null||courseEntity.getTeamMainCourseId().equals(courseId)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
