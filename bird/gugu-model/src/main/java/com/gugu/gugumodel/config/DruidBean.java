@@ -18,9 +18,9 @@ public class DruidBean {
 
     private String driverClassName ;
 
-    private Integer initialSize = 20;
+    private Integer initialSize = 10;
 
-    private Integer minIdle = 20;
+    private Integer minIdle = 10;
 
     private Integer maxActive = 30;
 
@@ -40,7 +40,7 @@ public class DruidBean {
 
     private Boolean poolPreparedStatements = true;
 
-    private Integer maxPoolPreparedStatementPerConnectionSize = 20;
+    private Integer maxPoolPreparedStatementPerConnectionSize = 30;
 
     private String filters = "stat";
 

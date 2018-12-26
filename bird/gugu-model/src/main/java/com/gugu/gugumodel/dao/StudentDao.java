@@ -49,6 +49,7 @@ public class StudentDao {
         ArrayList<StudentEntity> members=studentMapper.getMembers(teamId);
         StudentEntity leader=studentMapper.getLeader(teamId);
         members.remove(leader);
+        System.out.println("队伍成员有"+members.size());
         return members;
     }
 
@@ -62,20 +63,25 @@ public class StudentDao {
     }
 
 
+    /**
+     * 获取未组队学生列表
+     * @param courseId
+     * @param studentId
+     * @return
+     */
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(Long courseId,Long studentId) {
-        ArrayList<StudentEntity> studentEntities=new ArrayList<StudentEntity>();
         //获取课程下所有学生
-        ArrayList<Long> studentsInCourse=klassStudentMapper.getStudentInCourse(courseId);
+        ArrayList<StudentEntity> studentsInCourse=klassStudentMapper.getStudentInCourse(courseId);
         for(int i=0;i<studentsInCourse.size();i++){
-
-            if( klassStudentMapper.getTeamIdByStudentAndCourse(studentsInCourse.get(i),courseId)!=null){
-                studentEntities.add(studentMapper.getStudentById(studentsInCourse.get(i)));
+            Long userId=studentsInCourse.get(i).getId();
+            if(!studentId.equals(userId)&&klassStudentMapper.findTeamIdByStudentIdAndCourseId(userId,courseId)==null){
+                studentsInCourse.remove(i);
+                i--;
             }
         }
         //studentMapper.getStudentWithoutTeam(courseId);
         StudentEntity studentEntity=studentMapper.getStudentById(studentId);
-        studentEntities.remove(studentEntity);
-        return studentEntities;
+        return studentsInCourse;
     }
 
 

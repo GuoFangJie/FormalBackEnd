@@ -99,6 +99,7 @@ public class TeamDao{
      */
     public Long newTeam(ArrayList<StudentEntity> memberStudents, TeamEntity teamEntity){
         teamMapper.newTeam(teamEntity);
+        teamMapper.newKlassTeam(teamEntity);
         for(int i=0;i<memberStudents.size();i++){
             klassStudentMapper.addMember(teamEntity.getId(),memberStudents.get(i).getId());
         }

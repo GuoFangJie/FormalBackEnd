@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.entity.StudentEntity;
 import com.gugu.gugumodel.entity.TeamEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface KlassStudentMapper {
      * @param
      * @return
      */
-    Long findTeamIdByStudentIdAndCourseId(Long student_id);
+    Long findTeamIdByStudentIdAndCourseId(Long student_id,Long courseId);
 
     /**
      * 新增学生和班级的关联记录
@@ -109,7 +110,7 @@ public interface KlassStudentMapper {
      * @param courseId
      * @return
      */
-    ArrayList<Long> getStudentInCourse(Long courseId);
+    ArrayList<StudentEntity> getStudentInCourse(Long courseId);
 
     /**
      * @author ljy

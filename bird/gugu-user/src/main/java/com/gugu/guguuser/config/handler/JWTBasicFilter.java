@@ -25,12 +25,10 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         Cookie []cookies=request.getCookies();
         if(cookies==null){
-            System.out.println("没找到cookie");
             chain.doFilter(request, response);
             return;
         }
         for(int i=0;i<cookies.length;i++) {
-            System.out.println(cookies[i].getName());
             if (cookies[i].getName().equals("Authorization")) {
                 String token=cookies[i].getValue();
                 UsernamePasswordAuthenticationToken authentication = getAuthentication(request,token);
@@ -40,7 +38,6 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
                 return;
             }
         }
-        System.out.println("没找到JWT");
         chain.doFilter(request, response);
         return;
 
@@ -64,7 +61,6 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
             Map<String,Object> objectMap= (Map<String, Object>) claims.get("role");
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());
             simpleGrantedAuthorities.add(simpleGrantedAuthority);
-            System.out.println(objectMap.get("authority"));
             request.setAttribute("userId",claims.get("userId").toString());
             request.setAttribute("role",objectMap.get("authority"));
             return new UsernamePasswordAuthenticationToken("", "", simpleGrantedAuthorities);

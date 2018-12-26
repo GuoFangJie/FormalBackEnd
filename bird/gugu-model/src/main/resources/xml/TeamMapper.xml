@@ -59,6 +59,10 @@
         values (#{klassId},#{courseId},#{leaderId},#{teamName},#{teamSerial},#{status})
     </insert>
 
+    <insert id="newKlassTeam" parameterType="com.gugu.gugumodel.entity.TeamEntity">
+        insert into klass_team(klass_id, team_id) values (#{klassId},#{id})
+    </insert>
+
     <select id="getKlassIdByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select klass_id from team where id=#{arg0}
     </select>
