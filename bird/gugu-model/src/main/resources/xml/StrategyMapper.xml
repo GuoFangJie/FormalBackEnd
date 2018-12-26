@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gugu.gugumodel.mapper.AdminMapper">
+
+    <insert id="addMemberLimitStrategy" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.strategy.MemberLimitStrategy" >
+        insert into member_limit_strategy(min_member,max_member) values (#{minMember},#{maxMember})
+    </insert>
+
+    <insert id="addCourseMemberLimitStrategy" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity">
+        insert into course_member_limit_strategy(course_id,min_member,max_member) values (#{courseId),#{minMember},#{maxMember})
+    </insert>
+
+    <insert id="andCourseMemberLimitStrategy">
+        insert into team_and_strategy(id,strategy_name,strategy_id) values (#{param1},#{param3},#{param2})
+    </insert>
+
+    <insert id="orCourseMemberLimitStrategy">
+        insert into team_or_strategy(id,strategy_name,strategy_id) values (#{param1},#{param3},#{param2})
+    </insert>
+
+    <select id="getAndMaxId" resultType="java.lang.Long">
+        select MAX(id) from team_and_strategy
+    </select>
+
+    <select id="getOrMaxId" resultType="java.lang.Long">
+        select MAX(id) from team_or_strategy
+    </select>
+
+    <select id="getSerialList" resultType="java.lang.Byte">
+        select strategy_serial from team_strategy where course_id=#{param1}
+    </select>
+
+    <insert id="combineAllStrategy">
+        insert into team_strategy(id,strategy_serial,strategy_name,strategy_id) values (#{param1},#{param2},#{param3},#{param4})
+    </insert>
+</mapper>

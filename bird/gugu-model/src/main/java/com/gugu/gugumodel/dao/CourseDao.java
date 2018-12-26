@@ -1,18 +1,15 @@
 package com.gugu.gugumodel.dao;
 
 import com.gugu.gugumodel.entity.*;
+import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.entity.CourseEntity;
 import com.gugu.gugumodel.entity.ShareMessageEntity;
 import com.gugu.gugumodel.entity.SimpleCourseEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
-import com.gugu.gugumodel.mapper.CourseMapper;
-import com.gugu.gugumodel.mapper.KlassStudentMapper;
-import com.gugu.gugumodel.mapper.TeamMapper;
-import com.gugu.gugumodel.mapper.KlassSeminarMapper;
+import com.gugu.gugumodel.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +24,8 @@ public class CourseDao{
     KlassStudentMapper klassStudentMapper;
     @Autowired
     KlassSeminarMapper klassSeminarMapper;
+    @Autowired
+    StrategyMapper strategyMapper;
 
 
     /**
@@ -50,6 +49,87 @@ public class CourseDao{
      */
     public Long newCourse(CourseEntity courseEntity){
         return courseMapper.newCourse(courseEntity);
+    }
+
+    /**
+     * 新建课程的限制规则
+     * @param courseEntity
+     * @return
+     */
+    public boolean addStrategy(CourseEntity courseEntity){
+        //加课程自身的规则，并获取规则ID
+        Long memberLimitStrategyId = strategyMapper.addMemberLimitStrategy(courseEntity.getMemberLimitStrategy());
+        ArrayList<Long> idList = new ArrayList<>();
+        ArrayList<CourseMemberLimitStrategyEntity> courseMemberLimitStrategyList = courseEntity.getCourseMemberLimitStrategyEntityList();
+
+        //加入其他课程的规则信息
+        for(int i=0;i<courseMemberLimitStrategyList.size();i++){
+            //加入选其他课的规则，并把ID到List中
+            Long courseMemberLimitStrategyId=strategyMapper.addCourseMemberLimitStrategy(courseMemberLimitStrategyList.get(i));
+            idList.add(courseMemberLimitStrategyId);
+        }
+
+        //按与或规则添加到相应表中，取得ID
+        Long courseLimitId=null;
+        String strategy_name=new String();
+        if(courseEntity.isAnd()){
+            //如果是“与”关系
+            //获取与表最大ID
+            Long andId=strategyMapper.getAndMaxId()+1;
+            for(int i=0;i<idList.size();i++){
+                //加入“与”表
+                strategyMapper.andCourseMemberLimitStrategy(andId,idList.get(i),"CourseMemberLimitStrategy");
+            }
+            courseLimitId=andId;
+            strategy_name="TeamAndStrategy";
+        }
+        else if(!courseEntity.isAnd()){
+            //如果是“或关系”
+            //获取或表最大ID
+            Long orId=strategyMapper.getAndMaxId()+1;
+            for(int i=0;i<idList.size();i++){
+                //加入“或”表
+               strategyMapper.orCourseMemberLimitStrategy(orId,idList.get(i),"CourseMemberLimitStrategy");
+            }
+            courseLimitId=orId;
+            strategy_name="TeamOrStrategy";
+        }
+
+        //将课程自身规则和选其他课的规则以“与”逻辑存入表中，取出ID
+        Long newAndId=strategyMapper.getAndMaxId();
+        strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,strategy_name);
+        strategyMapper.andCourseMemberLimitStrategy(newAndId,courseLimitId,"MemberLimitStrategy");
+
+        //获得strategySerial
+        Byte strategySerial=this.getSerial(courseEntity);
+
+        //将最终规则存入最终表中
+        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"TeamAndStrategy",courseLimitId);
+
+        return true;
+    }
+
+    /**
+     * 根据课程id获取strategySerial
+     * @param courseEntity
+     * @return
+     */
+    private Byte getSerial(CourseEntity courseEntity){
+        Byte strategySerial=null;
+        ArrayList<Byte> serialList =strategyMapper.getSerialList(courseEntity.getId());
+        if(serialList.size()==0){
+            return 1;
+        }
+        else{
+            for(Byte i=0;i<serialList.size();i++){
+                if(!serialList.get(i).equals(i+1)){
+                    Integer temp=i+1;
+                    return Byte.parseByte(temp.toString());
+                }
+            }
+        }
+        Integer re=serialList.size()+1;
+        return Byte.parseByte(re.toString());
     }
 
     /**
