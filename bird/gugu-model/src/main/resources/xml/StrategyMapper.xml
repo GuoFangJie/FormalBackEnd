@@ -44,7 +44,7 @@
     </insert>
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 
-    <select id="getTeamStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamStrategyEntity">
+    <select id="getTeamStrategy" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.strategy.TeamStrategyEntity">
         select course_id courseId, strategy_serial strategySerial, strategy_name strategyName, strategy_id strategyId from team_strategy where course_id=#{param1}
     </select>
 

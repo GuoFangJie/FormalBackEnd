@@ -56,23 +56,30 @@ public class TeamService {
         teamDao.deleteStudentTeamRelation(teamId);
     }
 
-    public void addMember(Long teamId, Long studentId,HttpServletResponse httpServletResponse){
-//        Long status= teamDao.getTeamValidStatus(teamId);
-//        System.out.println(status);
-//        if(status==1||status==null){
-            httpServletResponse.setStatus(200);
+    public Byte addMember(Long teamId, Long studentId,Long courseId){
             teamDao.addMember(teamId,studentId);
-//        }
-//        else{
-//            httpServletResponse.setStatus(405);
-//        }
-
-
-
+            Byte status=0;
+            if(teamDao.teamIsLeagal(courseId,teamId)==true){
+                status=1;
+            }
+            else{
+                status=0;
+            }
+            teamDao.setStatus(teamId,status);
+            return status;
     }
 
-    public void removeMember(Long teamId,Long studentId){
+    public Byte removeMember(Long teamId,Long studentId,Long courseId){
         teamDao.removeMember(teamId,studentId);
+        Byte status=0;
+        if(teamDao.teamIsLeagal(courseId,teamId)==true){
+            status=1;
+        }
+        else{
+            status=0;
+        }
+        teamDao.setStatus(teamId,status);
+        return status;
     }
 
 
@@ -91,6 +98,13 @@ public class TeamService {
         ArrayList<Byte> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
         serialUtil.setSerialList(teamSerial);
         teamEntity.setTeamSerial(serialUtil.calcuSerial());
+        if(teamDao.teamIsLeagal(teamEntity.getCourseId(),teamEntity.getId())==true){
+            teamEntity.setStatus(1);
+        }
+        else {
+            teamEntity.setStatus(0);
+        }
+
         return teamDao.newTeam(memberStudents,teamEntity);
     }
 }

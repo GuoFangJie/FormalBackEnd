@@ -94,9 +94,9 @@ public class TeamController {
      * @param studentEntity
      */
     @PutMapping("/{teamId}/add")
-    public void addMember(@PathVariable Long teamId, @RequestBody StudentEntity studentEntity, HttpServletResponse httpServletResponse){
+    public Byte addMember(@PathVariable Long teamId, @RequestBody StudentEntity studentEntity,Long courseId){
         Long studentId=studentEntity.getId();
-        teamService.addMember(teamId,studentId,httpServletResponse);
+        return teamService.addMember(teamId,studentId,courseId);
     }
 
     /**@author ljy
@@ -105,9 +105,9 @@ public class TeamController {
      * @param studentEntity
      */
     @PutMapping("/{teamId}/remove")
-    public void removeMember(@PathVariable Long teamId,@RequestBody StudentEntity studentEntity){
+    public Byte removeMember(@PathVariable Long teamId,@RequestBody StudentEntity studentEntity,Long courseId){
         Long studentId=studentEntity.getId();
-        teamService.removeMember(teamId,studentId);
+        return teamService.removeMember(teamId,studentId,courseId);
     }
 
     /**@author ljy
