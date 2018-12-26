@@ -1,5 +1,6 @@
 package com.gugu.gugumodel.mapper;
 
+import com.gugu.gugumodel.entity.CourseEntity;
 import com.gugu.gugumodel.entity.TeamEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -126,4 +127,5 @@ public interface TeamMapper {
      * @param status
      */
     public void setStatus(Long teamId,Byte status);
+    
 }

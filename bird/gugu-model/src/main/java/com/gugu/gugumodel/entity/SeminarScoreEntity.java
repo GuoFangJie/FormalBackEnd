@@ -7,10 +7,10 @@ package com.gugu.gugumodel.entity;
 public class SeminarScoreEntity {
     private Long klassSeminarId;
     private Long teamId;
-    private float totalScore;
-    private float presentationScore;
-    private float questionScore;
-    private float reportScore;
+    private Float totalScore;
+    private Float presentationScore;
+    private Float questionScore;
+    private Float reportScore;
     private SeminarEntity seminarEntity;
     private TeamEntity teamEntity;
 
@@ -46,7 +46,7 @@ public class SeminarScoreEntity {
         this.teamId = teamId;
     }
 
-    public float getTotalScore() {
+    public Float getTotalScore() {
         return totalScore;
     }
 
@@ -54,7 +54,7 @@ public class SeminarScoreEntity {
         this.totalScore = totalScore;
     }
 
-    public float getPresentationScore() {
+    public Float getPresentationScore() {
         return presentationScore;
     }
 
@@ -62,7 +62,7 @@ public class SeminarScoreEntity {
         this.presentationScore = presentationScore;
     }
 
-    public float getQuestionScore() {
+    public Float getQuestionScore() {
         return questionScore;
     }
 
@@ -70,7 +70,7 @@ public class SeminarScoreEntity {
         this.questionScore = questionScore;
     }
 
-    public float getReportScore() {
+    public Float getReportScore() {
         return reportScore;
     }
 

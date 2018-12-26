@@ -104,4 +104,5 @@
     <update id="setStatus">
         update team set status=#{arg1} where id=#{arg0}
     </update>
+
 </mapper>

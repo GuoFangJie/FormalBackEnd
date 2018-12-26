@@ -43,4 +43,13 @@
         insert into attendance(klass_seminar_id,team_id,team_order,is_present)
         values (#{klassSeminarId},#{teamId},#{teamOrder},0)
     </insert>
+    <update id="editPresentationScore">
+    update seminar_score set presentation_score=#{param1} where klass_seminar_id=#{param2} and team_id=#{param3}
+    </update>
+    <update id="editReportScore">
+        update seminar_score set report_score=#{param1} where klass_seminar_id=#{param2} and team_id=#{param3}
+    </update>
+    <update id="editTotalScore">
+        update seminar_score set total_score=#{param1} where klass_seminar_id=#{param2} and team_id=#{param3}
+    </update>
 </mapper>
