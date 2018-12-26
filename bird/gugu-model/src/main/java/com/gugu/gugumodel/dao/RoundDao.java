@@ -101,4 +101,12 @@ public class RoundDao {
     public ArrayList<Byte> getSerial(Long courseId){
         return roundMapper.getSerial(courseId);
     }
+
+    /**
+     * @author ljy
+     * 根据小组id和roundid获取成绩
+     */
+    public RoundScoreEntity getTeamTotalScore(Long teamId,Long roundId,Long courseId){
+        return roundMapper.getTeamTotalScore(teamId,roundId,courseId);
+    }
 }

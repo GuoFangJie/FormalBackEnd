@@ -59,4 +59,10 @@ public interface RoundMapper {
      * 获取当前课程下已有的round_serial
      */
     public ArrayList<Byte> getSerial(Long courseId);
+
+    /**
+     * @author ljy
+     * 根据小组id和roundid获取成绩
+     */
+    public RoundScoreEntity getTeamTotalScore(@Param("teamId") Long teamId,@Param("roundId") Long roundId,@Param("courseId") Long courseId);
 }
