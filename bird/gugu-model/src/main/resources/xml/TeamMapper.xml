@@ -78,8 +78,8 @@
               and team.id=klass_team.team_id
     </select>
 
-    <delete id="deleteAllTeamByCourseId">
-        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+    <delete id="deleteAllTeamByKlassId">
+        delete from klass_team where klass.id=#{param1}
     </delete>
 
     <select id="getAllTeamByCourseId" resultMap="TeamEntityMap">

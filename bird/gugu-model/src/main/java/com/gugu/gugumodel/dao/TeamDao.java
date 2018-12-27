@@ -1,11 +1,8 @@
 package com.gugu.gugumodel.dao;
 
-import com.gugu.gugumodel.entity.SimpleCourseEntity;
-import com.gugu.gugumodel.entity.StudentEntity;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.entity.strategy.*;
 import com.gugu.gugumodel.mapper.*;
-import com.gugu.gugumodel.entity.TeamEntity;
-import com.gugu.gugumodel.entity.TeamValidEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +16,8 @@ public class TeamDao{
     StudentMapper studentMapper;
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    KlassMapper klassMapper;
     @Autowired
     KlassStudentMapper klassStudentMapper;
     @Autowired
@@ -136,7 +135,10 @@ public class TeamDao{
             //删除team_student表中的联系
             klassStudentMapper.removeStudentTeamRelation(teamEntities.get(i).getId());
         }
-        teamMapper.deleteAllTeamByCourseId(courseId);
+        ArrayList<KlassEntity> klassList=klassMapper.getKlassByCourseId(courseId);
+        for(int i=0;i<klassList.size();i++){
+            teamMapper.deleteAllTeamByKlassId(klassList.get(i).getId());
+        }
     }
 
     /**
