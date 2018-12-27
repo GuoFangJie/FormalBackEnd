@@ -36,7 +36,7 @@
     <select id="getBySeminarKlassId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.AttendanceEntity">
         select id id,klass_seminar_id klassSeminarId,team_id teamId,team_order teamOrder,
                is_present isPresent,report_name reportName,report_url reportUrl,
-               ppt_name pptName,ppt_url pptUrl from attendance where klass_seminar_id=#{param1}
+               ppt_name pptName,ppt_url pptUrl from attendance where klass_seminar_id=#{param1} order by team_order
     </select>
 
     <insert id="newAttendance" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.AttendanceEntity">
@@ -56,5 +56,16 @@
     <select id="getAllQuestionByAttendanceId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.QuestionEntity">
         select id id,klass_seminar_id klassSeminarId,attendance_id attendanceId,team_id teamId,
                student_id studentId,is_selected isSelected,score score from question where attendance_id=#{param1}
+    </select>
+
+    <select id="getAttendanceByKlassSeminarIdAndTeamId" resultType="com.gugu.gugumodel.entity.AttendanceEntity">
+        select id id,klass_seminar_id klassSeminarId,attendance_id attendanceId,team_id teamId,
+               student_id studentId,is_selected isSelected,score score from question where team_id=#{param2} and klass_seminar_id=#{param1}
+    </select>
+
+    <select id="getAttendanceByTeamOrder" resultType="com.gugu.gugumodel.entity.AttendanceEntity">
+        select id id,klass_seminar_id klassSeminarId,team_id teamId,team_order teamOrder,
+               is_present isPresent,report_name reportName,report_url reportUrl,
+               ppt_name pptName,ppt_url pptUrl from attendance where klass_seminar_id=#{param2} and team_order=#{param1}
     </select>
 </mapper>

@@ -46,13 +46,19 @@ public class WebSocketController {
         addOnlineCount();
         StringBuffer stringBuffer=new StringBuffer("连接成功");
         String attendanceId="";
-        if(webSocketSet.size()>=0){
+        if(webSocketSet.size()>0){
             for(WebSocketController webSocketController:webSocketSet){
-                attendanceId=Long.toString(webSocketController.getAttendanceId());
+                try {
+                    attendanceId = Long.toString(webSocketController.getAttendanceId());
+                    sendMessage(attendanceId);
+                    break;
+                }catch (NullPointerException e){
+                    continue;
+                }
             }
-            sendMessage(attendanceId);
+            sendMessage("-1");
         }else{
-            sendMessage("666");
+            sendMessage("-1");
         }
     }
 
@@ -78,16 +84,24 @@ public class WebSocketController {
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
     public void onMessage(String message,Session session) throws IOException, EncodeException {
-        System.out.println(message);
+        System.out.println("发来信息："+message);
         String[] mes=message.split(";");
         if(mes[0].equals("2")){
             for(WebSocketController webSocketController:webSocketSet){
-                webSocketController.sendMessage("1");
+                    webSocketController.sendMessage("nextQuestion");
             }
         }else if(mes[0].equals("1")){
             for(WebSocketController webSocketController:webSocketSet){
-                webSocketController.sendMessage("2");
-                webSocketController.setSeminarKlassId(Long.parseLong(mes[1]));
+                if(webSocketController.getRole().equals("ROLE_Student")) {
+                    webSocketController.sendMessage("nextPresentation");
+                    webSocketController.setAttendanceId(Long.parseLong(mes[1]));
+                }
+            }
+        }else if(mes[0].equals("3")){
+            for(WebSocketController webSocketController:webSocketSet){
+                if(webSocketController.getRole().equals("ROLE_Student")){
+                    webSocketController.sendMessage("end");
+                }
             }
         }else{
             sendMessage("系统出错");

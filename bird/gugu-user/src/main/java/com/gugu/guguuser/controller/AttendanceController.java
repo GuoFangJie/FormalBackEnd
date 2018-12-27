@@ -17,6 +17,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -155,7 +156,7 @@ public class AttendanceController {
      */
     @GetMapping("/{seminarKlassId}")
     public ArrayList<AttendanceMessageVO> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
-        System.out.println(seminarKlassId);
+        System.out.println("seminarKlassId为："+seminarKlassId);
         ArrayList<AttendanceMessageVO> attendanceMessageVOS=new ArrayList<>();
         ArrayList<AttendanceEntity> attendanceEntities=attendanceService.getBySeminarKlassId(seminarKlassId);
         for(int i=0;i<attendanceEntities.size();i++){
@@ -177,8 +178,13 @@ public class AttendanceController {
      * @return
      */
     @PostMapping("")
-    public Long newAttendance(@RequestBody AttendanceEntity attendanceEntity){
-        return attendanceService.newAttendance(attendanceEntity);
+    public Long newAttendance(@RequestBody AttendanceEntity attendanceEntity,HttpServletResponse httpServletResponse){
+        try {
+            return attendanceService.newAttendance(attendanceEntity);
+        } catch (SQLException e) {
+            httpServletResponse.setStatus(400,e.getMessage());
+        }
+        return null;
     }
 
 

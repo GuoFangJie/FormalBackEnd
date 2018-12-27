@@ -101,4 +101,13 @@ public interface AttendanceMapper {
      * @param teamId
      */
     void editTotlaScore(Long score,Long klassSeminarId,Long teamId);
+
+
+    /**
+     * 根据讨论课和座次获取展示小组
+     * @param teamOrder
+     * @param klassSeminarId
+     * @return
+     */
+    AttendanceEntity getAttendanceByTeamOrder(Byte teamOrder,Long klassSeminarId);
 }

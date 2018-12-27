@@ -8,6 +8,7 @@ import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -119,7 +120,10 @@ public class AttendanceDao {
      * @param attendanceEntity
      * @return
      */
-    public Long newAttendance(AttendanceEntity attendanceEntity){
+    public Long newAttendance(AttendanceEntity attendanceEntity) throws SQLException {
+        if(attendanceMapper.getAttendanceByTeamOrder(attendanceEntity.getTeamOrder(),attendanceEntity.getKlassSeminarId())!=null){
+            throw new SQLException("已存在");
+        }
         attendanceMapper.newAttendance(attendanceEntity);
         return attendanceEntity.getId();
     }
@@ -296,7 +300,11 @@ public class AttendanceDao {
                 seminarScoreEntity.setQuestionScore(score);
                 seminarScoreMapper.newSeminarScore(seminarScoreEntity);
             }else{
-                seminarScoreEntity.setQuestionScore(seminarScoreEntity.getQuestionScore()>score?seminarScoreEntity.getQuestionScore():score);
+                Float end=score;
+                if(seminarScoreEntity.getQuestionScore()!=null&&seminarScoreEntity.getQuestionScore()>score){
+                    score=seminarScoreEntity.getQuestionScore();
+                }
+                seminarScoreEntity.setQuestionScore(score);
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }

@@ -44,6 +44,7 @@ public class QuestionService {
      */
     public void scoreQuestion(Long questionId,Float score,Long courseId,Long roundId,Long klassSeminarId,Long teamId) throws NotFoundException {
         questionDao.scoreQuestion(questionId,score);
+        System.out.println(klassSeminarId);
         attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,3,courseId);
     }
 

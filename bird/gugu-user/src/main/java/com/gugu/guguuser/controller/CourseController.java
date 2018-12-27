@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
+@SuppressWarnings("AliEqualsAvoidNull")
 @RestController
 @RequestMapping("course")
 public class CourseController {
@@ -44,7 +45,8 @@ public class CourseController {
         String role=httpServletRequest.getAttribute("role").toString();
         ArrayList<SimpleCourseEntity> simpleCourseEntities=courseService.findSimpleCourseEntityByStudentId(Long.parseLong(userId),role);
         ArrayList<SimpleCourseVO> simpleCourseVOS=new ArrayList<>();
-        if(role.equals("ROLE_Teacher")) {
+        String role_T="ROLE_Teacher";
+        if(role_T.equals(role)) {
             for(int i=0;i<simpleCourseEntities.size();i++){
                 SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
                 simpleCourseVOS.add(simpleCourseVO);

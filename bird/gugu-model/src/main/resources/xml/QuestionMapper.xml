@@ -23,4 +23,10 @@
                student_id studentId,is_selected isSelected,score score
         from question  where id=#{param1}
     </select>
+
+    <select id="getAllQuestionByAttendanceId" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.QuestionEntity">
+        select id id,klass_seminar_id klassSeminarId,attendance_id attendanceId,team_id teamId,
+               student_id studentId,is_selected isSelected,score score
+        from question  where attendance_id=#{param1}
+    </select>
 </mapper>

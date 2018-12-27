@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -104,7 +105,7 @@ public class AttendanceService {
      * @param attendanceEntity
      * @return
      */
-    public Long newAttendance(AttendanceEntity attendanceEntity){
+    public Long newAttendance(AttendanceEntity attendanceEntity) throws SQLException {
         Long attendanceId= attendanceDao.newAttendance(attendanceEntity);
         if(attendanceId!=null){
             ArrayList<Long> studentIds=teamDao.getStudentsByTeamId(attendanceEntity.getTeamId());
@@ -119,7 +120,7 @@ public class AttendanceService {
             String topic=new String("讨论课报名");
             String seminarName=seminarDao.getSeminarName(attendanceEntity.getKlassSeminarId());
             String content=new String("您的小组成功报名讨论课："+seminarName);
-            emailUtil.sendSimpleEmail(topic,content,studentEmails);
+//            emailUtil.sendSimpleEmail(topic,content,studentEmails);
         }
         return attendanceId;
     }

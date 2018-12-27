@@ -64,7 +64,7 @@ public class QuestionController {
     /**
      * 获取当前展示的问题列表
      */
-    @GetMapping("/allQuestion")
+    @GetMapping("/allquestion")
     public ArrayList<QuestionVO> getAllQuestion(HttpServletResponse httpServletResponse,@RequestParam("attendanceId")Long attendanceId){
         ArrayList<QuestionEntity> questionEntities=questionService.getAllQuestionByAttendanceId(attendanceId);
         ArrayList<QuestionVO> questionVOS=new ArrayList<>();

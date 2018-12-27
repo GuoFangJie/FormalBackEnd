@@ -18,9 +18,9 @@ public class DruidBean {
 
     private String driverClassName ;
 
-    private Integer initialSize = 10;
+    private Integer initialSize = 1;
 
-    private Integer minIdle = 10;
+    private Integer minIdle = 1;
 
     private Integer maxActive = 30;
 
