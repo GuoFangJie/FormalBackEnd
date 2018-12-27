@@ -57,4 +57,11 @@ public interface StudentMapper {
       * @return
       */
      Long getStudentByAccount(String account);
+
+     /**
+      * 根据id获取学生邮箱
+      * @param studentId
+      * @return String
+      */
+     public String getEmailById(Long studentId);
 }

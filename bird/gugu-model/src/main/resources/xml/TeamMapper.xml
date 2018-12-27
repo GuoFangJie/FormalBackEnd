@@ -105,4 +105,7 @@
         update team set status=#{param2} where id=#{param1}
     </update>
 
+    <select id="getStudentsByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select student_id from team_student where team_id=#{arg0}
+    </select>
 </mapper>

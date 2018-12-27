@@ -319,4 +319,13 @@ public class TeamDao{
             return false;
         }
     }
+
+    /**ljy
+     * 根据teamId获取组内学生id
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Long> getStudentsByTeamId(Long teamId){
+        return teamMapper.getStudentsByTeamId(teamId);
+    }
 }
