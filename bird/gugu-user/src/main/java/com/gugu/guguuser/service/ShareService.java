@@ -243,7 +243,7 @@ public class ShareService {
      * @param courseId
      * @return
      */
-    public ArrayList<Map> getSeminarShareListByCourseId(Long courseId){
+    public ArrayList<Map> getShareListByCourseId(Long courseId){
         ArrayList<ShareApplicationEntity> seminarShareList = shareMessageDao.getSeminarShareListByCourseId(courseId);
         ArrayList<ShareApplicationEntity> teamShareList = shareMessageDao.getTeamShareListByCourseId(courseId);
         ArrayList<Map> shareList=new ArrayList<Map>();
@@ -276,7 +276,7 @@ public class ShareService {
             seminarMap.put("shareType","共享讨论课");
             seminarMap.put("isMain","主课程");
         }
-        else if(seminarShare.getMainCourseId().equals(courseId)){
+        else if(seminarShare.getSubCourseId().equals(courseId)){
             //如果是从课程,获取主课程
             CourseEntity mainCourse=courseDao.getCourseById(seminarShare.getMainCourseId());
             seminarMap.put("courseName",mainCourse.getCourseName());
@@ -301,7 +301,7 @@ public class ShareService {
             teamMap.put("shareType","共享分组");
             teamMap.put("isMain","主课程");
         }
-        else if(teamShare.getMainCourseId().equals(courseId)){
+        else if(teamShare.getSubCourseId().equals(courseId)){
             //如果是从课程,获取主课程
             CourseEntity mainCourse=courseDao.getCourseById(teamShare.getMainCourseId());
             teamMap.put("courseName",mainCourse.getCourseName());
