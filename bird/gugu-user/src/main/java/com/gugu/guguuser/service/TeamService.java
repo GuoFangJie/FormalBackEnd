@@ -59,7 +59,7 @@ public class TeamService {
     public Byte addMember(Long teamId, Long studentId,Long courseId){
             teamDao.addMember(teamId,studentId);
             Byte status=0;
-            if(teamDao.teamIsLeagal(courseId,teamId)==true){
+            if(teamDao.teamIsLeagal(courseId,teamId)){
                 status=1;
             }
             else{
@@ -72,7 +72,7 @@ public class TeamService {
     public Byte removeMember(Long teamId,Long studentId,Long courseId){
         teamDao.removeMember(teamId,studentId);
         Byte status=0;
-        if(teamDao.teamIsLeagal(courseId,teamId)==true){
+        if(teamDao.teamIsLeagal(courseId,teamId)){
             status=1;
         }
         else{
@@ -98,7 +98,7 @@ public class TeamService {
         ArrayList<Byte> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
         serialUtil.setSerialList(teamSerial);
         teamEntity.setTeamSerial(serialUtil.calcuSerial());
-        if(teamDao.teamIsLeagal(teamEntity.getCourseId(),teamEntity.getId())==true){
+        if(teamDao.teamIsLeagal(teamEntity.getCourseId(),teamEntity.getId())){
             teamEntity.setStatus(1);
         }
         else {
