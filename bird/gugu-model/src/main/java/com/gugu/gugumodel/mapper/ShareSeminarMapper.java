@@ -42,4 +42,11 @@ public interface ShareSeminarMapper {
      * @param subCourseTeacher
      */
     void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Long subCourseTeacher);
+
+    /**
+     * 获取该课程所有相关的共享讨论课信息
+     * @param courseId
+     * @return
+     */
+    ArrayList<ShareApplicationEntity> getSeminarShareListByCourseId(Long courseId);
 }

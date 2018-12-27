@@ -20,6 +20,10 @@ public class CourseDao{
     @Autowired
     CourseMapper courseMapper;
     @Autowired
+    KlassMapper klassMapper;
+    @Autowired
+    SeminarMapper seminarMapper;
+    @Autowired
     TeamMapper teamMapper;
     @Autowired
     KlassStudentMapper klassStudentMapper;
@@ -27,7 +31,6 @@ public class CourseDao{
     KlassSeminarMapper klassSeminarMapper;
     @Autowired
     StrategyMapper strategyMapper;
-
     @Autowired
     RoundScoreMapper roundScoreMapper;
 
@@ -305,12 +308,17 @@ public class CourseDao{
 
     /**
      * 删除课程下所有的讨论课
+     * @author
      * @param courseId
      */
     public void deleteAllSeminarByCourseId(Long courseId){
-        klassSeminarMapper.deleteAllKlassSeminarByCourseId(courseId);
-        courseMapper.deleteAllSeminarByCourseId(courseId);
+        ArrayList<KlassEntity> klassList=klassMapper.getKlassByCourseId(courseId);
+        for(int i=0;i<klassList.size();i++){
+            klassSeminarMapper.deleteByKlass(courseId);
+        }
+        seminarMapper.deleteAllSeminarByCourseId(courseId);
     }
+
 
     /**
      * 获取一个课程下的所有小组

@@ -126,6 +126,13 @@ public interface TeamMapper {
      * @param teamId
      * @param status
      */
-    public void setStatus(Long teamId,Byte status);
+    public void setStatus(@Param("teamId") Long teamId,@Param("status") Byte status);
+
+    /**ljy
+     * 根据teamId获取组内学生id
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Long> getStudentsByTeamId(Long teamId);
     
 }

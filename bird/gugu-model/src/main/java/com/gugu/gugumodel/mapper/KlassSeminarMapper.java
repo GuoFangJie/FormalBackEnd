@@ -109,5 +109,5 @@ public interface KlassSeminarMapper {
      * 添加klass和seminar的联系
      * @return
      */
-    public boolean addKlassSeminar(Long  seminarId, Long klssId);
+    public boolean addKlassSeminar(Long  seminarId, Long klassId);
 }

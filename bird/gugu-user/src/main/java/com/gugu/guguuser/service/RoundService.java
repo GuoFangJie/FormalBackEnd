@@ -1,10 +1,7 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.*;
-import com.gugu.gugumodel.entity.RoundEntity;
-import com.gugu.gugumodel.entity.RoundScoreEntity;
-import com.gugu.gugumodel.entity.SeminarScoreEntity;
-import com.gugu.gugumodel.entity.TeamScoreInRoundEntity;
+import com.gugu.gugumodel.entity.*;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.RoundScoreMapper;
 import com.gugu.guguuser.util.SerialUtil;
@@ -18,6 +15,8 @@ import java.util.ArrayList;
  */
 @Service
 public class RoundService {
+    @Autowired
+    CourseDao courseDao;
     @Autowired
     RoundDao roundDao;
     @Autowired
@@ -95,7 +94,16 @@ public class RoundService {
     /**
      * 获取一个课程下所有的round
      */
-    public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId) throws NotFoundException{
+        CourseEntity courseEntity=courseDao.getCourseById(courseId);
+        if(courseEntity==null){
+            throw new NotFoundException("找不到该课程信息！");
+        }
+        if(courseEntity.getSeminarMainCourseId()!=null){
+            //如果是从课程
+            return roundDao.getRoundMessageByCourseId(courseEntity.getSeminarMainCourseId());
+        }
+        //如果是主课程
         return roundDao.getRoundMessageByCourseId(courseId);
     }
 

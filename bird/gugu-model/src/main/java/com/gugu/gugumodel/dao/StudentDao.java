@@ -177,4 +177,13 @@ public class StudentDao {
     public Long getStudentTeam(Long studentId,Long classId){
         return klassStudentMapper.getStudentTeam(studentId);
     }
+
+    /**
+     * 根据id获取学生邮箱
+     * @param studentId
+     * @return String
+     */
+    public String getEmailById(Long studentId){
+        return studentMapper.getEmailById(studentId);
+    }
 }

@@ -258,4 +258,11 @@ public class SeminarDao {
     public SeminarScoreEntity getOnceSeminarScore(Long klassSeminarId,Long teamId){
         return seminarScoreMapper.getSeminarScore(klassSeminarId,teamId);
     }
+
+    /**
+     * 根据klassSeminarid查找seminarName
+     */
+    public String getSeminarName(Long klassSeminarId){
+        return seminarMapper.getSeminarName(klassSeminarId);
+    }
 }

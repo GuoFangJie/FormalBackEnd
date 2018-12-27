@@ -27,4 +27,8 @@
         insert into share_seminar_application(main_course_id, sub_course_id, sub_course_teacher_id) values (#{param1},#{param2},#{param3})
     </insert>
 
+    <select id="getTeamShareListByCourseId" resultMap="shareTeamResultList">
+        select * from share_team_application where (main_course_id=#{param1} or sub_course_id=#{param1}) and status=1
+    </select>
+
 </mapper>

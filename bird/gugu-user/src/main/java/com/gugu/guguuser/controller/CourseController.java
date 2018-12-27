@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("course")
@@ -24,6 +25,8 @@ public class CourseController {
     StudentService studentService;
     @Autowired
     KlassService klassService;
+    @Autowired
+    ShareService shareService;
     @Autowired
     RoundService roundService;
     @Autowired
@@ -210,29 +213,30 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/share")
-    public ArrayList<ShareMessageVO> getAllShareMessage(@PathVariable("courseId") Long courseId){
-        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
-        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
-        if(shareMessageEntities.size()>0) {
-            ShareMessageVO shareSeminar=new ShareMessageVO();
-            shareSeminar.setShareType(2);
-            shareSeminar.setMasterCourse(shareMessageEntities.get(0).getMasterCourse());
-            for (int i = 0; i < shareMessageEntities.size(); i++) {
-                shareSeminar.addRecieveCourse(shareMessageEntities.get(i).getRecieveCourse());
-            }
-            shareMessageVOS.add(shareSeminar);
-        }
-        ArrayList<ShareMessageEntity> shareTeams=courseService.getAllShareTeam(courseId);
-        if(shareTeams.size()>0){
-            ShareMessageVO shareTeam=new ShareMessageVO();
-            shareTeam.setShareType(1);
-            shareTeam.setMasterCourse(shareTeams.get(0).getMasterCourse());
-            for (int i = 0; i < shareTeams.size(); i++) {
-                shareTeam.addRecieveCourse(shareTeams.get(i).getRecieveCourse());
-            }
-            shareMessageVOS.add(shareTeam);
-        }
-        return shareMessageVOS;
+    public ArrayList<Map> getAllShareMessage(@PathVariable("courseId") Long courseId){
+        return shareService.getShareListByCourseId(courseId);
+//        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
+//        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
+//        if(shareMessageEntities.size()>0) {
+//            ShareMessageVO shareSeminar=new ShareMessageVO();
+//            shareSeminar.setShareType(2);
+//            shareSeminar.setMasterCourse(shareMessageEntities.get(0).getMasterCourse());
+//            for (int i = 0; i < shareMessageEntities.size(); i++) {
+//                shareSeminar.addRecieveCourse(shareMessageEntities.get(i).getRecieveCourse());
+//            }
+//            shareMessageVOS.add(shareSeminar);
+//        }
+//        ArrayList<ShareMessageEntity> shareTeams=courseService.getAllShareTeam(courseId);
+//        if(shareTeams.size()>0){
+//            ShareMessageVO shareTeam=new ShareMessageVO();
+//            shareTeam.setShareType(1);
+//            shareTeam.setMasterCourse(shareTeams.get(0).getMasterCourse());
+//            for (int i = 0; i < shareTeams.size(); i++) {
+//                shareTeam.addRecieveCourse(shareTeams.get(i).getRecieveCourse());
+//            }
+//            shareMessageVOS.add(shareTeam);
+//        }
+//        return shareMessageVOS;
     }
 
     /**
@@ -253,7 +257,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/round")
-    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId){
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId) throws NotFoundException {
         return roundService.getRoundMessageByCourseId(courseId);
     }
 
@@ -271,6 +275,7 @@ public class CourseController {
                 courseService.newApplication(mainCourseId,subCourseId,subCourseVO.getType());
             }
         }catch (Exception e){
+            e.printStackTrace();
             httpServletResponse.setStatus(400,"系统错误");
         }
     }
