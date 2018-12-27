@@ -82,4 +82,8 @@
     <select id="getStudentByAccount" parameterType="java.lang.String" resultType="java.lang.Long">
         select id from student where account=#{param1}
     </select>
+
+    <select id="getEmailById" parameterType="java.lang.Long" resultType="java.lang.String">
+        select email from student where id=#{arg0}
+    </select>
 </mapper>

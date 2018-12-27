@@ -1,9 +1,13 @@
 package com.gugu.guguuser.service;
 
 import com.gugu.gugumodel.dao.AttendanceDao;
+import com.gugu.gugumodel.dao.SeminarDao;
+import com.gugu.gugumodel.dao.StudentDao;
+import com.gugu.gugumodel.dao.TeamDao;
 import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
+import com.gugu.guguuser.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,18 @@ import java.util.ArrayList;
 public class AttendanceService {
     @Autowired
     AttendanceDao attendanceDao;
+
+    @Autowired
+    TeamDao teamDao;
+
+    @Autowired
+    StudentDao studentDao;
+
+    @Autowired
+    SeminarDao seminarDao;
+
+    @Autowired
+    EmailUtil emailUtil;
 
     /**
      * 修改展示的轮次
@@ -89,7 +105,23 @@ public class AttendanceService {
      * @return
      */
     public Long newAttendance(AttendanceEntity attendanceEntity){
-        return attendanceDao.newAttendance(attendanceEntity);
+        Long attendanceId= attendanceDao.newAttendance(attendanceEntity);
+        if(attendanceId!=null){
+            ArrayList<Long> studentIds=teamDao.getStudentsByTeamId(attendanceEntity.getTeamId());
+            ArrayList<String> studentEmails=new ArrayList<String>();
+            for(int i=0;i<studentIds.size();i++){
+                String email=studentDao.getEmailById(studentIds.get(i));
+                if(email!=null){
+                    studentEmails.add(email);
+                }
+
+            }
+            String topic=new String("讨论课报名");
+            String seminarName=seminarDao.getSeminarName(attendanceEntity.getKlassSeminarId());
+            String content=new String("您的小组成功报名讨论课："+seminarName);
+            emailUtil.sendSimpleEmail(topic,content,studentEmails);
+        }
+        return attendanceId;
     }
 
     /**
