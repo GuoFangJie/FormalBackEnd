@@ -57,8 +57,8 @@
         values (#{param2},#{param1},null ,0)
     </insert>
     <insert id="newKlassSeminar">
-        insert klass_seminar(klass_id,seminar_id,status)
-        values (#{param1},#{param2},0)
+        insert into klass_seminar(klass_id,seminar_id,report_ddl,status)
+        values (#{param1},#{param2},null,0)
     </insert>
 
     <delete id="deleteAllKlassSeminarByCourseId">

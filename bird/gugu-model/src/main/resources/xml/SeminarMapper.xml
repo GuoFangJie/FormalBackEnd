@@ -65,4 +65,8 @@
     <select id="getSeminarName" parameterType="java.lang.Long" resultType="java.lang.String">
         select seminar_name from seminar where id=(select seminar_id from klass_seminar where id=#{arg0})
     </select>
+
+    <delete id="deleteAllSeminarByCourseId">
+        delete from seminar where course_id=#{param1}
+    </delete>
 </mapper>

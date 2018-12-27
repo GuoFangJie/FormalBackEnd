@@ -100,4 +100,12 @@ public interface SeminarMapper {
      * 根据klassSeminarid查找seminarName
      */
     public String getSeminarName(Long klassSeminarId);
+
+    /**
+     * @author TYJ
+     * 删除课程下所有的seminar
+     * @param courseId
+     * @return
+     */
+    void deleteAllSeminarByCourseId(Long courseId);
 }

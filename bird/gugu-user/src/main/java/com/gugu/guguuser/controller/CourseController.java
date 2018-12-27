@@ -253,7 +253,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/round")
-    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId){
+    public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId) throws NotFoundException {
         return roundService.getRoundMessageByCourseId(courseId);
     }
 
