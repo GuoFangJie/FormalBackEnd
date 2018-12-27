@@ -272,6 +272,7 @@ public class ShareService {
         if(seminarShare.getMainCourseId().equals(courseId)){
             //如果是主课程,获取从课程
             CourseEntity subCourse=courseDao.getCourseById(seminarShare.getSubCourseId());
+            seminarMap.put("shareId",seminarShare.getId());
             seminarMap.put("courseName",subCourse.getCourseName());
             seminarMap.put("shareType","共享讨论课");
             seminarMap.put("isMain","主课程");
@@ -279,6 +280,7 @@ public class ShareService {
         else if(seminarShare.getSubCourseId().equals(courseId)){
             //如果是从课程,获取主课程
             CourseEntity mainCourse=courseDao.getCourseById(seminarShare.getMainCourseId());
+            seminarMap.put("shareId",seminarShare.getId());
             seminarMap.put("courseName",mainCourse.getCourseName());
             seminarMap.put("shareType","共享讨论课");
             seminarMap.put("isMain","从课程");
@@ -297,6 +299,7 @@ public class ShareService {
         if(teamShare.getMainCourseId().equals(courseId)){
             //如果是主课程,获取从课程
             CourseEntity subCourse=courseDao.getCourseById(teamShare.getSubCourseId());
+            teamMap.put("shareId",teamShare.getId());
             teamMap.put("courseName",subCourse.getCourseName());
             teamMap.put("shareType","共享分组");
             teamMap.put("isMain","主课程");
@@ -304,6 +307,7 @@ public class ShareService {
         else if(teamShare.getSubCourseId().equals(courseId)){
             //如果是从课程,获取主课程
             CourseEntity mainCourse=courseDao.getCourseById(teamShare.getMainCourseId());
+            teamMap.put("shareId",teamShare.getId());
             teamMap.put("courseName",mainCourse.getCourseName());
             teamMap.put("shareType","共享分组");
             teamMap.put("isMain","从课程");
