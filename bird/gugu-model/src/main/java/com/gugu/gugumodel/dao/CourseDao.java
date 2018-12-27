@@ -143,7 +143,7 @@ public class CourseDao{
             strategyMapper.addConflictStrategy(maxId,conflictList.get(i).getId());
         }
         //将本课程加入冲突列表中
-        strategyMapper.addConflictStrategy(maxId,courseEntity.getId());
+        //strategyMapper.addConflictStrategy(maxId,courseEntity.getId());
         //获得strategySerial
         Byte strategySerial=this.getSerial(courseEntity);
         //将最终规则存入最终表中
