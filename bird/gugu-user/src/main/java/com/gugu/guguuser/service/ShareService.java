@@ -196,13 +196,13 @@ public class ShareService {
         ArrayList<Long> studentList=klassStudentDao.getStudentByTeamId(teamEntity.getId());
         //多数学生所在的klassId
         Long maxKlassId=null;
+        Map<Long,Integer> klassMap=new HashMap<>();
+        Integer temp=0;
         for(int i=0;i<studentList.size();i++){
-            Map<Long,Integer> klassMap=new HashMap<>();
-            Integer temp=0;
             //获取这个学生的entity
             StudentEntity student=studentDao.getStudentById(studentList.get(i));
             //获得这个学生的klassId
-            Long klassId=klassStudentDao.getKlassIdByCourseAndStudent(student.getId(),subCourse.getId());
+            Long klassId=klassStudentDao.getKlassIdByCourseAndStudent(subCourse.getId(),student.getId());
             //收集每个学生的klassId
             if(klassId!=null){
                 Integer klassCount=klassMap.get(klassId);
@@ -213,17 +213,19 @@ public class ShareService {
                     klassMap.put(klassId,klassCount+1);
                 }
             }
-            //取出人数最多的klassId
-            for (Long key : klassMap.keySet()) {
-                Integer value=klassMap.get(key);
-                if(value>temp){
-                    temp=value;
-                    maxKlassId=key;
-                }
+        }
+        //取出人数最多的klassId
+        for (Long key : klassMap.keySet()) {
+            Integer value=klassMap.get(key);
+            if(value>temp){
+                temp=value;
+                maxKlassId=key;
             }
         }
         //创建新的klass_team的副本
-        teamDao.createKlassTeam(teamEntity.getId(),maxKlassId);
+        if(maxKlassId!=null){
+            teamDao.createKlassTeam(maxKlassId,teamEntity.getId());
+        }
     }
 
     /**
