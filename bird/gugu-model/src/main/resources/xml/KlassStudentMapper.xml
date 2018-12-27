@@ -63,7 +63,7 @@
     </select>
 
     <delete id="deleteReceiveTeamShare" parameterType="java.lang.Long">
-        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+        delete  from klass_team where klass_team.klass_id in (select klass.id from klass where klass.course_id=#{param1})
     </delete>
 
     <select id="getStudentWithoutTeam" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">

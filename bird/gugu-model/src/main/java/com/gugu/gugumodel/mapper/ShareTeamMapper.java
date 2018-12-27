@@ -49,4 +49,12 @@ public interface ShareTeamMapper {
      * @return
      */
     ArrayList<ShareApplicationEntity> getTeamShareListByCourseId(Long courseId);
+
+    /**
+     * 根据主课程和从课程获取申请记录，用于防止重复数据记录
+     * @param mainCourseId
+     * @param subCourseId
+     * @return
+     */
+    ShareApplicationEntity getByMainCourseAndSubcourse(Long mainCourseId,Long subCourseId);
 }

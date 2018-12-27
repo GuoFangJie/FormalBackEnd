@@ -278,7 +278,7 @@ public class CourseController {
             }
         }catch (Exception e){
             e.printStackTrace();
-            httpServletResponse.setStatus(400,"系统错误");
+            httpServletResponse.setStatus(400,e.getMessage());
         }
     }
 

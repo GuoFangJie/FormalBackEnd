@@ -31,4 +31,8 @@
         select * from share_seminar_application where (main_course_id=#{param1} or sub_course_id=#{param1}) and status=1
     </select>
 
+    <select id="getByMainCourseAndSubcourse" resultMap="shareSeminarResultList">
+        select * from share_team_application where main_course_id=#{param1} and sub_course_id=#{param2}
+    </select>
+
 </mapper>

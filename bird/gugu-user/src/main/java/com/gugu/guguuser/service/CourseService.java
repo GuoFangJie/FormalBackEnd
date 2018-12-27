@@ -159,7 +159,7 @@ public class CourseService {
      * @param subCourseId
      * @param type
      */
-    public void newApplication(Long mainCourseId,Long subCourseId,Integer type){
+    public void newApplication(Long mainCourseId,Long subCourseId,Integer type) throws Exception {
         shareMessageDao.newShareSeminarApplication(mainCourseId,subCourseId,type);
     }
 

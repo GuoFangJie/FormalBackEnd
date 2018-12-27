@@ -105,11 +105,28 @@ public class ShareMessageDao {
      * @param mainCourseId
      * @param subCourseId
      */
-    public void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Integer type){
+    public void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Integer type) throws Exception {
         Long subCourseTeacher=courseMapper.getTeacherIdByCourse(subCourseId);
         if(type.equals(1)){
-            shareSeminarMapper.newShareSeminarApplication(mainCourseId,subCourseId,subCourseTeacher);
+            System.out.println("type为1");
+            ShareApplicationEntity shareApplicationEntity=shareSeminarMapper.getByMainCourseAndSubcourse(mainCourseId,subCourseId);
+            if(shareApplicationEntity==null) {
+                shareSeminarMapper.newShareSeminarApplication(mainCourseId, subCourseId, subCourseTeacher);
+            }else if(shareApplicationEntity.getStatus()==1){
+                throw new Exception("已申请过并成功");
+            }else{
+                shareSeminarMapper.changeSeminarShareStatus(shareApplicationEntity.getId(),null);
+            }
         }else{
+            ShareApplicationEntity shareApplicationEntity=shareTeamMapper.getByMainCourseAndSubcourse(mainCourseId,subCourseId);
+            System.out.println("type为2");
+            if(shareApplicationEntity==null) {
+                shareTeamMapper.newShareTeamApplication(mainCourseId, subCourseId, subCourseTeacher);
+            }else if(shareApplicationEntity.getStatus()==1){
+                throw new Exception("已申请过并成功");
+            }else{
+                shareTeamMapper.changeTeamShareStatus(shareApplicationEntity.getId(),null);
+            }
             shareTeamMapper.newShareTeamApplication(mainCourseId,subCourseId,subCourseTeacher);
         }
     }

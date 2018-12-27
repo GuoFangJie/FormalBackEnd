@@ -49,4 +49,12 @@ public interface ShareSeminarMapper {
      * @return
      */
     ArrayList<ShareApplicationEntity> getSeminarShareListByCourseId(Long courseId);
+
+    /**
+     * 根据主从课程获取申请记录
+     * @param mainCourseId
+     * @param subCourseId
+     * @return
+     */
+    ShareApplicationEntity getByMainCourseAndSubcourse(Long mainCourseId,Long subCourseId);
 }
