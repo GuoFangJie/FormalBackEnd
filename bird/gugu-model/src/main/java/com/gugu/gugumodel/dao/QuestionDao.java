@@ -7,6 +7,8 @@ import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 /**
  * @author ren
  */
@@ -36,5 +38,11 @@ public class QuestionDao {
      */
     public void newQuestion(QuestionEntity questionEntity){
         questionMapper.newQuestion(questionEntity);
+    }
+    /**
+     * 获取当前提问列表
+     */
+    public ArrayList<QuestionEntity> getAllQuestionByAttendanceId(Long attendanceId){
+        return questionMapper.getAllQuestionByAttendanceId(attendanceId);
     }
 }

@@ -48,7 +48,12 @@ public class StudentDao {
     public ArrayList<StudentEntity> getMembersExceptLeader(Long teamId) {
         ArrayList<StudentEntity> members=studentMapper.getMembers(teamId);
         StudentEntity leader=studentMapper.getLeader(teamId);
-        members.remove(leader);
+        for(int i=0;i<members.size();i++){
+            if(leader.getId().equals(members.get(i).getId())){
+                members.remove(i);
+                break;
+            }
+        }
         System.out.println("队伍成员有"+members.size());
         return members;
     }

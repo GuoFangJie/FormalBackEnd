@@ -10,11 +10,12 @@
         <result column="leader_id" jdbcType="BIGINT" property="leaderId"/>
         <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
         <result column="team_serial" jdbcType="TINYINT" property="teamSerial"/>
+        <result column="klass_serial" jdbcType="TINYINT" property="klassSerial"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
     <select id="findTeamById" parameterType="java.lang.Long" resultMap="TeamEntityMap">
         select id,klass_id,course_id,leader_id,team_name,team_serial,
-               status from team where id=#{arg0}
+               status,klass_serial from team where id=#{arg0}
     </select>
 
     <select id="getLeaderId" parameterType="java.lang.Long">
@@ -73,7 +74,7 @@
 
     <select id="getAllTeamByCourse" parameterType="java.lang.Long" resultMap="TeamEntityMap">
         select team.id,team.leader_id,team.team_name,team.team_serial,
-               team.status from team,klass_team,klass where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+               team.status,team.klass_serial from team,klass_team,klass where klass.course_id=#{param1} and klass.id=klass_team.klass_id
               and team.id=klass_team.team_id
     </select>
 

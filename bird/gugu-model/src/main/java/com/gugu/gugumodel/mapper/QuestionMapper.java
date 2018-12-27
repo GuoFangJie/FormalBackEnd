@@ -4,6 +4,8 @@ import com.gugu.gugumodel.entity.QuestionEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 /**
  * @author ren
  */
@@ -29,4 +31,9 @@ public interface QuestionMapper {
      * 获取提问
      */
     QuestionEntity getQuestionById(Long questionId);
+
+    /**
+     * 获取提问列表
+     */
+    ArrayList<QuestionEntity> getAllQuestionByAttendanceId(Long attendanceId);
 }

@@ -296,7 +296,7 @@ public class AttendanceDao {
                 seminarScoreEntity.setQuestionScore(score);
                 seminarScoreMapper.newSeminarScore(seminarScoreEntity);
             }else{
-                seminarScoreEntity.setQuestionScore(score);
+                seminarScoreEntity.setQuestionScore(seminarScoreEntity.getQuestionScore()>score?seminarScoreEntity.getQuestionScore():score);
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }
