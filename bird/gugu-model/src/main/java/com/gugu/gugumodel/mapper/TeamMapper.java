@@ -126,6 +126,6 @@ public interface TeamMapper {
      * @param teamId
      * @param status
      */
-    public void setStatus(Long teamId,Byte status);
+    public void setStatus(@Param("teamId") Long teamId,@Param("status") Byte status);
     
 }

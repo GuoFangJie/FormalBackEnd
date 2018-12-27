@@ -101,7 +101,7 @@ public class TeamService {
         ArrayList<Byte> teamSerial=teamDao.getSerial(teamEntity.getKlassId());
         serialUtil.setSerialList(teamSerial);
         teamEntity.setTeamSerial(serialUtil.calcuSerial());
-        if(teamDao.teamIsLeagal(teamEntity.getCourseId(),teamEntity.getId())==true){
+        if(teamDao.teamIsLeagal(teamEntity.getCourseId(),teamEntity.getId())){
             teamEntity.setStatus(1);
         }
         else {
