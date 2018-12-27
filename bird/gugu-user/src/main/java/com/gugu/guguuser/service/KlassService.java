@@ -65,6 +65,8 @@ public class KlassService {
         }
         Sheet sheet=workbook.getSheetAt(0);
         int numOfRow=sheet.getLastRowNum();
+        //删除之前旧的班级名单
+        klassStudentDao.deleteByKlassId(klassId);
         for(int i=2;i<numOfRow;i++){
             Row row=sheet.getRow(i);
             Long studentId=studentDao.getStudentByAccount(row.getCell(0).getStringCellValue().replace(" ",""));

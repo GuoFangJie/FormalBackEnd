@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  * @author ren
@@ -58,5 +59,22 @@ public class QuestionController {
             return questionVO;
         }
         return questionVO;
+    }
+
+    /**
+     * 获取当前展示的问题列表
+     */
+    @GetMapping("/allQuestion")
+    public ArrayList<QuestionVO> getAllQuestion(HttpServletResponse httpServletResponse,@RequestParam("attendanceId")Long attendanceId){
+        ArrayList<QuestionEntity> questionEntities=questionService.getAllQuestionByAttendanceId(attendanceId);
+        ArrayList<QuestionVO> questionVOS=new ArrayList<>();
+        for(QuestionEntity questionEntity:questionEntities){
+            QuestionVO questionVO=new QuestionVO();
+            questionVO.setQuestionEntity(questionEntity);
+            questionVO.setStudentEntity(studentService.getStudentById(questionEntity.getStudentId()));
+            questionVO.setTeamEntity(teamService.getTeamMessageByTeamId(questionEntity.getTeamId()));
+            questionVOS.add(questionVO);
+        }
+        return questionVOS;
     }
 }

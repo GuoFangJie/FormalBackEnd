@@ -8,6 +8,8 @@ import com.gugu.gugumodel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 /**
  * @author ren
  */
@@ -43,5 +45,12 @@ public class QuestionService {
     public void scoreQuestion(Long questionId,Float score,Long courseId,Long roundId,Long klassSeminarId,Long teamId) throws NotFoundException {
         questionDao.scoreQuestion(questionId,score);
         attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,3,courseId);
+    }
+
+    /**
+     * 获取当前展示提问列表
+     */
+    public ArrayList<QuestionEntity> getAllQuestionByAttendanceId(Long attendanceId){
+        return questionDao.getAllQuestionByAttendanceId(attendanceId);
     }
 }

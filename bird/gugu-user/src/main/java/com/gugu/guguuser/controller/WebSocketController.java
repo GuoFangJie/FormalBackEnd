@@ -45,7 +45,15 @@ public class WebSocketController {
         //加入set中
         addOnlineCount();
         StringBuffer stringBuffer=new StringBuffer("连接成功");
-        sendMessage("200");
+        String attendanceId="";
+        if(webSocketSet.size()>=0){
+            for(WebSocketController webSocketController:webSocketSet){
+                attendanceId=Long.toString(webSocketController.getAttendanceId());
+            }
+            sendMessage(attendanceId);
+        }else{
+            sendMessage("666");
+        }
     }
 
     /**

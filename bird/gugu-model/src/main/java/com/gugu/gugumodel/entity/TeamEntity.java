@@ -12,7 +12,15 @@ public class TeamEntity {
     private String teamName;
     private Byte teamSerial;
     private Integer status;
+    private Byte klassSerial;
 
+    public Byte getKlassSerial() {
+        return klassSerial;
+    }
+
+    public void setKlassSerial(Byte klassSerial) {
+        this.klassSerial = klassSerial;
+    }
 
     public Long getId() {
         return id;
