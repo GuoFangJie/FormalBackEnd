@@ -55,4 +55,10 @@ public interface SeminarScoreMapper {
      * 获取小组在某课程下某轮次下的所有讨论课成绩
      */
     public ArrayList<SeminarScoreEntity> getAllSeminarScore(@Param("courseId") Long courseId,@Param("roundId") Long roundId,@Param("teamId") Long teamId);
+
+    /**
+     * 新建讨论课成绩记录
+     * @param seminarScoreEntity
+     */
+    void newSeminarScore(SeminarScoreEntity seminarScoreEntity);
 }

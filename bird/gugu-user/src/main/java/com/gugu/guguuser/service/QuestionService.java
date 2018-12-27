@@ -34,12 +34,14 @@ public class QuestionService {
         questionEntity.setStudentId(userId);
         questionEntity.setKlassSeminarId(attendanceDao.getById(attendanceId).getKlassSeminarId());
         questionEntity.setTeamId(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
+        System.out.println(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
         questionDao.newQuestion(questionEntity);
     }
     /**
      * 给提问打分
      */
-    public void scoreQuestion(Long questionId,Float score) throws NotFoundException {
+    public void scoreQuestion(Long questionId,Float score,Long courseId,Long roundId,Long klassSeminarId,Long teamId) throws NotFoundException {
         questionDao.scoreQuestion(questionId,score);
+        attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,3,courseId);
     }
 }

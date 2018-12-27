@@ -20,12 +20,22 @@ public class WebSocketController {
     Long seminarKlassId;
     Long userId;
     String role;
+    Long attendanceId;
 
+
+    public Long getAttendanceId() {
+        return attendanceId;
+    }
+
+    public void setAttendanceId(Long attendanceId) {
+        this.attendanceId = attendanceId;
+    }
 
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
     public void onOpen(Session session, @PathParam("seminarKlassId") Long seminarKlassId,@PathParam("role")String role,@PathParam("userId")Long userId) throws IOException, EncodeException {
+
         this.userId=userId;
         this.role=role;
         this.seminarKlassId=seminarKlassId;
@@ -41,14 +51,14 @@ public class WebSocketController {
     /**
      * 连接关闭调用的方法
      */
-//    @OnClose
-//    public void onClose() {
-//        webSocketSet.remove(this);
-//        //从set中删除
-//        subOnlineCount();
-//        //在线数减1
-//        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
-//    }
+    @OnClose
+    public void onClose() {
+        webSocketSet.remove(this);
+        //从set中删除
+        subOnlineCount();
+        //在线数减1
+        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+    }
 
 
     /**
@@ -61,13 +71,15 @@ public class WebSocketController {
     @OnMessage
     public void onMessage(String message,Session session) throws IOException, EncodeException {
         System.out.println(message);
-        if(message.equals("2")){
+        String[] mes=message.split(";");
+        if(mes[0].equals("2")){
             for(WebSocketController webSocketController:webSocketSet){
                 webSocketController.sendMessage("1");
             }
-        }else if(message.equals("1")){
+        }else if(mes[0].equals("1")){
             for(WebSocketController webSocketController:webSocketSet){
                 webSocketController.sendMessage("2");
+                webSocketController.setSeminarKlassId(Long.parseLong(mes[1]));
             }
         }else{
             sendMessage("系统出错");

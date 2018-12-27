@@ -91,4 +91,29 @@ public class AttendanceService {
     public Long newAttendance(AttendanceEntity attendanceEntity){
         return attendanceDao.newAttendance(attendanceEntity);
     }
+
+    /**
+     * 给报告打分
+     * @param courseId
+     * @param roundId
+     * @param klassSeminarId
+     * @param teamId
+     * @param score
+     */
+    public void setReportScore(Long courseId,Long roundId,Long klassSeminarId,Long teamId,Float score){
+        attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,1,courseId);
+    }
+
+    /**
+     * 给展示打分
+     * @param courseId
+     * @param roundId
+     * @param klassSeminarId
+     * @param teamId
+     * @param score
+     */
+    public void setPresentationScore(Long courseId,Long roundId,Long klassSeminarId,Long teamId,Float score){
+        attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,2,courseId);
+    }
+
 }

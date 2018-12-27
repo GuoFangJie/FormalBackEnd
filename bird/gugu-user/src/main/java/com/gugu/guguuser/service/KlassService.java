@@ -67,11 +67,11 @@ public class KlassService {
         int numOfRow=sheet.getLastRowNum();
         for(int i=2;i<numOfRow;i++){
             Row row=sheet.getRow(i);
-            Long studentId=studentDao.getStudentByAccount(row.getCell(0).getStringCellValue());
+            Long studentId=studentDao.getStudentByAccount(row.getCell(0).getStringCellValue().replace(" ",""));
             if(studentId==null) {
                 StudentEntity studentEntity = new StudentEntity();
-                String studentName=row.getCell(1).getStringCellValue().replaceAll(" ","");
-                String account=row.getCell(0).getStringCellValue().replaceAll(" ","");
+                String studentName=row.getCell(1).getStringCellValue().replace(" ","");
+                String account=row.getCell(0).getStringCellValue().replace(" ","");
                 studentEntity.setStudentName(studentName.replace(" ",""));
                 studentEntity.setAccount(account.replace(" ",""));
                 studentDao.newStudent(studentEntity);

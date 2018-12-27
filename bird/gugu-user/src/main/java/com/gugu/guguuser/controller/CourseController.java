@@ -5,10 +5,7 @@ import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.*;
-import com.gugu.guguuser.service.CourseService;
-import com.gugu.guguuser.service.KlassService;
-import com.gugu.guguuser.service.RoundService;
-import com.gugu.guguuser.service.StudentService;
+import com.gugu.guguuser.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +26,10 @@ public class CourseController {
     KlassService klassService;
     @Autowired
     RoundService roundService;
-
+    @Autowired
+    AttendanceService attendanceService;
+    @Autowired
+    QuestionService questionService;
     /**
      * 获取与用户相关的课程
      * @param
@@ -314,4 +314,46 @@ public class CourseController {
             return false;
         }
     }
+
+    /**
+     * 给报告打分
+     * @param courseId
+     * @param roundId
+     * @param teamId
+     * @param klassSeminarId
+     * @param score
+     */
+    @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/report")
+    public void setReportScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
+        attendanceService.setReportScore(courseId,roundId,klassSeminarId,teamId,score);
+    }
+
+    /**
+     * 给展示打分
+     * @param courseId
+     * @param roundId
+     * @param teamId
+     * @param klassSeminarId
+     * @param score
+     */
+    @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/presentation")
+    public void setPresentationScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
+        attendanceService.setPresentationScore(courseId,roundId,klassSeminarId,teamId,score);
+    }
+
+    /**
+     * 给提问打分
+     * @param questionId
+     * @param courseId
+     * @param roundId
+     * @param teamId
+     * @param klassSeminarId
+     * @param score
+     * @throws NotFoundException
+     */
+    @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/question/{questionId}")
+    public void setQuestionScore(@PathVariable("questionId")Long questionId,@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score) throws NotFoundException {
+        questionService.scoreQuestion(questionId,score,courseId,roundId,klassSeminarId,teamId);
+    }
+
 }

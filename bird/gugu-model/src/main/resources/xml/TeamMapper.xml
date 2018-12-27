@@ -102,7 +102,7 @@
     </select>
 
     <update id="setStatus">
-        update team set status=#{arg1} where id=#{arg0}
+        update team set status=#{param2} where id=#{param1}
     </update>
 
 </mapper>

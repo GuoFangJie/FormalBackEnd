@@ -30,7 +30,7 @@ public class SeminarController {
     RoundService roundService;
     @Autowired
     KlassService klassService;
-    @Value("webserver")
+    @Value("${webserver}")
     String webserver;
     /**@author ljy
      * 新建讨论课,创建成功后返回seminarId
