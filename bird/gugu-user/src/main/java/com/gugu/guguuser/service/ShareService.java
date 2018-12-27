@@ -238,4 +238,77 @@ public class ShareService {
         }
     }
 
+    /**
+     * 获取该课程所有相关的共享信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<Map> getSeminarShareListByCourseId(Long courseId){
+        ArrayList<ShareApplicationEntity> seminarShareList = shareMessageDao.getSeminarShareListByCourseId(courseId);
+        ArrayList<ShareApplicationEntity> teamShareList = shareMessageDao.getTeamShareListByCourseId(courseId);
+        ArrayList<Map> shareList=new ArrayList<Map>();
+        if(seminarShareList.size()==0&&teamShareList.size()==0){
+            return null;
+        }
+        for(int i=0;i<seminarShareList.size();i++){
+            ShareApplicationEntity seminarShare=seminarShareList.get(i);
+            shareList.add(this.getSeminarShareInfo(seminarShare,courseId));
+        }
+        for(int i=0;i<teamShareList.size();i++){
+            ShareApplicationEntity teamShare=teamShareList.get(i);
+            shareList.add(this.getTeamShareInfo(teamShare,courseId));
+        }
+        return shareList;
+    }
+
+    /**
+     * 获取共享讨论课信息
+     * @param seminarShare
+     * @param courseId
+     * @return
+     */
+    private Map getSeminarShareInfo(ShareApplicationEntity seminarShare,Long courseId){
+        Map seminarMap=new HashMap();
+        if(seminarShare.getMainCourseId().equals(courseId)){
+            //如果是主课程,获取从课程
+            CourseEntity subCourse=courseDao.getCourseById(seminarShare.getSubCourseId());
+            seminarMap.put("courseName",subCourse.getCourseName());
+            seminarMap.put("shareType","共享讨论课");
+            seminarMap.put("isMain","主课程");
+        }
+        else if(seminarShare.getMainCourseId().equals(courseId)){
+            //如果是从课程,获取主课程
+            CourseEntity mainCourse=courseDao.getCourseById(seminarShare.getMainCourseId());
+            seminarMap.put("courseName",mainCourse.getCourseName());
+            seminarMap.put("shareType","共享讨论课");
+            seminarMap.put("isMain","从课程");
+        }
+        return seminarMap;
+    }
+
+    /**
+     * 获取共享分组信息
+     * @param teamShare
+     * @param courseId
+     * @return
+     */
+    private Map getTeamShareInfo(ShareApplicationEntity teamShare,Long courseId){
+        Map teamMap=new HashMap();
+        if(teamShare.getMainCourseId().equals(courseId)){
+            //如果是主课程,获取从课程
+            CourseEntity subCourse=courseDao.getCourseById(teamShare.getSubCourseId());
+            teamMap.put("courseName",subCourse.getCourseName());
+            teamMap.put("shareType","共享分组");
+            teamMap.put("isMain","主课程");
+        }
+        else if(teamShare.getMainCourseId().equals(courseId)){
+            //如果是从课程,获取主课程
+            CourseEntity mainCourse=courseDao.getCourseById(teamShare.getMainCourseId());
+            teamMap.put("courseName",mainCourse.getCourseName());
+            teamMap.put("shareType","共享分组");
+            teamMap.put("isMain","从课程");
+        }
+        return teamMap;
+    }
+
 }

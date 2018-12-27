@@ -271,6 +271,7 @@ public class CourseController {
                 courseService.newApplication(mainCourseId,subCourseId,subCourseVO.getType());
             }
         }catch (Exception e){
+            e.printStackTrace();
             httpServletResponse.setStatus(400,"系统错误");
         }
     }

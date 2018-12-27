@@ -42,4 +42,11 @@ public interface ShareTeamMapper {
      * @param subCourseTeacher
      */
     void newShareTeamApplication(Long mainCourseId,Long subCourseId,Long subCourseTeacher);
+
+    /**
+     * 获取该课程所有相关的共享分组信息
+     * @param courseId
+     * @return
+     */
+    ArrayList<ShareApplicationEntity> getTeamShareListByCourseId(Long courseId);
 }

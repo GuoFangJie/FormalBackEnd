@@ -113,4 +113,22 @@ public class ShareMessageDao {
             shareTeamMapper.newShareTeamApplication(mainCourseId,subCourseId,subCourseTeacher);
         }
     }
+
+    /**
+     * 获取该课程所有相关的共享讨论课信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<ShareApplicationEntity> getSeminarShareListByCourseId(Long courseId){
+        return shareSeminarMapper.getSeminarShareListByCourseId(courseId);
+    }
+
+    /**
+     * 获取该课程所有相关的共享分组信息
+     * @param courseId
+     * @return
+     */
+    public ArrayList<ShareApplicationEntity> getTeamShareListByCourseId(Long courseId){
+        return shareTeamMapper.getTeamShareListByCourseId(courseId);
+    }
 }
