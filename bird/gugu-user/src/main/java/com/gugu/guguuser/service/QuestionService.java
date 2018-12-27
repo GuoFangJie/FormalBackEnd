@@ -34,6 +34,7 @@ public class QuestionService {
         questionEntity.setStudentId(userId);
         questionEntity.setKlassSeminarId(attendanceDao.getById(attendanceId).getKlassSeminarId());
         questionEntity.setTeamId(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
+        System.out.println(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
         questionDao.newQuestion(questionEntity);
     }
     /**

@@ -71,4 +71,10 @@
         klass_student,student,team_student where student.id!=#{param2} and klass_student.course_id=#{param1} and student.id=klass_student.student_id and student.id not in
         (select team_student.student_id from team_student,klass,klass_team where team_student.student_id=student.id and team_student.team_id=klass_team.team_id and klass_team.klass_id=klass.id and klass.course_id=#{param1})
     </select>
+
+    <select id="getTeamIdByClassAndStudent" resultType="java.lang.Long">
+        select team_student.team_id from team_student,klass_team where
+        team_student.student_id=#{param2} and klass_team.klass_id=#{param1}
+        and klass_team.team_id=team_student.team_id
+    </select>
 </mapper>

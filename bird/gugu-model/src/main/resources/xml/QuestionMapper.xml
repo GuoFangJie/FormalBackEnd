@@ -4,14 +4,14 @@
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.gugu.gugumodel.mapper.QuestionMapper">
     <insert id="newQuestion" useGeneratedKeys="true" keyProperty="id" parameterType="com.gugu.gugumodel.entity.QuestionEntity">
-        insert question(klass_seminar_id,attendance_id,teamId,student_id,is_selected)
+        insert question(klass_seminar_id,attendance_id,team_id,student_id,is_selected)
         values (#{klassSeminarId},#{attendanceId},#{teamId},#{studentId},0)
     </insert>
 
     <select id="getNextQuestion" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.QuestionEntity">
         select id id,klass_seminar_id klassSeminarId,attendance_id attendanceId,team_id teamId,
                student_id studentId,is_selected isSelected,score score
-         from question  where attendance_id=#{param1} order by id limit 1
+         from question  where attendance_id=#{param1} and is_selected=0 order by id limit 1
     </select>
 
     <update id="scoreQuestion">

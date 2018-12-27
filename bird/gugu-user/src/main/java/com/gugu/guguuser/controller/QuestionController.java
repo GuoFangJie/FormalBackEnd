@@ -5,6 +5,7 @@ import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.QuestionVO;
 import com.gugu.guguuser.service.QuestionService;
 import com.gugu.guguuser.service.StudentService;
+import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,8 @@ public class QuestionController {
     QuestionService questionService;
     @Autowired
     StudentService studentService;
+    @Autowired
+    TeamService teamService;
 
     /**
      * 新建一个问题
@@ -50,6 +53,8 @@ public class QuestionController {
         }else {
             questionVO.setQuestionEntity(questionEntity);
             questionVO.setStudentEntity(studentService.getStudentById(questionEntity.getStudentId()));
+            questionVO.setTeamEntity(teamService.getTeamMessageByTeamId(questionEntity.getTeamId()));
+            httpServletResponse.setStatus(201);
             return questionVO;
         }
         return questionVO;

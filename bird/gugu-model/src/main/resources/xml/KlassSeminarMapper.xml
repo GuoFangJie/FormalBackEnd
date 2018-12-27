@@ -49,7 +49,7 @@
     </update>
 
     <select id="getKlassIdByKlassSeminar" parameterType="java.lang.Long" resultType="java.lang.Long">
-        select klass_id from klass_seminar where seminar_id=#{param1}
+        select klass_id from klass_seminar where id=#{param1}
     </select>
 
     <insert id="addKlassSeminar" useGeneratedKeys="true" keyProperty="id">

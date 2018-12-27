@@ -300,7 +300,8 @@ public class AttendanceDao {
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }
-        calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity);
+        seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
+        seminarScoreMapper.setSeminarScore(seminarScoreEntity);
         calculateFinalRoundScore(teamId,roundId,courseId);
     }
 }
