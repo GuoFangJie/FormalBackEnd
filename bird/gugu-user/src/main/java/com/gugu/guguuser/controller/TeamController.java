@@ -127,6 +127,7 @@ public class TeamController {
     public void teamValidRequest(@PathVariable Long teamId, @RequestBody TeamValidEntity teamValidEntity){
         teamValidEntity.setTeamId(teamId);
         teamService.teamValidRequest(teamValidEntity);
+        teamService.setTeamStatus(teamId);
     }
 
 }

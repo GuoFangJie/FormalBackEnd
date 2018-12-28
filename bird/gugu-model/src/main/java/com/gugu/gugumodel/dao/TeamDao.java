@@ -121,6 +121,14 @@ public class TeamDao{
     }
 
     /**
+     * 新建小组申请
+     * @param
+     */
+    public void setTeamStatus(Long teamId){
+        teamMapper.setTeamStatus(teamId);
+    }
+
+    /**
      * 获取小组状态
      * @param teamId
      * @return
