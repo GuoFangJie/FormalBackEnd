@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * @author ren
  */
-public class CourseMemberLimitStrategyEntity implements Strategy {
+public class CourseMemberLimitStrategyEntity{
     Long id;
     Long courseId;
     Byte minMember;
@@ -45,22 +45,4 @@ public class CourseMemberLimitStrategyEntity implements Strategy {
         this.maxMember = maxMember;
     }
 
-
-    @Override
-    public boolean isLegal(TeamAllEntity teamAllEntity) {
-        Integer count=0;
-        for(ArrayList<CourseEntity> courseEntities:teamAllEntity.getStudentEntities()){
-            for(CourseEntity courseEntity:courseEntities){
-                if(courseEntity.getId().equals(this.courseId)){
-                    count++;
-                    break;
-                }
-            }
-        }
-        if(count>minMember&&count<maxMember){
-            return false;
-        }else{
-            return true;
-        }
-    }
 }

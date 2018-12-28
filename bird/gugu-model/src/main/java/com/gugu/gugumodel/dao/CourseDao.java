@@ -145,7 +145,7 @@ public class CourseDao{
             ArrayList<CourseEntity> list=conflictList.get(i);
             for(int j=0;j<list.size();j++){
                 //加入冲突的课程
-                strategyMapper.addConflictStrategy(maxId,list.get(i).getId());
+                strategyMapper.addConflictStrategy(maxId,list.get(j).getId());
             }
             //获得strategySerial
             Byte strategySerial=this.getSerial(courseEntity);

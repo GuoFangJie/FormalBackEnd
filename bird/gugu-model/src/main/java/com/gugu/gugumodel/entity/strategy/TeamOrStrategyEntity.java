@@ -3,11 +3,7 @@ package com.gugu.gugumodel.entity.strategy;
 /**
  * @author ren
  */
-public class TeamOrStrategyEntity implements Strategy {
-    @Override
-    public boolean isLegal(TeamAllEntity teamAllEntity) {
-        return false;
-    }
+public class TeamOrStrategyEntity{
     Long id;
     String strategy;
     Long strategyId;

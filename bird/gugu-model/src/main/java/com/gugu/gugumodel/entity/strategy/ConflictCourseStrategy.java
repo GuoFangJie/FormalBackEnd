@@ -3,7 +3,7 @@ package com.gugu.gugumodel.entity.strategy;
 /**
  * @author ren
  */
-public class ConflictCourseStrategy implements Strategy {
+public class ConflictCourseStrategy{
     Long id;
     Long courseId;
 
@@ -23,8 +23,4 @@ public class ConflictCourseStrategy implements Strategy {
         this.courseId = courseId;
     }
 
-    @Override
-    public boolean isLegal(TeamAllEntity teamAllEntity) {
-        return false;
-    }
 }
