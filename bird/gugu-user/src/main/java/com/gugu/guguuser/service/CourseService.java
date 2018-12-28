@@ -32,7 +32,7 @@ public class CourseService {
     @Autowired
     SeminarDao seminarDao;
     @Autowired
-    RoundMapper roundMapper;
+    RoundDao roundDao;
 
     /**
      * 获取与学生相关的基本课程信息
@@ -190,7 +190,7 @@ public class CourseService {
         //ArrayList<SeminarEntity> seminarEntities= seminarDao.getSeminarByCourseAndRound(courseId,roundId);
         RoundTeamsScoreMessageVO roundTeamsScoreMessageVO=new RoundTeamsScoreMessageVO();
         roundTeamsScoreMessageVO.setRoundId(roundId);
-        roundTeamsScoreMessageVO.setRoundSerial(roundMapper.getRoundSerialById(roundId));
+        roundTeamsScoreMessageVO.setRoundSerial(roundDao.getRoundSerialById(roundId));
         roundTeamsScoreMessageVO.setTeamScoreInRoundEntities(teamScoreInRoundEntities);
         return roundTeamsScoreMessageVO;
     }
