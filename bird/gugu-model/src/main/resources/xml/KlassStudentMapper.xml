@@ -16,7 +16,10 @@
         delete from klass_student where klass_id=#{param1}
     </delete>
 
-
+    <select id="getKlassMember">
+        select team_student.student_id from team_student,klass_student where klass_student.course_id=#{param2}
+        and team_student.team_id=#{param1} and team_student.student_id=klass_student.student_id
+    </select>
     
     <select id="getTeamIdByClassAndStatus" resultType="java.lang.Long">
         select team_id from klass_student where klass_id=#{param1} and student_id=#{studentId}

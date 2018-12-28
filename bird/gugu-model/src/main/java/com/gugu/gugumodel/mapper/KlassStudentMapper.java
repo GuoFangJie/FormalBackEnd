@@ -49,6 +49,13 @@ public interface KlassStudentMapper {
     Long getTeamIdByClassAndStudent(Long klassId,Long studentId);
 
     /**
+     * 获取同班小组成员
+     * @param teamId
+     * @return
+     */
+    ArrayList<Long> getKlassMember(Long teamId,Long courseId);
+
+    /**
      * 根据id获取学生所在小组
      * @return
      */

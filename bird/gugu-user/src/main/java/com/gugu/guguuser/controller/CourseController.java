@@ -174,12 +174,10 @@ public class CourseController {
         ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
         ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
         for(int i=0;i<teamsId.size();i++){
-            ArrayList<StudentEntity> studentList=studentService.getMembers(teamsId.get(i).getId());
+            ArrayList<Long> studentList=studentService.getKlassMember(teamsId.get(i).getId(),courseId);
             ArrayList<StudentEntity> newList=new ArrayList<>();
             for(int j=0;j<studentList.size();j++){
-                if(studentService.checkCourse(courseId,studentList.get(j).getId())){
-                    newList.add(studentList.get(j));
-                }
+                newList.add(studentService.getStudentById(studentList.get(j)));
             }
             TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),newList);
             teamMessageVOS.add(teamMessageVO);

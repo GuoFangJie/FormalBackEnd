@@ -49,6 +49,15 @@ public class StudentDao {
     }
 
     /**
+     * 获取同班小组成员
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Long> getKlassMember(Long teamId,Long courseId) {
+        return klassStudentMapper.getKlassMember(teamId,courseId);
+    }
+
+    /**
      * 获取队长的信息
      * @param teamId
      * @return
@@ -186,7 +195,7 @@ public class StudentDao {
      * 查询该学生是否在该班级下
      */
     public boolean checkCourse(Long courseId,Long studentId){
-        if(studentMapper.checkCourse(courseId,studentId)!=null){
+        if(studentMapper.checkCourse(courseId,studentId)!=null&&studentMapper.checkCourse(courseId,studentId).size()!=0){
             return true;
         }
         else {
