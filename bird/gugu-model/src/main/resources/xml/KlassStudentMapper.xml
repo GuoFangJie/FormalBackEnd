@@ -42,10 +42,6 @@
         update klass_student set team_id=null where course_id=#{param1}
     </update>
 
-    <update id="updateTeamByStudentId">
-        update klass_student set team_id=#{param2} where student_id=#{param1}
-    </update>
-
     <delete id="removeKlassTeamRelaton" parameterType="java.lang.Long">
         delete from klass_team where team_id=#{arg0}
     </delete>

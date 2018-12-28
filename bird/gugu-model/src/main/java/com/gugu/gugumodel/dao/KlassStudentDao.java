@@ -64,14 +64,4 @@ public class KlassStudentDao{
         return klassStudentMapper.getStudentByTeamId(teamId);
     }
 
-    /**
-     * @author TYJ
-     * 更新学生的队伍信息
-     * @param studentId
-     * @param teamId
-     * @return
-     */
-    public void updateTeamByStudentId(Long studentId,Long teamId){
-        klassStudentMapper.updateTeamByStudentId(studentId,teamId);
-    }
 }

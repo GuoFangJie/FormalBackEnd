@@ -79,15 +79,6 @@ public interface KlassStudentMapper {
     void removeAllMemberByCourseId(Long courseId);
 
     /**
-     * @author TYJ
-     * 更新学生的队伍信息
-     * @param studentId
-     * @param teamId
-     * @return
-     */
-    void updateTeamByStudentId(Long studentId,Long teamId);
-
-    /**
      * @author ljy
      *删除klass_team表中的联系
      * @param teamId

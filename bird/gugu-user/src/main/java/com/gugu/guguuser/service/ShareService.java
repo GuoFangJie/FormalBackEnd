@@ -55,33 +55,92 @@ public class ShareService {
     }
 
     /**
+     * 同意共享讨论课申请
+     * @param requestId
+     * @param handleType
+     * @return
+     */
+    public boolean acceptSeminarShare(Long requestId,String handleType) throws NotFoundException{
+        Byte status=1;
+        //获取共享消息
+        ShareApplicationEntity shareApplicationEntity=shareMessageDao.getSeminarShareApplicationById(requestId);
+        if(shareApplicationEntity==null){
+            throw new NotFoundException("没有找到相应的共享讨论课消息");
+        }
+        //获得主课程
+        CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
+        //获得从课程
+        CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
+        if(mainCourse==null&&subCourse==null){
+            throw new NotFoundException("没有找到相应的主课程/从课程");
+        }
+        //删除从课程的所有round
+        roundDao.deleteAllRoundByCourseId(subCourse.getId());
+        //删除从课程的所有seminar
+        courseDao.deleteAllSeminarByCourseId(subCourse.getId());
+        //获得主课程的所有round,并加入到从课程的klass_round表中
+        ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
+        for(int i=0;i<roundList.size();i++){
+            klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
+        }
+        //获得主课程的所有seminar,并加入到从课程的klass_seminar表中
+        ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
+        for(int i=0;i<seminarList.size();i++){
+            klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
+        }
+        //修改共享消息的状态
+        shareMessageDao.changeSeminarShareStatus(requestId,status);
+        //修改课程共享的状态
+        courseDao.changeSeminarShareStatus(subCourse.getId(),mainCourse.getId());
+        return true;
+    }
+
+    /**
+     * 拒绝共享讨论课申请
+     * @param requestId
+     * @return
+     */
+    public boolean refuseSeminarShare(Long requestId) throws ParamErrorException,NotFoundException{
+        Byte status=0;
+        shareMessageDao.changeSeminarShareStatus(requestId,status);
+        return true;
+    }
+
+    /**
      * 修改共享讨论课申请的状态
      * @param requestId
      * @param handleType
      * @return
      */
-    public boolean changeSeminarShareStatus(Long requestId,String handleType) throws ParamErrorException{
+    public boolean changeSeminarShareStatus(Long requestId,String handleType) throws ParamErrorException,NotFoundException{
         Byte status;
         if(handleType.equals("accept")){
             status=1;
+            //获取共享消息
             ShareApplicationEntity shareApplicationEntity=shareMessageDao.getSeminarShareApplicationById(requestId);
+            if(shareApplicationEntity==null){
+                throw new NotFoundException("没有找到相应的共享讨论课消息");
+            }
             //获得主课程
             CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
             //获得从课程
             CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
-            //删除从课程的所有round
-            roundDao.deleteAllRoundByCourseId(shareApplicationEntity.getSubCourseId());
-            //删除从课程的所有seminar
-            courseDao.deleteAllSeminarByCourseId(shareApplicationEntity.getSubCourseId());
-            //获得主课程的所有seminar,并加入到从课程的klass_seminar表中
-            ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
-            for(int i=0;i<seminarList.size();i++){
-                klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
+            if(mainCourse==null&&subCourse==null){
+                throw new NotFoundException("没有找到相应的主课程/从课程");
             }
+            //删除从课程的所有round
+            roundDao.deleteAllRoundByCourseId(subCourse.getId());
+            //删除从课程的所有seminar
+            courseDao.deleteAllSeminarByCourseId(subCourse.getId());
             //获得主课程的所有round,并加入到从课程的klass_round表中
             ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
             for(int i=0;i<roundList.size();i++){
                 klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
+            }
+            //获得主课程的所有seminar,并加入到从课程的klass_seminar表中
+            ArrayList<SeminarEntity> seminarList=seminarDao.getSeminarByCourseId(mainCourse.getId());
+            for(int i=0;i<seminarList.size();i++){
+                klassDao.newKlassSeminar(seminarList.get(i).getId(),subCourse.getId());
             }
             //修改共享消息的状态
             shareMessageDao.changeSeminarShareStatus(requestId,status);
@@ -114,15 +173,22 @@ public class ShareService {
      * @param handleType
      * @return
      */
-    public boolean changeTeamShareStatus(Long requestId,String handleType) throws ParamErrorException{
+    public boolean changeTeamShareStatus(Long requestId,String handleType) throws ParamErrorException,NotFoundException{
         Byte status;
         if(handleType.equals("accept")){
             status=1;
+            //获取共享讨论课消息
             ShareApplicationEntity shareApplicationEntity=shareMessageDao.getTeamShareApplicationById(requestId);
+            if(shareApplicationEntity==null){
+                throw new NotFoundException("没有找到相应的共享讨论课消息");
+            }
             //获得主课程
             CourseEntity mainCourse=courseDao.getCourseById(shareApplicationEntity.getMainCourseId());
             //获得从课程
             CourseEntity subCourse=courseDao.getCourseById(shareApplicationEntity.getSubCourseId());
+            if(mainCourse==null&&subCourse==null){
+                throw new NotFoundException("没有找到相应的主课程/从课程");
+            }
             //删除从课程的所有team
             teamDao.deleteAllTeamByCourseId(subCourse.getId());
             //获得所有主课程的team
@@ -145,44 +211,6 @@ public class ShareService {
         return true;
     }
 
-    /**
-     * 生成申请信息
-     * @param shareList
-     * @return
-     */
-    private ArrayList<Map> produceShareRequest(ArrayList<ShareApplicationEntity> shareList) throws NotFoundException{
-        ArrayList <Map> shareRequestList=new ArrayList<Map>();
-        for(int i=0;i<shareList.size();i++){
-            Map shareRequest = new HashMap();
-            ShareApplicationEntity shareApplication=shareList.get(i);
-            System.out.println(shareApplication);
-            if(shareApplication==null){
-                throw new NotFoundException("找不到相应的共享申请");
-            }
-            CourseEntity mainCourse=courseDao.getCourseById(shareApplication.getMainCourseId());
-            CourseEntity subCourse=courseDao.getCourseById(shareApplication.getSubCourseId());
-            if(mainCourse==null&&subCourse==null){
-                throw new NotFoundException("找不到主课程/从课程");
-            }
-            TeacherEntity mainTeacher=teacherDao.getTeacherById(mainCourse.getTeacherId());
-            if(mainTeacher==null){
-                throw new NotFoundException("找不到主课程的教师");
-            }
-            shareRequest.put("requestId",shareApplication.getId());
-            String mainCourseName=mainCourse.getCourseName();
-            shareRequest.put("mainCourseId",shareApplication.getMainCourseId());
-            shareRequest.put("mainCourseName",mainCourseName);
-            String subCourseName=subCourse.getCourseName();
-            shareRequest.put("subCourseId",shareApplication.getSubCourseId());
-            shareRequest.put("subCourseName",subCourseName);
-            String mainTeacherName=mainTeacher.getTeacherName();
-            shareRequest.put("mainTeacherId",shareApplication.getSubCourseTeacherId());
-            shareRequest.put("mainTeacherName",mainTeacherName);
-            shareRequest.put("type",shareApplication.getType());
-            shareRequestList.add(shareRequest);
-        }
-        return shareRequestList;
-    }
 
     /**
      * 在klass_team中创建副本
@@ -198,6 +226,7 @@ public class ShareService {
         Long maxKlassId=null;
         Map<Long,Integer> klassMap=new HashMap<>();
         Integer temp=0;
+        //对小组内每个学生进行操作
         for(int i=0;i<studentList.size();i++){
             //获取这个学生的entity
             StudentEntity student=studentDao.getStudentById(studentList.get(i));
@@ -228,17 +257,6 @@ public class ShareService {
         }
     }
 
-    /**
-     * 设置学生的新team
-     * @param studentList
-     * @param teamId
-     * @return
-     */
-    private void setNewTeamByStudentId(ArrayList<Long> studentList,Long teamId){
-        for(int i=0;i<studentList.size();i++){
-            klassStudentDao.updateTeamByStudentId(studentList.get(i),teamId);
-        }
-    }
 
     /**
      * 获取该课程所有相关的共享信息
@@ -317,4 +335,42 @@ public class ShareService {
         return teamMap;
     }
 
+    /**
+     * 生成申请信息
+     * @param shareList
+     * @return
+     */
+    private ArrayList<Map> produceShareRequest(ArrayList<ShareApplicationEntity> shareList) throws NotFoundException{
+        ArrayList <Map> shareRequestList=new ArrayList<Map>();
+        for(int i=0;i<shareList.size();i++){
+            Map shareRequest = new HashMap();
+            ShareApplicationEntity shareApplication=shareList.get(i);
+            System.out.println(shareApplication);
+            if(shareApplication==null){
+                throw new NotFoundException("找不到相应的共享申请");
+            }
+            CourseEntity mainCourse=courseDao.getCourseById(shareApplication.getMainCourseId());
+            CourseEntity subCourse=courseDao.getCourseById(shareApplication.getSubCourseId());
+            if(mainCourse==null&&subCourse==null){
+                throw new NotFoundException("找不到主课程/从课程");
+            }
+            TeacherEntity mainTeacher=teacherDao.getTeacherById(mainCourse.getTeacherId());
+            if(mainTeacher==null){
+                throw new NotFoundException("找不到主课程的教师");
+            }
+            shareRequest.put("requestId",shareApplication.getId());
+            String mainCourseName=mainCourse.getCourseName();
+            shareRequest.put("mainCourseId",shareApplication.getMainCourseId());
+            shareRequest.put("mainCourseName",mainCourseName);
+            String subCourseName=subCourse.getCourseName();
+            shareRequest.put("subCourseId",shareApplication.getSubCourseId());
+            shareRequest.put("subCourseName",subCourseName);
+            String mainTeacherName=mainTeacher.getTeacherName();
+            shareRequest.put("mainTeacherId",shareApplication.getSubCourseTeacherId());
+            shareRequest.put("mainTeacherName",mainTeacherName);
+            shareRequest.put("type",shareApplication.getType());
+            shareRequestList.add(shareRequest);
+        }
+        return shareRequestList;
+    }
 }
