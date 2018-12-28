@@ -177,6 +177,9 @@ public class CourseController {
             ArrayList<Long> studentList=studentService.getKlassMember(teamsId.get(i).getId(),courseId);
             ArrayList<StudentEntity> newList=new ArrayList<>();
             for(int j=0;j<studentList.size();j++){
+                if(studentList.get(j).equals(teamsId.get(i).getLeaderId())){
+                    continue;
+                }
                 newList.add(studentService.getStudentById(studentList.get(j)));
             }
             TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),newList);
