@@ -83,4 +83,8 @@
     <select id="getEmailById" parameterType="java.lang.Long" resultType="java.lang.String">
         select email from student where id=#{arg0}
     </select>
+
+    <select id="checkCourse" resultType="java.lang.Long">
+        select klass_id from klass_student where course_id=#{param1} and student_id=#{param2}
+    </select>
 </mapper>

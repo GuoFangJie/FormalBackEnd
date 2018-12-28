@@ -150,7 +150,7 @@ public class CourseService {
      * @return
      */
     public ArrayList<TeamEntity> getAllTeamByCourse(Long courseId){
-        return  courseDao.getAllTeamByCourse(courseId);
+        return courseDao.getAllTeamByCourse(courseId);
     }
 
     /**

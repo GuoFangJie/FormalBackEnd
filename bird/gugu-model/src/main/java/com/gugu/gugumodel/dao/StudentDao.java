@@ -31,15 +31,6 @@ public class StudentDao {
         studentMapper.deleteStudentById(id);
     }
 
-//    /**
-//     * @author TYJ
-//     * 删除学生账号要删除学生的组队情况
-//     * @param studentId
-//     */
-//    public void existAllTeam(Long studentId){
-//        studentMapper.existAllTeam(studentId);
-//    }
-
     /**
      * 获取除了队长以外其他成员的信息
      * @param teamId
@@ -189,5 +180,17 @@ public class StudentDao {
      */
     public String getEmailById(Long studentId){
         return studentMapper.getEmailById(studentId);
+    }
+
+    /**
+     * 查询该学生是否在该班级下
+     */
+    public boolean checkCourse(Long courseId,Long studentId){
+        if(studentMapper.checkCourse(courseId,studentId)!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
