@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author ren
+ * security登录的部分
  */
 @Service
 public class SecurityService implements UserDetailsService {

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 
+/**
+ * 读取application文件中关于连接池的配置信息
+ */
 @Component
-//可以将application.properties中前缀为spring.datasource的配置项，自动注入到当前bean中
 @ConfigurationProperties(prefix = "spring.datasource")
 public class DruidBean {
 

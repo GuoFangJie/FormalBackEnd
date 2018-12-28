@@ -74,6 +74,11 @@ public class RoundDao {
         }
     }
 
+    /**
+     * 获取课程的轮次数据
+     * @param courseId
+     * @return
+     */
     public ArrayList<RoundEntity> getRoundMessageByCourseId(Long courseId){
         return roundMapper.getRoundMessageByCourseId(courseId);
     }

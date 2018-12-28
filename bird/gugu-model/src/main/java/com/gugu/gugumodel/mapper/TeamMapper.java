@@ -11,14 +11,37 @@ import java.util.ArrayList;
 @Mapper
 @Repository
 public interface TeamMapper {
+    /**
+     * 根据teamid获取小组的信息
+     * @param team_id
+     * @return
+     */
     TeamEntity findTeamById(Long team_id);
 
+    /**
+     * 获取队长的id
+     * @param teamId
+     * @return
+     */
     Long getLeaderId(Long teamId);
 
+    /**
+     * 更新小组的信息
+     * @param teamEntity
+     */
     void updateTeam(TeamEntity teamEntity);
 
+    /**
+     * 删除小组下所有学生
+     * @param teamId
+     */
     void deleteStudentFromTeam(Long teamId);
 
+    /**
+     * 新建学生和小组的关系
+     * @param studentId
+     * @param teamId
+     */
     void buildRelationStuAndTeam(@Param("studentId") Long studentId, @Param("teamId")Long teamId );
 
     /**
@@ -27,8 +50,17 @@ public interface TeamMapper {
      */
     void deleteTeam(Long teamId);
 
+    /**
+     * 删除小组下所有的学生
+     * @param teamId
+     */
     void deleteStudentTeamRelation(Long teamId);
 
+    /**
+     * 移除小组下某一个学生
+     * @param teamId
+     * @param studentId
+     */
     void removeMember(@Param("teamId") Long teamId,@Param("studentId") Long studentId);
 
 
@@ -65,6 +97,12 @@ public interface TeamMapper {
      */
     Long getKlassIdByTeamId(Long teamId);
 
+    /**
+     * 修改小组的状态
+     * @param teamId
+     * @param status
+     * @return
+     */
     int changeTeamStatus(Long teamId,Byte status);
 
     /**
@@ -126,13 +164,13 @@ public interface TeamMapper {
      * @param teamId
      * @param status
      */
-    public void setStatus(@Param("teamId") Long teamId,@Param("status") Byte status);
+    void setStatus(@Param("teamId") Long teamId,@Param("status") Byte status);
 
     /**ljy
      * 根据teamId获取组内学生id
      * @param teamId
      * @return
      */
-    public ArrayList<Long> getStudentsByTeamId(Long teamId);
+    ArrayList<Long> getStudentsByTeamId(Long teamId);
     
 }

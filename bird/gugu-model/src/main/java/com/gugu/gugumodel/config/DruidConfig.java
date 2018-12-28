@@ -2,6 +2,7 @@ package com.gugu.gugumodel.config;
 
 /**
  * @author ren
+ * 配置连接池监控的信息
  */
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;

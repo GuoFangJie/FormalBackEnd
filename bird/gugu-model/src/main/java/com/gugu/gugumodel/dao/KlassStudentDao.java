@@ -24,6 +24,12 @@ public class KlassStudentDao{
         return klassStudentMapper.findTeamIdByStudentIdAndCourseId(student_id,course_id);
     }
 
+    /**
+     * 新建班级下的学生记录
+     * @param klassId
+     * @param studentId
+     * @param courseId
+     */
     public void newStudentToClass(Long klassId,Long studentId,Long courseId){
         klassStudentMapper.newStudentToClass(klassId,studentId,courseId);
     }

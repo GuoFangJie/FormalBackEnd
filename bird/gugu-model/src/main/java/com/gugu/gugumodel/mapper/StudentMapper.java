@@ -21,34 +21,82 @@ public interface StudentMapper {
      void deleteStudentById(long id);
 
      /**
-      * @author TYJ
-      * 删除学生账号要删除学生的组队情况
+      * 根据学号或姓名搜索学生列表
+      * @param identity
+      * @return
       */
-    // void existAllTeam(Long studentId);
-
      ArrayList<StudentEntity> searchStudent(String identity);
 
-
+     /**
+      * 获取小组成员列表
+      * @param teamId
+      * @return
+      */
      ArrayList<StudentEntity> getMembers(Long teamId);
 
+     /**
+      * 获取小组组长信息
+      * @param teamId
+      * @return
+      */
      StudentEntity getLeader(Long teamId);
 
+     /**
+      * 获取课程内未参加组队的同学
+      * @param courseId
+      * @return
+      */
      ArrayList<StudentEntity> getStudentWithoutTeam(Long courseId);
 
+     /**
+      * 根据学生id获取学生信息
+      * @param studentId
+      * @return
+      */
      StudentEntity getStudentById(Long studentId);
 
+     /**
+      * 获取所有的学生
+      * @return
+      */
      ArrayList<StudentEntity> getStudents();
 
+     /**
+      * 重置学生密码为初始密码
+      * @param studentId
+      */
      void resetStudentPassword(Long studentId);
 
+     /**
+      * 修改学生的信息
+      * @param studentEntity
+      */
      void changeStudentInformation(StudentEntity studentEntity);
 
+     /**
+      * 修改学生密码
+      * @param password
+      * @param studentId
+      */
      void changePassword(String password,Long studentId);
 
+     /**
+      * 修改学生邮箱
+      * @param email
+      * @param studentId
+      */
      void changeEmail(String email,Long studentId);
 
+     /**
+      * 激活学生账号
+      * @param studentEntity
+      */
      void activeStudent(StudentEntity studentEntity);
 
+     /**
+      * 新建学生账号
+      * @param studentEntity
+      */
      void newStudent(StudentEntity studentEntity);
 
      /**
@@ -63,5 +111,5 @@ public interface StudentMapper {
       * @param studentId
       * @return String
       */
-     public String getEmailById(Long studentId);
+     String getEmailById(Long studentId);
 }
