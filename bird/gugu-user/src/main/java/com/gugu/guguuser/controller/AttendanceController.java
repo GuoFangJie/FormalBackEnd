@@ -46,7 +46,7 @@ public class AttendanceController {
      * @param teamOrder
      */
     @PutMapping("/{attendanceId}")
-    @RolesAllowed("Student")
+    @RolesAllowed({"Student"})
     public void editAttendance(HttpServletResponse httpServletResponse, @PathVariable("attendanceId") Long attendance, @RequestParam("teamOrder") Byte teamOrder){
         try {
             attendanceService.editAttendance(attendance,teamOrder);

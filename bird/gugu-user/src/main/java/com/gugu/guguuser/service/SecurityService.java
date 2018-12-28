@@ -4,6 +4,7 @@ import com.gugu.gugumodel.dao.StudentDao;
 import com.gugu.gugumodel.dao.TeacherDao;
 import com.gugu.gugumodel.entity.SecurityUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,10 @@ public class SecurityService implements UserDetailsService {
     TeacherDao teacherDao;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        if(s==""){
+            System.out.println("出错了");
+            throw new BadCredentialsException("错误");
+        }
         Long studentId=studentDao.getStudentByAccount(s);
         if(studentId!=null){
             return new SecurityUserEntity(s,studentDao.getStudentById(studentId).getPassword(),"ROLE_Student");

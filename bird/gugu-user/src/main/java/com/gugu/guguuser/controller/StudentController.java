@@ -25,7 +25,7 @@ public class StudentController {
      * @param httpServletRequest
      * @return
      */
-    @RolesAllowed("Student")
+    @RolesAllowed("ROLE_Student")
     @PutMapping("active")
     public boolean activeStudent(@RequestBody ActiveUserVO activeUserVO, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());

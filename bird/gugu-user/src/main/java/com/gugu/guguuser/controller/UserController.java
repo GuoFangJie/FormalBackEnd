@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -85,5 +86,22 @@ public class UserController {
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return userService.changeEmail(role,email.getEmail(),userId);
+    }
+
+    @GetMapping("")
+    public boolean hasJwt(HttpServletRequest httpServletRequest){
+        try {
+            String role = httpServletRequest.getAttribute("role").toString();
+            System.out.println(role);
+        }catch (NullPointerException e){
+            return false;
+        }
+        return true;
+    }
+
+    @PostMapping("out")
+    public boolean logout(HttpServletResponse httpServletResponse){
+        Cookie cookie=new Cookie("role","");
+        return true;
     }
 }

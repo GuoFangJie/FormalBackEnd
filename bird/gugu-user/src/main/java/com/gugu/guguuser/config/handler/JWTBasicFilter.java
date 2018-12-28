@@ -1,6 +1,8 @@
 package com.gugu.guguuser.config.handler;
 
+import com.gugu.gugumodel.entity.SecurityUserEntity;
 import io.jsonwebtoken.*;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +25,6 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        //System.out.println(request.getHeader("User-Agent"));
         Cookie []cookies=request.getCookies();
         if(cookies==null){
             chain.doFilter(request, response);
@@ -60,6 +61,7 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
 //                return null;
 //            }
             Map<String,Object> objectMap= (Map<String, Object>) claims.get("role");
+            System.out.println((Map<String, Object>) claims.get("role"));
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(objectMap.get("authority").toString());
             simpleGrantedAuthorities.add(simpleGrantedAuthority);
             request.setAttribute("userId",claims.get("userId").toString());

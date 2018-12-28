@@ -7,6 +7,7 @@ import com.gugu.gugumodel.entity.TeamValidEntity;
 import com.gugu.guguuser.controller.vo.TeamMessageVO;
 import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -87,7 +88,8 @@ public class TeamController {
      * 按照ID删除队伍或者组长解散队伍
      * @param teamId
      */
-    @RolesAllowed("Student")
+
+    @Secured("ROLE_Student")
     @DeleteMapping("/{teamId}")
     public void deleteTeam(@PathVariable Long teamId){
         teamService.deleteTeam(teamId);

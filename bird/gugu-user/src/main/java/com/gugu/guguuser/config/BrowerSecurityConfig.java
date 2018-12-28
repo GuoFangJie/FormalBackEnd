@@ -29,19 +29,39 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-               //.loginPage("/toLoginPage")
-                .loginProcessingUrl("/user/login")
+                .loginPage("http://47.94.174.82")
+               .loginProcessingUrl("/user/login")
                 .successHandler(successHandler).failureHandler(failureHandler)
                 //.loginPage("http://localhost:8080/user/login")
                 .and()
                 .rememberMe()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .antMatcher("/course/**")
+//                .antMatcher("/attendance/**")
+//                .antMatcher("/class/**")
+//                .antMatcher("/question/**")
+//                .antMatcher("/request/**")
+//                .antMatcher("/round/**")
+//                .antMatcher("/seminar/**")
+//                .antMatcher("/student/**")
+//                .antMatcher("/teacher/**")
+//                .antMatcher("/team/**")
+//                .antMatcher("/user/**")
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-               // .antMatchers("/test/nice").hasRole("Teacher")
-                //.antMatchers("/course/{courseId}/class","class/{classId}").hasRole("Teacher")
-                .antMatchers("/**/**","/user/login").permitAll()
+//                .antMatchers("/attendance/{attendanceId}/report","/attendance/{attendanceId}/ppt","/attendance/{seminarKlassId}"
+//                        + "/course/**","class/**","/request/**","/round/**","/seminar/**","/student","/Teacher","/team/{teamId}","/user/**").hasRole("Teacher")
+//
+//               .antMatchers("/attendance/**","/course/{courseId}/isMainTeam","/course/{courseId}/isMainSeminar","/course/{courseId}/round/{roundId}",
+//                      "course/{courseId}/application" ,"course/{courseId}/round","course/{courseId}/share","/course/{courseId}/class","/course/{courseId}/noTeam",
+//                      "/course/{courseId}/teams","/course/{courseId}/team","/course/{courseId}/score","/course/{courseId}","/course",
+//                       "/request/seminarshare","/request/teamshare","/round/{roundId}/team/{teamId}/roundscore",
+//                       "/round/{roundId}/team/{teamId}","/round/{roundId}/roundscore","/round/{roundId}","/round/{roundId}/seminar",
+//                       "/seminar/{seminarId}/class","/seminar/{seminarId}","/seminar/{seminarId}/class/{classId}","/seminar/{seminarId}/team/{teamId}/seminarscore",
+//                       "/seminar/{seminarId}/seminarscore","/seminar/{seminarKlassId}/seminarEnter","/student/**","/team/**","/user/**","/question/**").hasAnyRole("Student","Teacher")
+//
+//                .antMatchers("/user").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -61,7 +81,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new MyPasswordEncoder());
 
 //
-//        auth.authenticationProvider(myAuthenticationProvider());
+      // auth.authenticationProvider(myAuthenticationProvider());
     }
 
 

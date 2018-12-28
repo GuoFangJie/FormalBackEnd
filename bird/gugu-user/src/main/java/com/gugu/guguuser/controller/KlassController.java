@@ -2,6 +2,7 @@ package com.gugu.guguuser.controller;
 
 import com.gugu.guguuser.service.KlassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,7 @@ public class KlassController {
      * @param multipartFile
      * @param classId
      */
-    @RolesAllowed("Teacher")
+
     @PostMapping("/{classId}")
     public void importStudentList(@RequestParam("fileUpload") MultipartFile multipartFile, @PathVariable("classId") Long classId){
         System.out.println(multipartFile.getOriginalFilename());

@@ -6,6 +6,7 @@ import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.*;
 import com.gugu.guguuser.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -66,7 +67,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/allcourse")
-    @RolesAllowed("Teacher")
+    @RolesAllowed({"Teacher"})
     public ArrayList<CourseEntity> getAllCourse(){
         return courseService.getAllCourse();
     }
@@ -321,7 +322,8 @@ public class CourseController {
      * @param score
      */
     @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/report")
-    @RolesAllowed("Teacher")
+
+    @Secured("ROLE_Teacher")
     public void setReportScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
         attendanceService.setReportScore(courseId,roundId,klassSeminarId,teamId,score);
     }
@@ -334,7 +336,7 @@ public class CourseController {
      * @param klassSeminarId
      * @param score
      */
-    @RolesAllowed("Teacher")
+    @RolesAllowed({"Teacher"})
     @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/presentation")
     public void setPresentationScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
         attendanceService.setPresentationScore(courseId,roundId,klassSeminarId,teamId,score);

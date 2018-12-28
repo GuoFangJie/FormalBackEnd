@@ -12,10 +12,11 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         System.out.println("到这里了");
-        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority("ROLE_Teacher");
-        ArrayList<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
-        simpleGrantedAuthorities.add(simpleGrantedAuthority);
-        return new UsernamePasswordAuthenticationToken("123","123456",simpleGrantedAuthorities);
+//        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority("ROLE_Teacher");
+//        ArrayList<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
+//        simpleGrantedAuthorities.add(simpleGrantedAuthority);
+//        return new UsernamePasswordAuthenticationToken("123","123456",simpleGrantedAuthorities);
+        return authentication;
     }
 
     @Override
