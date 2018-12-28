@@ -54,8 +54,6 @@ public class CourseController {
         }else{
             for(int i=0;i<simpleCourseEntities.size();i++){
                 SimpleCourseVO simpleCourseVO=new SimpleCourseVO(simpleCourseEntities.get(i));
-                System.out.println(simpleCourseVO.getId());
-                System.out.println(userId);
                 simpleCourseVO.setKlassId(klassService.getKlassIdByCourseAndStudent(Long.parseLong(simpleCourseVO.getId().toString()),Long.parseLong(userId)));
                 simpleCourseVOS.add(simpleCourseVO);
             }
@@ -158,7 +156,6 @@ public class CourseController {
         try {
             Long studentId = Long.parseLong(httpServletRequest.getAttribute("userId").toString());
             Long teamId = studentService.getTeamId(courseId, studentId);
-            System.out.println("团队的id为" + teamId);
             return new TeamMessageVO(courseService.getTeamById(teamId), studentService.getLeader(teamId), studentService.getMembers(teamId));
         }catch (Exception e){
             return new TeamMessageVO();
@@ -265,9 +262,7 @@ public class CourseController {
     @PostMapping("/{courseId}/application")
     public void newApplication(HttpServletResponse httpServletResponse,@PathVariable("courseId") Long mainCourseId,@RequestBody SubCourseVO subCourseVO){
         try {
-            for(Long subCourseId:subCourseVO.getSubCourseId()){
-                courseService.newApplication(mainCourseId,subCourseId,subCourseVO.getType());
-            }
+                courseService.newApplication(mainCourseId,subCourseVO.getSubCourseId(),subCourseVO.getType());
         }catch (Exception e){
             e.printStackTrace();
             httpServletResponse.setStatus(400,e.getMessage());

@@ -52,7 +52,6 @@ public class SeminarController {
             roundEntity.setQuestionScoreMethod(t);
             roundEntity.setReportScoreMethod(t);
             seminarEntity.setRoundId(roundService.newRound(roundEntity));
-           // System.out.println(roundEntity.getId());
 
         }
         return seminarService.newSeminar(seminarEntity);
@@ -182,7 +181,6 @@ public class SeminarController {
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}/reportddl")
     public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestParam("date") String d)throws ParseException{
-        System.out.println(d);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date=sdf.parse(d);
         return seminarService.setSeminarReportddl(seminarId,classId,date);

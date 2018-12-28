@@ -79,7 +79,6 @@ public class AttendanceController {
     @PostMapping("/{attendanceId}/report")
     @RolesAllowed("Student")
     public void updateReport(HttpServletResponse httpServletResponse,@PathVariable Long attendanceId, MultipartFile file){
-        System.out.println("BEGIN");
         try {
             String path=file.getOriginalFilename();
             File dest=new File(reportPathInServer+path);
@@ -106,7 +105,6 @@ public class AttendanceController {
     @PostMapping("/{attendanceId}/powerpoint")
     @RolesAllowed("Student")
     public void updatePPT(HttpServletResponse httpServletResponse,@PathVariable Long attendanceId, MultipartFile file){
-        System.out.println("BEGIN");
         try {
             String path=file.getOriginalFilename();
             File dest=new File(reportPathInServer+path);
@@ -164,7 +162,6 @@ public class AttendanceController {
     @GetMapping("/{seminarKlassId}")
     @RolesAllowed({"Student","Teacher"})
     public ArrayList<AttendanceMessageVO> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
-        System.out.println("seminarKlassId为："+seminarKlassId);
         ArrayList<AttendanceMessageVO> attendanceMessageVOS=new ArrayList<>();
         ArrayList<AttendanceEntity> attendanceEntities=attendanceService.getBySeminarKlassId(seminarKlassId);
         for(int i=0;i<attendanceEntities.size();i++){

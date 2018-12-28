@@ -36,7 +36,6 @@ public class QuestionService {
         questionEntity.setStudentId(userId);
         questionEntity.setKlassSeminarId(attendanceDao.getById(attendanceId).getKlassSeminarId());
         questionEntity.setTeamId(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
-        System.out.println(klassStudentDao.getTeamIdByClassAndStudent(questionEntity.getKlassSeminarId(),userId));
         questionDao.newQuestion(questionEntity);
     }
     /**
@@ -44,7 +43,6 @@ public class QuestionService {
      */
     public void scoreQuestion(Long questionId,Float score,Long courseId,Long roundId,Long klassSeminarId,Long teamId) throws NotFoundException {
         questionDao.scoreQuestion(questionId,score);
-        System.out.println(klassSeminarId);
         attendanceDao.setSeminarScore(roundId,klassSeminarId,teamId,score,3,courseId);
     }
 

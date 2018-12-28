@@ -344,7 +344,6 @@ public class ShareService {
         for(int i=0;i<shareList.size();i++){
             Map shareRequest = new HashMap();
             ShareApplicationEntity shareApplication=shareList.get(i);
-            System.out.println(shareApplication);
             if(shareApplication==null){
                 throw new NotFoundException("找不到相应的共享申请");
             }

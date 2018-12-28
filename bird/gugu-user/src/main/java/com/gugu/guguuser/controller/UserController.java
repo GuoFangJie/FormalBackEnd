@@ -70,7 +70,6 @@ public class UserController {
     public StudentEntity getUserInfo(HttpServletRequest httpServletRequest){
         String role=httpServletRequest.getAttribute("role").toString();
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
-        System.out.println(userId);
         return userService.getUserInfo(role,userId);
     }
 

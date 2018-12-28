@@ -30,7 +30,6 @@ public class UserService {
         if(role.equals("ROLE_Teacher")){
             TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
             emailUtil.sendSimpleEmail("讨论课管理平台找回密码","您的密码为"+teacherEntity.getPassword()+"  请妥善保管",teacherEntity.getEmail());
-            System.out.println("开始发送");
             return true;
         }else{
             StudentEntity studentEntity=studentDao.getStudentById(userId);
@@ -64,7 +63,6 @@ public class UserService {
     public StudentEntity getUserInfo(String role,Long userId){
         if(role.equals("ROLE_Teacher")){
             TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
-            System.out.println(teacherEntity.getEmail());
             StudentEntity studentEntity=new StudentEntity();
             studentEntity.setAccount(teacherEntity.getAccount());
             studentEntity.setIsActive(teacherEntity.getIsActive());

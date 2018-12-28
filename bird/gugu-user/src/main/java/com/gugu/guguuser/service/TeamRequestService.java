@@ -47,7 +47,6 @@ public class TeamRequestService {
                 throw new NotFoundException("找不到相应的组队申请");
             }
             TeamEntity team=teamDao.getTeamById(teamRequest.getTeamId());
-            System.out.println("小组组名为："+teamRequest.getTeamId());
             if(team==null){
                 continue;
             }
