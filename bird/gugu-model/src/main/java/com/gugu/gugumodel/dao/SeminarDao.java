@@ -135,6 +135,8 @@ public class SeminarDao {
      */
     public KlassSeminarEntity getSeminarInClass(Long seminarId, Long klassId){
         SeminarEntity seminarEntity=seminarMapper.getSeminarById(seminarId);
+        Byte roundSerial=roundMapper.getRoundSerialById(seminarEntity.getRoundId());
+        seminarEntity.setRoundSerial(roundSerial);
         KlassSeminarEntity klassSeminarEntity=new KlassSeminarEntity();
         klassSeminarEntity.setSeminarEntity(seminarEntity);
         KlassSeminarEntity klassSeminarEntity1=new KlassSeminarEntity();
