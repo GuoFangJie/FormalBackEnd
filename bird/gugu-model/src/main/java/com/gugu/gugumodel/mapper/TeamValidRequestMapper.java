@@ -13,8 +13,17 @@ import java.util.ArrayList;
 @Repository
 public interface TeamValidRequestMapper {
 
+     /**
+      * 新建小组申请
+      * @param teamValidEntity
+      */
      void teamValidRequest(TeamValidEntity teamValidEntity);
 
+     /**
+      * 根据teamid获取这个小组发起的申请
+      * @param teamId
+      * @return
+      */
      Long getTeamValidStatus(Long teamId);
 
      /**

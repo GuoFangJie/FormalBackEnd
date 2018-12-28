@@ -27,7 +27,7 @@ public interface SeminarMapper {
      * 新建讨论课,创建成功后返回seminarId
      * @return Long
      */
-    public Long newSeminar(SeminarEntity seminarEntity);
+    Long newSeminar(SeminarEntity seminarEntity);
 
 
 
@@ -43,14 +43,14 @@ public interface SeminarMapper {
      * @param seminarEntity
      * @return
      */
-    public boolean updateSeminar(SeminarEntity seminarEntity);
+    boolean updateSeminar(SeminarEntity seminarEntity);
 
     /**@author ljy
      * 按照id删除讨论课
      * @param
      * @return
      */
-    public boolean deleteSeminar(Long seminarId);
+    boolean deleteSeminar(Long seminarId);
 
 
     /**@author ljy
@@ -58,14 +58,14 @@ public interface SeminarMapper {
      * @param
      * @return
      */
-    public SeminarEntity getSeminarById(Long seminarId);
+    SeminarEntity getSeminarById(Long seminarId);
 
     /**@author ljy
      * 按照id获取所在roundId
      * @param
      * @return
      */
-    public Long getRoundId(Long seminarId);
+    Long getRoundId(Long seminarId);
 
     /**@author TYJ
      * 获取一个课程下所有的讨论课
@@ -80,26 +80,26 @@ public interface SeminarMapper {
      * @param courseId
      * @return
      */
-    public ArrayList<Byte> getSerial(Long courseId);
+    ArrayList<Byte> getSerial(Long courseId);
 
     /**@author ljy
      * 根据courseId和roundId获取讨论课信息
      * @param courseId
      * @return
      */
-    public ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId);
+    ArrayList<SeminarEntity> getSeminarByCourseAndRound(Long courseId,Long roundId);
 
     /**@author ljy
      * 根据klassSeminarId获取seminar
      * @param klassSeminarId
      * @return
      */
-    public SeminarEntity getSeminarByKlassSeminarId(@Param("klassSeminarId") Long klassSeminarId,@Param("courseId") Long courseId);
+    SeminarEntity getSeminarByKlassSeminarId(@Param("klassSeminarId") Long klassSeminarId,@Param("courseId") Long courseId);
 
     /**
      * 根据klassSeminarid查找seminarName
      */
-    public String getSeminarName(Long klassSeminarId);
+    String getSeminarName(Long klassSeminarId);
 
     /**
      * @author TYJ

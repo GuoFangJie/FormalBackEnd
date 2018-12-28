@@ -52,7 +52,7 @@ public interface KlassStudentMapper {
      * 根据id获取学生所在小组
      * @return
      */
-    public Long getStudentTeam(Long studentId);
+    Long getStudentTeam(Long studentId);
 
 
     /**

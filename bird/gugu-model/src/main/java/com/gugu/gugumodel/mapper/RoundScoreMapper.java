@@ -42,11 +42,11 @@ public interface RoundScoreMapper {
      * 获取小组在本轮此下的总成绩
      * @return
      */
-    public ArrayList<RoundScoreEntity> getTeamTotalScoreInRound(Long courseId, Long roundId);
+    ArrayList<RoundScoreEntity> getTeamTotalScoreInRound(Long courseId, Long roundId);
 
     /**
      * 新建round_score记录
      * @param roundScoreEntity
      */
-    public void newRoundScore(RoundScoreEntity roundScoreEntity);
+    void newRoundScore(RoundScoreEntity roundScoreEntity);
 }

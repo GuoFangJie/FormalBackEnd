@@ -228,28 +228,6 @@ public class CourseController {
     @RolesAllowed({"Teacher","Student"})
     public ArrayList<Map> getAllShareMessage(@PathVariable("courseId") Long courseId){
         return shareService.getShareListByCourseId(courseId);
-//        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
-//        ArrayList<ShareMessageVO> shareMessageVOS=new ArrayList<>();
-//        if(shareMessageEntities.size()>0) {
-//            ShareMessageVO shareSeminar=new ShareMessageVO();
-//            shareSeminar.setShareType(2);
-//            shareSeminar.setMasterCourse(shareMessageEntities.get(0).getMasterCourse());
-//            for (int i = 0; i < shareMessageEntities.size(); i++) {
-//                shareSeminar.addRecieveCourse(shareMessageEntities.get(i).getRecieveCourse());
-//            }
-//            shareMessageVOS.add(shareSeminar);
-//        }
-//        ArrayList<ShareMessageEntity> shareTeams=courseService.getAllShareTeam(courseId);
-//        if(shareTeams.size()>0){
-//            ShareMessageVO shareTeam=new ShareMessageVO();
-//            shareTeam.setShareType(1);
-//            shareTeam.setMasterCourse(shareTeams.get(0).getMasterCourse());
-//            for (int i = 0; i < shareTeams.size(); i++) {
-//                shareTeam.addRecieveCourse(shareTeams.get(i).getRecieveCourse());
-//            }
-//            shareMessageVOS.add(shareTeam);
-//        }
-//        return shareMessageVOS;
     }
 
     /**

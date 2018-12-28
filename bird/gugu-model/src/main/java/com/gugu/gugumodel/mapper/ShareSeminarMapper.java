@@ -18,14 +18,14 @@ public interface ShareSeminarMapper {
      * @param userId
      * @return
      */
-    public ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId);
+    ArrayList<ShareApplicationEntity> getSeminarShareList(Long userId);
 
     /**
      * 根据ID获取共享请求信息
      * @param requestId
      * @return
      */
-    public ShareApplicationEntity getSeminarShareApplicationById(Long requestId);
+    ShareApplicationEntity getSeminarShareApplicationById(Long requestId);
 
     /**
      * 修改共享讨论课申请的状态
@@ -33,7 +33,7 @@ public interface ShareSeminarMapper {
      * @param status
      * @return
      */
-    public void changeSeminarShareStatus(Long requestId,Byte status);
+    void changeSeminarShareStatus(Long requestId,Byte status);
 
     /**
      * 新建共享讨论课申请

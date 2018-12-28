@@ -18,6 +18,12 @@ public class KlassSeminarDao {
     KlassSeminarMapper klassSeminarMapper;
     @Autowired
     SeminarScoreMapper seminarScoreMapper;
+
+    /**
+     * 根据班级id删除班级讨论课
+     * @param klassId
+     * @return
+     */
     public boolean deleteKlassSeminar(Long klassId){
         ArrayList<Long> klassSeminarId=klassSeminarMapper.getKlassSeminarIdByKlass(klassId);
         klassSeminarMapper.deleteByKlass(klassId);
@@ -27,10 +33,21 @@ public class KlassSeminarDao {
         return true;
     }
 
+    /**
+     * 获取班级下所有的讨论课信息
+     * @param klassId
+     * @return
+     */
     public ArrayList<KlassSeminarEntity> getAllKlassSeminarEntityByKlassId(Long klassId){
         return klassSeminarMapper.getKlassSeminarEntityByKlassId(klassId);
     }
 
+    /**
+     * 添加讨论课和班级的关系
+     * @param seminarId
+     * @param klssId
+     * @return
+     */
     public boolean addKlassSeminar(Long seminarId, Long klssId){
         return klassSeminarMapper.addKlassSeminar(seminarId,klssId);
     }

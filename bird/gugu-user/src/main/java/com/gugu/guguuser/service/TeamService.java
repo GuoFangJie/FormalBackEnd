@@ -27,18 +27,38 @@ public class TeamService {
     @Autowired
     SerialUtil serialUtil;
 
+    /**
+     * 根据teamid获取小组的信息
+     * @param teamId
+     * @return
+     */
     public TeamEntity getTeamMessageByTeamId(Long teamId){
         return teamDao.getTeamById(teamId);
     }
 
+    /**
+     * 获取小组的队长信息
+     * @param teamId
+     * @return
+     */
     public StudentEntity getLeaderByTeamId(Long teamId){
         return studentDao.getLeader(teamId);
     }
 
+    /**
+     * 获取小组的成员
+     * @param teamId
+     * @return
+     */
     public ArrayList<StudentEntity> getMemberById(Long teamId){
         return studentDao.getMembersExceptLeader(teamId);
     }
 
+    /**
+     * 更新小组的信息
+     * @param teamEntity
+     * @param memberStudents
+     */
     public void updateTeam(TeamEntity teamEntity,ArrayList<StudentEntity> memberStudents){
 
         //更新team表信息
@@ -51,11 +71,22 @@ public class TeamService {
         }
     }
 
+    /**
+     * 根据teamid删除小组
+     * @param teamId
+     */
     public void deleteTeam(Long teamId){
         teamDao.deleteTeam(teamId);
         teamDao.deleteStudentTeamRelation(teamId);
     }
 
+    /**
+     * 新加小组成员
+     * @param teamId
+     * @param studentId
+     * @param courseId
+     * @return
+     */
     public Byte addMember(Long teamId, Long studentId,Long courseId){
         System.out.println("课程id为"+courseId);
             teamDao.addMember(teamId,studentId);
@@ -71,6 +102,13 @@ public class TeamService {
             return status;
     }
 
+    /**
+     * 移除小组成员
+     * @param teamId
+     * @param studentId
+     * @param courseId
+     * @return
+     */
     public Byte removeMember(Long teamId,Long studentId,Long courseId){
         teamDao.removeMember(teamId,studentId);
         Byte status=0;
@@ -86,6 +124,10 @@ public class TeamService {
     }
 
 
+    /**
+     * 新建小组申请
+     * @param teamValidEntity
+     */
     public void teamValidRequest(TeamValidEntity teamValidEntity){
             teamValidEntity.setTeacherId(courseDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
             teamDao.teamValidRequest(teamValidEntity);

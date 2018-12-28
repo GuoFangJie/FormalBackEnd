@@ -256,6 +256,7 @@ public class CourseDao{
     /**
      * @author ljy
      * @param id
+     * 根据老师id获取相关的课程id
      * @return
      */
     public ArrayList<Long> getCourseIdByTeacherId(long id){

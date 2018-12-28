@@ -165,6 +165,11 @@ public class StudentDao {
         return studentEntity.getId();
     }
 
+    /**
+     * 根据账号获取学生id
+     * @param account
+     * @return
+     */
     public Long getStudentByAccount(String account){
         return studentMapper.getStudentByAccount(account);
     }
