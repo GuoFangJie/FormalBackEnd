@@ -172,5 +172,10 @@ public interface TeamMapper {
      * @return
      */
     ArrayList<Long> getStudentsByTeamId(Long teamId);
-    
+
+    /**
+     * 新建小组申请
+     * @param
+     */
+    public void setTeamStatus(Long teamId);
 }
