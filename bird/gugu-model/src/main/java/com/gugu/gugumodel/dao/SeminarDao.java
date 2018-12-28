@@ -56,7 +56,6 @@ public class SeminarDao {
      */
     public ArrayList<KlassEntity> getKlassSeminatIn(Long seminarId){
         ArrayList<Long> klassId=seminarMapper.getKlassIdBySeminerId(seminarId);
-        System.out.println(klassId);
         ArrayList<KlassEntity> klassEntities=new ArrayList<>();
         for(int i=0;i<klassId.size();i++){
             klassEntities.add(klassMapper.getKlassById(klassId.get(i)));

@@ -88,7 +88,6 @@ public class KlassDao{
                 klassSeminarMapper.newKlassSeminar(longs.get(i).getId(),seminarId);
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -104,7 +103,6 @@ public class KlassDao{
                 klassRoundMapper.newKlassRound(longs.get(i).getId(),roundId);
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return false;
         }
         return true;

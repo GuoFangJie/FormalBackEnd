@@ -31,7 +31,7 @@ public class TeamRequestDao {
      * @param teacherId
      * @return
      */
-    public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId) throws NotFoundException{
+    public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId){
         ArrayList<TeamValidEntity> teamRequestList=teamValidRequestMapper.getTeamRequestList(teacherId);
         for(int i=0;i<teamRequestList.size();i++){
             if(teamRequestList.get(i).getStatus()!=null){

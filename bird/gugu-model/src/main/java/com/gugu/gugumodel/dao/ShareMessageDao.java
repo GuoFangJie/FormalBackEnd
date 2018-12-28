@@ -108,7 +108,6 @@ public class ShareMessageDao {
     public void newShareSeminarApplication(Long mainCourseId,Long subCourseId,Integer type) throws Exception {
         Long subCourseTeacher=courseMapper.getTeacherIdByCourse(subCourseId);
         if(type.equals(1)){
-            System.out.println("type为1");
             ShareApplicationEntity shareApplicationEntity=shareSeminarMapper.getByMainCourseAndSubcourse(mainCourseId,subCourseId);
             if(shareApplicationEntity==null) {
                 shareSeminarMapper.newShareSeminarApplication(mainCourseId, subCourseId, subCourseTeacher);
@@ -119,7 +118,6 @@ public class ShareMessageDao {
             }
         }else{
             ShareApplicationEntity shareApplicationEntity=shareTeamMapper.getByMainCourseAndSubcourse(mainCourseId,subCourseId);
-            System.out.println("type为2");
             if(shareApplicationEntity==null) {
                 shareTeamMapper.newShareTeamApplication(mainCourseId, subCourseId, subCourseTeacher);
             }else if(shareApplicationEntity.getStatus()==1){

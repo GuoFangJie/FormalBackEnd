@@ -149,7 +149,6 @@ public class TeamDao{
             klassStudentMapper.addMember(teamEntity.getId(),memberStudents.get(i).getId());
         }
         Long teamId=teamEntity.getId();
-        System.out.println(teamId);
         return teamId;
     }
 
@@ -234,7 +233,6 @@ public class TeamDao{
      * 究极无敌恐怖复杂递归调用的组队策略
      */
     public boolean isLegal(String strategy,Long id,Long teamId){
-        System.out.println(strategy+id);
         switch (strategy){
             case "TeamStrategy":
                 return teamStrategyIsLegal(id,teamId);
@@ -316,7 +314,7 @@ public class TeamDao{
                         if(courseId==0L){
                             courseId=conflictCourseStrategy.getCourseId();
                         }else if(!courseId.equals(conflictCourseStrategy.getCourseId())){
-                            System.out.println("conflictCourseStrategy"+id+"出错");
+                            //System.out.println("conflictCourseStrategy"+id+"出错");
                             return false;
                         }
                     }
@@ -344,7 +342,7 @@ public class TeamDao{
         if(count>=courseMemberLimitStrategyEntities.getMinMember()&&count<=courseMemberLimitStrategyEntities.getMaxMember()){
             return true;
         }else{
-            System.out.println("courseMemberLimitStrategy"+id+"出问题"+"人数为"+count);
+            //System.out.println("courseMemberLimitStrategy"+id+"出问题"+"人数为"+count);
             return false;
         }
     }
@@ -361,7 +359,6 @@ public class TeamDao{
         if(studentEntities.size()>=memberLimitStrategy.getMinMember()&&studentEntities.size()<=memberLimitStrategy.getMaxMember()){
             return true;
         }else {
-            System.out.println("memberLimitStrategy"+id+"出错了");
             return false;
         }
     }
