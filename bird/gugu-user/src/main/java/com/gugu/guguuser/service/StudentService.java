@@ -33,6 +33,15 @@ public class StudentService {
     }
 
     /**
+     * 获取同班小组成员
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Long> getKlassMember(Long teamId,Long courseId) {
+        return studentDao.getKlassMember(teamId,courseId);
+    }
+
+    /**
      * 获取组长的数据
      * @param teamId
      * @return
