@@ -57,10 +57,9 @@ public class ShareService {
     /**
      * 同意共享讨论课申请
      * @param requestId
-     * @param handleType
      * @return
      */
-    public boolean acceptSeminarShare(Long requestId,String handleType) throws NotFoundException{
+    public boolean acceptSeminarShare(Long requestId) throws NotFoundException{
         Byte status=1;
         //获取共享消息
         ShareApplicationEntity shareApplicationEntity=shareMessageDao.getSeminarShareApplicationById(requestId);
@@ -79,7 +78,7 @@ public class ShareService {
         //删除从课程的所有seminar
         courseDao.deleteAllSeminarByCourseId(subCourse.getId());
         //获得主课程的所有round,并加入到从课程的klass_round表中
-        ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
+        ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(mainCourse.getId());
         for(int i=0;i<roundList.size();i++){
             klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
         }
@@ -133,7 +132,7 @@ public class ShareService {
             //删除从课程的所有seminar
             courseDao.deleteAllSeminarByCourseId(subCourse.getId());
             //获得主课程的所有round,并加入到从课程的klass_round表中
-            ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(subCourse.getId());
+            ArrayList<RoundEntity> roundList=roundDao.getRoundMessageByCourseId(mainCourse.getId());
             for(int i=0;i<roundList.size();i++){
                 klassDao.newKlassRound(roundList.get(i).getId(),subCourse.getId());
             }

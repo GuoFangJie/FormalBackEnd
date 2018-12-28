@@ -22,7 +22,7 @@ public class NewCourseVO {
     private Byte minMember;
     private ArrayList<CourseMemberLimitStrategyEntity> courseMemberLimitStrategyList;
     private boolean isAnd;
-    private ArrayList<CourseEntity> conflictCourseList;
+    private ArrayList<ArrayList<CourseEntity>> conflictCourseList;
 
     public Long getTeacherId() {
         return teacherId;
@@ -120,11 +120,11 @@ public class NewCourseVO {
         isAnd = and;
     }
 
-    public ArrayList<CourseEntity> getConflictCourseList() {
+    public ArrayList<ArrayList<CourseEntity>> getConflictCourseList() {
         return conflictCourseList;
     }
 
-    public void setConflictCourseList(ArrayList<CourseEntity> conflictCourseList) {
+    public void setConflictCourseList(ArrayList<ArrayList<CourseEntity>> conflictCourseList) {
         this.conflictCourseList = conflictCourseList;
     }
 }

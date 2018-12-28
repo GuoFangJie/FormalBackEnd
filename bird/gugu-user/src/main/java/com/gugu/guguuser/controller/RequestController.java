@@ -52,7 +52,7 @@ public class RequestController {
     public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException ,NotFoundException{
         String handleType=message.get("handleType").toString();
         if(handleType.equals("accept")){
-            shareService.acceptSeminarShare(requestId,handleType);
+            shareService.acceptSeminarShare(requestId);
         }
         else if(handleType.equals("refuse")){
             shareService.refuseSeminarShare(requestId);
