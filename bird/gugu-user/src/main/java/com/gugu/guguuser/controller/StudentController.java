@@ -43,7 +43,6 @@ public class StudentController {
     @GetMapping("")
     @RolesAllowed({"Teacher","Student"})
     public StudentEntity searchStudent(String account,Long classId){
-        System.out.println(account);
         StudentEntity studentEntity=(studentService.searchStudent(account)).get(0);
         studentEntity.setTeamId(studentService.getStudentTeam(studentEntity.getId(),classId));
         return studentEntity;

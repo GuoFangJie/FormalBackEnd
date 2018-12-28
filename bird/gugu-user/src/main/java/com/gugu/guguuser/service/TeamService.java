@@ -88,7 +88,6 @@ public class TeamService {
      * @return
      */
     public Byte addMember(Long teamId, Long studentId,Long courseId){
-        System.out.println("课程id为"+courseId);
             teamDao.addMember(teamId,studentId);
             Byte status=0;
             if(teamDao.teamIsLeagal(courseId,teamId)){
@@ -98,7 +97,6 @@ public class TeamService {
                 status=0;
             }
             teamDao.setStatus(teamId,status);
-        System.out.println("团队的状态是："+status);
             return status;
     }
 
@@ -118,7 +116,6 @@ public class TeamService {
         else{
             status=0;
         }
-        System.out.println("团队的状态是："+status);
         teamDao.setStatus(teamId,status);
         return status;
     }

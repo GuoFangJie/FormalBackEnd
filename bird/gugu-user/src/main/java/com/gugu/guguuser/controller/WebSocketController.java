@@ -21,7 +21,7 @@ public class WebSocketController {
     Long userId;
     String role;
     Long attendanceId;
-    private static Integer questionPeople;
+    private static Integer questionPeople=0;
 
     public static Integer getQuestionPeople() {
         return questionPeople;
@@ -49,7 +49,6 @@ public class WebSocketController {
         this.seminarKlassId=seminarKlassId;
         this.session = session;
         webSocketSet.add(this);
-        System.out.println("连接成功");
         //加入set中
         addOnlineCount();
         StringBuffer stringBuffer=new StringBuffer("连接成功");
@@ -93,13 +92,15 @@ public class WebSocketController {
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
     public void onMessage(String message,Session session) throws IOException, EncodeException {
-        System.out.println("发来信息："+message);
+        System.out.println(message);
         String[] mes=message.split(";");
         if(mes[0].equals("2")){
+            questionPeople--;
             for(WebSocketController webSocketController:webSocketSet){
                     webSocketController.sendMessage("nextQuestion");
             }
         }else if(mes[0].equals("1")){
+            questionPeople=0;
             for(WebSocketController webSocketController:webSocketSet){
                 if(webSocketController.getRole().equals("ROLE_Student")) {
                     webSocketController.sendMessage("nextPresentation");
@@ -129,7 +130,7 @@ public class WebSocketController {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        System.out.println("发生错误");
+        System.out.println("websocket发生错误");
         error.printStackTrace();
     }
     /**

@@ -276,9 +276,11 @@ public class AttendanceDao {
                 seminarScoreEntity.setTeamId(teamId);
                 seminarScoreEntity.setKlassSeminarId(klassSeminarId);
                 seminarScoreEntity.setReportScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.newSeminarScore(seminarScoreEntity);
             }else{
                 seminarScoreEntity.setReportScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }else if(type==2){
@@ -287,9 +289,11 @@ public class AttendanceDao {
                 seminarScoreEntity.setTeamId(teamId);
                 seminarScoreEntity.setKlassSeminarId(klassSeminarId);
                 seminarScoreEntity.setPresentationScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.newSeminarScore(seminarScoreEntity);
             }else{
                 seminarScoreEntity.setPresentationScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }else{
@@ -298,6 +302,7 @@ public class AttendanceDao {
                 seminarScoreEntity.setTeamId(teamId);
                 seminarScoreEntity.setKlassSeminarId(klassSeminarId);
                 seminarScoreEntity.setQuestionScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.newSeminarScore(seminarScoreEntity);
             }else{
                 Float end=score;
@@ -305,11 +310,10 @@ public class AttendanceDao {
                     score=seminarScoreEntity.getQuestionScore();
                 }
                 seminarScoreEntity.setQuestionScore(score);
+                seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
                 seminarScoreMapper.setSeminarScore(seminarScoreEntity);
             }
         }
-        seminarScoreEntity.setTotalScore(calculateSeminarScore(courseMapper.getCourseById(courseId),seminarScoreEntity));
-        seminarScoreMapper.setSeminarScore(seminarScoreEntity);
         calculateFinalRoundScore(teamId,roundId,courseId);
     }
 }

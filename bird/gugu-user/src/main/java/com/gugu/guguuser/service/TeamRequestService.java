@@ -48,7 +48,7 @@ public class TeamRequestService {
             }
             TeamEntity team=teamDao.getTeamById(teamRequest.getTeamId());
             if(team==null){
-                throw new NotFoundException("找不到相应的队伍信息");
+                continue;
             }
             CourseEntity course=courseDao.getCourseById(team.getCourseId());
             KlassEntity klass=klassDao.getKlassById(team.getKlassId());

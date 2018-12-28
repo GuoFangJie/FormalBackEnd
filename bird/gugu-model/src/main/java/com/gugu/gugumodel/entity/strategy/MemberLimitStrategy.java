@@ -3,7 +3,7 @@ package com.gugu.gugumodel.entity.strategy;
 /**
  * @author ren
  */
-public class MemberLimitStrategy implements Strategy {
+public class MemberLimitStrategy{
     Long id;
     Byte minMember;
     Byte maxMember;
@@ -30,12 +30,6 @@ public class MemberLimitStrategy implements Strategy {
 
     public void setMaxMember(Byte maxMember) {
         this.maxMember = maxMember;
-    }
-
-
-    @Override
-    public boolean isLegal(TeamAllEntity teamAllEntity) {
-        return false;
     }
 
 

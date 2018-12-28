@@ -125,7 +125,6 @@ public class ShareMessageDao {
             }else{
                 shareTeamMapper.changeTeamShareStatus(shareApplicationEntity.getId(),null);
             }
-            shareTeamMapper.newShareTeamApplication(mainCourseId,subCourseId,subCourseTeacher);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author ren
  */
 public class SubCourseVO {
-    ArrayList<Long> subCourseId;
+    Long subCourseId;
     Integer type;
 
     public Integer getType() {
@@ -17,11 +17,11 @@ public class SubCourseVO {
         this.type = type;
     }
 
-    public ArrayList<Long> getSubCourseId() {
+    public Long getSubCourseId() {
         return subCourseId;
     }
 
-    public void setSubCourseId(ArrayList<Long> subCourseId) {
+    public void setSubCourseId(Long subCourseId) {
         this.subCourseId = subCourseId;
     }
 }
