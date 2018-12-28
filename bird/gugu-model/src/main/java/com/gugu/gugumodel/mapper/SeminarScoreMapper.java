@@ -28,20 +28,20 @@ public interface SeminarScoreMapper {
      * @param klassSeminarId
      * @return
      */
-    public SeminarScoreEntity getSeminarScore(Long klassSeminarId,Long teamId);
+    SeminarScoreEntity getSeminarScore(Long klassSeminarId,Long teamId);
 
     /**@author ljy
      * 按照seminarid修改队伍讨论课成绩
      * @return
      */
-    public boolean setSeminarScore(SeminarScoreEntity seminarScoreEntity);
+    boolean setSeminarScore(SeminarScoreEntity seminarScoreEntity);
 
     /**@author ljy
      * 按照seminarid获取讨论课所有小组成绩
      * @param klassSeminarId
      * @return
      */
-    public ArrayList<SeminarScoreEntity>getSeminarAllScore(Long klassSeminarId);
+    ArrayList<SeminarScoreEntity>getSeminarAllScore(Long klassSeminarId);
 
     /**
      * 根据团队id和roundid获取成绩
@@ -54,7 +54,7 @@ public interface SeminarScoreMapper {
     /**@author lju
      * 获取小组在某课程下某轮次下的所有讨论课成绩
      */
-    public ArrayList<SeminarScoreEntity> getAllSeminarScore(@Param("courseId") Long courseId,@Param("roundId") Long roundId,@Param("teamId") Long teamId);
+    ArrayList<SeminarScoreEntity> getAllSeminarScore(@Param("courseId") Long courseId,@Param("roundId") Long roundId,@Param("teamId") Long teamId);
 
     /**
      * 新建讨论课成绩记录

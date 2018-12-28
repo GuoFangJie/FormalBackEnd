@@ -27,60 +27,104 @@ public class TeamDao{
     @Autowired
     StrategyMapper strategyMapper;
 
+    /**
+     * 根据teamid获取team的信息
+     * @param team_id
+     * @return
+     */
     public TeamEntity getTeamById(Long team_id) {
         return teamMapper.findTeamById(team_id);
     }
 
 
+    /**
+     * 修改team的信息
+     * @param teamEntity
+     */
     public void updateTeam(TeamEntity teamEntity){
         teamMapper.updateTeam(teamEntity);
     }
 
-
+    /**
+     * 删除小组成员
+     * @param teamId
+     */
     public void deleteStudentFromTeam(Long teamId){
         teamMapper.deleteStudentFromTeam(teamId);
     }
 
 
+    /**
+     * 建立学生和小组之间的关系即新加成员
+     * @param studentId
+     * @param teamEntity
+     */
     public void buildRelationStuAndTeam(Long studentId,TeamEntity teamEntity){
         teamMapper.buildRelationStuAndTeam(studentId,teamEntity.getId());
     }
 
-
+    /**
+     * 根据teamid删除小组信息
+     * @param teamId
+     */
     public void deleteTeam(Long teamId){
         teamMapper.deleteTeam(teamId);
     }
 
-
+    /**
+     * 删除学生和小组之间的关系
+     * @param teamId
+     */
     public void deleteStudentTeamRelation(Long teamId){
         teamMapper.deleteStudentTeamRelation(teamId);
     }
 
-    /*数据库修改后修改的
-    * */
+
+    /**
+     * 新增成员，获取队伍人员变更后是否合法
+     * @param teamId
+     * @param studentId
+     * @return
+     */
     public Byte addMember(Long teamId,Long studentId){
        // TeamEntity teamEntity= teamMapper.findTeamById(teamId);
          klassStudentMapper.addMember(teamId,studentId);
          return teamMapper.getTeamStatusById(teamId);
     }
 
-
+    /**
+     * 移除小组成员
+     * @param teamId
+     * @param studentId
+     * @return
+     */
     public Byte removeMember(Long teamId,Long studentId){
         teamMapper.removeMember(teamId,studentId);
         return teamMapper.getTeamStatusById(teamId);
     }
 
-
+    /**
+     * 获取课程所属的老师的id
+     * @param courseId
+     * @return
+     */
     public Long getTeacherIdByCourse(Long courseId){
        return courseMapper.getTeacherIdByCourse(courseId);
     }
 
-
+    /**
+     * 小组非法申请
+     * @param teamValidEntity
+     */
     public void teamValidRequest(TeamValidEntity teamValidEntity){
         teamValidRequestMapper.teamValidRequest(teamValidEntity);
     }
 
-
+    /**
+     * 获取小组状态
+     * @param teamId
+     * @return
+     */
     public Long getTeamValidStatus(Long teamId){
         return teamValidRequestMapper.getTeamValidStatus(teamId);
     }

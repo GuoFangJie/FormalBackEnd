@@ -42,7 +42,7 @@ public interface RoundMapper {
      * 设置讨论课轮次
      * @return
      */
-    public boolean setSeminarRound(@Param("roundId") Long roundId, @Param("roundEntity") RoundEntity roundEntity);
+    boolean setSeminarRound(@Param("roundId") Long roundId, @Param("roundEntity") RoundEntity roundEntity);
 
     /**@author ljy
      * 根据roundId获取roundSerial
@@ -58,11 +58,11 @@ public interface RoundMapper {
      * @author ljy
      * 获取当前课程下已有的round_serial
      */
-    public ArrayList<Byte> getSerial(Long courseId);
+    ArrayList<Byte> getSerial(Long courseId);
 
     /**
      * @author ljy
      * 根据小组id和roundid获取成绩
      */
-    public RoundScoreEntity getTeamTotalScore(@Param("teamId") Long teamId,@Param("roundId") Long roundId,@Param("courseId") Long courseId);
+    RoundScoreEntity getTeamTotalScore(@Param("teamId") Long teamId,@Param("roundId") Long roundId,@Param("courseId") Long courseId);
 }

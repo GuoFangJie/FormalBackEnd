@@ -15,9 +15,6 @@
         delete from student where id=#{param1}
     </delete>
 
-    <!--<delete id="existAllTeam" parameterType="java.lang.Long">-->
-        <!--delete from klass_student where student_id=#{arg0}-->
-    <!--</delete>-->
 
     <select id="getMembers" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.StudentEntity">
         select student.id id,student.is_active isActive,student.student_name studentName,student.email email,student.account account,
