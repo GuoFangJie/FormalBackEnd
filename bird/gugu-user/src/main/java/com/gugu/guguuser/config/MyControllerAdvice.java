@@ -97,7 +97,8 @@ public class MyControllerAdvice implements ResponseBodyAdvice {
         HttpServletResponse response=sshr.getServletResponse();
         HttpServletResponse httpServletResponse=sshr.getServletResponse();
         if(httpServletResponse.getStatus()==403){
-            //do
+            return null;
         }
+        return null;
     }
 }

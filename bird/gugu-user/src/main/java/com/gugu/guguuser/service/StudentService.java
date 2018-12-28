@@ -98,4 +98,11 @@ public class StudentService {
     public StudentEntity getStudentById(Long studentId){
         return studentDao.getStudentById(studentId);
     }
+
+    /**
+     * 查询该学生是否在该班级下
+     */
+    public boolean checkCourse(Long courseId,Long studentId){
+        return studentDao.checkCourse(courseId,studentId);
+    }
 }

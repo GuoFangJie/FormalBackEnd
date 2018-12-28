@@ -112,4 +112,11 @@ public interface StudentMapper {
       * @return String
       */
      String getEmailById(Long studentId);
+
+     /**
+      * 查询该学生是否在该班级下
+      * @param courseId
+      * @param studentId
+      */
+     ArrayList<Long> checkCourse(Long courseId,Long studentId);
 }
