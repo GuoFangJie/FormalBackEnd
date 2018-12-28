@@ -68,14 +68,14 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         cookie.setPath("/");
         cookie.setMaxAge(3600);
         httpServletResponse.addCookie(cookie);
-        System.out.println(httpServletRequest.getHeader("User-Agent:"));
-        if(httpServletRequest.getHeader("User-Agent:").toString().indexOf("Windows")>=0){
-            if(objects[0].toString().equals("ROLE_Teacher")){
-                httpServletResponse.sendRedirect(teacherPc);
-            }else{
-                httpServletResponse.sendRedirect(studentPc);
-            }
-        }else {
+        System.out.println(httpServletRequest.getHeader("User-Agent"));
+//        if(httpServletRequest.getHeader("User-Agent").toString().indexOf("Windows")>=0){
+//            if(objects[0].toString().equals("ROLE_Teacher")){
+//                httpServletResponse.sendRedirect(teacherPc);
+//            }else{
+//                httpServletResponse.sendRedirect(studentPc);
+//            }
+//        }else {
             if (objects[0].toString().equals("ROLE_Teacher")) {
                 TeacherEntity teacherEntity = teacherDao.getTeacherById(userId);
                 if (teacherEntity.getIsActive() == 0) {
@@ -91,6 +91,6 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                     httpServletResponse.sendRedirect(studentMain);
                 }
             }
-        }
+//        }
     }
 }

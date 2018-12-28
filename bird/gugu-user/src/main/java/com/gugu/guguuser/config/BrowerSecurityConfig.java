@@ -29,7 +29,7 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("http://47.94.174.82")
+               // .loginPage("http://47.94.174.82")
                .loginProcessingUrl("/user/login")
                 .successHandler(successHandler).failureHandler(failureHandler)
                 //.loginPage("http://localhost:8080/user/login")

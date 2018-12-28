@@ -16,6 +16,7 @@ public class FailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
        System.out.println("被拦下来了");
+       e.printStackTrace();
         if(e instanceof BadCredentialsException){
             httpServletResponse.setStatus(400);
             httpServletResponse.sendRedirect("http://localhost:8081/#/");

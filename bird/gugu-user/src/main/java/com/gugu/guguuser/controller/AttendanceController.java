@@ -82,7 +82,6 @@ public class AttendanceController {
         try {
             String path=file.getOriginalFilename();
             File dest=new File(reportPathInServer+path);
-
             if(!dest.getParentFile().exists()){
                 dest.getParentFile().mkdir();
             }
@@ -103,9 +102,9 @@ public class AttendanceController {
      * @param file
      */
     @PostMapping("/{attendanceId}/powerpoint")
-    @RolesAllowed("Student")
-    public void updatePPT(HttpServletResponse httpServletResponse,@PathVariable Long attendanceId, MultipartFile file){
+    public void updatePPT(HttpServletResponse httpServletResponse,@PathVariable("attendanceId") Long attendanceId, MultipartFile file) throws IOException, NotFoundException {
         try {
+            System.out.println("开始上传了");
             String path=file.getOriginalFilename();
             File dest=new File(reportPathInServer+path);
 
@@ -115,9 +114,11 @@ public class AttendanceController {
             file.transferTo(dest);
             attendanceService.uploadPPT(attendanceId,path,reportPath+path);
         } catch (IOException e) {
+            e.printStackTrace();
             httpServletResponse.setStatus(302,"文件上传失败");
         }
         catch (NotFoundException e){
+            e.printStackTrace();
             httpServletResponse.setStatus(404,"不存在该展示记录");
         }
     }

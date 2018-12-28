@@ -34,8 +34,7 @@ public class TeamRequestDao {
     public ArrayList<TeamValidEntity> getTeamRequestList(Long teacherId){
         ArrayList<TeamValidEntity> teamRequestList=teamValidRequestMapper.getTeamRequestList(teacherId);
         for(int i=0;i<teamRequestList.size();i++){
-            if(teamRequestList.get(i).getStatus()!=null){
-                System.out.println(teamRequestList.get(i).getStatus()+"我觉得还行");
+            if(teamRequestList.get(i).getStatus()==null){
                 teamRequestList.remove(i);
             }
         }
