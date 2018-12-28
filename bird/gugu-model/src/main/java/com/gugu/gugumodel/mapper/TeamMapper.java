@@ -76,11 +76,11 @@ public interface TeamMapper {
 
     /**
      * @author TYJ
-     * 删除课程下的所有小组
-     * @param courseId
+     * 删除班级下的所有小组
+     * @param klassId
      * @return
      */
-    void deleteAllTeamByCourseId(Long courseId);
+    void deleteAllTeamByKlassId(Long klassId);
 
 
     /**

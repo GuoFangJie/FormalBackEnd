@@ -61,7 +61,7 @@
     </insert>
 
     <insert id="newKlassTeam" parameterType="com.gugu.gugumodel.entity.TeamEntity">
-        insert into klass_team(klass_id, team_id) values (#{klassId},#{id})
+        insert into klass_team(klass_id,team_id) values (#{klassId},#{id})
     </insert>
 
     <select id="getKlassIdByTeamId" parameterType="java.lang.Long" resultType="java.lang.Long">
@@ -78,8 +78,8 @@
               and team.id=klass_team.team_id
     </select>
 
-    <delete id="deleteAllTeamByCourseId">
-        delete from klass_team where klass.course_id=#{param1} and klass.id=klass_team.klass_id
+    <delete id="deleteAllTeamByKlassId">
+        delete from klass_team where klass_id=#{param1}
     </delete>
 
     <select id="getAllTeamByCourseId" resultMap="TeamEntityMap">
@@ -88,7 +88,7 @@
     </select>
 
     <insert id="createKlassTeam">
-        insert into klass_team values (#{param2},#{param1})
+        insert into klass_team values (#{param1},#{param2})
     </insert>
     <select id="getSerial" parameterType="java.lang.Long" resultType="java.lang.Byte">
         select team_serial from team where klass_id=#{arg0}

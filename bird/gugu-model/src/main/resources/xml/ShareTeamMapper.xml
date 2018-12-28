@@ -20,7 +20,7 @@
     </select>
 
     <update id="changeTeamShareStatus">
-        update share_team_application set status=#{param2} where sub_course_teacher_id=#{param1}
+        update share_team_application set status=#{param2} where id=#{param1}
     </update>
 
     <insert id="newShareTeamApplication" useGeneratedKeys="true" keyProperty="id">
