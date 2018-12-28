@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
+
 /**
  * @author ren
  */
@@ -19,6 +21,7 @@ public class KlassController {
      * @param multipartFile
      * @param classId
      */
+    @RolesAllowed("Teacher")
     @PostMapping("/{classId}")
     public void importStudentList(@RequestParam("fileUpload") MultipartFile multipartFile, @PathVariable("classId") Long classId){
         System.out.println(multipartFile.getOriginalFilename());
@@ -31,6 +34,7 @@ public class KlassController {
      * @param klassId
      */
     @DeleteMapping("{classId}")
+    @RolesAllowed("Teacher")
     public boolean deleteKlass(@PathVariable("classId") Long klassId){
         return klassService.deleteClass(klassId);
     }

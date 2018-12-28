@@ -9,6 +9,7 @@ import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class TeamController {
      * @return
      */
     @PostMapping("")
+    @RolesAllowed("Student")
     public Long newTeam(@RequestBody TeamMessageVO teamMessageVO){
        // StudentEntity leaderStudent=teamMessageVO.getLeader();
         ArrayList<StudentEntity> memberStudents=teamMessageVO.getMembers();
@@ -42,6 +44,7 @@ public class TeamController {
      * @param teamId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{teamId}")
     public TeamMessageVO getTeamById(@PathVariable Long teamId){
         if(teamId==null){
@@ -65,6 +68,7 @@ public class TeamController {
      * @param teamMessageVO
      * @param teamId
      */
+    @RolesAllowed("Student")
     @PutMapping("/{teamId}")
     public void updateTeam(@PathVariable Long teamId,@RequestBody TeamMessageVO teamMessageVO){
         teamMessageVO.setTeamId(teamId);
@@ -83,6 +87,7 @@ public class TeamController {
      * 按照ID删除队伍或者组长解散队伍
      * @param teamId
      */
+    @RolesAllowed("Student")
     @DeleteMapping("/{teamId}")
     public void deleteTeam(@PathVariable Long teamId){
         teamService.deleteTeam(teamId);
@@ -93,6 +98,7 @@ public class TeamController {
      * @param teamId
      * @param studentEntity
      */
+    @RolesAllowed("Student")
     @PutMapping("/{teamId}/add")
     public Byte addMember(@PathVariable Long teamId, @RequestBody StudentEntity studentEntity,Long courseId){
         Long studentId=studentEntity.getId();
@@ -104,6 +110,7 @@ public class TeamController {
      * @param teamId
      * @param studentEntity
      */
+    @RolesAllowed("Student")
     @PutMapping("/{teamId}/remove")
     public Byte removeMember(@PathVariable Long teamId,@RequestBody StudentEntity studentEntity,Long courseId){
         Long studentId=studentEntity.getId();
@@ -115,6 +122,7 @@ public class TeamController {
      * @param teamId
      * @param teamValidEntity
      */
+    @RolesAllowed("Student")
     @PostMapping("/{teamId}/teamvalidrequest")
     public void teamValidRequest(@PathVariable Long teamId, @RequestBody TeamValidEntity teamValidEntity){
         teamValidEntity.setTeamId(teamId);

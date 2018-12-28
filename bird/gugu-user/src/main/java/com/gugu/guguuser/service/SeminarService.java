@@ -170,7 +170,6 @@ public class SeminarService {
      * @return
      */
     public ArrayList<SeminarScoreEntity> getSeminarAllScore(Long seminarId,Long classId){
-
         return seminarDao.getSeminarAllScore(seminarId,classId);
     }
 

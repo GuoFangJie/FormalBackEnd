@@ -10,6 +10,7 @@ import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -31,6 +32,7 @@ public class RoundController {
      * @param roundId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{roundId}/seminar")
     public ArrayList<SeminarEntity> getSeminarByRound(@PathVariable("roundId") Long roundId){
         return seminarService.getSeminarByRound(roundId);
@@ -41,6 +43,7 @@ public class RoundController {
      * @param roundId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("{roundId}")
     public RoundEntity getMessageById(@PathVariable("roundId")Long roundId){
         return roundService.getMessageById(roundId);
@@ -51,6 +54,7 @@ public class RoundController {
      * @param editRoundVO
      * @param roundId
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{roundId}")
     public void editRoundMessage(@RequestBody EditRoundVO editRoundVO, @PathVariable("roundId")Long roundId, HttpServletResponse httpServletResponse){
         RoundEntity roundEntity=new RoundEntity();
@@ -71,6 +75,7 @@ public class RoundController {
      * @return
      */
     @PostMapping("")
+    @RolesAllowed("Teacher")
     public Long newRound(@RequestBody RoundEntity roundEntity){
         return roundService.newRound(roundEntity);
     }
@@ -81,6 +86,7 @@ public class RoundController {
      * @return
      */
     @GetMapping("{roundId}/roundscore")
+    @RolesAllowed({"Teacher","Student"})
     public Vector<RoundScoreMessageVO> getAllTeamScore(@PathVariable("roundId") Long roundId){
         ArrayList<RoundScoreEntity> roundScoreEntities=roundService.getAllTeamScore(roundId);
         Vector<RoundScoreMessageVO> roundScoreMessageVOS=new Vector<>();
@@ -114,6 +120,7 @@ public class RoundController {
      * 根据roundid和teamid修改成绩
      */
     @PutMapping("/team/roundscore")
+    @RolesAllowed("Teacher")
     public void editScore(@RequestBody RoundScoreEntity roundScoreEntity,HttpServletResponse httpServletResponse){
         try {
             roundService.editRoundScore(roundScoreEntity);
@@ -129,6 +136,7 @@ public class RoundController {
      * @param teamId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{roundId}/team/{teamId}")
     public ArrayList<SeminarScoreEntity> getTeamAllScoreInRound(@PathVariable("roundId")Long roundId, @PathVariable("teamId")Long teamId){
         return roundService.getTeamAllScoreInRound(teamId,roundId);
@@ -140,6 +148,7 @@ public class RoundController {
       * @param teamId
       * @return
       */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("{roundId}/team/{teamId}/roundscore")
     public TeamScoreInRoundEntity getByRoundAndTeam(@PathVariable("roundId")Long roundId,@PathVariable("teamId")Long teamId,Long courseId){
         return roundService.getTeamAllScoreInRoundT(teamId,roundId,courseId);

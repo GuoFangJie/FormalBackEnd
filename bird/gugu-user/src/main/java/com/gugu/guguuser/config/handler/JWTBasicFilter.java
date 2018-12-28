@@ -23,6 +23,7 @@ public class JWTBasicFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println(request.getHeader("user-agent:"));
         Cookie []cookies=request.getCookies();
         if(cookies==null){
             chain.doFilter(request, response);

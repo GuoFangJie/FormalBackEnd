@@ -94,7 +94,7 @@
         select team_serial from team where klass_id=#{arg0}
     </select>
 
-    <select id="getTeamById" parameterType="java.lang.Long" resultType="com.gugu.gugumodel.entity.TeamEntity">
+    <select id="getTeamById" parameterType="java.lang.Long" resultMap="TeamEntityMap">
         select * from team where id=#{arg0}
     </select>
 

@@ -2,6 +2,7 @@ package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.entity.AttendanceEntity;
 import com.gugu.gugumodel.entity.FileEntity;
+import com.gugu.gugumodel.entity.SeminarScoreEntity;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.mapper.AttendanceMapper;
 import com.gugu.guguuser.controller.vo.AttendanceMessageVO;
@@ -10,6 +11,7 @@ import com.gugu.guguuser.service.SeminarService;
 import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Role;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +46,7 @@ public class AttendanceController {
      * @param teamOrder
      */
     @PutMapping("/{attendanceId}")
+    @RolesAllowed("Student")
     public void editAttendance(HttpServletResponse httpServletResponse, @PathVariable("attendanceId") Long attendance, @RequestParam("teamOrder") Byte teamOrder){
         try {
             attendanceService.editAttendance(attendance,teamOrder);
@@ -58,6 +61,7 @@ public class AttendanceController {
      * @param attendanceId
      */
     @DeleteMapping("/{attendanceId}")
+    @RolesAllowed("Student")
     public void deleteAttendance(HttpServletResponse httpServletResponse,@PathVariable("attendanceId")Long attendanceId){
         try {
             attendanceService.deleteAttendance(attendanceId);
@@ -73,6 +77,7 @@ public class AttendanceController {
      * @param file
      */
     @PostMapping("/{attendanceId}/report")
+    @RolesAllowed("Student")
     public void updateReport(HttpServletResponse httpServletResponse,@PathVariable Long attendanceId, MultipartFile file){
         System.out.println("BEGIN");
         try {
@@ -99,6 +104,7 @@ public class AttendanceController {
      * @param file
      */
     @PostMapping("/{attendanceId}/powerpoint")
+    @RolesAllowed("Student")
     public void updatePPT(HttpServletResponse httpServletResponse,@PathVariable Long attendanceId, MultipartFile file){
         System.out.println("BEGIN");
         try {
@@ -140,6 +146,7 @@ public class AttendanceController {
      * @return
      */
     @GetMapping("/{attendanceId}/ppt")
+    @RolesAllowed({"Teacher","Student"})
     public FileEntity getPpt(@PathVariable("attendanceId") Long attendanceId){
         FileEntity fileEntity= attendanceService.getPpt(attendanceId);
         if(fileEntity==null){
@@ -155,6 +162,7 @@ public class AttendanceController {
      * @return
      */
     @GetMapping("/{seminarKlassId}")
+    @RolesAllowed({"Student","Teacher"})
     public ArrayList<AttendanceMessageVO> getBySeminarKlassId(@PathVariable("seminarKlassId")Long seminarKlassId){
         System.out.println("seminarKlassId为："+seminarKlassId);
         ArrayList<AttendanceMessageVO> attendanceMessageVOS=new ArrayList<>();
@@ -162,8 +170,14 @@ public class AttendanceController {
         for(int i=0;i<attendanceEntities.size();i++){
             attendanceEntities.get(i).setTeamEntity(teamService.getTeamMessageByTeamId(attendanceEntities.get(i).getTeamId()));
             AttendanceMessageVO attendanceMessageVO=new AttendanceMessageVO(attendanceEntities.get(i));
-            try {
-                attendanceMessageVO.setScore(seminarService.getOnceSeminarScore(attendanceMessageVO.getKlassSeminarId(), attendanceMessageVO.getTeamId()).getPresentationScore());
+            SeminarScoreEntity seminarScoreEntity=seminarService.getOnceSeminarScore(seminarKlassId,attendanceEntities.get(i).getTeamId());
+            try{
+                attendanceMessageVO.setReportScore(seminarScoreEntity.getReportScore());
+            }catch (NullPointerException e){
+                attendanceMessageVO.setReportScore(null);
+            }
+            try{
+                attendanceMessageVO.setScore(seminarScoreEntity.getPresentationScore());
             }catch (NullPointerException e){
                 attendanceMessageVO.setScore(null);
             }
@@ -178,6 +192,7 @@ public class AttendanceController {
      * @return
      */
     @PostMapping("")
+    @RolesAllowed("Student")
     public Long newAttendance(@RequestBody AttendanceEntity attendanceEntity,HttpServletResponse httpServletResponse){
         try {
             return attendanceService.newAttendance(attendanceEntity);

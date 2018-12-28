@@ -11,6 +11,7 @@ import com.gugu.guguuser.service.TeamRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class RequestController {
      * @param httpServletRequest
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/seminarshare")
     public ArrayList<Map> getSeminarShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
@@ -45,6 +47,7 @@ public class RequestController {
      * @param message
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{requestId}/seminarshare")
     public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
         String handleType=message.get("handleType").toString();
@@ -57,6 +60,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamshare")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<Map> getTeamShareList(HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return shareService.getTeamShareList(userId);
@@ -69,6 +73,7 @@ public class RequestController {
      * @return
      */
     @PutMapping("/{requestId}/teamshare")
+    @RolesAllowed("Teacher")
     public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
         String handleType=message.get("handleType").toString();
         return shareService.changeTeamShareStatus(requestId,handleType);
@@ -80,6 +85,7 @@ public class RequestController {
      * @return
      */
     @GetMapping("/teamvalid")
+    @RolesAllowed("Teacher")
     public ArrayList<Map> getTeamRequestList(HttpServletRequest httpServletRequest) throws NotFoundException {
         Long teacherId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return teamRequestService.getTeamRequestList(teacherId);
@@ -91,6 +97,7 @@ public class RequestController {
      * @param message
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{requestId}/teamvalid")
     public boolean changeTeamRequestStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
         String handleType=message.get("handleType").toString();

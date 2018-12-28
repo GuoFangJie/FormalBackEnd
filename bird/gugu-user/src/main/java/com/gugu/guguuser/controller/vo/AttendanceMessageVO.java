@@ -7,6 +7,15 @@ import com.gugu.gugumodel.entity.AttendanceEntity;
  */
 public class AttendanceMessageVO extends AttendanceEntity {
     Float score;
+    Float reportScore;
+
+    public Float getReportScore() {
+        return reportScore;
+    }
+
+    public void setReportScore(Float reportScore) {
+        this.reportScore = reportScore;
+    }
 
     public Float getScore() {
         return score;

@@ -10,6 +10,7 @@ import com.gugu.guguuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +28,7 @@ public class UserController {
      * @param
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("password/{account}")
     public boolean sendPasswordToUser(HttpServletResponse httpServletResponse, @PathVariable("account")String account){
         Long userId;
@@ -50,6 +52,7 @@ public class UserController {
      * @param password
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @PutMapping("password")
     public boolean changePassword(HttpServletRequest httpServletRequest, @RequestBody PasswordVO password){
         String role=httpServletRequest.getAttribute("role").toString();
@@ -62,6 +65,7 @@ public class UserController {
      * @param httpServletRequest
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("information")
     public StudentEntity getUserInfo(HttpServletRequest httpServletRequest){
         String role=httpServletRequest.getAttribute("role").toString();
@@ -76,6 +80,7 @@ public class UserController {
      * @param email
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @PutMapping("email")
     public boolean changeEmail(HttpServletRequest httpServletRequest, @RequestBody EmailVO email){
         String role=httpServletRequest.getAttribute("role").toString();

@@ -21,7 +21,15 @@ public class WebSocketController {
     Long userId;
     String role;
     Long attendanceId;
+    private static Integer questionPeople;
 
+    public static Integer getQuestionPeople() {
+        return questionPeople;
+    }
+
+    public static void setOnlineCount(int onlineCount) {
+        WebSocketController.onlineCount = onlineCount;
+    }
 
     public Long getAttendanceId() {
         return attendanceId;
@@ -80,6 +88,7 @@ public class WebSocketController {
      *1.下一个展示
      * 2.下一个提问
      * 3.结束讨论课
+     * 4.提出问题
      * @param */
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
@@ -102,6 +111,11 @@ public class WebSocketController {
                 if(webSocketController.getRole().equals("ROLE_Student")){
                     webSocketController.sendMessage("end");
                 }
+            }
+        }else if(mes[0].equals("4")){
+            questionPeople++;
+            for(WebSocketController webSocketController:webSocketSet){
+                webSocketController.sendMessage("questionNumber:"+questionPeople);
             }
         }else{
             sendMessage("系统出错");

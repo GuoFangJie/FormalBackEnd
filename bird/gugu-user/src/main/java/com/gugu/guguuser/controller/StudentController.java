@@ -6,6 +6,7 @@ import com.gugu.guguuser.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class StudentController {
      * @param httpServletRequest
      * @return
      */
+    @RolesAllowed("Student")
     @PutMapping("active")
     public boolean activeStudent(@RequestBody ActiveUserVO activeUserVO, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
@@ -39,6 +41,7 @@ public class StudentController {
      * @return
      */
     @GetMapping("")
+    @RolesAllowed({"Teacher","Student"})
     public StudentEntity searchStudent(String account,Long classId){
         System.out.println(account);
         StudentEntity studentEntity=(studentService.searchStudent(account)).get(0);
@@ -51,6 +54,7 @@ public class StudentController {
      * @param httpServletRequest
      * @return
      */
+    @RolesAllowed("Student")
     @GetMapping("getaccount")
     public String getAccount(HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());

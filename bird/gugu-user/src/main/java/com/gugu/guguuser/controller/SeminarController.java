@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -37,6 +38,7 @@ public class SeminarController {
      * @return Long
      */
     @PostMapping("")
+    @RolesAllowed("Teacher")
     public Long newSeminar(@RequestBody SeminarEntity seminarEntity)throws ParseException {
         DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
         seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
@@ -62,6 +64,7 @@ public class SeminarController {
      * @return KlassEntiry
      */
     @GetMapping("/{seminarId}/class")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<KlassEntity> getKlassSeminatIn(@PathVariable Long seminarId){
         return seminarService.getKlassSeminatIn(seminarId);
     }
@@ -72,6 +75,7 @@ public class SeminarController {
      * @return
      */
     @PutMapping("/{seminarId}")
+    @RolesAllowed("Teacher")
     public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity)throws ParseException{
         seminarEntity.setId(seminarId);
         DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
@@ -86,6 +90,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @DeleteMapping("/{seminarId}")
     public boolean deleteSeminar(@PathVariable Long seminarId){
         return seminarService.deleteSeminar(seminarId);
@@ -97,6 +102,7 @@ public class SeminarController {
      * @return
      */
     @GetMapping("/{seminarId}")
+    @RolesAllowed({"Teacher","Student"})
     public SeminarEntity getSeminarById(@PathVariable Long seminarId)throws NotFoundException{
         SeminarEntity seminarEntity=seminarService.getSeminarById(seminarId);
         if(seminarEntity==null)
@@ -112,6 +118,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}")
     public boolean setReportDDLInClass(@PathVariable("seminarId") Long seminarId,@PathVariable("classId")Long classId,@RequestBody String time)throws ParseException{
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
@@ -124,6 +131,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @DeleteMapping("/{seminarId}/class/{classId}")
     public boolean deleteSeminarInClass(@PathVariable("seminarId")Long seminarId,@PathVariable("classId")Long classId){
         return seminarService.deleteSeminarInClass(seminarId,classId);
@@ -134,6 +142,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{seminarId}/class/{classId}")
     public KlassSeminarEntity getSeminarInClass(@PathVariable("seminarId")Long seminarId, @PathVariable("classId")Long classId){
         //获取seminar中的信息和klass_seminar中的讨论课状态
@@ -147,6 +156,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/round")
     public boolean setSeminarRound(@PathVariable Long seminarId, @RequestBody RoundEntity roundEntity){
         return seminarService.setSeminarRound(seminarId,roundEntity);
@@ -157,6 +167,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}/status")
     public boolean setSeminarStatus(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody KlassSeminarEntity klassSeminarEntity){
         Byte status=klassSeminarEntity.getStatus();
@@ -168,6 +179,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}/reportddl")
     public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestParam("date") String d)throws ParseException{
         System.out.println(d);
@@ -181,6 +193,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{seminarId}/team/{teamId}/seminarscore")
     public SeminarScoreEntity getSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId){
         return seminarService.getSeminarScore(seminarId,teamId);
@@ -191,6 +204,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/team/{teamId}/seminarscore")
     public boolean setSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId,@RequestBody SeminarScoreEntity seminarScoreEntity){
         seminarScoreEntity.setTeamId(teamId);
@@ -202,6 +216,7 @@ public class SeminarController {
      * @param seminarId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{seminarId}/seminarscore")
     public ArrayList<SeminarScoreEntity> getSeminarAllScore(@PathVariable Long seminarId,Long classId){
         return seminarService.getSeminarAllScore(seminarId,classId);
@@ -213,6 +228,7 @@ public class SeminarController {
      * @param httpServletRequest
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{seminarKlassId}/seminarEnter")
     public String  enterSeminar(@PathVariable("seminarKlassId")Long seminarKlassId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());

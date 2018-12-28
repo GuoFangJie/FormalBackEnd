@@ -1,7 +1,6 @@
 package com.gugu.guguuser.controller;
 
 import com.gugu.gugumodel.entity.*;
-import com.gugu.gugumodel.entity.strategy.CourseMemberLimitStrategyEntity;
 import com.gugu.gugumodel.entity.strategy.MemberLimitStrategy;
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.guguuser.controller.vo.*;
@@ -9,10 +8,10 @@ import com.gugu.guguuser.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -40,6 +39,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<SimpleCourseVO> getCourseByUser(HttpServletRequest httpServletRequest){
         String userId=httpServletRequest.getAttribute("userId").toString();
         String role=httpServletRequest.getAttribute("role").toString();
@@ -68,6 +68,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/allcourse")
+    @RolesAllowed("Teacher")
     public ArrayList<CourseEntity> getAllCourse(){
         return courseService.getAllCourse();
     }
@@ -78,6 +79,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("")
+    @RolesAllowed("Teacher")
     public Long newCourse(@RequestBody NewCourseVO newCourseVO,HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         CourseEntity courseEntity=new CourseEntity();
@@ -109,6 +111,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}")
+    @RolesAllowed({"Teacher","Student"})
     public CourseEntity getCourseById(@PathVariable("courseId") Long id){
         return courseService.getCourseById(id);
     }
@@ -119,6 +122,7 @@ public class CourseController {
      * @param httpServletResponse
      */
     @DeleteMapping("/{courseId}")
+    @RolesAllowed("Teacher")
     public boolean deleteCourseById(@PathVariable("courseId") Long id, HttpServletResponse httpServletResponse){
         try {
             courseService.deleteCourseById(id);
@@ -136,6 +140,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/score")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<SeminarScoreEntity> getTeamScoreAll(@PathVariable("courseId") Long courseId, HttpServletRequest httpServletRequest){
         Long student_id=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return courseService.getTeamAllScore(student_id,courseId);
@@ -148,6 +153,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/team")
+    @RolesAllowed({"Teacher","Student"})
     public TeamMessageVO getTeamMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
         try {
             Long studentId = Long.parseLong(httpServletRequest.getAttribute("userId").toString());
@@ -166,6 +172,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/teams")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<TeamMessageVO> getTeamsMessage(@PathVariable("courseId") Long courseId,HttpServletRequest httpServletRequest){
         ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
         ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
@@ -182,6 +189,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/noTeam")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<StudentEntity> getStudentWithoutTeamInCourse(@PathVariable("courseId") Long courseId, HttpServletRequest httpServletRequest){
         Long studentId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         return studentService.getStudentWithoutTeamInCourse(courseId,studentId);
@@ -193,6 +201,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/class")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<KlassEntity> getKlassByCourseId(@PathVariable("courseId") Long courseId){
         return courseService.getKlassByCourseId(courseId);
     }
@@ -204,6 +213,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("/{courseId}/class")
+    @RolesAllowed("Teacher")
     public Long newKlass(@PathVariable("courseId") Long courseId,@RequestBody KlassEntity klassEntity){
         klassEntity.setCourseId(courseId);
         return klassService.newKlass(klassEntity);
@@ -215,6 +225,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/share")
+    @RolesAllowed({"Teacher","Student"})
     public ArrayList<Map> getAllShareMessage(@PathVariable("courseId") Long courseId){
         return shareService.getShareListByCourseId(courseId);
 //        ArrayList<ShareMessageEntity> shareMessageEntities=courseService.getAllShareSeminar(courseId);
@@ -248,6 +259,7 @@ public class CourseController {
      * @param
      * @return
      */
+    @RolesAllowed("Teacher")
     @DeleteMapping("/{courseId}/share/{shareId}")
     public boolean deleteCourseShare(@PathVariable("shareId") Long shareId,Integer type){
         return courseService.deleteCourseShare(shareId,type);
@@ -258,6 +270,7 @@ public class CourseController {
      * @param courseId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{courseId}/round")
     public ArrayList<RoundEntity> getRoundMessageByCourseId(@PathVariable("courseId")Long courseId) throws NotFoundException {
         return roundService.getRoundMessageByCourseId(courseId);
@@ -270,6 +283,7 @@ public class CourseController {
      * @param
      * @param
      */
+    @RolesAllowed("Student")
     @PostMapping("/{courseId}/application")
     public void newApplication(HttpServletResponse httpServletResponse,@PathVariable("courseId") Long mainCourseId,@RequestBody SubCourseVO subCourseVO){
         try {
@@ -289,6 +303,7 @@ public class CourseController {
      * @param courseId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{courseId}/round/{roundId}")
     public RoundTeamsScoreMessageVO getTeamScoreInRound(@PathVariable("courseId") Long courseId,@PathVariable("roundId")Long roundId){
         return courseService.getTeamScoreInRound(courseId,roundId);
@@ -297,6 +312,7 @@ public class CourseController {
     /**
      * 获取课程是否为共享讨论课主课程
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/{courseId}/isMainSeminar")
     public boolean isMainSeminar(@PathVariable ("courseId")Long courseId){
         CourseEntity courseEntity=courseService.getCourseById(courseId);
@@ -313,6 +329,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{courseId}/isMainTeam")
+    @RolesAllowed({"Teacher","Student"})
     public boolean isMainTeam(@PathVariable("courseId") Long courseId){
         CourseEntity courseEntity=courseService.getCourseById(courseId);
         if(courseEntity.getTeamMainCourseId()==null||courseEntity.getTeamMainCourseId().equals(courseId)){
@@ -331,6 +348,7 @@ public class CourseController {
      * @param score
      */
     @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/report")
+    @RolesAllowed("Teacher")
     public void setReportScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
         attendanceService.setReportScore(courseId,roundId,klassSeminarId,teamId,score);
     }
@@ -343,6 +361,7 @@ public class CourseController {
      * @param klassSeminarId
      * @param score
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/presentation")
     public void setPresentationScore(@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score){
         attendanceService.setPresentationScore(courseId,roundId,klassSeminarId,teamId,score);
@@ -358,6 +377,7 @@ public class CourseController {
      * @param score
      * @throws NotFoundException
      */
+    @RolesAllowed("Teacher")
     @PutMapping("/{courseId}/round/{roundId}/team/{teamId}/klassSeminar/{klassSeminarId}/question/{questionId}")
     public void setQuestionScore(@PathVariable("questionId")Long questionId,@PathVariable("courseId") Long courseId,@PathVariable("roundId") Long roundId,@PathVariable("teamId")Long teamId,@PathVariable("klassSeminarId") Long klassSeminarId,@RequestParam("score") Float score) throws NotFoundException {
         questionService.scoreQuestion(questionId,score,courseId,roundId,klassSeminarId,teamId);

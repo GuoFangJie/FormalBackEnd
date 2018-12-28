@@ -7,6 +7,7 @@ import com.gugu.guguuser.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -25,6 +26,7 @@ public class TeacherController {
      * @return
      */
     @PutMapping("/active")
+    @RolesAllowed("Teacher")
     public boolean activeTeacher(@RequestBody ActiveUserVO activeUserVO, HttpServletRequest httpServletRequest) throws NotFoundException{
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
         activeUserVO.setUserId(userId);

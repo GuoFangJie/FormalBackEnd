@@ -9,6 +9,7 @@ import com.gugu.guguuser.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class QuestionController {
      * @param attendanceId
      * @param httpServletRequest
      */
+    @RolesAllowed("Teacher")
     @PostMapping("newQuestion")
     public void newQuestion(@RequestParam("attendanceId") Long attendanceId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
@@ -45,6 +47,7 @@ public class QuestionController {
      * @param attendanceId
      * @return
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/nextQuestion")
     public QuestionVO getNextQuestion(HttpServletResponse httpServletResponse,@RequestParam("attendanceId")Long attendanceId){
         QuestionVO questionVO=new QuestionVO();
@@ -64,6 +67,7 @@ public class QuestionController {
     /**
      * 获取当前展示的问题列表
      */
+    @RolesAllowed({"Teacher","Student"})
     @GetMapping("/allquestion")
     public ArrayList<QuestionVO> getAllQuestion(HttpServletResponse httpServletResponse,@RequestParam("attendanceId")Long attendanceId){
         ArrayList<QuestionEntity> questionEntities=questionService.getAllQuestionByAttendanceId(attendanceId);
