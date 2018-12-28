@@ -25,8 +25,7 @@ public class RoundService {
     KlassDao klassDao;
     @Autowired
     KlassRoundDao klassRoundDao;
-    @Autowired
-    RoundScoreMapper roundScoreMapper;
+
     @Autowired
     TeamDao teamDao;
     @Autowired

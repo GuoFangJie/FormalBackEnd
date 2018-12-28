@@ -131,7 +131,16 @@ public class TeamService {
     public void teamValidRequest(TeamValidEntity teamValidEntity){
             teamValidEntity.setTeacherId(courseDao.getTeacherIdByCourse(teamValidEntity.getCourseId()));
             teamDao.teamValidRequest(teamValidEntity);
+
     }
+    /**
+     * 新建小组申请
+     * @param
+     */
+    public void setTeamStatus(Long teamId){
+        teamDao.setTeamStatus(teamId);
+    }
+
 
     /**@author ljy
      * 新建队伍,返回队伍id
