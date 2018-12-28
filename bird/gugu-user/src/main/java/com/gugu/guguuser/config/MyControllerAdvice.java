@@ -2,9 +2,15 @@ package com.gugu.guguuser.config;
 
 import com.gugu.gugumodel.exception.NotFoundException;
 import com.gugu.gugumodel.exception.ParamErrorException;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.MediaType;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -15,7 +21,7 @@ import java.util.Map;
  * @author TYJ
  */
 @RestControllerAdvice
-public class MyControllerAdvice {
+public class MyControllerAdvice implements ResponseBodyAdvice {
 
     /**
      * 全局异常捕捉处理
@@ -76,5 +82,22 @@ public class MyControllerAdvice {
         map.put("code", code);
         map.put("message", message);
         return map;
+    }
+
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class aClass) {
+        return false;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        //通过 ServerHttpRequest的实现类ServletServerHttpRequest 获得HttpServletRequest
+        ServletServerHttpResponse sshr=(ServletServerHttpResponse) serverHttpRequest;
+        //此处获取到request 是为了取到在拦截器里面设置的一个对象 是我项目需要,可以忽略
+        HttpServletResponse response=sshr.getServletResponse();
+        HttpServletResponse httpServletResponse=sshr.getServletResponse();
+        if(httpServletResponse.getStatus()==403){
+            //do
+        }
     }
 }
