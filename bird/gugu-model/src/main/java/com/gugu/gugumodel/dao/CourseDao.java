@@ -135,19 +135,23 @@ public class CourseDao{
      * @return
      */
     public boolean addConflictStrategy(CourseEntity courseEntity){
-        ArrayList<CourseEntity> conflictList=courseEntity.getConflictCourseList();
-        Long maxId=strategyMapper.getConflictMaxId();
-        maxId=(maxId==null)?Long.parseLong("1"):maxId+1;
+        ArrayList<ArrayList<CourseEntity>> conflictList=courseEntity.getConflictCourseList();
         for(int i=0;i<conflictList.size();i++){
-            //加入冲突的课程
-            strategyMapper.addConflictStrategy(maxId,conflictList.get(i).getId());
+            //获取表中的id
+            Long maxId=strategyMapper.getConflictMaxId();
+            //id判空
+            maxId=(maxId==null)?Long.parseLong("1"):maxId+1;
+            //获得一组冲突课程
+            ArrayList<CourseEntity> list=conflictList.get(i);
+            for(int j=0;j<list.size();j++){
+                //加入冲突的课程
+                strategyMapper.addConflictStrategy(maxId,list.get(i).getId());
+            }
+            //获得strategySerial
+            Byte strategySerial=this.getSerial(courseEntity);
+            //将最终规则存入最终表中
+            strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"ConflictCourseStrategy",maxId);
         }
-        //将本课程加入冲突列表中
-        //strategyMapper.addConflictStrategy(maxId,courseEntity.getId());
-        //获得strategySerial
-        Byte strategySerial=this.getSerial(courseEntity);
-        //将最终规则存入最终表中
-        strategyMapper.combineAllStrategy(courseEntity.getId(),strategySerial,"ConflictCourseStrategy",maxId);
         return true;
     }
 

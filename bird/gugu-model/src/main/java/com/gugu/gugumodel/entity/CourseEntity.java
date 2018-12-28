@@ -25,7 +25,7 @@ public class CourseEntity {
     private MemberLimitStrategy memberLimitStrategy;
     private ArrayList<CourseMemberLimitStrategyEntity> courseMemberLimitStrategyEntityList;
     private boolean isAnd;
-    private ArrayList<CourseEntity> conflictCourseList;
+    private ArrayList<ArrayList<CourseEntity>> conflictCourseList;
     private Long strategyId;
     private Long seminarMainCourseId;
     private Long teamMainCourseId;
@@ -154,11 +154,11 @@ public class CourseEntity {
         isAnd = and;
     }
 
-    public ArrayList<CourseEntity> getConflictCourseList() {
+    public ArrayList<ArrayList<CourseEntity>> getConflictCourseList() {
         return conflictCourseList;
     }
 
-    public void setConflictCourseList(ArrayList<CourseEntity> conflictCourseList) {
+    public void setConflictCourseList(ArrayList<ArrayList<CourseEntity>> conflictCourseList) {
         this.conflictCourseList = conflictCourseList;
     }
 

@@ -49,9 +49,18 @@ public class RequestController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{requestId}/seminarshare")
-    public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
+    public boolean changeSeminarShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException ,NotFoundException{
         String handleType=message.get("handleType").toString();
-        return shareService.changeSeminarShareStatus(requestId,handleType);
+        if(handleType.equals("accept")){
+            shareService.acceptSeminarShare(requestId);
+        }
+        else if(handleType.equals("refuse")){
+            shareService.refuseSeminarShare(requestId);
+        }
+        else{
+            throw new ParamErrorException("请求参数错误（必须为accept/refuse）");
+        }
+        return true;
     }
 
     /**
@@ -74,7 +83,7 @@ public class RequestController {
      */
     @PutMapping("/{requestId}/teamshare")
     @RolesAllowed("Teacher")
-    public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException {
+    public boolean changeTeamShareStatus(@PathVariable("requestId") Long requestId,@RequestBody Map message) throws ParamErrorException ,NotFoundException {
         String handleType=message.get("handleType").toString();
         return shareService.changeTeamShareStatus(requestId,handleType);
     }

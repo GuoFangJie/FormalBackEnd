@@ -4,9 +4,9 @@ package com.gugu.guguuser.controller.vo;
  * @author ren
  */
 public class ActiveUserVO {
-    String password;
-    String email;
-    Long userId;
+    private String password;
+    private String email;
+    private Long userId;
 
     public Long getUserId() {
         return userId;
