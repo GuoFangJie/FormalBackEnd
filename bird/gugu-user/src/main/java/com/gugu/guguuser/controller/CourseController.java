@@ -174,15 +174,21 @@ public class CourseController {
         ArrayList<TeamMessageVO> teamMessageVOS=new ArrayList<>();
         ArrayList<TeamEntity> teamsId=courseService.getAllTeamByCourse(courseId);
         for(int i=0;i<teamsId.size();i++){
+            Integer flag=0;
             ArrayList<Long> studentList=studentService.getKlassMember(teamsId.get(i).getId(),courseId);
             ArrayList<StudentEntity> newList=new ArrayList<>();
             for(int j=0;j<studentList.size();j++){
                 if(studentList.get(j).equals(teamsId.get(i).getLeaderId())){
+                    flag=1;
                     continue;
                 }
                 newList.add(studentService.getStudentById(studentList.get(j)));
             }
-            TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),studentService.getLeader(teamsId.get(i).getId()),newList);
+            StudentEntity leader=studentService.getLeader((teamsId.get(i).getId()));
+            if(flag==1){
+                leader.setStudentName(leader.getStudentName()+"(不在此班)");
+            }
+            TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),leader,newList);
             teamMessageVOS.add(teamMessageVO);
         }
         return teamMessageVOS;
