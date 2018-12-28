@@ -104,7 +104,6 @@ public class AttendanceController {
     @PostMapping("/{attendanceId}/powerpoint")
     public void updatePPT(HttpServletResponse httpServletResponse,@PathVariable("attendanceId") Long attendanceId, MultipartFile file) throws IOException, NotFoundException {
         try {
-            System.out.println("开始上传了");
             String path=file.getOriginalFilename();
             File dest=new File(reportPathInServer+path);
 

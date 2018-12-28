@@ -1,5 +1,6 @@
 package com.gugu.guguuser.config.handler;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,17 +14,18 @@ import java.io.IOException;
 
 @Component
 public class FailureHandler implements AuthenticationFailureHandler {
+    @Value("${errLogin}")
+    String errLogin;
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-       System.out.println("被拦下来了");
        e.printStackTrace();
         if(e instanceof BadCredentialsException){
             httpServletResponse.setStatus(400);
-            httpServletResponse.sendRedirect("http://localhost:8081/#/");
+            httpServletResponse.sendRedirect(errLogin);
         }
         else if(e instanceof UsernameNotFoundException) {
             httpServletResponse.setStatus(400);
-            httpServletResponse.sendRedirect("http://localhost:8081/#/");
+            httpServletResponse.sendRedirect(errLogin);
         }
     }
 }

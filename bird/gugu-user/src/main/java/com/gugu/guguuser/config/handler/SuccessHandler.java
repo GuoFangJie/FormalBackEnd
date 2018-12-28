@@ -52,7 +52,6 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         claim.put("role",objects[0]);
         claim.put("exp",Long.toString(System.currentTimeMillis()+1000*60*10));
         Long userId;
-        System.out.println(objects[0]);
         if(objects[0].toString().equals("ROLE_Teacher")){
             userId=teacherDao.getTeacherByAccount(((SecurityUserEntity)authentication.getPrincipal()).getUsername());
         }else{
