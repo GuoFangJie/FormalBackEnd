@@ -35,6 +35,11 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     String teacherActive;
     @Value("${teacher-main}")
     String teacherMain;
+    @Value("${teacher-PC}")
+    String teacherPc;
+    @Value("${student-PC}")
+    String studentPc;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         System.out.println("登录成功");
@@ -63,19 +68,28 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         cookie.setPath("/");
         cookie.setMaxAge(3600);
         httpServletResponse.addCookie(cookie);
-        if(objects[0].toString().equals("ROLE_Teacher")){
-            TeacherEntity teacherEntity=teacherDao.getTeacherById(userId);
-            if(teacherEntity.getIsActive()==0){
-                httpServletResponse.sendRedirect(teacherActive);
+        System.out.println(httpServletRequest.getHeader("User-Agent:"));
+        if(httpServletRequest.getHeader("User-Agent:").toString().indexOf("Windows")>=0){
+            if(objects[0].toString().equals("ROLE_Teacher")){
+                httpServletResponse.sendRedirect(teacherPc);
             }else{
-                httpServletResponse.sendRedirect(teacherMain);
+                httpServletResponse.sendRedirect(studentPc);
             }
         }else {
-            StudentEntity studentEntity=studentDao.getStudentById(userId);
-            if(studentEntity.getIsActive()==0){
-                httpServletResponse.sendRedirect(studentActive);
-            }else{
-                httpServletResponse.sendRedirect(studentMain);
+            if (objects[0].toString().equals("ROLE_Teacher")) {
+                TeacherEntity teacherEntity = teacherDao.getTeacherById(userId);
+                if (teacherEntity.getIsActive() == 0) {
+                    httpServletResponse.sendRedirect(teacherActive);
+                } else {
+                    httpServletResponse.sendRedirect(teacherMain);
+                }
+            } else {
+                StudentEntity studentEntity = studentDao.getStudentById(userId);
+                if (studentEntity.getIsActive() == 0) {
+                    httpServletResponse.sendRedirect(studentActive);
+                } else {
+                    httpServletResponse.sendRedirect(studentMain);
+                }
             }
         }
     }

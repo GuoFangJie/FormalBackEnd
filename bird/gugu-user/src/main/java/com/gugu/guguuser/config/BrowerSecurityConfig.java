@@ -60,8 +60,8 @@ public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
 //                       "/round/{roundId}/team/{teamId}","/round/{roundId}/roundscore","/round/{roundId}","/round/{roundId}/seminar",
 //                       "/seminar/{seminarId}/class","/seminar/{seminarId}","/seminar/{seminarId}/class/{classId}","/seminar/{seminarId}/team/{teamId}/seminarscore",
 //                       "/seminar/{seminarId}/seminarscore","/seminar/{seminarKlassId}/seminarEnter","/student/**","/team/**","/user/**","/question/**").hasAnyRole("Student","Teacher")
-//
-//                .antMatchers("/user").permitAll()
+
+               .antMatchers("/user").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

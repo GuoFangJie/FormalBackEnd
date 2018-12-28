@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,13 +35,18 @@ public class SeminarController {
     KlassService klassService;
     @Value("${webserver}")
     String webserver;
+    @Value("${loginPage}")
+    String loginPage;
     /**@author ljy
      * 新建讨论课,创建成功后返回seminarId
      * @return Long
      */
     @PostMapping("")
     @RolesAllowed("Teacher")
-    public Long newSeminar(@RequestBody SeminarEntity seminarEntity)throws ParseException {
+    public Long newSeminar(HttpServletResponse httpServletResponse,HttpServletRequest httpServletRequest,@RequestBody SeminarEntity seminarEntity) throws ParseException, IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
         seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
         seminarEntity.setEnrollETime(formatter.parse(seminarEntity.getEnd()));
@@ -75,7 +82,10 @@ public class SeminarController {
      */
     @PutMapping("/{seminarId}")
     @RolesAllowed("Teacher")
-    public boolean updateSeminar(@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity)throws ParseException{
+    public boolean updateSeminar(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,@PathVariable Long seminarId,@RequestBody SeminarEntity seminarEntity) throws ParseException, IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         seminarEntity.setId(seminarId);
         DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
         seminarEntity.setEnrollSTime(formatter.parse(seminarEntity.getStart()));
@@ -91,7 +101,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @DeleteMapping("/{seminarId}")
-    public boolean deleteSeminar(@PathVariable Long seminarId){
+    public boolean deleteSeminar(HttpServletResponse httpServletResponse,HttpServletRequest httpServletRequest,@PathVariable Long seminarId) throws IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         return seminarService.deleteSeminar(seminarId);
     }
 
@@ -119,7 +132,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}")
-    public boolean setReportDDLInClass(@PathVariable("seminarId") Long seminarId,@PathVariable("classId")Long classId,@RequestBody String time)throws ParseException{
+    public boolean setReportDDLInClass(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,@PathVariable("seminarId") Long seminarId,@PathVariable("classId")Long classId,@RequestBody String time) throws ParseException, IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
         Date date=formatter.parse(time);
         return seminarService.setReportDDLInClass(seminarId,classId,date);
@@ -132,7 +148,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @DeleteMapping("/{seminarId}/class/{classId}")
-    public boolean deleteSeminarInClass(@PathVariable("seminarId")Long seminarId,@PathVariable("classId")Long classId){
+    public boolean deleteSeminarInClass(HttpServletResponse httpServletResponse,HttpServletRequest httpServletRequest,@PathVariable("seminarId")Long seminarId,@PathVariable("classId")Long classId) throws IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         return seminarService.deleteSeminarInClass(seminarId,classId);
     }
 
@@ -157,7 +176,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/round")
-    public boolean setSeminarRound(@PathVariable Long seminarId, @RequestBody RoundEntity roundEntity){
+    public boolean setSeminarRound(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,@PathVariable Long seminarId, @RequestBody RoundEntity roundEntity) throws IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         return seminarService.setSeminarRound(seminarId,roundEntity);
     }
 
@@ -168,7 +190,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}/status")
-    public boolean setSeminarStatus(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody KlassSeminarEntity klassSeminarEntity){
+    public boolean setSeminarStatus(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestBody KlassSeminarEntity klassSeminarEntity) throws IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         Byte status=klassSeminarEntity.getStatus();
         return seminarService.setSeminarStatus(seminarId,classId,status);
     }
@@ -180,7 +205,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/class/{classId}/reportddl")
-    public boolean setSeminarReportddl(@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestParam("date") String d)throws ParseException{
+    public boolean setSeminarReportddl(HttpServletResponse httpServletResponse,HttpServletRequest httpServletRequest,@PathVariable("seminarId") Long seminarId,@PathVariable("classId") Long classId,@RequestParam("date") String d) throws ParseException, IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date=sdf.parse(d);
         return seminarService.setSeminarReportddl(seminarId,classId,date);
@@ -204,7 +232,10 @@ public class SeminarController {
      */
     @RolesAllowed("Teacher")
     @PutMapping("/{seminarId}/team/{teamId}/seminarscore")
-    public boolean setSeminarScore(@PathVariable("seminarId") Long seminarId,@PathVariable("teamId")Long teamId,@RequestBody SeminarScoreEntity seminarScoreEntity){
+    public boolean setSeminarScore(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("seminarId") Long seminarId, @PathVariable("teamId")Long teamId, @RequestBody SeminarScoreEntity seminarScoreEntity) throws IOException {
+        if(!httpServletRequest.getAttribute("role").toString().equals("ROLE_Teacher")){
+            httpServletResponse.setStatus(403);
+        }
         seminarScoreEntity.setTeamId(teamId);
         return seminarService.setSeminarScore(seminarId,teamId,seminarScoreEntity);
     }

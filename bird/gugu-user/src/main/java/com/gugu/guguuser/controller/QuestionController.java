@@ -32,7 +32,6 @@ public class QuestionController {
      * @param attendanceId
      * @param httpServletRequest
      */
-    @RolesAllowed("Teacher")
     @PostMapping("newQuestion")
     public void newQuestion(@RequestParam("attendanceId") Long attendanceId, HttpServletRequest httpServletRequest){
         Long userId=Long.parseLong(httpServletRequest.getAttribute("userId").toString());
