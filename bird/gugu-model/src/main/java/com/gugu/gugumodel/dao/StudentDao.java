@@ -54,7 +54,6 @@ public class StudentDao {
                 break;
             }
         }
-        System.out.println("队伍成员有"+members.size());
         return members;
     }
 
