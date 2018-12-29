@@ -88,6 +88,7 @@ public class WebSocketController {
      * 2.下一个提问
      * 3.结束讨论课
      * 4.提出问题
+     * 5.下一个问题id
      * @param */
     //@PathParam("messageType") Byte messageType,Long attendanceId
     @OnMessage
@@ -97,7 +98,10 @@ public class WebSocketController {
         if(mes[0].equals("2")){
             questionPeople--;
             for(WebSocketController webSocketController:webSocketSet){
+                if(webSocketController.getUserId().equals(Long.parseLong(mes[1]))){
                     webSocketController.sendMessage("nextQuestion");
+                    break;
+                }
             }
         }else if(mes[0].equals("1")){
             questionPeople=0;
