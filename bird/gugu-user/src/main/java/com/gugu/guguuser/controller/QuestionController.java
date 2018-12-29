@@ -57,7 +57,6 @@ public class QuestionController {
             questionVO.setQuestionEntity(questionEntity);
             questionVO.setStudentEntity(studentService.getStudentById(questionEntity.getStudentId()));
             questionVO.setTeamEntity(teamService.getTeamMessageByTeamId(questionEntity.getTeamId()));
-            httpServletResponse.setStatus(201);
             return questionVO;
         }
         return questionVO;

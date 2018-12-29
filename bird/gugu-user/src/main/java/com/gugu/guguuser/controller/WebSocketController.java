@@ -58,6 +58,7 @@ public class WebSocketController {
                 try {
                     attendanceId = Long.toString(webSocketController.getAttendanceId());
                     sendMessage(attendanceId);
+                    System.out.println(attendanceId+"我觉得很酷");
                     break;
                 }catch (NullPointerException e){
                     continue;
@@ -96,9 +97,10 @@ public class WebSocketController {
         System.out.println(message);
         String[] mes=message.split(";");
         if(mes[0].equals("2")){
+            System.out.println();
             questionPeople--;
             for(WebSocketController webSocketController:webSocketSet){
-                if(webSocketController.getUserId().equals(Long.parseLong(mes[1]))){
+                if(webSocketController.getRole().equals("ROLE_Teacher")){
                     webSocketController.sendMessage("nextQuestion");
                     break;
                 }
@@ -106,8 +108,9 @@ public class WebSocketController {
         }else if(mes[0].equals("1")){
             questionPeople=0;
             for(WebSocketController webSocketController:webSocketSet){
+                webSocketController.setAttendanceId(Long.parseLong(mes[1]));
                 if(webSocketController.getRole().equals("ROLE_Student")) {
-                    webSocketController.sendMessage("nextPresentation");
+                    webSocketController.sendMessage("nextPresentation"+attendanceId);
                     webSocketController.setAttendanceId(Long.parseLong(mes[1]));
                 }
             }
@@ -122,7 +125,15 @@ public class WebSocketController {
             for(WebSocketController webSocketController:webSocketSet){
                 webSocketController.sendMessage("questionNumber:"+questionPeople);
             }
-        }else{
+        }else if(mes[0].equals("5")){
+            for(WebSocketController webSocketController:webSocketSet){
+                if(webSocketController.getUserId().equals(Long.parseLong(mes[1]))){
+                    webSocketController.sendMessage("nextQuestion");
+                    break;
+                }
+            }
+        }
+        else{
             sendMessage("系统出错");
         }
     }

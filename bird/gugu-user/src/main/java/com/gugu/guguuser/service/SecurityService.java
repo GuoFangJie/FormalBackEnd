@@ -23,7 +23,6 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         if(s==""){
-            System.out.println("出错了");
             throw new BadCredentialsException("错误");
         }
         Long studentId=studentDao.getStudentByAccount(s);
