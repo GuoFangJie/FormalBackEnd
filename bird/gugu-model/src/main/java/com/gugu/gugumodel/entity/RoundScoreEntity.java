@@ -4,12 +4,12 @@ package com.gugu.gugumodel.entity;
  * @author ren
  */
 public class RoundScoreEntity {
-    Long roundId;
-    Long teamId;
-    Float totalScore;
-    Float presentationScore;
-    Float questionScore;
-    Float reportScore;
+    private Long roundId;
+    private Long teamId;
+    private Float totalScore;
+    private Float presentationScore;
+    private Float questionScore;
+    private Float reportScore;
 
     public Long getRoundId() {
         return roundId;

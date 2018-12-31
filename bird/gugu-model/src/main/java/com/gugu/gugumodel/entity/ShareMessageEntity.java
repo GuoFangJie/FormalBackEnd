@@ -9,9 +9,9 @@ public class ShareMessageEntity {
     /**
      * 1 为共享分组 2为共享讨论课
      */
-    Integer shareType;
-    SimpleCourseEntity masterCourse;
-    SimpleCourseEntity recieveCourse;
+    private Integer shareType;
+    private SimpleCourseEntity masterCourse;
+    private SimpleCourseEntity recieveCourse;
 
     public Long getShareId() {
         return shareId;

@@ -4,8 +4,8 @@ package com.gugu.gugumodel.entity;
  * @author ren
  */
 public class FileEntity {
-    String name;
-    String path;
+    private String name;
+    private String path;
 
     public String getName() {
         return name;

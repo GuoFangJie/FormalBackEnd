@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * @author ren
  */
 public class CourseMemberLimitStrategyEntity{
-    Long id;
-    Long courseId;
-    Byte minMember;
-    Byte maxMember;
+    private Long id;
+    private Long courseId;
+    private Byte minMember;
+    private Byte maxMember;
 
     public Long getCourseId() {
         return courseId;

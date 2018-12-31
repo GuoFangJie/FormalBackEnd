@@ -5,14 +5,14 @@ package com.gugu.gugumodel.entity;
  * @author ljy
  */
 public class TeamValidEntity{
-   Long id;
-   Long courseId;
-   Long classId;
-   Long teamId;
-   Long leaderId;
-   String reason;
-   Long teacherId;
-   Byte status;
+   private Long id;
+   private Long courseId;
+   private Long classId;
+   private Long teamId;
+   private Long leaderId;
+   private String reason;
+   private Long teacherId;
+   private Byte status;
 
     public Long getId() {
         return id;

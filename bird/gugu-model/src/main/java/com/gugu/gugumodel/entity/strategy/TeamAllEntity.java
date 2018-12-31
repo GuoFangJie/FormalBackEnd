@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * @author ren
  */
 public class TeamAllEntity {
-    Integer numOfMember;
-    ArrayList<ArrayList<CourseEntity>> studentEntities;
+    private Integer numOfMember;
+    private ArrayList<ArrayList<CourseEntity>> studentEntities;
 
     public Integer getNumOfMember() {
         return numOfMember;

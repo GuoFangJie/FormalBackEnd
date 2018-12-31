@@ -123,6 +123,8 @@ public class AttendanceDao {
     public Long newAttendance(AttendanceEntity attendanceEntity) throws SQLException {
         if(attendanceMapper.getAttendanceByTeamOrder(attendanceEntity.getTeamOrder(),attendanceEntity.getKlassSeminarId())!=null){
             throw new SQLException("已存在");
+        }else if(attendanceMapper.getByTeamIdAndKlassSeminarId(attendanceEntity.getTeamId(),attendanceEntity.getKlassSeminarId())==null){
+            throw new SQLException("已存在");
         }
         attendanceMapper.newAttendance(attendanceEntity);
         return attendanceEntity.getId();

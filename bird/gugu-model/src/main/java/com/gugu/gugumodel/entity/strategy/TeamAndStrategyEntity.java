@@ -4,9 +4,9 @@ package com.gugu.gugumodel.entity.strategy;
  * @author ren
  */
 public class TeamAndStrategyEntity{
-    Long id;
-    String strategyName;
-    Long strategyId;
+    private Long id;
+    private String strategyName;
+    private Long strategyId;
 
     public Long getId() {
         return id;

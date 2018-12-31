@@ -13,6 +13,8 @@ import java.util.ArrayList;
 @Repository
 @Mapper
 public interface AttendanceMapper {
+
+    Long getByTeamIdAndKlassSeminarId(Long teamId,Long klassSeminarId);
     /**
      * 修改attendance的顺序
      * @param teamOrder

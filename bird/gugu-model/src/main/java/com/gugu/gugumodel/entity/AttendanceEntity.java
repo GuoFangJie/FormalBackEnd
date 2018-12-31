@@ -4,16 +4,16 @@ package com.gugu.gugumodel.entity;
  * @author ren
  */
 public class AttendanceEntity {
-    Long id;
-    Long klassSeminarId;
-    Long teamId;
-    Byte teamOrder;
-    Byte isPresent;
-    String reportName;
-    String reportUrl;
-    String pptName;
-    String pptUrl;
-    TeamEntity teamEntity;
+    private Long id;
+    private Long klassSeminarId;
+    private Long teamId;
+    private Byte teamOrder;
+    private Byte isPresent;
+    private String reportName;
+    private String reportUrl;
+    private String pptName;
+    private String pptUrl;
+    private TeamEntity teamEntity;
 
     public TeamEntity getTeamEntity() {
         return teamEntity;

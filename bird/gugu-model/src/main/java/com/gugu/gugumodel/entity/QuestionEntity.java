@@ -4,13 +4,13 @@ package com.gugu.gugumodel.entity;
  * @author ren
  */
 public class QuestionEntity {
-    Long id;
-    Long klassSeminarId;
-    Long attendanceId;
-    Long teamId;
-    Long studentId;
-    Byte isSelected;
-    Float score;
+    private Long id;
+    private Long klassSeminarId;
+    private Long attendanceId;
+    private Long teamId;
+    private Long studentId;
+    private Byte isSelected;
+    private Float score;
 
     public Long getId() {
         return id;

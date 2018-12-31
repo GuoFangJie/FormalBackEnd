@@ -16,6 +16,9 @@
     <delete id="deleteById" parameterType="java.lang.Long">
         delete from attendance where id=#{param1}
     </delete>
+    <select id="getByTeamIdAndKlassSeminarId" resultMap="java.lang.Long">
+        select attendance_id from attendance where team_id=#{param1} and klass_seminar_id=#{param2}
+    </select>
     
     <update id="uploadReport">
         update attendance set report_url=#{param1},report_name=#{param2} where id=#{param3}

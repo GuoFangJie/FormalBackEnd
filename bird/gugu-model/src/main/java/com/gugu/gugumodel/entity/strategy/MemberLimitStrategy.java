@@ -4,9 +4,9 @@ package com.gugu.gugumodel.entity.strategy;
  * @author ren
  */
 public class MemberLimitStrategy{
-    Long id;
-    Byte minMember;
-    Byte maxMember;
+    private Long id;
+    private Byte minMember;
+    private Byte maxMember;
 
     public Long getId() {
         return id;

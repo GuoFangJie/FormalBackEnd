@@ -7,12 +7,12 @@ import java.util.Date;
  * @author ljy
  */
 public class KlassSeminarEntity {
-    KlassEntity klassEntity;
-    SeminarEntity seminarEntity;
-    Long klassId;
-    Long klassSeminarId;
-    Date reportDDL;
-    Byte status;
+    private KlassEntity klassEntity;
+    private SeminarEntity seminarEntity;
+    private Long klassId;
+    private Long klassSeminarId;
+    private Date reportDDL;
+    private Byte status;
 
     public KlassEntity getKlassEntity() {
         return klassEntity;

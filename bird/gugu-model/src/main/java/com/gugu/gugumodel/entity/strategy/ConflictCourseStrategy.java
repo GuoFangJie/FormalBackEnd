@@ -4,8 +4,8 @@ package com.gugu.gugumodel.entity.strategy;
  * @author ren
  */
 public class ConflictCourseStrategy{
-    Long id;
-    Long courseId;
+    private Long id;
+    private Long courseId;
 
     public Long getId() {
         return id;

@@ -199,7 +199,7 @@ public class CourseController {
             }
             StudentEntity leader=studentService.getLeader((teamsId.get(i).getId()));
             if(flag==1){
-                leader.setStudentName(leader.getStudentName()+"(不在此班)");
+                leader.setStudentName(leader.getStudentName());
             }
             TeamMessageVO teamMessageVO=new TeamMessageVO(teamsId.get(i),leader,newList);
             teamMessageVOS.add(teamMessageVO);

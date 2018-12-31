@@ -4,12 +4,12 @@ package com.gugu.gugumodel.entity;
  * @author ren
  */
 public class RoundEntity {
-    Long id;
-    Long courseId;
-    Byte roundSerial;
-    Byte presentationScoreMethod;
-    Byte reportScoreMethod;
-    Byte questionScoreMethod;
+    private Long id;
+    private Long courseId;
+    private Byte roundSerial;
+    private Byte presentationScoreMethod;
+    private Byte reportScoreMethod;
+    private Byte questionScoreMethod;
 
     public Long getId() {
         return id;

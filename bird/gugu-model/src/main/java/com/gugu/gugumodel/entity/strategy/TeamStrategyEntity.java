@@ -4,10 +4,10 @@ package com.gugu.gugumodel.entity.strategy;
  * @author ren
  */
 public class TeamStrategyEntity{
-    Long courseId;
-    Byte strategySerial;
-    String strategyName;
-    Long strategyId;
+    private Long courseId;
+    private Byte strategySerial;
+    private String strategyName;
+    private Long strategyId;
 
     public Long getCourseId() {
         return courseId;

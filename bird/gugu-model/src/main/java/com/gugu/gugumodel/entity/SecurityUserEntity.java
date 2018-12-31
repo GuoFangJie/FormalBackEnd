@@ -11,9 +11,9 @@ import java.util.Collection;
  * @author ren
  */
 public class SecurityUserEntity implements UserDetails {
-    String account;
-    String password;
-    String role;
+    private String account;
+    private String password;
+    private String role;
     public SecurityUserEntity(String account,String password,String role){
         this.account=account;
         this.password=password;

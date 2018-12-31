@@ -7,21 +7,21 @@ import java.util.Date;
  * @author ren
  */
 public class SeminarEntity {
-    Long id;
-    Long courseId;
-    Long roundId;
-    Byte roundSerial;
-    String seminarName;
-    String introduction;
-    Byte maxTeam;
-    Byte isVisible;
-    Byte seminarSerial;
-    Timestamp enrollStartTime;
-    Timestamp enrollEndTime;
-    Date enrollSTime;
-    Date enrollETime;
-    String start;
-    String end;
+    private Long id;
+    private Long courseId;
+    private Long roundId;
+    private Byte roundSerial;
+    private String seminarName;
+    private String introduction;
+    private Byte maxTeam;
+    private Byte isVisible;
+    private Byte seminarSerial;
+    private Timestamp enrollStartTime;
+    private Timestamp enrollEndTime;
+    private Date enrollSTime;
+    private Date enrollETime;
+    private String start;
+    private String end;
 
     public Byte getRoundSerial() {
         return roundSerial;
